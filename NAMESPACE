@@ -2,4 +2,6 @@
 
 export(rcompare)
 import(dplyr)
+importFrom(purrr,map)
+importFrom(purrr,set_names)
 importFrom(stats,setNames)

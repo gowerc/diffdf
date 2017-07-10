@@ -4,7 +4,7 @@
 \alias{rcompare}
 \title{Compares dataframes}
 \usage{
-rcompare(BASE, COMP, KEY)
+rcompare(BASE, COMP, KEY = NULL, SUPWARN = F)
 }
 \arguments{
 \item{BASE}{input dataframe}
@@ -12,6 +12,8 @@ rcompare(BASE, COMP, KEY)
 \item{COMP}{comparison dataframe}
 
 \item{KEY}{list of variables (as strings) that defines a unique row in the dataframe}
+
+\item{SUPWARN}{Do you want to suppress warnings}
 }
 \description{
 Emulates proc compare from SAS
