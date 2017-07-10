@@ -1,0 +1,15 @@
+Package: rcompare
+Type: Package
+Title: Compares dataframes
+Version: 0.1.0
+Authors@R: c( 
+    person("Craig" ,"Gower" , email = "craig.gower@roche.com" , role = c("cre","aut")),
+    person("Kieran", "Martin" , email = "kieran.martin@roche.com" , role = "aut")
+    )
+Description: This package provides functions for comparing dataframes similar to how proc compare works in SAS.
+License: GPL
+Encoding: UTF-8
+LazyData: true
+Imports: dplyr
+RoxygenNote: 6.0.1
+Suggests: testthat, readr
