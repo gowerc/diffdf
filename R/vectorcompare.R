@@ -1,11 +1,31 @@
-vectorcompare<-function (target, current, ...) {
+vectorcompare_wrapfun<-function (target, current, ...) {
   UseMethod("vectorcompare")
+}
+
+vectorcompare<-function (target, current, ...) {
+  N <- length(target)
+  outvect <-rep(TRUE,N)
+  
+  
+  nas_t <- is.na(target) 
+  nas_c <- is.na(current)
+  nacompare <- is.na(target) == is.na(current)
+ 
+  selectvector <-as.logical((!nas_t)*(!nas_c))
+  
+  target  <- target[selectvector]
+  current <- current[selectvector]  
+  comparevect <-vectorcompare_wrapfun(target,current)
+  outvect[selectvector]   <- comparevect
+  outvect[nas_t|nas_c] <- nacompare[nas_t|nas_c]
+  outvect
+  
+  
+  
 }
   
 vectorcompare.default <- function(target, current, ...){
-  target != current |
-    ( is.na(target) != is.na(current))  |
-    (is.null(target) != is.null(current))
+  target != current 
   
 }
 
@@ -84,4 +104,8 @@ vectorcompare.numeric <- function(target, current, tolerance = sqrt(.Machine$dou
 }
 
  
+x<-c(1,2,4,NA)
+y<-c(1,2,NA,NA)
+
+vectorcompare(x,y)
 
