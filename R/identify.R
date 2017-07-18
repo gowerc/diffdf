@@ -1,39 +1,84 @@
 
 
-identify_extra_rows <- function (DS1 , DS2 , KEY){
-    DS1 %>%
-        anti_join( DS2 , by = KEY) %>%
-        select_(.dots = list(KEY))
-}
 
-identify_matching_rows <- function (DS1 , DS2 , KEY){
+
+
+identify_extra_rows <- function (DS1 , DS2 , KEYS){
     DS1 %>%
-        inner_join( DS2 , by = KEY)
+        anti_join( DS2 , by = KEYS) %>%
+        select_(.dots = list(KEYS))
 }
+# identify_extra_rows( TDAT , TDAT[1:11,] , "ID" )
+# identify_extra_rows( TDAT[1:11,] , TDAT , "ID" )
+
+
+
 
 
 identify_extra_cols <- function(DS1 , DS2){
     match.cols <- sapply ( names(DS1), "%in%", names(DS2))
-    names(DS1)[ !match.cols]
-}
 
-identify_matching_cols <- function(DS1, DS2 , KEY = NA){
+    data_frame(
+        COLUMNS = names(DS1)[ !match.cols]
+    )
+
+}
+# identify_extra_cols( TDAT , TDAT[,1:6] )
+# identify_extra_cols( TDAT[,1:6] , TDAT )
+
+
+
+
+
+identify_matching_cols <- function(DS1, DS2 , KEYS = NA){
     match.cols <- sapply ( names(DS1), "%in%", names(DS2))
     matched <- names(DS1)[ match.cols]
-    matched[!grepl(paste(KEY, collapse = "|"), matched)]
-
+    matched[!grepl(paste(KEYS, collapse = "|"), matched)]
 }
+# identify_matching_cols( TDAT , TDAT[,1:6] )
+# identify_matching_cols( TDAT[,1:6] , TDAT )
+# identify_matching_cols( TDAT[,1:6] , TDAT , KEYS = c("GROUP1" ,"GROUP2"))
+# identify_matching_cols( TDAT[,1] , TDAT[,1] , KEYS = "ID")
 
-identify_value_diffs <- function( DS1 , DS2 , KEY , VAR){
+
+
+
+identify_variable_diff <- function( VAR, DAT , KEYS){
     cname <- paste0(VAR , c(".x" , ".y"))
 
-    identify_matching_rows(DS1 , DS2, KEY) %>%
-        select_ ( .dots =  c(KEY , cname)) %>%
-        rename_( .dots = setNames( as.list(cname),  c("BASE" , "COMPARE"))) %>%
+    DAT %>%
+        select_( .dots =  c(KEYS , cname)) %>%
+        rename_( .dots = set_names( as.list(cname),  c("BASE" , "COMPARE"))) %>%
         mutate( VARIABLE = VAR ) %>%
-        select_(.dots =  c("VARIABLE" , KEY , "BASE" , "COMPARE" )) %>%
-        filter ( check_is_equal(BASE , COMPARE))
+        select_(.dots =  c("VARIABLE" , KEYS , "BASE" , "COMPARE" )) %>%
+        filter ( !map2_lgl(BASE , COMPARE , check_is_equal))
 }
+
+
+
+
+
+identify_differences <- function( BASE , COMPARE , KEYS ) {
+
+    matching_cols <- identify_matching_cols( BASE , COMPARE , KEYS)
+
+    if( length(matching_cols) == 0  ) return ( data_frame() )
+
+    map(
+        matching_cols,
+        identify_variable_diff,
+        KEYS = KEYS ,
+        DAT = inner_join( BASE , COMPARE , by = KEYS )
+    ) %>%
+        set_names(matching_cols)
+}
+# identify_differences( TDAT, TDAT2, KEYS = "ID")
+# identify_differences( TDAT, TDAT, KEYS = "ID")
+
+
+
+
+
 
 
 

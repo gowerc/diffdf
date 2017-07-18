@@ -2,20 +2,30 @@
 
 
 
-check_unique_rows <- function(DAT , KEY){
+check_unique_rows <- function(DAT , KEYS){
     BYCHECK <- DAT %>%
-        group_by_( .dots =  as.list(KEY)  )  %>%
+        group_by_( .dots =  as.list(KEYS)  )  %>%
         summarise( ..n.. = n()) %>%
         filter( ..n.. > 1)
 
     return( nrow(BYCHECK) == 0 )
 }
 
+
+
 check_is_equal <- function( VAL1 , VAL2){
-    VAL1 != VAL2 |
-        ( is.na(VAL1) != is.na(VAL2))  |
-        (is.null(VAL1) != is.null(VAL2))
+
+    if ( is.null(VAL1) | is.null(VAL2) ) return (  is.null(VAL1) == is.null(VAL2))
+
+    if ( is.na(VAL1) | is.na(VAL2) ) return (  is.na(VAL1) == is.na(VAL2))
+
+    RES <- all.equal( VAL1 , VAL2 , tolerance = .Machine$double.eps^0.5)
+
+    if ( RES != TRUE) return(FALSE)
+    else return( TRUE)
+
 }
+
 
 
 check_for_issues <- function(COMPARE , SUPWARN){
@@ -32,12 +42,12 @@ check_for_issues <- function(COMPARE , SUPWARN){
         ISSUES <- TRUE
     }
 
-    if ( length(COMPARE[["ExtColsBase"]])){
+    if ( nrow(COMPARE[["ExtColsBase"]])){
         if(!SUPWARN) warning("There are Columns in BASE that are not in COMPARE" )
         ISSUES <- TRUE
     }
 
-    if ( length(COMPARE[["ExtColsComp"]])){
+    if ( nrow(COMPARE[["ExtColsComp"]])){
         if(!SUPWARN) warning("There are Columns in COMPARE that are not in BASE" )
         ISSUES <- TRUE
     }

@@ -1,6 +1,7 @@
-
-# library(dplyr)
-# library(readr)
+library(purrr)
+library(dplyr)
+library(readr)
+library(testthat)
 
 
 TDAT <- read_csv (
@@ -34,14 +35,10 @@ test_that( "Check comparision of equal objects",{
 })
 
 test_that( "Unequal objects error" , {
-    expect_warning( rcompare(TDAT , TDAT2))
+    expect_warning( rcompare(TDAT , TDAT2) )
 })
 
 
 test_that("Non-Unique rows error", {
-    expect_error( rcompare(TDAT , TDAT , "GROUP1"))
+    expect_error( rcompare(TDAT , TDAT , "GROUP1") )
 })
-
-
-
-

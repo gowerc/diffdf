@@ -4,14 +4,14 @@
 \alias{rcompare}
 \title{Compares dataframes}
 \usage{
-rcompare(BASE, COMP, KEY = NULL, SUPWARN = F)
+rcompare(BASE, COMP, KEYS = NULL, SUPWARN = F)
 }
 \arguments{
 \item{BASE}{input dataframe}
 
 \item{COMP}{comparison dataframe}
 
-\item{KEY}{list of variables (as strings) that defines a unique row in the dataframe}
+\item{KEYS}{list of variables (as strings) that defines a unique row in the dataframe}
 
 \item{SUPWARN}{Do you want to suppress warnings}
 }
