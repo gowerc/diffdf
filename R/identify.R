@@ -46,12 +46,29 @@ identify_matching_cols <- function(DS1, DS2 , KEYS = NA){
 identify_variable_diff <- function( VAR, DAT , KEYS){
     cname <- paste0(VAR , c(".x" , ".y"))
 
-    DAT %>%
+    tryCatch({DAT %>%
         select_( .dots =  c(KEYS , cname)) %>%
         rename_( .dots = set_names( as.list(cname),  c("BASE" , "COMPARE"))) %>%
         mutate( VARIABLE = VAR ) %>%
         select_(.dots =  c("VARIABLE" , KEYS , "BASE" , "COMPARE" )) %>%
-        filter ( !map2_lgl(BASE , COMPARE , check_is_equal))
+        filter ( vectorcompare(BASE , COMPARE))},
+        warning = function(w){
+          DAT %>%
+            select_( .dots =  c(KEYS , cname)) %>%
+            rename_( .dots = set_names( as.list(cname),  c("BASE" , "COMPARE"))) %>%
+            mutate( VARIABLE = VAR ) %>%
+            select_(.dots =  c("VARIABLE" , KEYS , "BASE" , "COMPARE" )) %>%
+            filter ( !map2_lgl(BASE , COMPARE , check_is_equal))
+        },
+        error = function(e){
+          DAT %>%
+            select_( .dots =  c(KEYS , cname)) %>%
+            rename_( .dots = set_names( as.list(cname),  c("BASE" , "COMPARE"))) %>%
+            mutate( VARIABLE = VAR ) %>%
+            select_(.dots =  c("VARIABLE" , KEYS , "BASE" , "COMPARE" )) %>%
+            filter ( !map2_lgl(BASE , COMPARE , check_is_equal))
+        })
+        
 }
 
 
