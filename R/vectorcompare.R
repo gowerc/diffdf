@@ -1,15 +1,21 @@
 vectorcompare_wrapfun<-function (target, current, ...) {
   UseMethod("vectorcompare")
 }
+target<-2
+current<-NA
 
 vectorcompare<-function (target, current, ...) {
+  if (is.null(target)|is.null(current))
+  {
+    stop("Null value in target or current")
+  }
   N <- length(target)
   outvect <-rep(TRUE,N)
   
   
   nas_t <- is.na(target) 
   nas_c <- is.na(current)
-  nacompare <- is.na(target) == is.na(current)
+  nacompare <- is.na(target) != is.na(current)
  
   selectvector <-as.logical((!nas_t)*(!nas_c))
   
@@ -18,7 +24,7 @@ vectorcompare<-function (target, current, ...) {
   comparevect <-vectorcompare_wrapfun(target,current)
   outvect[selectvector]   <- comparevect
   outvect[nas_t|nas_c] <- nacompare[nas_t|nas_c]
-  outvect
+  as.logical(outvect)
   
   
   
