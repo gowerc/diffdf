@@ -2,11 +2,40 @@ vectorcompare_wrapfun<-function (target, current, ...) {
   UseMethod("vectorcompare")
 }
 
+changemode <-function(targ, current)
+{
+  mcurr <- mode(current)
+  eval(parse(text = paste0('as.',mcurr,'(targ)')))
+}
+
+mrank <-function(x)
+{
+  mx <- mode(x)
+  case_when(is.factor(x) ~1,
+            mx == 'character' ~4,
+            mx == 'numeric' ~3,
+            mx == 'logical' ~2)
+}
+
+
+
 vectorcompare<-function (target, current, ...) {
   if (is.null(target)|is.null(current))
   {
-    stop("Null value in target or current")
-  }
+    target == current | is.null(target) == is.null(current)
+  }else{
+   
+    #code to switch data to be same mode and switch factor to non factor
+    
+    ranktar <- mrank (target)
+    rankcur <- mrank(current)
+    if (ranktar >rankcur)
+    {
+      current <-changemode(current, target)
+  } else if (ranktar <rankcur){
+    target <-changemode(target, current)
+  }  
+  
   N <- length(target)
   outvect <-rep(TRUE,N)
   
@@ -25,7 +54,7 @@ vectorcompare<-function (target, current, ...) {
   as.logical(outvect)
   
   
-  
+  }  
 }
   
 vectorcompare.default <- function(target, current, ...){

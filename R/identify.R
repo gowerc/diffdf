@@ -104,6 +104,14 @@ identify_ilegal_cols<- function(indat)
   return(datfail)
 }
 
+identify_diff_modes<- function(indat)
+{
+  allowedtypes <- c('numeric', 'character', 'logical')
+  datclass <- map_df(indat, mode)
+  datfail <- datclass[!datclass %in% allowedtypes]
+  return(datfail)
+}
+
 
 
 
