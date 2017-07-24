@@ -51,6 +51,16 @@ check_for_issues <- function(COMPARE , SUPWARN){
         if(!SUPWARN) warning("There are Columns in COMPARE that are not in BASE" )
         ISSUES <- TRUE
     }
+    
+    if ( nrow(COMPARE[["IllegalColsBase"]])){
+      if(!SUPWARN) warning("There are Columns in BASE with unsupported data types" )
+      ISSUES <- TRUE
+    }
+    
+    if ( nrow(COMPARE[["IllegalColsCompare"]])){
+      if(!SUPWARN) warning("There are Columns in COMPARE with unsupported data types" )
+      ISSUES <- TRUE
+    }
 
     if( sum(COMPARE[["NumDiff"]])){
         if(!SUPWARN) warning("Not all values compared equal")

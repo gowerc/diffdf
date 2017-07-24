@@ -78,6 +78,8 @@ identify_variable_diff <- function( VAR, DAT , KEYS){
 identify_differences <- function( BASE , COMPARE , KEYS ) {
 
     matching_cols <- identify_matching_cols( BASE , COMPARE , KEYS)
+    
+    matching_cols <- 
 
     if( length(matching_cols) == 0  ) return ( data_frame() )
 
@@ -94,7 +96,13 @@ identify_differences <- function( BASE , COMPARE , KEYS ) {
 
 
 
-
+identify_ilegal_cols<- function(indat)
+{
+  allowedtypes <- c('numeric', 'factor', 'character', 'POSIXt')
+  datclass <- map_df(indat, class)
+  datfail <- datclass[!datclass%inallowedtypes]
+  return(datfail)
+}
 
 
 

@@ -39,6 +39,9 @@ rcompare <- function (BASE , COMP , KEYS = NULL, SUPWARN = F){
 
     COMPARE[["ExtColsBase"]] <- identify_extra_cols(BASE, COMP)
     COMPARE[["ExtColsComp"]] <- identify_extra_cols(COMP, BASE)
+    
+    COMPARE[["IllegalColsBase"]]    <- identify_ilegal_cols(BASE)
+    COMPARE[["IllegalColsCompare"]] <- identify_ilegal_cols(COMP)
 
     COMPARE[["VarDiffs"]] <- identify_differences(BASE, COMP , KEYS)
 
