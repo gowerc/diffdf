@@ -1,8 +1,6 @@
 vectorcompare_wrapfun<-function (target, current, ...) {
   UseMethod("vectorcompare")
 }
-target<-2
-current<-NA
 
 vectorcompare<-function (target, current, ...) {
   if (is.null(target)|is.null(current))

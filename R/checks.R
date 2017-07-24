@@ -53,12 +53,12 @@ check_for_issues <- function(COMPARE , SUPWARN){
     }
     
     if ( nrow(COMPARE[["IllegalColsBase"]])){
-      if(!SUPWARN) warning("There are Columns in BASE with unsupported data types" )
+      if(!SUPWARN) warning("There are Columns in BASE with unsupported modes" )
       ISSUES <- TRUE
     }
     
     if ( nrow(COMPARE[["IllegalColsCompare"]])){
-      if(!SUPWARN) warning("There are Columns in COMPARE with unsupported data types" )
+      if(!SUPWARN) warning("There are Columns in COMPARE with unsupported modes" )
       ISSUES <- TRUE
     }
 
