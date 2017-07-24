@@ -78,8 +78,8 @@ identify_variable_diff <- function( VAR, DAT , KEYS){
 identify_differences <- function( BASE , COMPARE , KEYS ) {
 
     matching_cols <- identify_matching_cols( BASE , COMPARE , KEYS)
-    
-    matching_cols <- 
+    matching_cols <- matching_cols[(!matching_cols%in%names(COMPARE[["IllegalColsBase"]]))&
+                                     (!matching_cols%in%names(COMPARE[["IllegalColsCompare"]]))]
 
     if( length(matching_cols) == 0  ) return ( data_frame() )
 
