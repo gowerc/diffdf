@@ -98,9 +98,9 @@ identify_differences <- function( BASE , COMPARE , KEYS ) {
 
 identify_ilegal_cols<- function(indat)
 {
-  allowedtypes <- c('numeric', 'factor', 'character', 'POSIXt')
+  allowedtypes <- c('numeric', 'factor', 'character', 'POSIXt', 'logical')
   datclass <- map_df(indat, class)
-  datfail <- datclass[!datclass%inallowedtypes]
+  datfail <- datclass[!datclass %in% allowedtypes]
   return(datfail)
 }
 
