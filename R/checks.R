@@ -13,21 +13,6 @@ check_unique_rows <- function(DAT , KEYS){
 
 
 
-check_is_equal <- function( VAL1 , VAL2){
-
-    if ( is.null(VAL1) | is.null(VAL2) ) return (  is.null(VAL1) == is.null(VAL2))
-
-    if ( is.na(VAL1) | is.na(VAL2) ) return (  is.na(VAL1) == is.na(VAL2))
-
-    RES <- all.equal( VAL1 , VAL2 , tolerance = .Machine$double.eps^0.5)
-
-    if ( RES != TRUE) return(FALSE)
-    else return( TRUE)
-
-}
-
-
-
 check_for_issues <- function(COMPARE , SUPWARN){
 
     ISSUES <- FALSE
