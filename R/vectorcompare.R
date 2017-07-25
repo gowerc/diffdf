@@ -2,39 +2,15 @@ vectorcompare_wrapfun<-function (target, current, ...) {
   UseMethod("vectorcompare")
 }
 
-changemode <-function(targ, current)
-{
-  mcurr <- mode(current)
-  eval(parse(text = paste0('as.',mcurr,'(targ)')))
-}
-
-mrank <-function(x)
-{
-  mx <- mode(x)
-  case_when(is.factor(x) ~1,
-            mx == 'character' ~4,
-            mx == 'numeric' ~3,
-            mx == 'logical' ~2)
-}
-
-
 
 vectorcompare<-function (target, current, ...) {
   if (is.null(target)|is.null(current))
   {
-    target == current | is.null(target) == is.null(current)
+    return(is.null(target) == is.null(current))
   }else{
    
     #code to switch data to be same mode and switch factor to non factor
     
-    ranktar <- mrank (target)
-    rankcur <- mrank(current)
-    if (ranktar >rankcur)
-    {
-      current <-changemode(current, target)
-  } else if (ranktar <rankcur){
-    target <-changemode(target, current)
-  }  
   
   N <- length(target)
   outvect <-rep(TRUE,N)
@@ -62,6 +38,11 @@ vectorcompare.default <- function(target, current, ...){
   
 }
 
+vectorcompare.factor <- function(target, current, ...){
+  as.character(target) != as.character(current) 
+  
+}
+
 vectorcompare.numeric <- function(target, current, tolerance = sqrt(.Machine$double.eps), 
                                   scale = NULL, ..., check.attributes = TRUE) 
 {
@@ -74,11 +55,9 @@ vectorcompare.numeric <- function(target, current, tolerance = sqrt(.Machine$dou
          domain = NA)
   target <- as.vector(target)
   current <- as.vector(current)
-  out <- out | target == current
+  out <- target == current
   if (all(out)) {
-    if (is.null(msg)) 
       return(rep(FALSE, length(out)))
-    else return(msg)
   }
   N <- length(target)
   target <- target[!out]
@@ -101,6 +80,7 @@ vectorcompare.numeric <- function(target, current, tolerance = sqrt(.Machine$dou
       "absolute"
     else "scaled"
   }
+  msg <- NULL
   if (is.na(xy) || xy > tolerance) 
     msg <- !out
   if (is.null(msg)) 
@@ -109,8 +89,5 @@ vectorcompare.numeric <- function(target, current, tolerance = sqrt(.Machine$dou
 }
 
  
-x<-c(1,2,4,NA)
-y<-c(1,2,NA,NA)
 
-vectorcompare(x,y)
 
