@@ -42,8 +42,20 @@ rcompare <- function (BASE , COMP , KEYS = NULL, SUPWARN = F){
     
     COMPARE[["IllegalColsBase"]]    <- identify_ilegal_cols(BASE)
     COMPARE[["IllegalColsCompare"]] <- identify_ilegal_cols(COMP)
+    
+    #running list of columns to exclude from following checks
+    
+    exclude_cols <- c(names(COMPARE[["IllegalColsBase"]]), names(COMPARE[["IllegalColsCompare"]]))
+    
+    COMPARE[["VarModeDiffs"]] <- identify_mode_differences(BASE, COMP , KEYS, exclude_cols)
+    
+    
+    if (nrow(COMPARE[["VarModeDiffs"]]))
+    exclude_cols <- c(exclude_cols, COMPARE[["VarModeDiffs"]]$VARIABLE)
+    
+    COMPARE[["FactorlevelDiffs"]] <- identify_fact_level_differences(BASE, COMP , KEYS, exclude_cols)
 
-    COMPARE[["VarDiffs"]] <- identify_differences(BASE, COMP , KEYS)
+    COMPARE[["VarDiffs"]] <- identify_differences(BASE, COMP , KEYS, exclude_cols)
 
     ### Summarise the number of mismatching rows per variable
     COMPARE[["NumDiff"]] <- sapply( COMPARE[["VarDiffs"]] , nrow)

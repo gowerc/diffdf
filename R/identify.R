@@ -41,29 +41,68 @@ identify_matching_cols <- function(DS1, DS2 , KEYS = NA){
 # identify_matching_cols( TDAT[,1] , TDAT[,1] , KEYS = "ID")
 
 
+identify_ilegal_cols<- function(indat)
+{
+  allowedtypes <- c('numeric', 'character', 'logical')
+  datclass <- map_df(indat, mode)
+  datfail <- datclass[!datclass %in% allowedtypes]
+  return(datfail)
+}
 
 
-identify_variable_diff <- function( VAR, DAT , KEYS){
-    cname <- paste0(VAR , c(".x" , ".y"))
+#pick out columns with different modes or if one is a factor and the other isn't
 
-    DAT %>%
-        select_( .dots =  c(KEYS , cname)) %>%
-        rename_( .dots = set_names( as.list(cname),  c("BASE" , "COMPARE"))) %>%
-        mutate( VARIABLE = VAR ) %>%
-        select_(.dots =  c("VARIABLE" , KEYS , "BASE" , "COMPARE" )) %>%
-        filter ( vectorcompare(BASE , COMPARE))
-        
+identify_mode_differences <- function( BASE, COMP , KEYS, exclude_cols){
+  
+  matching_cols <- identify_matching_cols( BASE , COMPARE , KEYS)
+  
+  matching_cols <- matching_cols[!matching_cols %in% exclude_cols]
+  
+  if( length(matching_cols) == 0  ) return ( data_frame() )
+  
+  BASEmode <- BASE %>% select_(.dots = matching_cols) %>% map_chr(mode)
+  COMPmode <- COMP %>% select_(.dots = matching_cols) %>% map_chr(mode)
+  
+  BASEclass <- BASE %>% select_(.dots = matching_cols) %>% map_chr(class)
+  COMPclass <- COMP %>% select_(.dots = matching_cols) %>% map_chr(class)
+  
+  comparison_data_frame <- tibble(VARIABLE = matching_cols, BASEmode, COMPmode, BASEclass, COMPclass) %>% 
+    filter(BASEmode != COMPmode | (BASEclass != COMPclass & (BASEclass == 'factor' | COMPclass == 'factor')))
+  comparison_data_frame
+  
+}
+
+identify_fact_level_differences <- function( BASE, COMP , KEYS, exclude_cols){
+  
+  matching_cols <- identify_matching_cols( BASE , COMPARE , KEYS)
+  matching_cols <- matching_cols[!matching_cols %in% exclude_cols]
+  
+  if( length(matching_cols) == 0  ) return ( data_frame() )
+  
+  levels_BASE <-  BASE %>% select_(.dots = matching_cols) %>% map(levels) %>% tibble(VARIABLE = matching_cols) %>%
+    rename_("BASElevels"='.') %>% mutate(isnull = map_lgl(BASElevels,is.null)) %>% filter(!isnull) %>% 
+    select(VARIABLE, BASElevels)
+  
+  levels_COMP <-  COMP %>% select_(.dots = matching_cols) %>% map(levels) %>% tibble(VARIABLE = matching_cols) %>%
+    rename_("COMPlevels"='.') %>% mutate(isnull = map_lgl(COMPlevels,is.null)) %>% filter(!isnull) %>% 
+    select(VARIABLE, COMPlevels)
+  
+  
+  levels_all <- left_join(levels_BASE, levels_COMP, by = 'VARIABLE') %>% 
+    mutate(comparison = map2_lgl(BASElevels,COMPlevels, identical)) %>% filter(!comparison) %>%
+    select(VARIABLE, BASElevels, COMPlevels)
+  
+  levels_all
+  
 }
 
 
 
+identify_differences <- function( BASE , COMPARE , KEYS, excludecols ) {
 
-
-identify_differences <- function( BASE , COMPARE , KEYS ) {
-
-    matching_cols <- identify_matching_cols( BASE , COMPARE , KEYS)
-    matching_cols <- matching_cols[(!matching_cols%in%names(COMPARE[["IllegalColsBase"]]))&
-                                     (!matching_cols%in%names(COMPARE[["IllegalColsCompare"]]))]
+  matching_cols <- identify_matching_cols( BASE , COMPARE , KEYS)
+  
+  matching_cols <- matching_cols[!matching_cols %in% exclude_cols]
 
     if( length(matching_cols) == 0  ) return ( data_frame() )
 
@@ -79,21 +118,16 @@ identify_differences <- function( BASE , COMPARE , KEYS ) {
 # identify_differences( TDAT, TDAT, KEYS = "ID")
 
 
-
-identify_ilegal_cols<- function(indat)
-{
-  allowedtypes <- c('numeric', 'character', 'logical')
-  datclass <- map_df(indat, mode)
-  datfail <- datclass[!datclass %in% allowedtypes]
-  return(datfail)
-}
-
-identify_diff_modes<- function(indat)
-{
-  allowedtypes <- c('numeric', 'character', 'logical')
-  datclass <- map_df(indat, mode)
-  datfail <- datclass[!datclass %in% allowedtypes]
-  return(datfail)
+identify_variable_diff <- function( VAR, DAT , KEYS){
+  cname <- paste0(VAR , c(".x" , ".y"))
+  
+  DAT %>%
+    select_( .dots =  c(KEYS , cname)) %>%
+    rename_( .dots = set_names( as.list(cname),  c("BASE" , "COMPARE"))) %>%
+    mutate( VARIABLE = VAR ) %>%
+    select_(.dots =  c("VARIABLE" , KEYS , "BASE" , "COMPARE" )) %>%
+    filter ( vectorcompare(BASE , COMPARE))
+  
 }
 
 

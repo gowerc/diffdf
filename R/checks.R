@@ -46,6 +46,16 @@ check_for_issues <- function(COMPARE , SUPWARN){
       if(!SUPWARN) warning("There are Columns in COMPARE with unsupported modes" )
       ISSUES <- TRUE
     }
+    
+    if ( nrow(COMPARE[["VarModeDiffs"]])){
+      if(!SUPWARN) warning("There are Columns in BASE and COMPARE with different modes" )
+      ISSUES <- TRUE
+    }
+    
+    if ( nrow(COMPARE[["FactorlevelDiffs"]])){
+      if(!SUPWARN) warning("There are Factor Columns in BASE and COMPARE with different levels" )
+      ISSUES <- TRUE
+    }
 
     if( sum(COMPARE[["NumDiff"]])){
         if(!SUPWARN) warning("Not all values compared equal")
