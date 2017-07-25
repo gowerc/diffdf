@@ -4,7 +4,8 @@ DAT <- tibble(testvar.x = x, testvar.y =y , keys=seq(1,length(x)))
 DAT
 }
 x_num <- seq(1,10)
-x_num_na <- x_num[10] <- NA
+x_num_na <- x_num
+x_num_na[10] <- NA
 x_floating <-0.58-0.08
 x_floating_comp <- 0.5
 x_character <- c('antelope', 'bear', 'cake', 'gpro/')
@@ -31,9 +32,21 @@ test_that( "Check comparision of equal objects",{
   expect_true( nrow(identify_variable_diff('testvar', returndata(x_logical, x_logical), 'keys') ) == 0)
   expect_true( nrow(identify_variable_diff('testvar', returndata(x_logical_na, x_logical_na), 'keys') ) == 0)
   expect_true( nrow(identify_variable_diff('testvar', returndata(x_na, x_na), 'keys') ) == 0)
-  expect_true( nrow(identify_variable_diff('testvar', returndata(list(x_null), list(x_null)), 'keys') ) == 0)
 })
 
+
+test_that( "Check comparision of different objects",{
+  
+  expect_true( nrow(identify_variable_diff('testvar', returndata(x_num, x_num_na), 'keys') ) == 1)
+
+  expect_false( nrow(identify_variable_diff('testvar', returndata(x_floating, x_num), 'keys') ) == 0)
+  expect_false( nrow(identify_variable_diff('testvar', returndata(x_character, x_character_na), 'keys') ) == 0)
+
+  expect_false( nrow(identify_variable_diff('testvar', returndata(x_factor, x_factor_na), 'keys') ) == 0)
+  
+  expect_false( nrow(identify_variable_diff('testvar', returndata(x_logical, x_logical_na), 'keys') ) == 0)
+
+})
 
 
 
