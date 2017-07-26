@@ -1,8 +1,12 @@
+
+#function to make a test data set. 
+
 returndata <- function(x,y)
 {
 DAT <- tibble(testvar.x = x, testvar.y =y , keys=seq(1,length(x)))
 DAT
 }
+
 x_num <- seq(1,10)
 x_num_na <- x_num
 x_num_na[10] <- NA
