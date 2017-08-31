@@ -79,7 +79,7 @@ identify_fact_level_differences <- function( BASE, COMP , KEYS, exclude_cols){
 
 
 
-identify_differences <- function( BASE , COMP , KEYS, excludecols ) {
+identify_differences <- function( BASE , COMP , KEYS, exclude_cols ) {
 
   matching_cols <- identify_matching_cols( BASE , COMP , KEYS)
   
