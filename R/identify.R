@@ -54,7 +54,7 @@ identify_ilegal_cols<- function(indat){
 
 identify_mode_differences <- function( BASE, COMP , KEYS, exclude_cols){
   
-  matching_cols <- identify_matching_cols( BASE , COMPARE , KEYS)
+  matching_cols <- identify_matching_cols( BASE , COMP , KEYS)
   
   matching_cols <- matching_cols[!matching_cols %in% exclude_cols]
   
