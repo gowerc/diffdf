@@ -40,6 +40,15 @@ TDAT_FACTVALCHANGE <- TDAT %>%
 
 ## add nas
 
+TDAT_CHARCHANGENA <- TDAT %>% mutate(CHARACTER = ifelse(row_number() == 1, NA, CHARACTER))
+TDAT_DATECHANGENA <- TDAT %>% 
+  mutate(DATE = (ifelse(row_number() == 1, NA, DATE)))
+TDAT_LOGCHANGENA <- TDAT %>% 
+  mutate(LOGICAL = ifelse(LOGICAL, NA, T))
+
+TDAT_FACTVALCHANGENA <- TDAT %>% 
+  mutate(CATEGORICAL = factor(ifelse(CATEGORICAL == 'A', NA, as.character(CATEGORICAL)),
+                              levels = c('A', 'B','C','D')))
 
 ## add list column
 
@@ -65,6 +74,10 @@ test_that( "Check comparision of equal objects",{
     expect_false( rcompare(TDAT, TDAT, "ID")$Issues )
     expect_false( rcompare(TDAT, TDAT, c("GROUP1" , "GROUP2"))$Issues )
     expect_false( rcompare(TDAT, TDAT_MODEDBL)$Issues )
+    expect_false( rcompare(TDAT_CHARCHANGENA , TDAT_CHARCHANGENA )$Issues )
+    expect_false( rcompare(TDAT_DATECHANGENA , TDAT_DATECHANGENA )$Issues )
+    expect_false( rcompare(TDAT_LOGCHANGENA , TDAT_LOGCHANGENA )$Issues )
+    expect_false( rcompare(TDAT_FACTVALCHANGENA, TDAT_FACTVALCHANGENA)$Issues )
 })
 
 test_that( "Unequal objects error" , {
@@ -73,7 +86,11 @@ test_that( "Unequal objects error" , {
   expect_warning( rcompare(TDAT , TDAT_DATECHANGE), 'Not all values compared equal' )
   expect_warning( rcompare(TDAT , TDAT_LOGCHANGE), 'Not all values compared equal' )
   expect_warning( rcompare(TDAT , TDAT_FACTVALCHANGE), 'Not all values compared equal' )
-})
+  expect_warning( rcompare(TDAT , TDAT_CHARCHANGENA), 'Not all values compared equal' )
+  expect_warning( rcompare(TDAT , TDAT_DATECHANGENA), 'Not all values compared equal' )
+  expect_warning( rcompare(TDAT , TDAT_LOGCHANGENA), 'Not all values compared equal' )
+  expect_warning( rcompare(TDAT , TDAT_FACTVALCHANGENA), 'Not all values compared equal' )
+  })
 
 test_that( "Differing modes error" , {
   expect_warning( rcompare(TDAT , TDAT_MODECHANGE ), 'There are Columns in BASE and COMPARE with different modes' )
@@ -90,5 +107,6 @@ test_that("Non-Unique rows error", {
 
 test_that("Illegal columns error", {
   expect_warning( rcompare(TDAT_PLUSLIST, TDAT_PLUSLIST), 'There are Columns in BASE with unsupported modes' )
+  expect_warning( rcompare(TDAT_PLUSLIST, TDAT_PLUSLIST), 'There are Columns in COMPARE with unsupported modes' )
   expect_warning( rcompare(TDAT, TDAT_PLUSLIST), 'There are Columns in COMPARE with unsupported modes' )
 })
