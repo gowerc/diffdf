@@ -108,6 +108,27 @@ test_that( "Unequal objects error" , {
   expect_warning( rcompare(TDAT , TDAT_FACTVALCHANGENA), 'Not all values compared equal' )
   })
 
+#checks for numeric differences
+
+numdiffcheck <-function(compdat, target, value){
+  rcompare_ob <- suppressWarnings((rcompare(TDAT , compdat)$NumDiff))
+  rcompare_targ <- rcompare_ob[target] %>% as.numeric()
+  rcompare_all <- rcompare_ob %>% sum() %>% as.numeric()
+  expect_equal(  rcompare_targ ,value, info = 'targeted value wrong!')
+  expect_equal(  rcompare_all ,value, info = 'overall value wrong!')
+}
+
+test_that( "Unequal object, checking numbers correct" , {
+  numdiffcheck(TDAT_CHARCHANGE, 'CHARACTER', 1) 
+  numdiffcheck(TDAT_DATECHANGE, 'DATE', 1) 
+  numdiffcheck(TDAT_LOGCHANGE, 'LOGICAL', nrow(TDAT)) 
+  numdiffcheck(TDAT_FACTVALCHANGE, 'CATERGORICAL', 3) 
+  numdiffcheck(TDAT_CHARCHANGENA, 'CHARACTER', 1) 
+  numdiffcheck(TDAT_DATECHANGENA, 'DATE', 1) 
+  numdiffcheck(TDAT_LOGCHANGENA, 'LOGICAL', nrow(TDAT)) 
+  numdiffcheck(TDAT_FACTVALCHANGENA, 'CATEGORICAL', 3) 
+})
+
 test_that( "Differing modes error" , {
   expect_warning( rcompare(TDAT , TDAT_MODECHANGE ), 'There are Columns in BASE and COMPARE with different modes' )
 })
