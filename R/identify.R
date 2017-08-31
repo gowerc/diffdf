@@ -60,7 +60,7 @@ identify_mode_differences <- function( BASE, COMP , KEYS, exclude_cols){
   
   if( length(matching_cols) == 0  ) return ( data_frame() )
   
-  mode_diffs(BASE, COMP, matching_cols)
+  modediffs(BASE, COMP, matching_cols)
   
   
 }
