@@ -52,8 +52,8 @@ check_for_issues <- function(COMPARE , SUPWARN){
       ISSUES <- TRUE
     }
     
-    if ( nrow(COMPARE[["FactorlevelDiffs"]])){
-      if(!SUPWARN) warning("There are Factor Columns in BASE and COMPARE with different levels" )
+    if ( nrow(COMPARE[["AttribDiffs"]])){
+      if(!SUPWARN) warning("There are columns in BASE and COMPARE with differing attributes" )
       ISSUES <- TRUE
     }
 

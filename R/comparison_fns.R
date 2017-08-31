@@ -16,25 +16,23 @@ modediffs <-function(BASE, COMP, matching_cols){
 
 
 
-attdiffs <- function(BASE, COMP, matching_cols, attin){
+
+
+
+att_diffs <- function(BASE, COMP, matching_cols){
   
-  att_BASE <-  BASE %>% select_(.dots = matching_cols) %>% map(attr, which = attin) %>%
-    tibble(VARIABLE = matching_cols) %>%
-    rename("BASEatt"='.') %>% mutate(isnull = map_lgl(BASEatt,is.null)) %>% filter(!isnull) %>% 
-    select(VARIABLE, BASEatt)
-  
-  att_COMP <-  COMP %>% select_(.dots = matching_cols) %>% map(attr, which = attin) %>%
-    tibble(VARIABLE = matching_cols) %>%
-    rename_("COMPatt"='.') %>% mutate(isnull = map_lgl(COMPatt,is.null)) %>% filter(!isnull) %>% 
-    select(VARIABLE, COMPatt)
+  BASE_att <- lapply(BASE, attributes) %>% 
+    map_df(tibble::enframe, .id = 'VARIABLE') %>% 
+    rename(BASEatt = value, attr_name = name) 
+  COMP_att <- lapply(COMP, attributes)  %>% 
+    map_df(tibble::enframe, .id = 'VARIABLE') %>% 
+    rename(COMPatt = value, attr_name = name) 
   
   
-  full_join(att_BASE, att_COMP , by = 'VARIABLE') %>% 
+  full_join(BASE_att, COMP_att , by = c('VARIABLE', 'attr_name')) %>% 
     mutate(comparison = map2_lgl(BASEatt,COMPatt, identical)) %>% filter(!comparison) %>%
-    select(VARIABLE, BASEatt, COMPatt)
+    select(VARIABLE, attr_name, BASEatt, COMPatt)
 }
-
-
 
 
 
