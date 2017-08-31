@@ -110,15 +110,10 @@ vectorcompare.numeric <- function(target, current, tolerance = sqrt(.Machine$dou
     xn <- mean(abs(target))
     if (is.finite(xn) && xn > tolerance) {
       xy <- xy/xn
-      "relative"
     }
-    else "absolute"
   }
   else {
     xy <- xy/scale
-    if (scale == 1) 
-      "absolute"
-    else "scaled"
   }
   msg <- NULL
   if (is.na(xy) || xy > tolerance) 
