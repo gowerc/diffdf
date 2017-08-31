@@ -41,6 +41,12 @@ TDAT_FACTVALCHANGE <- TDAT %>%
 ## add nas
 
 
+## add list column
+
+TDAT_PLUSLIST <- TDAT %>% 
+  mutate(LIST = list(CATEGORICAL))
+
+
 
 TDAT_MODECHANGE <- TDAT %>%
   mutate( INTEGER = as.character(INTEGER))
@@ -80,4 +86,9 @@ test_that( "Differing factor levels error" , {
 
 test_that("Non-Unique rows error", {
     expect_error( rcompare(TDAT , TDAT , "GROUP1"), 'BY variables in BASE do not result in unique observations' )
+})
+
+test_that("Illegal columns error", {
+  expect_warning( rcompare(TDAT_PLUSLIST, TDAT_PLUSLIST), 'There are Columns in BASE with unsupported modes' )
+  expect_warning( rcompare(TDAT, TDAT_PLUSLIST), 'There are Columns in COMPARE with unsupported modes' )
 })
