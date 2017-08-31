@@ -57,6 +57,8 @@ rcompare <- function (BASE , COMP , KEYS = NULL, SUPWARN = F){
 
     COMPARE[["VarDiffs"]] <- identify_differences(BASE, COMP , KEYS, exclude_cols)
 
+    COMPARE[["LabelDiffs"]] <- identify_label_differences(BASE, COMP , KEYS, exclude_cols)
+    
     ### Summarise the number of mismatching rows per variable
     COMPARE[["NumDiff"]] <- sapply( COMPARE[["VarDiffs"]] , nrow)
 

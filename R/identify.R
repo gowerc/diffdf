@@ -72,8 +72,20 @@ identify_fact_level_differences <- function( BASE, COMP , KEYS, exclude_cols){
   
   if( length(matching_cols) == 0  ) return ( data_frame() )
   
-  factlevels(BASE, COMP, matching_cols)
+  factlevels(BASE, COMP, matching_cols, 'levels')
 
+  
+}
+
+identify_label_differences <- function( BASE, COMP , KEYS, exclude_cols){
+  
+  matching_cols <- identify_matching_cols( BASE , COMP , KEYS)
+  matching_cols <- matching_cols[!matching_cols %in% exclude_cols]
+  
+  if( length(matching_cols) == 0  ) return ( data_frame() )
+  
+  labeldiffs(BASE, COMP, matching_cols, 'label')
+  
   
 }
 

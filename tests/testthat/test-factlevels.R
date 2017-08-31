@@ -3,6 +3,10 @@ library(dplyr)
 library(readr)
 library(testthat)
 
+factlevels <- function(BASE, COMP, matching_cols){
+  attdiffs(BASE, COMP, matching_cols, 'levels')
+}
+
 #' testfun
 #' 
 #' Convenience function which allows a user to determine the length of an
