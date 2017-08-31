@@ -67,7 +67,7 @@ identify_mode_differences <- function( BASE, COMP , KEYS, exclude_cols){
 
 identify_fact_level_differences <- function( BASE, COMP , KEYS, exclude_cols){
   
-  matching_cols <- identify_matching_cols( BASE , COMPARE , KEYS)
+  matching_cols <- identify_matching_cols( BASE , COMP , KEYS)
   matching_cols <- matching_cols[!matching_cols %in% exclude_cols]
   
   if( length(matching_cols) == 0  ) return ( data_frame() )
@@ -79,9 +79,9 @@ identify_fact_level_differences <- function( BASE, COMP , KEYS, exclude_cols){
 
 
 
-identify_differences <- function( BASE , COMPARE , KEYS, excludecols ) {
+identify_differences <- function( BASE , COMP , KEYS, excludecols ) {
 
-  matching_cols <- identify_matching_cols( BASE , COMPARE , KEYS)
+  matching_cols <- identify_matching_cols( BASE , COMP , KEYS)
   
   matching_cols <- matching_cols[!matching_cols %in% exclude_cols]
 
@@ -91,7 +91,7 @@ identify_differences <- function( BASE , COMPARE , KEYS, excludecols ) {
         matching_cols,
         identify_variable_diff,
         KEYS = KEYS ,
-        DAT = inner_join( BASE , COMPARE , by = KEYS )
+        DAT = inner_join( BASE , COMP , by = KEYS )
     ) %>%
         set_names(matching_cols)
 }
