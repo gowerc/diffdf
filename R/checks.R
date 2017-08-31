@@ -57,6 +57,11 @@ check_for_issues <- function(COMPARE , SUPWARN){
       ISSUES <- TRUE
     }
     
+    if ( nrow(COMPARE[["LabelDiffs"]])){
+      if(!SUPWARN) warning("There are Columns in BASE and COMPARE with different labels" )
+      ISSUES <- TRUE
+    }
+    
     if ( nrow(COMPARE[["AttribDiffs"]])){
       if(!SUPWARN) warning("There are columns in BASE and COMPARE with differing attributes" )
       ISSUES <- TRUE
