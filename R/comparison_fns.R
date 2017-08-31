@@ -35,17 +35,37 @@ attdiffs <- function(BASE, COMP, matching_cols, attin){
 
 att_diffs <- function(BASE, COMP, matching_cols){
   
-  BASE_att <- lapply(BASE, attributes) %>% 
-    map_df(tibble::enframe, .id = 'VARIABLE') %>% 
+  baseflag <- compflag <- 0
+  BASE_att <- BASE %>% select_(.dots = matching_cols) %>%  lapply( attributes) 
+  BASE_att[sapply( BASE_att, is.null)] <- NULL
+  
+  COMP_att <-  COMP %>% select_(.dots = matching_cols) %>%  lapply( attributes) 
+  COMP_att[sapply( COMP_att, is.null)] <- NULL 
+  
+  if (length(BASE_att)>0){
+  baseflag <- 1  
+  BASE_att <-  BASE_att %>%   map_df(tibble::enframe, .id = 'VARIABLE') %>% 
     rename(BASEatt = value, attr_name = name) 
-  COMP_att <- lapply(COMP, attributes)  %>% 
+  }
+  if (length(COMP_att)>0){
+  compflag <- 1
+  COMP_att <- COMP_att  %>% 
     map_df(tibble::enframe, .id = 'VARIABLE') %>% 
     rename(COMPatt = value, attr_name = name) 
+  }
   
-  
+  if(compflag & baseflag){
+    
   full_join(BASE_att, COMP_att , by = c('VARIABLE', 'attr_name')) %>% 
     mutate(comparison = map2_lgl(BASEatt,COMPatt, identical)) %>% filter(!comparison) %>%
     select(VARIABLE, attr_name, BASEatt, COMPatt)
+  }else if(baseflag){
+    BASE_att %>% select(VARIABLE, attr_name, BASEatt) %>% mutate(COMPatt = NULL)
+  }else if(compflag){
+    COMP_att %>% select(VARIABLE, attr_name, COMPatt) %>% mutate(BASEatt = NULL)
+  }else{
+    data.frame()
+  }
 }
 
 
