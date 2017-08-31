@@ -2,14 +2,28 @@
 
 modediffs <-function(BASE, COMP, matching_cols){
   
-  BASEmode <- BASE %>% select_(.dots = matching_cols) %>% map_chr(mode)
-  COMPmode <- COMP %>% select_(.dots = matching_cols) %>% map_chr(mode)
-  
-  BASEclass <- BASE %>% select_(.dots = matching_cols) %>% map_chr(class)
-  COMPclass <- COMP %>% select_(.dots = matching_cols) %>% map_chr(class)
-  
-  tibble(VARIABLE = matching_cols, BASEmode, COMPmode, BASEclass, COMPclass) %>% 
-    filter(BASEmode != COMPmode | (BASEclass != COMPclass & (BASEclass == 'factor' | COMPclass == 'factor')))
+  get_matching_meta <- function ( DAT , fun){
+    DAT %>% 
+      select_(.dots = matching_cols) %>% 
+      map_chr(fun)
+  }
+
+  TEMP <- tibble(
+    VARIABLE = matching_cols, 
+    get_matching_meta(BASE , mode), 
+    get_matching_meta(COMP , mode), 
+    get_matching_meta(BASE , class), 
+    get_matching_meta(COMP , class)
+  )  
+    
+  TEMP %>% 
+    filter(
+      BASEmode != COMPmode | 
+        (
+          BASEclass != COMPclass & 
+            (BASEclass == 'factor' | COMPclass == 'factor')
+        )
+    )
   
   
 }
@@ -17,17 +31,28 @@ modediffs <-function(BASE, COMP, matching_cols){
 
 factlevels <- function(BASE, COMP, matching_cols){
   
-  levels_BASE <-  BASE %>% select_(.dots = matching_cols) %>% map(levels) %>% tibble(VARIABLE = matching_cols) %>%
-    rename_("BASElevels"='.') %>% mutate(isnull = map_lgl(BASElevels,is.null)) %>% filter(!isnull) %>% 
+  levels_BASE <-  BASE %>% 
+    select_(.dots = matching_cols) %>%
+    map(levels) %>% 
+    tibble(VARIABLE = matching_cols) %>%
+    rename_("BASElevels"='.') %>% 
+    mutate(isnull = map_lgl(BASElevels,is.null)) %>% 
+    filter(!isnull) %>% 
     select(VARIABLE, BASElevels)
   
-  levels_COMP <-  COMP %>% select_(.dots = matching_cols) %>% map(levels) %>% tibble(VARIABLE = matching_cols) %>%
-    rename_("COMPlevels"='.') %>% mutate(isnull = map_lgl(COMPlevels,is.null)) %>% filter(!isnull) %>% 
+  levels_COMP <-  COMP %>% 
+    select_(.dots = matching_cols) %>% 
+    map(levels) %>% 
+    tibble(VARIABLE = matching_cols) %>%
+    rename_("COMPlevels"='.') %>% 
+    mutate(isnull = map_lgl(COMPlevels,is.null)) %>% 
+    filter(!isnull) %>% 
     select(VARIABLE, COMPlevels)
   
   
   left_join(levels_BASE, levels_COMP, by = 'VARIABLE') %>% 
-    mutate(comparison = map2_lgl(BASElevels,COMPlevels, identical)) %>% filter(!comparison) %>%
+    mutate(comparison = map2_lgl(BASElevels,COMPlevels, identical)) %>% 
+    filter(!comparison) %>%
     select(VARIABLE, BASElevels, COMPlevels)
 }
 
