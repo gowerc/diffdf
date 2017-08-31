@@ -1,10 +1,14 @@
+library(purrr)
+library(dplyr)
+library(readr)
+library(testthat)
 
 #function to make a test data set. 
 
 returndata <- function(x,y)
 {
-DAT <- tibble(testvar.x = x, testvar.y =y , keys=seq(1,length(x)))
-DAT
+  DAT <- tibble(testvar.x = x, testvar.y =y , keys=seq(1,length(x)))
+  DAT
 }
 
 x_num <- seq(1,10)
@@ -24,7 +28,7 @@ x_na <-NA
 
 
 test_that( "Check comparision of equal objects",{
-
+  
   expect_true( nrow(identify_variable_diff('testvar', returndata(x_num, x_num), 'keys') ) == 0)
   expect_true( nrow(identify_variable_diff('testvar', returndata(x_num_na, x_num_na), 'keys') ) == 0)
   expect_true( nrow(identify_variable_diff('testvar', returndata(x_floating, x_floating_comp), 'keys') ) == 0)
@@ -42,14 +46,14 @@ test_that( "Check comparision of equal objects",{
 test_that( "Check comparision of different objects",{
   
   expect_true( nrow(identify_variable_diff('testvar', returndata(x_num, x_num_na), 'keys') ) == 1)
-
+  
   expect_false( nrow(identify_variable_diff('testvar', returndata(x_floating, x_num), 'keys') ) == 0)
   expect_false( nrow(identify_variable_diff('testvar', returndata(x_character, x_character_na), 'keys') ) == 0)
-
+  
   expect_false( nrow(identify_variable_diff('testvar', returndata(x_factor, x_factor_na), 'keys') ) == 0)
   
   expect_false( nrow(identify_variable_diff('testvar', returndata(x_logical, x_logical_na), 'keys') ) == 0)
-
+  
 })
 
 
