@@ -3,6 +3,8 @@ library(dplyr)
 library(readr)
 library(testthat)
 
+##############################
+## set up testing datasets
 
 TDAT <- read_csv (
     paste0( system.file(package="rcompare" , "testdata"), "/test1.csv"),
@@ -55,7 +57,7 @@ TDAT_FACTVALCHANGENA <- TDAT %>%
 TDAT_PLUSLIST <- TDAT %>% 
   mutate(LIST = list(CATEGORICAL))
 
-
+##add change in mode
 
 TDAT_MODECHANGE <- TDAT %>%
   mutate( INTEGER = as.character(INTEGER))
@@ -67,6 +69,20 @@ TDAT_FACTCHANGE <- TDAT %>%
 #switch integer to double, this shouldn't affect the comparison
 TDAT_MODEDBL <- TDAT %>%
   mutate( INTEGER = as.double(INTEGER))
+
+##add extra columns
+
+TDAT_EXTCOLS <- TDAT %>%  mutate(ext = CATEGORICAL, 
+                                 ext2 = CATEGORICAL)
+
+##add extra rows
+
+TDAT_EXTROWS <- bind_rows(TDAT, TDAT)
+
+
+###################################
+##Tests
+
 
 test_that( "Check comparision of equal objects",{
     expect_false( rcompare(iris, iris)$Issues )
@@ -109,4 +125,16 @@ test_that("Illegal columns error", {
   expect_warning( rcompare(TDAT_PLUSLIST, TDAT_PLUSLIST), 'There are Columns in BASE with unsupported modes' )
   expect_warning( rcompare(TDAT_PLUSLIST, TDAT_PLUSLIST), 'There are Columns in COMPARE with unsupported modes' )
   expect_warning( rcompare(TDAT, TDAT_PLUSLIST), 'There are Columns in COMPARE with unsupported modes' )
+})
+
+test_that("Additional columns error", {
+  expect_warning( rcompare(TDAT, TDAT_EXTCOLS), 'There are Columns in COMPARE that are not in BASE' )
+  expect_warning( rcompare(TDAT_EXTCOLS, TDAT), 'There are Columns in BASE that are not in COMPARE' )
+  
+  })
+
+test_that("Additional rows error", {
+  expect_warning( rcompare(TDAT, TDAT_EXTROWS), 'There are Rows in COMPARE that are not in BASE' )
+  expect_warning( rcompare(TDAT_EXTROWS, TDAT), 'There are Rows in BASE that are not in COMPARE' )
+  
 })
