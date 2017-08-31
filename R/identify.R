@@ -72,7 +72,7 @@ identify_fact_level_differences <- function( BASE, COMP , KEYS, exclude_cols){
      
       if( length(matching_cols) == 0  ) return ( data_frame() )
       
-        factlevels(BASE, COMP, matching_cols, 'levels')
+     attdiffs(BASE, COMP, matching_cols, 'levels')
     
       
 }
@@ -84,7 +84,7 @@ identify_label_differences <- function( BASE, COMP , KEYS, exclude_cols){
     
     if( length(matching_cols) == 0  ) return ( data_frame() )
     
-    labeldiffs(BASE, COMP, matching_cols, 'label')
+    attdiffs(BASE, COMP, matching_cols, 'label')
 
 }
 
@@ -96,7 +96,7 @@ identify_att_differences <- function( BASE, COMP , KEYS, exclude_cols){
   
   if( length(matching_cols) == 0  ) return ( data_frame() )
   
-  att_diffs(BASE, COMP, matching_cols, 'label')
+  att_diffs(BASE, COMP, matching_cols)
   
   
 }
