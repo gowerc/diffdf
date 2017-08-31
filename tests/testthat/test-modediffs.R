@@ -1,4 +1,9 @@
-
+#' testfun
+#' 
+#' Convenience function which allows a user to determine the length of an
+#' object then perform tests on it
+#' @param N length of vectors being tested
+#' @return nothing if no failure, otherwise error messages will be printed
 
 testfun <-function(N)
 {
