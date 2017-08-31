@@ -26,6 +26,22 @@ set.seed(101010223)
 TDAT2 <- TDAT %>%
     mutate( INTEGER = ifelse(runif(nrow(.)) >0.8 , INTEGER + 1 , INTEGER))
 
+## Change other values to test
+TDAT_CHARCHANGE <- TDAT %>% mutate(CHARACTER = ifelse(row_number() == 1, 'different', CHARACTER))
+TDAT_DATECHANGE <- TDAT %>% 
+  mutate(DATE = as.Date(ifelse(row_number() == 1, as.Date("01/01/1981", format = "%d/%m/%Y"), DATE),
+                        origin = "1970-01-01"))
+TDAT_LOGCHANGE <- TDAT %>% 
+  mutate(LOGICAL = ifelse(LOGICAL, F, T))
+
+TDAT_FACTVALCHANGE <- TDAT %>% 
+  mutate(CATEGORICAL = factor(ifelse(CATEGORICAL == 'A', 'B', as.character(CATEGORICAL)),
+                              levels = c('A', 'B','C','D')))
+
+## add nas
+
+
+
 TDAT_MODECHANGE <- TDAT %>%
   mutate( INTEGER = as.character(INTEGER))
 
@@ -47,6 +63,10 @@ test_that( "Check comparision of equal objects",{
 
 test_that( "Unequal objects error" , {
     expect_warning( rcompare(TDAT , TDAT2), 'Not all values compared equal' )
+  expect_warning( rcompare(TDAT , TDAT_CHARCHANGE), 'Not all values compared equal' )
+  expect_warning( rcompare(TDAT , TDAT_DATECHANGE), 'Not all values compared equal' )
+  expect_warning( rcompare(TDAT , TDAT_LOGCHANGE), 'Not all values compared equal' )
+  expect_warning( rcompare(TDAT , TDAT_FACTVALCHANGE), 'Not all values compared equal' )
 })
 
 test_that( "Differing modes error" , {
