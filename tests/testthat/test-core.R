@@ -131,7 +131,7 @@ test_that( "Unequal object, checking numbers correct" , {
   numdiffcheck(TDAT_CHARCHANGE, 'CHARACTER', 1) 
   numdiffcheck(TDAT_DATECHANGE, 'DATE', 1) 
   numdiffcheck(TDAT_LOGCHANGE, 'LOGICAL', nrow(TDAT)) 
-  numdiffcheck(TDAT_FACTVALCHANGE, 'CATERGORICAL', 3) 
+  numdiffcheck(TDAT_FACTVALCHANGE, 'CATEGORICAL', 3) 
   numdiffcheck(TDAT_CHARCHANGENA, 'CHARACTER', 1) 
   numdiffcheck(TDAT_DATECHANGENA, 'DATE', 1) 
   numdiffcheck(TDAT_LOGCHANGENA, 'LOGICAL', nrow(TDAT)) 

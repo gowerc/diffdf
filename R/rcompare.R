@@ -53,9 +53,14 @@ rcompare <- function (BASE , COMP , KEYS = NULL, SUPWARN = F){
     if (nrow(COMPARE[["VarModeDiffs"]]))
     exclude_cols <- c(exclude_cols, COMPARE[["VarModeDiffs"]]$VARIABLE)
     
+    COMPARE[["AttribDiffs"]] <- identify_att_differences(BASE, COMP , KEYS, exclude_cols)
+    
     COMPARE[["FactorlevelDiffs"]] <- identify_fact_level_differences(BASE, COMP , KEYS, exclude_cols)
+    
+    COMPARE[["LabelDiffs"]] <- identify_label_differences(BASE, COMP , KEYS, exclude_cols)
 
     COMPARE[["VarDiffs"]] <- identify_differences(BASE, COMP , KEYS, exclude_cols)
+
 
     ### Summarise the number of mismatching rows per variable
     COMPARE[["NumDiff"]] <- sapply( COMPARE[["VarDiffs"]] , nrow)
