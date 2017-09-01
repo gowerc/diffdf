@@ -10,10 +10,10 @@ modediffs <-function(BASE, COMP, matching_cols){
 
   TEMP <- tibble(
     VARIABLE = matching_cols, 
-    get_matching_meta(BASE , mode), 
-    get_matching_meta(COMP , mode), 
-    get_matching_meta(BASE , class), 
-    get_matching_meta(COMP , class)
+    BASEmode = get_matching_meta(BASE , mode), 
+    COMPmode = get_matching_meta(COMP , mode), 
+    BASEclass = get_matching_meta(BASE , class), 
+    COMPclass = get_matching_meta(COMP , class)
   )  
     
   TEMP %>% 
