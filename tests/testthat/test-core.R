@@ -29,10 +29,13 @@ TDAT2 <- TDAT %>%
     mutate( INTEGER = ifelse(runif(nrow(.)) >0.8 , INTEGER + 1 , INTEGER))
 
 ## Change other values to test
-TDAT_CHARCHANGE <- TDAT %>% mutate(CHARACTER = ifelse(row_number() == 1, 'different', CHARACTER))
+TDAT_CHARCHANGE <- TDAT %>% 
+  mutate(CHARACTER = ifelse(row_number() == 1, 'different', CHARACTER))
+
 TDAT_DATECHANGE <- TDAT %>% 
   mutate(DATE = as.Date(ifelse(row_number() == 1, as.Date("01/01/1981", format = "%d/%m/%Y"), DATE),
                         origin = "1970-01-01"))
+
 TDAT_LOGCHANGE <- TDAT %>% 
   mutate(LOGICAL = ifelse(LOGICAL, F, T))
 
@@ -42,9 +45,12 @@ TDAT_FACTVALCHANGE <- TDAT %>%
 
 ## add nas
 
-TDAT_CHARCHANGENA <- TDAT %>% mutate(CHARACTER = ifelse(row_number() == 1, NA, CHARACTER))
+TDAT_CHARCHANGENA <- TDAT %>% 
+  mutate(CHARACTER = ifelse(row_number() == 1, NA, CHARACTER))
+
 TDAT_DATECHANGENA <- TDAT %>% 
   mutate(DATE = (ifelse(row_number() == 1, NA, DATE)))
+
 TDAT_LOGCHANGENA <- TDAT %>% 
   mutate(LOGICAL = ifelse(LOGICAL, NA, T))
 
@@ -72,8 +78,11 @@ TDAT_MODEDBL <- TDAT %>%
 
 ##add extra columns
 
-TDAT_EXTCOLS <- TDAT %>%  mutate(ext = CATEGORICAL, 
-                                 ext2 = CATEGORICAL)
+TDAT_EXTCOLS <- TDAT %>%  
+  mutate(
+    ext = CATEGORICAL, 
+    ext2 = CATEGORICAL
+  )
 
 ##add extra rows
 
