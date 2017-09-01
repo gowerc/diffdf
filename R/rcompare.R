@@ -67,6 +67,8 @@ rcompare <- function (BASE , COMP , KEYS = NULL, SUPWARN = F){
 
     COMPARE[["Issues"]] <- check_for_issues( COMPARE, SUPWARN)
 
+    # remove empty objects
+    COMPARE <- cleanup(COMPARE)
 
     return(COMPARE)
 }
