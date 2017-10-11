@@ -1,11 +1,16 @@
 
 
-devtools::test()
 
+
+
+
+
+devtools::document()
+devtools::build()
 devtools::load_all()
+
+devtools::test()
 
 devtools::check()
 
-devtools::build()
-
-devtools::document()
+#devtools::install()

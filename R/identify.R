@@ -5,8 +5,9 @@
 
 identify_extra_rows <- function (DS1 , DS2 , KEYS){
     DS1 %>%
-        anti_join( DS2 , by = KEYS) %>%
-        select_(.dots = list(KEYS))
+        anti_join( DS2 , by = KEYS) %>% 
+        select_(.dots = list(KEYS)) 
+        
 }
 # identify_extra_rows( TDAT , TDAT[1:11,] , "ID" )
 # identify_extra_rows( TDAT[1:11,] , TDAT , "ID" )
@@ -17,6 +18,10 @@ identify_extra_rows <- function (DS1 , DS2 , KEYS){
 
 identify_extra_cols <- function(DS1 , DS2){
     match.cols <- sapply ( names(DS1), "%in%", names(DS2))
+    
+    test_that("Return type is logical",{
+        expect_true( all(is.logical(match.cols)) )
+    })
     
     data_frame(
         COLUMNS = names(DS1)[ !match.cols]
@@ -125,13 +130,12 @@ identify_differences <- function( BASE , COMP , KEYS, exclude_cols ) {
 
 identify_variable_diff <- function( VAR, DAT , KEYS){
     cname <- paste0(VAR , c(".x" , ".y"))
-    
     DAT %>%
         select_( .dots =  c(KEYS , cname)) %>%
         rename_( .dots = set_names( as.list(cname),  c("BASE" , "COMPARE"))) %>%
         mutate( VARIABLE = VAR ) %>%
         select_(.dots =  c("VARIABLE" , KEYS , "BASE" , "COMPARE" )) %>%
-        filter ( vectorcompare(BASE , COMPARE))
+        filter ( is_different(BASE , COMPARE))
     
 }
 

@@ -2,7 +2,7 @@
 
 
 
-check_unique_rows <- function(DAT , KEYS){
+has_unique_rows <- function(DAT , KEYS){
     BYCHECK <- DAT %>%
         group_by_( .dots =  as.list(KEYS)  )  %>%
         summarise( ..n.. = n()) %>%

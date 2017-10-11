@@ -2,10 +2,16 @@
 
 modediffs <-function(BASE, COMP, matching_cols){
     
+    single_chr_fun <- function(fun){
+        function(...){
+            paste0( fun(...) , collapse = "_")
+        }
+    }
+    
     get_matching_meta <- function ( DAT , fun){
         DAT %>% 
             select_(.dots = matching_cols) %>% 
-            map_chr(fun)
+            map_chr(single_chr_fun(fun))
     }
     
     TEMP <- tibble(
@@ -124,52 +130,60 @@ att_diffs <- function(BASE, COMP, matching_cols){
 
 
 
-vectorcompare_wrapfun<-function (target, current, ...) {
-    UseMethod("vectorcompare")
+is_different_wrapfun<-function (target, current, ...) {
+    UseMethod("is_different")
 }
 
 
-vectorcompare<-function (target, current, ...) {
-    if (is.null(target)|is.null(current))
-    {
-        return(is.null(target) == is.null(current))
+is_different <- function (target, current, ...) {
+    
+    if( length(target) != length(current)){
+        warning("Inputs are not of the same length")
+        return(NULL)
+    }
+    
+    if( is.null(target) | is.null(current) ){
+        
+        return( is.null(target) != is.null(current) )
         
     } else {
         
         N <- length(target)
-        outvect <-rep(TRUE,N)
+        outvect <- rep(TRUE,N)
         
         
         nas_t <- is.na(target) 
         nas_c <- is.na(current)
         nacompare <- is.na(target) != is.na(current)
         
-        selectvector <-as.logical( (!nas_t) * (!nas_c) )
+        selectvector <- as.logical( (!nas_t) * (!nas_c) )
         
         target  <- target[selectvector]
         current <- current[selectvector]  
         
-        comparevect <-vectorcompare_wrapfun(target,current)
+        comparevect <- is_different_wrapfun(target,current)
         
-        outvect[selectvector]   <- comparevect
-        outvect[nas_t|nas_c] <- nacompare[nas_t|nas_c]
+        outvect[selectvector] <- comparevect
+        
+        outvect[nas_t|nas_c]  <- nacompare[nas_t|nas_c]
+        
         as.logical(outvect)
         
         
     }  
 }
 
-vectorcompare.default <- function(target, current, ...){
+is_different.default <- function(target, current, ...){
     target != current 
     
 }
 
-vectorcompare.factor <- function(target, current, ...){
+is_different.factor <- function(target, current, ...){
     as.character(target) != as.character(current) 
     
 }
 
-vectorcompare.numeric <- function(target, current, tolerance = sqrt(.Machine$double.eps), 
+is_different.numeric <- function(target, current, tolerance = sqrt(.Machine$double.eps), 
                                   scale = NULL, ..., check.attributes = TRUE) {
     if (!is.numeric(tolerance)) {
         stop("'tolerance' should be numeric")

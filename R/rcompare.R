@@ -7,6 +7,7 @@
 #' @param keys vector of variables (as strings) that defines a unique row in the base and compare dataframes
 #' @param suppress_warnings Do you want to suppress warnings? (logical)
 #' @import dplyr
+#' @import testthat
 #' @importFrom purrr set_names
 #' @importFrom purrr map
 #' @importFrom purrr map2
@@ -27,7 +28,7 @@
 #' ## compare( AAE , QC_AAE , c("USUBJID" , "AESEQ"))
 #' @export
 rcompare <- function (base , compare , keys = NULL, suppress_warnings = F){
-    browser()
+
     BASE = base
     COMP = compare
     KEYS = keys
@@ -43,11 +44,11 @@ rcompare <- function (base , compare , keys = NULL, suppress_warnings = F){
     
     
     #  Check the provided by groups define unique rows
-    if ( !check_unique_rows(BASE , KEYS) ){
+    if ( !has_unique_rows(BASE , KEYS) ){
         stop( "BY variables in BASE do not result in unique observations")
     }
     
-    if ( !check_unique_rows(COMP , KEYS) ){
+    if ( !has_unique_rows(COMP , KEYS) ){
         stop( "BY variables in COMPARE do not result in unique observations")
     }
     
@@ -56,23 +57,23 @@ rcompare <- function (base , compare , keys = NULL, suppress_warnings = F){
     class(COMPARE) <- "rcompare"
     
     COMPARE[["ExtRowsBase"]] <- identify_extra_rows(
-        BASE, 
-        COMP, 
-        KEYS
+        DS1 = BASE, 
+        DS2 = COMP, 
+        KEYS = KEYS
     )
     COMPARE[["ExtRowsComp"]] <- identify_extra_rows(
-        COMP, 
-        BASE, 
-        KEYS
+        DS1 = COMP, 
+        DS2 = BASE, 
+        KEYS = KEYS
     )
     
     COMPARE[["ExtColsBase"]] <- identify_extra_cols(
-        BASE, 
-        COMP
+        DS1 = BASE, 
+        DS2 = COMP
     )
     COMPARE[["ExtColsComp"]] <- identify_extra_cols(
-        COMP, 
-        BASE
+        DS1 = COMP, 
+        DS2 = BASE
     )
     
     COMPARE[["IllegalColsBase"]]    <- identify_ilegal_cols(BASE)
@@ -86,10 +87,10 @@ rcompare <- function (base , compare , keys = NULL, suppress_warnings = F){
     )
     
     COMPARE[["VarModeDiffs"]] <- identify_mode_differences(
-        BASE, 
-        COMP , 
-        KEYS, 
-        exclude_cols
+        BASE = BASE, 
+        COMP = COMP , 
+        KEYS = KEYS, 
+        exclude_cols = exclude_cols
     )
     
     
@@ -101,31 +102,31 @@ rcompare <- function (base , compare , keys = NULL, suppress_warnings = F){
     }
     
     COMPARE[["AttribDiffs"]] <- identify_att_differences(
-        BASE, 
-        COMP , 
-        KEYS, 
-        exclude_cols
+        BASE = BASE, 
+        COMP = COMP , 
+        KEYS = KEYS, 
+        exclude_cols = exclude_cols
     )
     
     COMPARE[["FactorlevelDiffs"]] <- identify_fact_level_differences(
-        BASE, 
-        COMP , 
-        KEYS, 
-        exclude_cols
+        BASE = BASE, 
+        COMP = COMP , 
+        KEYS = KEYS, 
+        exclude_cols = exclude_cols
     )
     
     COMPARE[["LabelDiffs"]] <- identify_label_differences(
-        BASE, 
-        COMP , 
-        KEYS, 
-        exclude_cols
+        BASE = BASE, 
+        COMP = COMP, 
+        KEYS = KEYS, 
+        exclude_cols = exclude_cols
     )
     
     COMPARE[["VarDiffs"]] <- identify_differences(
-        BASE, 
-        COMP , 
-        KEYS, 
-        exclude_cols
+        BASE = BASE, 
+        COMP = COMP , 
+        KEYS = KEYS, 
+        exclude_cols = exclude_cols
     )
     
     
@@ -140,18 +141,17 @@ rcompare <- function (base , compare , keys = NULL, suppress_warnings = F){
 
 
 #### Example of use
-
-DF1 <- data.frame(
-    id = c(1,2,3,4,5,6),
-    v1 = letters[1:6],
-    v2 = c(NA , NA , 1 , 2 , 3 , NA)
-)
-
-DF2 <- data.frame(
-    id = c(1,2,3,4,5,7),
-    v1 = letters[1:6],
-    v2 = c(NA , NA , 1 , 2 , NA , NA),
-    v3 = c(NA , NA , 1 , 2 , NA , 4)
-)
-rcompare(DF1 , DF1 , keys = "id")
-rcompare(DF1 , DF2 , keys = "id")
+# DF1 <- data.frame(
+#     id = c(1,2,3,4,5,6),
+#     v1 = letters[1:6],
+#     v2 = c(NA , NA , 1 , 2 , 3 , NA)
+# )
+# 
+# DF2 <- data.frame(
+#     id = c(1,2,3,4,5,7),
+#     v1 = letters[1:6],
+#     v2 = c(NA , NA , 1 , 2 , NA , NA),
+#     v3 = c(NA , NA , 1 , 2 , NA , 4)
+# )
+# rcompare(DF1 , DF1 , keys = "id")
+# rcompare(DF1 , DF2 , keys = "id")
