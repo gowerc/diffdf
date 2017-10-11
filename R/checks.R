@@ -13,21 +13,6 @@ check_unique_rows <- function(DAT , KEYS){
 
 
 
-check_is_equal <- function( VAL1 , VAL2){
-
-    if ( is.null(VAL1) | is.null(VAL2) ) return (  is.null(VAL1) == is.null(VAL2))
-
-    if ( is.na(VAL1) | is.na(VAL2) ) return (  is.na(VAL1) == is.na(VAL2))
-
-    RES <- all.equal( VAL1 , VAL2 , tolerance = .Machine$double.eps^0.5)
-
-    if ( RES != TRUE) return(FALSE)
-    else return( TRUE)
-
-}
-
-
-
 check_for_issues <- function(COMPARE , SUPWARN){
 
     ISSUES <- FALSE
@@ -50,6 +35,36 @@ check_for_issues <- function(COMPARE , SUPWARN){
     if ( nrow(COMPARE[["ExtColsComp"]])){
         if(!SUPWARN) warning("There are Columns in COMPARE that are not in BASE" )
         ISSUES <- TRUE
+    }
+    
+    if ( ncol(COMPARE[["IllegalColsBase"]])){
+      if(!SUPWARN) warning("There are Columns in BASE with unsupported modes" )
+      ISSUES <- TRUE
+    }
+    
+    if ( ncol(COMPARE[["IllegalColsCompare"]])){
+      if(!SUPWARN) warning("There are Columns in COMPARE with unsupported modes" )
+      ISSUES <- TRUE
+    }
+    
+    if ( nrow(COMPARE[["VarModeDiffs"]])){
+      if(!SUPWARN) warning("There are Columns in BASE and COMPARE with different modes" )
+      ISSUES <- TRUE
+    }
+    
+    if ( nrow(COMPARE[["FactorlevelDiffs"]])){
+      if(!SUPWARN) warning("There are Factor Columns in BASE and COMPARE with different levels" )
+      ISSUES <- TRUE
+    }
+    
+    if ( nrow(COMPARE[["LabelDiffs"]])){
+      if(!SUPWARN) warning("There are Columns in BASE and COMPARE with different labels" )
+      ISSUES <- TRUE
+    }
+    
+    if ( nrow(COMPARE[["AttribDiffs"]])){
+      if(!SUPWARN) warning("There are columns in BASE and COMPARE with differing attributes" )
+      ISSUES <- TRUE
     }
 
     if( sum(COMPARE[["NumDiff"]])){
