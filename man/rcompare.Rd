@@ -4,16 +4,16 @@
 \alias{rcompare}
 \title{Compares dataframes}
 \usage{
-rcompare(BASE, COMP, KEYS = NULL, SUPWARN = F)
+rcompare(base, compare, keys = NULL, suppress_warnings = F)
 }
 \arguments{
-\item{BASE}{input dataframe}
+\item{base}{input dataframe}
 
-\item{COMP}{comparison dataframe}
+\item{compare}{comparison dataframe}
 
-\item{KEYS}{list of variables (as strings) that defines a unique row in the dataframe}
+\item{keys}{vector of variables (as strings) that defines a unique row in the base and compare dataframes}
 
-\item{SUPWARN}{Do you want to suppress warnings}
+\item{suppress_warnings}{Do you want to suppress warnings? (logical)}
 }
 \description{
 Emulates proc compare from SAS

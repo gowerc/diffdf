@@ -8,3 +8,4 @@ devtools::check()
 
 devtools::build()
 
+devtools::document()
