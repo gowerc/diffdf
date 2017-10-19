@@ -70,6 +70,8 @@ produce_file <- function(outfile, COMPARE)
   }else{
     outtext <- 'Differences found between the objects!\n\nA summary is given below.\n\nPlease use print() to examine in more detail where necessary.\n\n'
 
+    #Start by looking at simple comparisons, extra columns/rows and illegal columns
+    
     argcol <- rep(c('nrow', 'ncol', 'nrow'), c(4, 2, 1))
     messages <- c('Extra Rows found in Base',
                   'Extra Rows found in Compare',
@@ -92,6 +94,7 @@ produce_file <- function(outfile, COMPARE)
    
     outtext <- paste(c(outtext, outtext2), collapse = '\n')
 
+    #Now look at attributes. These needs to be handled slightly differently, hence the extra argument
     argcol <- rep('nrow', 3)
     messages <- c("There are Factor Columns in BASE and COMPARE with different levels",
                   "There are Columns in BASE and COMPARE with different labels",
@@ -105,10 +108,11 @@ produce_file <- function(outfile, COMPARE)
     
     outtext <- paste(c(outtext, outtext3), collapse = '\n')
     
-    if( sum(COMPARE[["NumDiff"]])){
-      if(!SUPWARN) warning("Not all values compared equal")
-      ISSUES <- TRUE
-    }
+    #Finally we deal with the actual differences!
+    
+    outtext_numdiff <- pastefun(sum, 'The following columns in BASE and COMPARE were found to be different in the amount displayed', "NumDiff")
+    
+    
   }
   write(outtext, file = outfile)
 }
