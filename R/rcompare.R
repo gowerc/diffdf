@@ -6,6 +6,7 @@
 #' @param compare comparison dataframe
 #' @param keys vector of variables (as strings) that defines a unique row in the base and compare dataframes
 #' @param suppress_warnings Do you want to suppress warnings? (logical)
+#' @param outfile Location and name of outputted file. Leave as NULL to not output a file
 #' @import dplyr
 #' @import testthat
 #' @importFrom purrr set_names
@@ -27,7 +28,7 @@
 #' @examples
 #' ## compare( AAE , QC_AAE , c("USUBJID" , "AESEQ"))
 #' @export
-rcompare <- function (base , compare , keys = NULL, suppress_warnings = F){
+rcompare <- function (base , compare , keys = NULL, suppress_warnings = F, outfile = NULL){
 
     BASE = base
     COMP = compare
@@ -134,6 +135,11 @@ rcompare <- function (base , compare , keys = NULL, suppress_warnings = F){
     COMPARE[["NumDiff"]] <- sapply( COMPARE[["VarDiffs"]] , nrow)
     
     COMPARE[["Issues"]] <- check_for_issues( COMPARE, SUPWARN)
+    
+    if (!is.null(outfile))
+    {
+      produce_file(outfile, COMPARE)
+    }
     
     return(COMPARE)
 }
