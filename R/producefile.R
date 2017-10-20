@@ -3,20 +3,38 @@ mod_stargazer <- function(...){
 }
 
 
+valuefixer <- function(inval){
+  inval <- as.character(inval)
+  charlength <- stringr::str_length(inval)
+  if (charlength > 20){
+    outval <- substr(inval, 1, 20)
+    outval <- paste0(outval, '...')
+  }else{
+    outval <- inval
+  }
+  outval
+}
+
+
+
+
 make_pasteobject <- function(dataframe_in,
                              message,
-                             att_expand){
-  if (nrow(dataframe_in) > 20)
+                             att_expand,
+                             row_limit = 20){
+  if (nrow(dataframe_in) > row_limit)
   {
     display_table <- dataframe_in %>% 
-      filter(row_number()<21)
-    add_message <- '  :Displayed below, the first 20 rows are shown'
+      filter(row_number()<(row_limit+1))
+    add_message <- paste0('  (First ', row_limit,' rows are shown in table below)')
   }else{
     display_table <- dataframe_in
-    add_message <- '  :Displayed below, all rows are shown'
+    add_message <- '  (All rows are shown in table below)'
   }
   if (att_expand){
     display_table<- trunc_mat(display_table)$table
+  }else{
+    display_table[]  <- apply(display_table ,c(1,2), valuefixer)
   }
   
   paste(c(message,
@@ -109,8 +127,28 @@ produce_file <- function(outfile, COMPARE)
     outtext <- paste(c(outtext, outtext3), collapse = '\n')
     
     #Finally we deal with the actual differences!
+    if( sum(COMPARE[["NumDiff"]])){  
+      numdiff_tibble <- COMPARE[["NumDiff"]] %>% 
+        as.data.frame() %>% 
+  rownames_to_column()
+      names(numdiff_tibble) <- c('Variable', 'No of Differences')
+    outtext_numdiff <- make_pasteobject(numdiff_tibble,
+     'These columns in BASE/COMPARE had the following number of differences',
+     att_expand = FALSE)                                
     
-    outtext_numdiff <- pastefun(sum, 'The following columns in BASE and COMPARE were found to be different in the amount displayed', "NumDiff")
+
+      outtext_breakdown <- 'The Variables with differences are tabulated below'
+      N <- length(COMPARE[["VarDiffs"]] )
+      all_diffs <- pmap(list(COMPARE[["VarDiffs"]],
+                             paste0('Variable = ',names(COMPARE[["VarDiffs"]]))),
+                        make_pasteobject,
+                        att_expand = FALSE) %>% 
+        unlist() %>% 
+        paste(collapse = '\n')
+      outtext_breakdown <- paste(c(outtext_breakdown,
+                                 all_diffs), collapse = '\n\n')
+    }
+    outtext <- paste(c(outtext, outtext_numdiff, outtext_breakdown), collapse = '\n')
     
     
   }
