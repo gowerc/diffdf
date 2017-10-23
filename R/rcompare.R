@@ -109,19 +109,15 @@ rcompare <- function (base , compare , keys = NULL, suppress_warnings = F, outfi
         exclude_cols = exclude_cols
     )
     
-    COMPARE[["FactorlevelDiffs"]] <- identify_fact_level_differences(
-        BASE = BASE, 
-        COMP = COMP , 
-        KEYS = KEYS, 
-        exclude_cols = exclude_cols
-    )
+    COMPARE[["FactorlevelDiffs"]] <-COMPARE[["AttribDiffs"]] %>% 
+      filter(attr_name == 'levels') %>% 
+      select(-attr_name)
     
-    COMPARE[["LabelDiffs"]] <- identify_label_differences(
-        BASE = BASE, 
-        COMP = COMP, 
-        KEYS = KEYS, 
-        exclude_cols = exclude_cols
-    )
+    
+    COMPARE[["LabelDiffs"]] <-COMPARE[["AttribDiffs"]] %>% 
+      filter(attr_name == 'labels') %>% 
+      select(-attr_name)
+    
     
     COMPARE[["VarDiffs"]] <- identify_differences(
         BASE = BASE, 
