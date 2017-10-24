@@ -14,5 +14,10 @@ Imports: dplyr,
     purrr, 
     lubridate, 
     tibble,
-    testthat
+    testthat,
+    stringr,
+    stargazer,
+    tidyr,
+    utils,
+    tibble
 RoxygenNote: 6.0.1

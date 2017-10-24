@@ -4,7 +4,8 @@
 \alias{rcompare}
 \title{Compares dataframes}
 \usage{
-rcompare(base, compare, keys = NULL, suppress_warnings = F)
+rcompare(base, compare, keys = NULL, suppress_warnings = F,
+  outfile = NULL)
 }
 \arguments{
 \item{base}{input dataframe}
@@ -14,6 +15,8 @@ rcompare(base, compare, keys = NULL, suppress_warnings = F)
 \item{keys}{vector of variables (as strings) that defines a unique row in the base and compare dataframes}
 
 \item{suppress_warnings}{Do you want to suppress warnings? (logical)}
+
+\item{outfile}{Location and name of outputted file. Leave as NULL to not output a file}
 }
 \description{
 Emulates proc compare from SAS
