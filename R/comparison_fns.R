@@ -35,33 +35,6 @@ modediffs <-function(BASE, COMP, matching_cols){
 }
 
 
-attdiffs <- function(BASE, COMP, matching_cols, attin) {
-    
-    att_BASE <- BASE %>% 
-        select_(.dots = matching_cols) %>% 
-        map(attr, which = attin) %>%
-        tibble(VARIABLE = matching_cols) %>%
-        rename_("BASEatt" = '.') %>%
-        mutate(isnull = map_lgl(BASEatt, is.null)) %>%
-        filter(!isnull) %>%
-        select(VARIABLE, BASEatt)
-    
-    att_COMP <-  COMP %>%
-        select_(.dots = matching_cols) %>% 
-        map(attr, which = attin) %>%
-        tibble(VARIABLE = matching_cols) %>%
-        rename_("COMPatt" = '.') %>%
-        mutate(isnull = map_lgl(COMPatt, is.null)) %>%
-        filter(!isnull) %>%
-        select(VARIABLE, COMPatt)
-    
-    full_join(att_BASE, att_COMP , by = 'VARIABLE') %>%
-        mutate(comparison = map2_lgl(BASEatt, COMPatt, identical)) %>%
-        filter(!comparison) %>%
-        select(VARIABLE, BASEatt, COMPatt)
-    
-}
-
 
 
 
