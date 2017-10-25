@@ -1,101 +1,84 @@
-# library(purrr)
-# library(dplyr)
-# library(testthat)
-# source("./tests/testthat/helper-create_test_data.R")
 
 
 ##############################
-## set up testing datasets
-
+#
+# Set up testing datasets
+#
 
 set.seed(101010223)
 
-## Arbitary change some values
-TDAT_INTCHANGE <- TDAT %>%
-    mutate( INTEGER = ifelse(runif(nrow(.)) > 0.8 , INTEGER + 1 , INTEGER))
 
-## Change other values to test
-TDAT_CHARCHANGE <- TDAT %>%
-    mutate(CHARACTER = ifelse(row_number() == 1, 'different', CHARACTER))
+#### Change values 
+TDAT_INTCHANGE <- TDAT
+TDAT_INTCHANGE$INTEGER[[5]] <- 0L
 
-TDAT_DATECHANGE <- TDAT %>%
-    mutate(DATE = as.Date(
-        ifelse(
-            row_number() == 1,
-            as.Date("01/01/1981", format = "%d/%m/%Y"),
-            DATE
-        ),
-        origin = "1970-01-01"
-    ))
+TDAT_CHARCHANGE <- TDAT 
+TDAT_CHARCHANGE$CHARACTER[[4]] <- "different"
 
-TDAT_LOGCHANGE <- TDAT %>%
-    mutate(LOGICAL = ifelse(LOGICAL, F, T))
+TDAT_DATECHANGE <- TDAT 
+TDAT_DATECHANGE$DATE[[1]] <- as.Date("01/01/1981", format = "%d/%m/%Y")
 
-TDAT_FACTVALCHANGE <- TDAT %>%
-    mutate(CATEGORICAL = factor(
-        ifelse(CATEGORICAL == 'A', 'B', as.character(CATEGORICAL)),
-        levels = c('A', 'B','C','D')
-    ))
+TDAT_LOGCHANGE <- TDAT 
+TDAT_LOGCHANGE$LOGICAL[[1]] <- !TDAT_LOGCHANGE$LOGICAL[[1]] 
 
-## add nas
+TDAT_FACTVALCHANGE <- TDAT  
+TDAT_FACTVALCHANGE$CATEGORICAL[TDAT_FACTVALCHANGE$CATEGORICAL == "C"] <- "B"
 
-TDAT_CHARCHANGENA <- TDAT %>%
-    mutate(CHARACTER = ifelse(row_number() == 1, NA, CHARACTER))
 
-TDAT_DATECHANGENA <- TDAT %>%
-    mutate(DATE = (ifelse(row_number() == 1, NA, DATE)))
 
-TDAT_LOGCHANGENA <- TDAT %>%
-    mutate(LOGICAL = ifelse(LOGICAL, NA, T))
+#### add NAs 
+TDAT_CHARCHANGENA <- TDAT 
+TDAT_CHARCHANGENA$CHARACTER[[3]] <- NA 
 
-TDAT_FACTVALCHANGENA <- TDAT %>%
-    mutate(CATEGORICAL = factor(
-            ifelse(CATEGORICAL == 'A', NA, as.character(CATEGORICAL)),
-            levels = c('A', 'B','C','D')
-        )
-    )
+TDAT_DATECHANGENA <- TDAT 
+TDAT_DATECHANGENA$DATE[[1]] <- NA
 
-## add list column
+TDAT_LOGCHANGENA <- TDAT 
+TDAT_LOGCHANGENA$LOGICAL[[2]] <- NA
 
+TDAT_FACTVALCHANGENA <- TDAT 
+TDAT_FACTVALCHANGENA$CATEGORICAL[TDAT_FACTVALCHANGENA$CATEGORICAL == "C"] <- NA
+
+
+
+#### add a unsupported column
 TDAT_PLUSLIST <- TDAT %>%
     mutate(LIST = rep(list(CATEGORICAL) , nrow(.)))
 
-##add change in mode
-
+#### add change in mode
 TDAT_MODECHANGE <- TDAT %>%
     mutate( INTEGER = as.character(INTEGER))
 
-
+#### Add extra factor levels
 TDAT_FACTCHANGE <- TDAT %>%
     mutate( CATEGORICAL = factor(CATEGORICAL, levels = c(levels(CATEGORICAL), 'New')))
 
-#switch integer to double, this shouldn't affect the comparison
+#### switch integer to double
 TDAT_MODEDBL <- TDAT %>%
     mutate( INTEGER = as.double(INTEGER))
 
-##add extra columns
-
+#### add extra columns
 TDAT_EXTCOLS <- TDAT %>%
     mutate(
         ext = CATEGORICAL,
         ext2 = CATEGORICAL
     )
 
-##add extra rows
 
+#### add extra rows
 TDAT_EXTROWS <- bind_rows(TDAT, TDAT)
 
 
 ###################################
-##Tests
-
+#
+# Tests
+#
 
 test_that( "Check comparision of equal objects",{
     expect_false( rcompare(iris, iris)$Issues )
     expect_false( rcompare(TDAT, TDAT)$Issues )
     expect_false( rcompare(TDAT, TDAT, "ID")$Issues )
     expect_false( rcompare(TDAT, TDAT, c("GROUP1" , "GROUP2"))$Issues )
-    expect_false( rcompare(TDAT, TDAT_MODEDBL)$Issues )
     expect_false( rcompare(TDAT_CHARCHANGENA , TDAT_CHARCHANGENA )$Issues )
     expect_false( rcompare(TDAT_DATECHANGENA , TDAT_DATECHANGENA )$Issues )
     expect_false( rcompare(TDAT_LOGCHANGENA , TDAT_LOGCHANGENA )$Issues )
@@ -106,59 +89,26 @@ test_that( "Unequal objects raise warnings" , {
 
     msg <- "Not all values compared equal"
 
-    expect_warning(
-        rcompare(TDAT , TDAT_INTCHANGE),
-        msg
-    )
-
-    expect_warning(
-        rcompare(TDAT , TDAT_CHARCHANGE),
-        msg
-    )
-
-    expect_warning(
-        rcompare(TDAT , TDAT_DATECHANGE),
-        msg
-    )
-
-    expect_warning(
-        rcompare(TDAT , TDAT_LOGCHANGE),
-        msg
-    )
-
-    expect_warning(
-        rcompare(TDAT , TDAT_FACTVALCHANGE),
-        msg
-    )
-
-    expect_warning(
-        rcompare(TDAT , TDAT_CHARCHANGENA),
-        msg
-    )
-
-    expect_warning(
-        rcompare(TDAT , TDAT_DATECHANGENA),
-        msg
-    )
-
-    expect_warning(
-        rcompare(TDAT , TDAT_LOGCHANGENA),
-        msg
-    )
-
-    expect_warning(
-        rcompare(TDAT , TDAT_FACTVALCHANGENA),
-        msg
-    )
+    expect_warning( rcompare(TDAT , TDAT_INTCHANGE)       , msg )
+    expect_warning( rcompare(TDAT , TDAT_CHARCHANGE )     , msg )
+    expect_warning( rcompare(TDAT , TDAT_DATECHANGE )     , msg )
+    expect_warning( rcompare(TDAT , TDAT_LOGCHANGE )      , msg )
+    expect_warning( rcompare(TDAT , TDAT_FACTVALCHANGE )  , msg )
+    expect_warning( rcompare(TDAT , TDAT_CHARCHANGENA )   , msg )
+    expect_warning( rcompare(TDAT , TDAT_DATECHANGENA )   , msg )
+    expect_warning( rcompare(TDAT , TDAT_LOGCHANGENA )    , msg )
+    expect_warning( rcompare(TDAT , TDAT_FACTVALCHANGENA ), msg )
 })
 
-#checks for numeric differences
 
 numdiffcheck <-function(compdat, target, value){
 
-    rcompare_ob <-  rcompare(TDAT , compdat , suppress_warnings = T )$NumDiff
+    ### Only expected 1 variable to be different thus we expect 
+    ### the overall # of differences to equal the # of differences
+    ### in the target variable
+    rcompare_ob   <- rcompare(TDAT , compdat , suppress_warnings = T )$NumDiff
     rcompare_targ <- rcompare_ob[target] %>% as.numeric()
-    rcompare_all <- rcompare_ob %>% sum() %>% as.numeric()
+    rcompare_all  <- rcompare_ob %>% sum() %>% as.numeric()
 
     expect_false(
         rcompare_targ == 0,
@@ -188,6 +138,21 @@ test_that( "Differing modes error" , {
         'There are Columns in BASE and COMPARE with different modes'
     )
 })
+
+test_that( "Differing classes error" , {
+    expect_warning( 
+        rcompare(TDAT, TDAT_MODEDBL),
+        "There are Columns in BASE and COMPARE with different classes"
+    )
+    
+    expect_warning( 
+        rcompare(TDAT %>% select(CONTINUOUS ), TDAT %>% select(CONTINUOUS = INTEGER)),
+        "There are Columns in BASE and COMPARE with different classes"
+    )
+})
+
+
+context("Testing entire function")
 
 
 

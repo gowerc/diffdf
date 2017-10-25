@@ -12,64 +12,98 @@ has_unique_rows <- function(DAT , KEYS){
 }
 
 check_for_issues <- function(COMPARE , SUPWARN){
-    
-    ISSUES <- FALSE
+
+    ISSUES <- ""
     
     if( nrow(COMPARE[["ExtRowsBase"]]) ){
-        if(!SUPWARN) warning("There are Rows in BASE that are not in COMPARE" )
-        ISSUES <- TRUE
+        ISSUES <- paste0( 
+            ISSUES, 
+            "There are Rows in BASE that are not in COMPARE !!\n" 
+        )
     }
     
     if( nrow(COMPARE[["ExtRowsComp"]]) ){
-        if(!SUPWARN) warning("There are Rows in COMPARE that are not in BASE" )
-        ISSUES <- TRUE
+        ISSUES <- paste0( 
+            ISSUES, 
+            "There are Rows in COMPARE that are not in BASE !!\n" 
+        )
     }
     
     if ( nrow(COMPARE[["ExtColsBase"]])){
-        if(!SUPWARN) warning("There are Columns in BASE that are not in COMPARE" )
-        ISSUES <- TRUE
+        ISSUES <- paste0( 
+            ISSUES, 
+            "There are Columns in BASE that are not in COMPARE !!\n" 
+        )
     }
     
     if ( nrow(COMPARE[["ExtColsComp"]])){
-        if(!SUPWARN) warning("There are Columns in COMPARE that are not in BASE" )
-        ISSUES <- TRUE
+        ISSUES <- paste0( 
+            ISSUES, 
+            "There are Columns in COMPARE that are not in BASE !!\n" 
+        )
     }
     
-    if ( ncol(COMPARE[["IllegalColsBase"]])){
-        if(!SUPWARN) warning("There are Columns in BASE with unsupported modes" )
-        ISSUES <- TRUE
+    if ( COMPARE[["UnsupportedColsBase"]] %>%  nrow ){
+        ISSUES <- paste0( 
+            ISSUES, 
+            "There are Columns in BASE with unsupported modes !!\n" 
+        )
     }
     
-    if ( ncol(COMPARE[["IllegalColsCompare"]])){
-        if(!SUPWARN) warning("There are Columns in COMPARE with unsupported modes" )
-        ISSUES <- TRUE
+    if ( COMPARE[["UnsupportedColsComp"]] %>%  nrow ){
+        ISSUES <- paste0( 
+            ISSUES, 
+            "There are Columns in COMPARE with unsupported modes !!\n" 
+        )
     }
     
     if ( nrow(COMPARE[["VarModeDiffs"]])){
-        if(!SUPWARN) warning("There are Columns in BASE and COMPARE with different modes" )
-        ISSUES <- TRUE
+        ISSUES <- paste0( 
+            ISSUES, 
+            "There are Columns in BASE and COMPARE with different modes !!\n" 
+        )
+    }
+    
+    if ( nrow(COMPARE[["VarClassDiffs"]])){
+        ISSUES <- paste0( 
+            ISSUES, 
+            "There are Columns in BASE and COMPARE with different classes !!\n" 
+        )
     }
     
     if ( nrow(COMPARE[["FactorlevelDiffs"]])){
-        if(!SUPWARN) warning("There are Factor Columns in BASE and COMPARE with different levels" )
-        ISSUES <- TRUE
+        ISSUES <- paste0( 
+            ISSUES, 
+            "There are Factor Columns in BASE and COMPARE with different levels !!\n" 
+        )
     }
     
     if ( nrow(COMPARE[["LabelDiffs"]])){
-        if(!SUPWARN) warning("There are Columns in BASE and COMPARE with different labels" )
-        ISSUES <- TRUE
+        ISSUES <- paste0( 
+            ISSUES, 
+            "There are Columns in BASE and COMPARE with different labels !!\n" 
+        )
     }
     
     if ( nrow(COMPARE[["AttribDiffs"]])){
-        if(!SUPWARN) warning("There are columns in BASE and COMPARE with differing attributes" )
-        ISSUES <- TRUE
+        ISSUES <- paste0( 
+            ISSUES, 
+            "There are columns in BASE and COMPARE with differing attributes !!\n" 
+        )
     }
     
     if( sum(COMPARE[["NumDiff"]])){
-        if(!SUPWARN) warning("Not all values compared equal")
-        ISSUES <- TRUE
+        ISSUES <- paste0( 
+            ISSUES, 
+            "Not all values compared equal\n"
+        )
     }
     
-    return(ISSUES)
+    if( str_length(ISSUES) != 0 ){
+        if(!SUPWARN) warning( c("\n" , ISSUES))
+        return(TRUE)
+    } else {
+        return(FALSE)
+    }
 }
 

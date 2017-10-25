@@ -23,5 +23,5 @@ Emulates proc compare from SAS
 Compares 2 data frames and outputs any differences.
 }
 \examples{
-## compare( AAE , QC_AAE , c("USUBJID" , "AESEQ"))
+## rcompare( AAE , QC_AAE , c("USUBJID" , "AESEQ"))
 }
