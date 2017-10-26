@@ -8,7 +8,7 @@
 #' @importFrom  utils capture.output
 #' @param ... Any arguments to give to stargazer
 mod_stargazer <- function(...){
-  capture.output(stargazer(...))
+    capture.output(stargazer(...))
 }
 
 
@@ -20,22 +20,22 @@ mod_stargazer <- function(...){
 #' Reduce down to a 20 char string with ...
 #' @param inval a single element value
 valuefixer <- function(inval){
-  
-  inval <- as.character(inval)
-  charlength <- stringr::str_length(inval)
-  
-  if (charlength > 20){
     
-    outval <- substr(inval, 1, 20)
-    outval <- paste0(outval, '...')
+    inval <- as.character(inval)
+    charlength <- stringr::str_length(inval)
     
-  } else {
+    if (charlength > 20){
+        
+        outval <- substr(inval, 1, 20)
+        outval <- paste0(outval, '...')
+        
+    } else {
+        
+        outval <- inval
+        
+    }
     
-    outval <- inval
-    
-  }
-  
-  outval
+    outval
 }
 
 
@@ -51,50 +51,50 @@ valuefixer <- function(inval){
 #' @param att_expand T/F whether we should use the trunc_mat argument
 #' @param row_limit This is the cut off point. Set at 20, but could be adjusted
 make_pasteobject <- function(
-  dataframe_in,
-  message,
-  att_expand,
-  row_limit = 20
+    dataframe_in,
+    message,
+    att_expand,
+    row_limit = 20
 ){
-  
-  if (nrow(dataframe_in) > row_limit){
     
-    display_table <- dataframe_in %>% 
-      filter(row_number() < (row_limit + 1))
+    if (nrow(dataframe_in) > row_limit){
+        
+        display_table <- dataframe_in %>% 
+            filter(row_number() < (row_limit + 1))
+        
+        add_message <- paste0(
+            '  (First ',
+            row_limit,
+            ' rows are shown in table below)'
+        )
+        
+    } else {
+        display_table <- dataframe_in
+        add_message <- '  (All rows are shown in table below)'
+    }
     
-    add_message <- paste0(
-      '  (First ',
-      row_limit,
-      ' rows are shown in table below)'
+    if (att_expand){
+        display_table <- trunc_mat(display_table)$table
+    } else {
+        display_table[]  <- apply(display_table, c(1, 2), valuefixer)
+    }
+    
+    #paste together the message, the additional message, the table
+    #and an extra final line
+    
+    paste(
+        c(
+            message,
+            add_message,
+            mod_stargazer(
+                display_table,
+                type = 'text',
+                summary = FALSE
+            ),
+            '\n'
+        ),
+        collapse = '\n'
     )
-    
-  } else {
-    display_table <- dataframe_in
-    add_message <- '  (All rows are shown in table below)'
-  }
-  
-  if (att_expand){
-    display_table <- trunc_mat(display_table)$table
-  } else {
-    display_table[]  <- apply(display_table, c(1, 2), valuefixer)
-  }
-  
-  #paste together the message, the additional message, the table
-  #and an extra final line
-  
-  paste(
-    c(
-      message,
-      add_message,
-      mod_stargazer(
-        display_table,
-        type = 'text',
-        summary = FALSE
-      ),
-      '\n'
-    ),
-    collapse = '\n'
-  )
 }
 
 #' attribute_breakdown
@@ -107,19 +107,19 @@ make_pasteobject <- function(
 #' @param datin The data frame being reshaped
 #' @param ... Additional arguments to pass through
 attribute_breakdown <- function(attkeep, attdrop, datin, ...){
-  
-  compare_ob <- datin %>% 
-    select(-starts_with(attdrop)) %>% 
-    filter_(paste0(attkeep," != 'NULL'"))
-  
-  if (nrow(compare_ob)>0){
-    compare_ob <- compare_ob %>% tidyr::unnest_(attkeep) %>% 
-      make_pasteobject('A breakdown of Base attributes', FALSE, ...)
     
-  } else {
-    compare_ob <- NULL
-  }
-  compare_ob
+    compare_ob <- datin %>% 
+        select(-starts_with(attdrop)) %>% 
+        filter_(paste0(attkeep," != 'NULL'"))
+    
+    if (nrow(compare_ob)>0){
+        compare_ob <- compare_ob %>% tidyr::unnest_(attkeep) %>% 
+            make_pasteobject('A breakdown of Base attributes', FALSE, ...)
+        
+    } else {
+        compare_ob <- NULL
+    }
+    compare_ob
 }
 
 
@@ -137,76 +137,76 @@ attribute_breakdown <- function(attkeep, attdrop, datin, ...){
 #' 
 #' 
 make_textout <- function(datin, ...){
-  UseMethod('make_textout')
+    UseMethod('make_textout')
 }
 #'@export
 make_textout.rcompare_basic <- function(datin, ...){
-  
-  
-  if(  attr(datin, 'checkfun')(datin) ){
     
-    out <- make_pasteobject(
-      datin,
-      attr(datin, 'message'),
-      att_expand = FALSE, ...)
-    out
-  }else{
-    NULL
-  }
+    
+    if(  attr(datin, 'checkfun')(datin) ){
+        
+        out <- make_pasteobject(
+            datin,
+            attr(datin, 'message'),
+            att_expand = FALSE, ...)
+        out
+    }else{
+        NULL
+    }
 }
 #'@export
 make_textout.rcompare_attrib <- function(datin, ...){
-  
-  
-  if(  attr(datin, 'checkfun')(datin)  ){
     
-    out <- make_pasteobject(
-      datin,
-      attr(datin, 'message'),
-      att_expand = TRUE, ...)
     
-    base_compare <- attribute_breakdown( 'VALUES.BASE', 'VALUES.COMP', datin, ...) 
-    comp_compare <- attribute_breakdown('VALUES.COMP', 'VALUES.BASE', datin, ...) 
-    
-    out <- paste(out, base_compare, comp_compare, collapse ='\n')
-    out
-  }else{
-    NULL
-  }
+    if(  attr(datin, 'checkfun')(datin)  ){
+        
+        out <- make_pasteobject(
+            datin,
+            attr(datin, 'message'),
+            att_expand = TRUE, ...)
+        
+        base_compare <- attribute_breakdown( 'VALUES.BASE', 'VALUES.COMP', datin, ...) 
+        comp_compare <- attribute_breakdown('VALUES.COMP', 'VALUES.BASE', datin, ...) 
+        
+        out <- paste(out, base_compare, comp_compare, collapse ='\n')
+        out
+    }else{
+        NULL
+    }
 }
 #'@export  
 make_textout.rcompare_vector <-  function(datin, ...){
-  
-  
-  if(  attr(datin, 'checkfun')(datin) ){  
     
-    datin_tibble <- datin %>% 
-      as.data.frame() %>% 
-      rownames_to_column()
     
-    names(datin_tibble) <- c('Variable', 'No of Differences')
-    
-    datin_tibble <- datin_tibble %>% 
-      filter(`No of Differences` > 0)
-    
-    make_pasteobject(
-      datin_tibble,
-      attr(datin,'message'),
-      att_expand = FALSE, ...
-    )
-  }else{
-    NULL
-  }
+    if(  attr(datin, 'checkfun')(datin) ){  
+        
+        datin_tibble <- datin %>% 
+            as.data.frame() %>% 
+            rownames_to_column()
+        
+        names(datin_tibble) <- c('Variable', 'No of Differences')
+        
+        datin_tibble <- datin_tibble %>% 
+            filter(`No of Differences` > 0)
+        
+        make_pasteobject(
+            datin_tibble,
+            attr(datin,'message'),
+            att_expand = FALSE, ...
+        )
+    }else{
+        NULL
+    }
 }
 #'@export
 make_textout.rcompare_list   <-  function(datin){
-  if( attr(datin, 'checkfun')(datin) ){  
-    nonempty_list <- nonempty_list(datin)
-    map(nonempty_list, make_textout)
-  }
-  else{
-    NULL
-  }
+    if( attr(datin, 'checkfun')(datin) ){  
+        nonempty_list <- nonempty_list(datin)
+        map(nonempty_list, make_textout)
+    }
+    else{
+        NULL
+    }
 }
 
 
@@ -221,32 +221,32 @@ make_textout.rcompare_list   <-  function(datin){
 #'@param outfile location to save file
 #'@param COMPARE the compare object
 produce_file <- function(outfile, COMPARE){
-  if(!COMPARE[["Issues"]]){
-    
-    outtext <- 'Objects are identical'
-    
-  } else {
-    COMPARE$Issues <- NULL
-    
-    start_text <- paste0(
-      'Differences found between the objects!\n\n',
-      'A summary is given below.\n\n',
-      'Please use print() to examine in more, ',
-      'detail where necessary.\n\n'
-    )
-    
-    #Start by looking at simple comparisons
-    #extra columns/rows and illegal columns
-    #We make a set of 7 arguments to pass to pastefun, defined above
-    
-    getorder <- map_dbl(COMPARE, attr, 'order')
-    COMPARE <- COMPARE[getorder]
-    
-    end_text <- map(COMPARE, make_textout) %>% 
-      unlist() %>% 
-      paste(collapse = '')
-    outtext <- paste0(start_text, end_text)
-    
-  }
-  write(outtext, file = outfile)
+    if(!COMPARE[["Issues"]]){
+        
+        outtext <- 'Objects are identical'
+        
+    } else {
+        COMPARE$Issues <- NULL
+        
+        start_text <- paste0(
+            'Differences found between the objects!\n\n',
+            'A summary is given below.\n\n',
+            'Please use print() to examine in more, ',
+            'detail where necessary.\n\n'
+        )
+        
+        #Start by looking at simple comparisons
+        #extra columns/rows and illegal columns
+        #We make a set of 7 arguments to pass to pastefun, defined above
+        
+        getorder <- map_dbl(COMPARE, attr, 'order')
+        COMPARE <- COMPARE[getorder]
+        
+        end_text <- map(COMPARE, make_textout) %>% 
+            unlist() %>% 
+            paste(collapse = '')
+        outtext <- paste0(start_text, end_text)
+        
+    }
+    write(outtext, file = outfile)
 }
