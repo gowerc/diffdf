@@ -135,166 +135,118 @@ attribute_breakdown <- function(attkeep, attdrop, datin){
 #' @param datin the data frame being tabulated
 #' @param att_expand false by default, whether we should have additional attribute breakdown
 #' 
-make_textout <- function(fcompare, message, datin, att_expand = FALSE){
+#' 
+#' 
+make_textout <- function(datin){
+  UseMethod('make_textout')
+}
+make_textout.rcompare_basic <- function(datin){
   
-  fcompare <- get(fcompare)
-  
-  if( fcompare (datin) ){
+
+  if(  attr(datin, 'checkfun')(datin) ){
     
     out <- make_pasteobject(
       datin,
-      message,
-      att_expand
-    )
+      attr(datin, 'message'),
+      att_expand = FALSE)
+    out
+    }else{
+      NULL
+    }
+  }
+make_textout.rcompare_attrib <- function(datin){
     
-    if(att_expand){
+  
+    if(  attr(datin, 'checkfun')(datin)  ){
+      
+      out <- make_pasteobject(
+        datin,
+        attr(datin, 'message'),
+        att_expand = TRUE)
+      
       base_compare <- attribute_breakdown( 'VALUES.BASE', 'VALUES.COMP', datin) 
       comp_compare <- attribute_breakdown('VALUES.COMP', 'VALUES.BASE', datin) 
+      
       out <- paste(out, base_compare, comp_compare, collapse ='\n')
+      out
+      }else{
+        NULL
+      }
     }
-    out
     
+make_textout.rcompare_vector <-  function(datin){
+  
+ 
+  if(  attr(datin, 'checkfun')(datin) ){  
+    
+    datin_tibble <- datin %>% 
+      as.data.frame() %>% 
+      rownames_to_column()
+    
+    names(datin_tibble) <- c('Variable', 'No of Differences')
+    
+    datin_tibble <- datin_tibble %>% 
+      filter(`No of Differences` > 0)
+    
+   make_pasteobject(
+      datin_tibble,
+      attr(datin,'message'),
+      att_expand = FALSE
+    )
   }else{
     NULL
   }
-  
 }
 
-#'Produce_file
-#'
-#'Outputs a text file based on the compare object
-#'@importFrom purrr pmap
-#'@import dplyr
-#'@importFrom tibble rownames_to_column
-#'@param outfile location to save file
-#'@param COMPARE the compare object
-produce_file <- function(outfile, COMPARE){
-  
-  if(!check_for_issues(COMPARE, TRUE)){
-    
-    outtext <- 'Objects are identical'
-    
-  } else {
-    
-    start_text <- paste0(
-      'Differences found between the objects!\n\n',
-      'A summary is given below.\n\n',
-      'Please use print() to examine in more,',
-      'detail where necessary.\n\n'
-    )
-    
-    #Start by looking at simple comparisons
-    #extra columns/rows and illegal columns
-    #We make a set of 7 arguments to pass to pastefun, defined above
-    
-    argcol <- 'nrow'
-    
-    messages <- c(
-      'Extra Rows found in Base','Extra Rows found in Compare',
-      'Extra Columns found in Base', 'Extra Columns found in Compare',
-      'There are Columns in Base with unsupported modes',
-      'There are Columns in Compare with unsupported modes',
-      'There are Columns in Base and Compare with different modes',
-      'There are Columns in Base and Compare with different classes'
-    )
-    
-    datin <- COMPARE[c(
-      "ExtRowsBase", 
-      "ExtRowsComp", 
-      "ExtColsBase",
-      "ExtColsComp", 
-      "UnsupportedColsBase", 
-      "UnsupportedColsComp",
-      "VarModeDiffs",
-      "VarClassDiffs"
-    )]
-    
-    row_columns_text <- pmap( list(argcol, messages, datin), make_textout ) %>% 
-      unlist() %>% 
-      paste(collapse = '\n')
-    
-    
-    #Now look at attributes. These needs to be handled slightly
-    #differently, hence the extra argument
-    argcol <- rep('nrow', 3)
-    
-    messages <- c(
-      "There are Factor Columns in BASE and COMPARE with different levels",
-      "There are Columns in BASE and COMPARE with different labels",
-      "There are columns in BASE and COMPARE with differing attributes"
-    )
-    
-    datin <- COMPARE[c(
-      "FactorlevelDiffs", 
-      "LabelDiffs", 
-      "AttribDiffs"
-    )]
-    
-    attrib_text <- pmap(  list(argcol, messages, datin ), make_textout, att_expand = TRUE) %>% 
-      unlist() %>% 
-      paste(collapse = '\n')
-    
-    
-    #Finally we deal with the actual differences!
-    if( sum(COMPARE[["NumDiff"]])){  
-      
-      numdiff_tibble <- COMPARE[["NumDiff"]] %>% 
-        as.data.frame() %>% 
-        rownames_to_column()
-      
-      names(numdiff_tibble) <- c('Variable', 'No of Differences')
-      
-      numdiff_tibble <- numdiff_tibble %>% 
-        filter(`No of Differences` > 0)
-      
-      numdiff_text <- make_pasteobject(
-        numdiff_tibble,
-        paste0(
-          'These columns in BASE/COMPARE ',
-          'had the following number of ',
-          'differences'
-        ),
-        att_expand = FALSE
-      )   
-      
-      diffbreakdown_text <- 'The Variables with differences are tabulated below'
-      
-      nonempty_compare <- COMPARE[["VarDiffs"]]
-      
-      noenmpty_compare <- nonempty_compare[map(nonempty_compare, nrow)>0]
-      
-      pmap_arg <- list(
-        noenmpty_compare,
-        paste0(
-          'Variable = ',
-          names(noenmpty_compare)
-        )
-      )
-      
-      all_diffs_text <- pmap( pmap_arg , make_pasteobject, att_expand = FALSE ) %>% 
-        unlist() %>% 
-        paste(collapse = '\n')
-      
-      breakdownfull_text <- paste(
-        c(
-          numdiff_text,
-          diffbreakdown_text,
-          all_diffs_text
-        ),
-        collapse = '\n\n'
-      )
-    }
-    
-    outtext <- paste(
-      c(
-        start_text,
-        row_columns_text,
-        attrib_text,
-        breakdownfull_text
-      ),
-      collapse = '\n'
-    )
-    
+make_textout.rcompare_list   <-  function(datin){
+  if( attr(datin, 'checkfun')(datin) ){  
+    nonempty_list <- nonempty_list(datin)
+    map(nonempty_list, make_textout)
   }
-  write(outtext, file = outfile)
+  else{
+    NULL
+  }
 }
+    
+
+  
+  
+  #'Produce_file
+  #'
+  #'Outputs a text file based on the compare object
+  #'@importFrom purrr pmap
+  #'@import dplyr
+  #'@importFrom tibble rownames_to_column
+  #'@param outfile location to save file
+  #'@param COMPARE the compare object
+  produce_file <- function(outfile, COMPARE){
+    if(!COMPARE[["Issues"]]){
+      
+      outtext <- 'Objects are identical'
+      
+    } else {
+      COMPARE$Issues <- NULL
+      
+      start_text <- paste0(
+        'Differences found between the objects!\n\n',
+        'A summary is given below.\n\n',
+        'Please use print() to examine in more, ',
+        'detail where necessary.\n\n'
+      )
+      
+      #Start by looking at simple comparisons
+      #extra columns/rows and illegal columns
+      #We make a set of 7 arguments to pass to pastefun, defined above
+      
+      getorder <- map_dbl(COMPARE, attr, 'order')
+      COMPARE <- COMPARE[getorder]
+      
+      end_text <- map(COMPARE, make_textout) %>% 
+        unlist() %>% 
+        paste(collapse = '')
+    outtext <- paste0(start_text, end_text)
+      
+    }
+    write(outtext, file = outfile)
+  }
+  
