@@ -62,7 +62,7 @@ rcompare <- function (base , compare , keys = NULL, suppress_warnings = F, outfi
                 nrow, 1)
     COMPARE[["UnsupportedColsComp"]] <- identify_unsupported_cols(COMP) %>% 
       class_adder('rcompare_basic',
-                  "There are columns in COMP with unsupported modes !!\n",
+                  "There are columns in COMPARE with unsupported modes !!\n",
                   nrow, 2)
   
   
@@ -177,7 +177,7 @@ rcompare <- function (base , compare , keys = NULL, suppress_warnings = F, outfi
     KEYS = KEYS
   ) %>% 
     class_adder('rcompare_basic',
-                "There are rows in COMP that are not in BASE !!\n",
+                "There are rows in COMPARE that are not in BASE !!\n",
                 nrow, 9)
   
   COMPARE[["ExtColsBase"]] <- identify_extra_cols(
@@ -193,7 +193,7 @@ rcompare <- function (base , compare , keys = NULL, suppress_warnings = F, outfi
     DS2 = BASE
   )%>% 
     class_adder('rcompare_basic',
-                "There are columns in COMP that are not in BASE !!\n",
+                "There are columns in COMPARE that are not in BASE !!\n",
                 nrow, 11)
   
   COMPARE[["VarDiffs"]] <- identify_differences(
@@ -203,7 +203,7 @@ rcompare <- function (base , compare , keys = NULL, suppress_warnings = F, outfi
     exclude_cols = exclude_cols
   )%>% 
     class_adder('rcompare_list',
-                "The following columns are different between BASE and COMP\n",
+                "The following columns are different between BASE and COMPARE\n",
                 checklength, 13 )
   
   
