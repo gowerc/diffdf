@@ -188,7 +188,7 @@ identify_properties <- function(dsin){
         CLASS     = map(dsin, class),
         MODE      = map_chr(dsin , mode),
         TYPE      = map_chr(dsin , typeof) ,
-        ATTRIBS   = map( dsin , attributes),
+        ATTRIBS   = lapply( dsin , attributes),
         VALUES    = map( dsin , unlist )
     )
 }
