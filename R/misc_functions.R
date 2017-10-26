@@ -28,5 +28,3 @@ nonempty_list <- function(in_list){
 checklength <- function(in_list){
   length(nonempty_list(in_list))
 }
-
-get_attrib <- function()

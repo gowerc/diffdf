@@ -4,7 +4,7 @@
 \alias{attribute_breakdown}
 \title{attribute_breakdown}
 \usage{
-attribute_breakdown(attkeep, attdrop, datin)
+attribute_breakdown(attkeep, attdrop, datin, ...)
 }
 \arguments{
 \item{attkeep}{att we're going to keep. Should be a char vector, either BASEatt or COMPatt}
@@ -12,6 +12,8 @@ attribute_breakdown(attkeep, attdrop, datin)
 \item{attdrop}{att we're going to drop. Should be a char vector, either BASEatt or COMPatt}
 
 \item{datin}{The data frame being reshaped}
+
+\item{...}{Additional arguments to pass through}
 }
 \description{
 Split up an attribute data frame to just get base or compare

@@ -4,16 +4,12 @@
 \alias{make_textout}
 \title{make_text out}
 \usage{
-make_textout(fcompare, message, datin, att_expand = FALSE)
+make_textout(datin, ...)
 }
 \arguments{
-\item{fcompare}{The function used to check whether to display the item or not}
-
-\item{message}{The message displayed above the column}
-
 \item{datin}{the data frame being tabulated}
 
-\item{att_expand}{false by default, whether we should have additional attribute breakdown}
+\item{...}{additional arguments to pass through}
 }
 \description{
 Performs check as to whether the comparison is empty or not

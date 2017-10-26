@@ -146,14 +146,14 @@ identify_differences <- function( BASE , COMP , KEYS, exclude_cols ) {
     DAT = inner_join( BASE , COMP , by = KEYS , suffix = c(".x", ".y") )
   ) %>%
     set_names(matching_cols)
-   outdat<- pmap(list(outdat,
-                      'rcompare_basic',
-                      paste0(matching_cols,
-                             ' Has the following differences between base on compare'),
-                      list(nrow),
-                      seq(1, length(outdat))),
-                 class_adder)
-   outdat
+  outdat<- pmap(list(outdat,
+                     'rcompare_basic',
+                     paste0(matching_cols,
+                            ' Has the following differences between base and compare'),
+                     list(nrow),
+                     seq(1, length(outdat))),
+                class_adder)
+  outdat
 }
 # identify_differences( TDAT, TDAT2, KEYS = "ID")
 # identify_differences( TDAT, TDAT, KEYS = "ID")
