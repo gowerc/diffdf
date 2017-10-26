@@ -8,7 +8,7 @@
 #' @param suppress_warnings Do you want to suppress warnings? (logical)
 #' @param outfile Location and name of outputted file. Leave as NULL to not output a file
 #' @import dplyr
-#' @import testthat
+#' @import stringr
 #' @importFrom purrr set_names
 #' @importFrom purrr map
 #' @importFrom purrr map2
@@ -25,8 +25,11 @@
 #' @importFrom purrr map_lgl
 #' @importFrom purrr map2_lgl
 #' @importFrom purrr pmap_lgl
+#' @importFrom purrr walk
+#' @importFrom purrr walk2
+#' @importFrom purrr pwalk
 #' @examples
-#' ## compare( AAE , QC_AAE , c("USUBJID" , "AESEQ"))
+#' ## rcompare( AAE , QC_AAE , c("USUBJID" , "AESEQ"))
 #' @export
 rcompare <- function (base , compare , keys = NULL, suppress_warnings = F, outfile = NULL){
 
@@ -34,6 +37,10 @@ rcompare <- function (base , compare , keys = NULL, suppress_warnings = F, outfi
     COMP = compare
     KEYS = keys
     SUPWARN = suppress_warnings
+    
+    ### Initatiate output object
+    COMPARE <- list()
+    class(COMPARE) <- "rcompare"
     
     
     ### If no key is suplied match values based upon row number
@@ -44,6 +51,84 @@ rcompare <- function (base , compare , keys = NULL, suppress_warnings = F, outfi
     }
     
     
+    #################
+    #
+    # Check essential variable properties (class & mode)
+    # 
+    
+    COMPARE[["UnsupportedColsBase"]] <- identify_unsupported_cols(BASE)
+    COMPARE[["UnsupportedColsComp"]] <- identify_unsupported_cols(COMP)
+    
+
+    COMPARE[["VarModeDiffs"]] <- identify_mode_differences(
+        BASE = BASE, 
+        COMP = COMP 
+    )
+    
+    COMPARE[["VarClassDiffs"]] <- identify_class_differences(
+        BASE = BASE, 
+        COMP = COMP
+    )
+
+    exclude_cols <- c(
+        COMPARE[["UnsupportedColsBase"]]$VARIABLE , 
+        COMPARE[["UnsupportedColsComp"]]$VARIABLE,
+        COMPARE[["VarClassDiffs"]]$VARIABLE,
+        COMPARE[["VarModeDiffs"]]$VARIABLE
+    )
+    
+    #################
+    #
+    # Check Validity of Keys
+    # 
+    
+    
+    
+    BASE_key_count <- identify_properties(BASE) %>% 
+        filter( VARIABLE %in% KEYS) %>% 
+        nrow
+    
+    COMP_key_count <- identify_properties(COMP) %>% 
+        filter( VARIABLE %in% KEYS) %>% 
+        nrow
+    
+    if ( BASE_key_count != length(KEYS)  ){
+        stop( "BASE is missing variables specified in KEYS")
+    }
+    
+    if ( COMP_key_count != length(KEYS) ){
+        stop( "COMP is missing variables specified in KEYS")
+    }
+    
+    if( any(KEYS %in% exclude_cols)){
+        stop("KEYS are either an invalid or contain different modes between BASE and COMP")
+    }
+
+    #################
+    #
+    # Check Attributes
+    # 
+    
+    COMPARE[["AttribDiffs"]] <- identify_att_differences(
+        BASE = BASE, 
+        COMP = COMP , 
+        exclude_cols = exclude_cols
+    )
+    
+    COMPARE[["FactorlevelDiffs"]] <- COMPARE[["AttribDiffs"]] %>% 
+        filter(ATTR_NAME == 'levels') %>% 
+        select(-ATTR_NAME)
+    
+    
+    COMPARE[["LabelDiffs"]] <- COMPARE[["AttribDiffs"]] %>% 
+        filter(ATTR_NAME == 'labels') %>% 
+        select(-ATTR_NAME)
+    
+    #################
+    #
+    # Check data
+    # 
+    
     #  Check the provided by groups define unique rows
     if ( !has_unique_rows(BASE , KEYS) ){
         stop( "BY variables in BASE do not result in unique observations")
@@ -53,15 +138,15 @@ rcompare <- function (base , compare , keys = NULL, suppress_warnings = F, outfi
         stop( "BY variables in COMPARE do not result in unique observations")
     }
     
-    ### Initatiate output object
-    COMPARE <- list()
-    class(COMPARE) <- "rcompare"
+    BASE <- fix_factor_vars(BASE , KEYS)
+    COMP <- fix_factor_vars(COMP , KEYS)
     
     COMPARE[["ExtRowsBase"]] <- identify_extra_rows(
         DS1 = BASE, 
         DS2 = COMP, 
         KEYS = KEYS
     )
+    
     COMPARE[["ExtRowsComp"]] <- identify_extra_rows(
         DS1 = COMP, 
         DS2 = BASE, 
@@ -72,52 +157,11 @@ rcompare <- function (base , compare , keys = NULL, suppress_warnings = F, outfi
         DS1 = BASE, 
         DS2 = COMP
     )
+    
     COMPARE[["ExtColsComp"]] <- identify_extra_cols(
         DS1 = COMP, 
         DS2 = BASE
     )
-    
-    COMPARE[["IllegalColsBase"]]    <- identify_ilegal_cols(BASE)
-    COMPARE[["IllegalColsCompare"]] <- identify_ilegal_cols(COMP)
-    
-    #running list of columns to exclude from following checks
-    
-    exclude_cols <- c(
-        COMPARE[["IllegalColsBase"]] %>% names(), 
-        COMPARE[["IllegalColsCompare"]] %>% names()
-    )
-    
-    COMPARE[["VarModeDiffs"]] <- identify_mode_differences(
-        BASE = BASE, 
-        COMP = COMP , 
-        KEYS = KEYS, 
-        exclude_cols = exclude_cols
-    )
-    
-    
-    if ( COMPARE[["VarModeDiffs"]] %>%  nrow ){
-        exclude_cols <- c(
-            exclude_cols, 
-            COMPARE[["VarModeDiffs"]]$VARIABLE
-        )
-    }
-    
-    COMPARE[["AttribDiffs"]] <- identify_att_differences(
-        BASE = BASE, 
-        COMP = COMP , 
-        KEYS = KEYS, 
-        exclude_cols = exclude_cols
-    )
-    
-    COMPARE[["FactorlevelDiffs"]] <-COMPARE[["AttribDiffs"]] %>% 
-      filter(attr_name == 'levels') %>% 
-      select(-attr_name)
-    
-    
-    COMPARE[["LabelDiffs"]] <-COMPARE[["AttribDiffs"]] %>% 
-      filter(attr_name == 'labels') %>% 
-      select(-attr_name)
-    
     
     COMPARE[["VarDiffs"]] <- identify_differences(
         BASE = BASE, 
@@ -128,13 +172,16 @@ rcompare <- function (base , compare , keys = NULL, suppress_warnings = F, outfi
     
     
     ### Summarise the number of mismatching rows per variable
-    COMPARE[["NumDiff"]] <- sapply( COMPARE[["VarDiffs"]] , nrow)
+    if ( length(COMPARE[["VarDiffs"]]) ){
+        COMPARE[["NumDiff"]] <- sapply( COMPARE[["VarDiffs"]] , nrow )
+    } else {
+        COMPARE[["NumDiff"]] <- 0
+    }
     
     COMPARE[["Issues"]] <- check_for_issues( COMPARE, SUPWARN)
     
-    if (!is.null(outfile))
-    {
-      produce_file(outfile, COMPARE)
+    if (!is.null(outfile)){
+        produce_file(outfile, COMPARE)
     }
     
     return(COMPARE)
@@ -142,7 +189,10 @@ rcompare <- function (base , compare , keys = NULL, suppress_warnings = F, outfi
 
 
 
-#### Example of use
+
+
+
+##### Example of use
 # DF1 <- data.frame(
 #     id = c(1,2,3,4,5,6),
 #     v1 = letters[1:6],

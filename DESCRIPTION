@@ -10,14 +10,15 @@ Description: This package provides functions for comparing dataframes similar to
 License: GPL
 Encoding: UTF-8
 LazyData: true
-Imports: dplyr, 
+Imports: 
+    dplyr, 
     purrr, 
-    lubridate, 
     tibble,
-    testthat,
     stringr,
     stargazer,
     tidyr,
-    utils,
-    tibble
+    utils
+Suggests:
+    testthat,
+    lubridate
 RoxygenNote: 6.0.1
