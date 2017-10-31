@@ -57,30 +57,47 @@ rcompare <- function (base , compare , keys = NULL, suppress_warnings = F, outfi
     # 
     
     COMPARE[["UnsupportedColsBase"]] <- identify_unsupported_cols(BASE) %>% 
-        class_adder('rcompare_basic',
-                    "There are columns in BASE with unsupported modes !!\n",
-                    nrow, 1)
+        class_adder(
+            new_class = 'rcompare_basic',
+            message   = "There are columns in BASE with unsupported modes !!\n",
+            checkfun  = nrow, 
+            order     = 1
+        )
+
+    
     COMPARE[["UnsupportedColsComp"]] <- identify_unsupported_cols(COMP) %>% 
-        class_adder('rcompare_basic',
-                    "There are columns in COMPARE with unsupported modes !!\n",
-                    nrow, 2)
+        class_adder(
+            new_class = 'rcompare_basic',
+            message   = "There are columns in COMPARE with unsupported modes !!\n",
+            checkfun  = nrow, 
+            order     = 2
+        )
+
     
     
     COMPARE[["VarModeDiffs"]] <- identify_mode_differences(
         BASE = BASE, 
         COMP = COMP 
     ) %>% 
-        class_adder('rcompare_basic',
-                    "There are columns in BASE and COMPARE with different modes !!\n\n",
-                    nrow, 3)
+        class_adder(
+            new_class = 'rcompare_basic',
+            message   = "There are columns in BASE and COMPARE with different modes !!\n\n",
+            checkfun  = nrow, 
+            order     = 3
+        )
+
     
     COMPARE[["VarClassDiffs"]] <- identify_class_differences(
         BASE = BASE, 
         COMP = COMP
     ) %>% 
-        class_adder('rcompare_basic',
-                    "There are columns in BASE and COMPARE with different classes !!\n\n",
-                    nrow, 4)
+        class_adder(
+            new_class = 'rcompare_basic',
+            message   = "There are columns in BASE and COMPARE with different classes !!\n\n",
+            checkfun  = nrow, 
+            order     = 4
+        )
+
     
     exclude_cols <- c(
         COMPARE[["UnsupportedColsBase"]]$VARIABLE , 
@@ -126,24 +143,36 @@ rcompare <- function (base , compare , keys = NULL, suppress_warnings = F, outfi
         COMP = COMP , 
         exclude_cols = exclude_cols
     ) %>% 
-        class_adder('rcompare_attrib',
-                    "There are columns in BASE and COMPARE with differing attributes !!\n",
-                    nrow, 5)
+        class_adder(
+            new_class = 'rcompare_attrib',
+            message   = "There are columns in BASE and COMPARE with differing attributes !!\n",
+            checkfun  = nrow, 
+            order     = 5
+        )
+
     
     COMPARE[["FactorlevelDiffs"]] <- COMPARE[["AttribDiffs"]] %>% 
         filter(ATTR_NAME == 'levels') %>% 
         select(-ATTR_NAME) %>% 
-        class_adder('rcompare_attrib',
-                    "There are columns in BASE and COMPARE with differing levels !!\n",
-                    nrow, 6)
+        class_adder(
+            new_class = 'rcompare_attrib',
+            message   = "There are columns in BASE and COMPARE with differing levels !!\n",
+            checkfun  = nrow, 
+            order     = 6
+        )
+
     
     
     COMPARE[["LabelDiffs"]] <- COMPARE[["AttribDiffs"]] %>% 
         filter(ATTR_NAME == 'label') %>% 
         select(-ATTR_NAME) %>% 
-        class_adder('rcompare_attrib',
-                    "There are columns in BASE and COMPARE with differing labels !!\n",
-                    nrow, 7)
+        class_adder(
+            new_class = 'rcompare_attrib',
+            message   = "There are columns in BASE and COMPARE with differing labels !!\n",
+            checkfun  = nrow, 
+            order     = 7 
+        )
+
     
     #################
     #
@@ -167,44 +196,64 @@ rcompare <- function (base , compare , keys = NULL, suppress_warnings = F, outfi
         DS2 = COMP, 
         KEYS = KEYS
     ) %>% 
-        class_adder('rcompare_basic',
-                    "There are rows in BASE that are not in COMPARE !!\n",
-                    nrow, 8)
+        class_adder(
+            new_class = 'rcompare_basic',
+            message   = "There are rows in BASE that are not in COMPARE !!\n",
+            checkfun  = nrow, 
+            order     = 8 
+        )
+    
     
     COMPARE[["ExtRowsComp"]] <- identify_extra_rows(
         DS1 = COMP, 
         DS2 = BASE, 
         KEYS = KEYS
     ) %>% 
-        class_adder('rcompare_basic',
-                    "There are rows in COMPARE that are not in BASE !!\n",
-                    nrow, 9)
+        class_adder(
+            new_class = 'rcompare_basic',
+            message   = "There are rows in COMPARE that are not in BASE !!\n",
+            checkfun  = nrow, 
+            order     = 9 
+        )
+    
+
     
     COMPARE[["ExtColsBase"]] <- identify_extra_cols(
         DS1 = BASE, 
         DS2 = COMP
     ) %>% 
-        class_adder('rcompare_basic',
-                    "There are columns in BASE that are not in COMPARE !!\n",
-                    nrow, 10)
+        class_adder(
+            new_class = 'rcompare_basic',
+            message   = "There are columns in BASE that are not in COMPARE !!\n",
+            checkfun  = nrow, 
+            order     = 10 
+        )
+
     
     COMPARE[["ExtColsComp"]] <- identify_extra_cols(
         DS1 = COMP, 
         DS2 = BASE
-    )%>% 
-        class_adder('rcompare_basic',
-                    "There are columns in COMPARE that are not in BASE !!\n",
-                    nrow, 11)
+    ) %>% 
+        class_adder(
+            new_class = 'rcompare_basic',
+            message   = "There are columns in COMPARE that are not in BASE !!\n",
+            checkfun  = nrow, 
+            order     = 11 
+        )
+
     
     COMPARE[["VarDiffs"]] <- identify_differences(
         BASE = BASE, 
         COMP = COMP , 
         KEYS = KEYS, 
         exclude_cols = exclude_cols
-    )%>% 
-        class_adder('rcompare_list',
-                    "The following columns are different between BASE and COMPARE\n",
-                    checklength, 13 )
+    ) %>% 
+        class_adder(
+            new_class = 'rcompare_list',
+            message   = "The following columns are different between BASE and COMPARE\n",
+            checkfun  = checklength, 
+            order     = 13 
+        )
     
     
     ### Summarise the number of mismatching rows per variable
@@ -214,14 +263,24 @@ rcompare <- function (base , compare , keys = NULL, suppress_warnings = F, outfi
         COMPARE[["NumDiff"]] <- 0
     }
     
-    COMPARE[["NumDiff"]] <- class_adder(COMPARE[["NumDiff"]], 'rcompare_vector',
-                                        "Not all values compared equal\n",
-                                        sum, 12 )
+    
+    COMPARE[["NumDiff"]] <- class_adder(
+        objectin  = COMPARE[["NumDiff"]], 
+        new_class = 'rcompare_vector',
+        message   = "Not all values compared equal\n",
+        checkfun  = sum, 
+        order     = 12 
+    )
+    
     
     COMPARE[["Issues"]] <- check_for_issues( COMPARE, SUPWARN)
     
+    
+    
     if (!is.null(outfile)){
-        produce_file(outfile, COMPARE)
+        sink(outfile)
+        print(COMPARE )
+        sink()
     }
     
     return(COMPARE)
