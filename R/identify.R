@@ -94,7 +94,7 @@ identify_att_differences <- function( BASE, COMP , exclude_cols = "" ){
     matching_cols <- identify_matching_cols( BASE , COMP , exclude_cols )
     
     PROPS <- identify_properties(BASE) %>% 
-        left_join(identify_properties(COMP) , by = "VARIABLE",  suffix = c(".BASE", ".COMP"))%>% 
+        full_join(identify_properties(COMP) , by = "VARIABLE",  suffix = c(".BASE", ".COMP")) %>% 
         select( VARIABLE, ATTRIBS.BASE , ATTRIBS.COMP) %>% 
         filter( VARIABLE %in% matching_cols) 
     
@@ -111,21 +111,36 @@ identify_att_differences <- function( BASE, COMP , exclude_cols = "" ){
         PROPS_filt <- PROPS %>% 
             filter( VARIABLE == i)
         
-        ATT_DIFFS <- full_join(
-            PROPS_filt$ATTRIBS.BASE[[1]] %>% identify_properties(),
-            PROPS_filt$ATTRIBS.COMP[[1]] %>% identify_properties(),
-            by = "VARIABLE", suffix = c(".BASE", ".COMP")
-        ) %>% 
-            rename( ATTR_NAME = VARIABLE) %>% 
-            mutate( VARIABLE = i) %>% 
-            filter( !map2_lgl( VALUES.BASE , VALUES.COMP , identical) ) %>% 
-            select( VARIABLE , ATTR_NAME, VALUES.BASE , VALUES.COMP) 
+        ### Get a vector of all available attributes across both variables
+        ATTRIB_NAMES = c( 
+            names(PROPS_filt$ATTRIBS.BASE[[1]]) , 
+            names(PROPS_filt$ATTRIBS.COMP[[1]])
+        ) %>% unique
         
-        RETURN <- bind_rows(RETURN , ATT_DIFFS)
+        ### If variable has no attributes move onto the next variable
+        if ( is.null(ATTRIB_NAMES) ) next()
+        
+        ### Loop over each attribute checking if they are identical and outputing
+        ### anyones that arn't
+        for ( j in ATTRIB_NAMES){
+            
+            ATTRIB_BASE = PROPS_filt$ATTRIBS.BASE[[1]][j]
+            ATTRIB_COMP = PROPS_filt$ATTRIBS.COMP[[1]][j]
+            
+            if ( !identical(ATTRIB_BASE , ATTRIB_COMP) ){
+                
+                ATT_DIFFS <- data_frame(
+                    VARIABLE = i , 
+                    ATTR_NAME = j , 
+                    VALUES.BASE = ifelse( is.null(ATTRIB_BASE) , list() , ATTRIB_BASE),  
+                    VALUES.COMP = ifelse( is.null(ATTRIB_COMP) , list() , ATTRIB_COMP)
+                ) 
+                
+                RETURN <- bind_rows(RETURN , ATT_DIFFS)
+            }
+        }
     }
-    
     return(RETURN)
-    
 }
 
 
@@ -139,13 +154,21 @@ identify_differences <- function( BASE , COMP , KEYS, exclude_cols ) {
     
     if( length(matching_cols) == 0  ) return ( data_frame() )
     
-    map(
+    outdat <- map(
         matching_cols,
         identify_variable_diff,
         KEYS = KEYS ,
         DAT = inner_join( BASE , COMP , by = KEYS , suffix = c(".x", ".y") )
     ) %>%
         set_names(matching_cols)
+    outdat<- pmap(list(outdat,
+                       'rcompare_basic',
+                       paste0(matching_cols,
+                              ' Has the following differences between base and compare'),
+                       list(nrow),
+                       seq(1, length(outdat))),
+                  class_adder)
+    outdat
 }
 # identify_differences( TDAT, TDAT2, KEYS = "ID")
 # identify_differences( TDAT, TDAT, KEYS = "ID")
@@ -177,8 +200,7 @@ identify_properties <- function(dsin){
             CLASS     = list(),
             MODE      = character(),
             TYPE      = character() ,
-            ATTRIBS   = list(),
-            VALUES    = list()
+            ATTRIBS   = list()
         )
         return(x)
     }
@@ -188,8 +210,7 @@ identify_properties <- function(dsin){
         CLASS     = map(dsin, class),
         MODE      = map_chr(dsin , mode),
         TYPE      = map_chr(dsin , typeof) ,
-        ATTRIBS   = lapply( dsin , attributes),
-        VALUES    = map( dsin , unlist )
+        ATTRIBS   = lapply( dsin , attributes)
     )
 }
 
