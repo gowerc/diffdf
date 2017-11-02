@@ -156,15 +156,6 @@ context("Testing entire function")
 
 
 
-test_that( "Differing factor levels error" , {
-  expect_warning(
-    rcompare(TDAT , TDAT_FACTCHANGE ),
-    'There are columns in BASE and COMPARE with differing levels'
-  )
-})
-
-
-
 
 test_that("Non-Unique rows error", {
   expect_error(

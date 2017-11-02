@@ -34,18 +34,3 @@ has_issues.rcompare_list <- function(COMPOB){
 }
 
 
-check_for_issues <- function(COMPARE , SUPWARN){
-    
-    getorder <- map_dbl(COMPARE, attr, 'order')
-    COMPARE <- COMPARE[getorder]
-    ISSUES <- map_chr(COMPARE, has_issues) %>% 
-        paste(collapse ='')
-    
-    if( str_length(ISSUES) != 0 ){
-        if(!SUPWARN) warning( c("\n" , ISSUES))
-        return(TRUE)
-    } else {
-        return(FALSE)
-    }
-}
-

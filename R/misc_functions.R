@@ -12,11 +12,16 @@ fix_factor_vars <- function( dsin , vars){
 }
 
 
-class_adder <- function(objectin, new_class, message, checkfun, order){
+class_adder <- function(objectin, new_class ,  ... ){
+    
+    ARGS <- list(...)
+    
     class(objectin) <- append(new_class, class(objectin))
-    attr(objectin, 'message') <- message
-    attr(objectin, 'checkfun') <- checkfun
-    attr(objectin, 'order') <- order
+    
+    for ( i in names(ARGS) ) {
+        attr(objectin ,  i) <- ARGS[[i]] 
+    }
+ 
     objectin
 }
 

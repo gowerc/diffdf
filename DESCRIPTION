@@ -10,6 +10,8 @@ Description: This package provides functions for comparing dataframes similar to
 License: GPL
 Encoding: UTF-8
 LazyData: true
+Depends:
+    R (>= 3.1.2)
 Imports: 
     dplyr, 
     purrr, 
@@ -19,6 +21,8 @@ Imports:
     tidyr,
     utils
 Suggests:
+    devtools,
+    readr,
     testthat,
     lubridate
 RoxygenNote: 6.0.1

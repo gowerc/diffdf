@@ -42,7 +42,7 @@ print.rcompare <- function(x, VARIABLE = NULL, ...){
         #extra columns/rows and illegal columns
         #We make a set of 7 arguments to pass to pastefun, defined above
         COMPARE$Issues <- NULL
-        getorder <- map_dbl(COMPARE, attr, 'order')
+        getorder <- map_dbl(COMPARE, attr, 'order') %>% order
         COMPARE <- COMPARE[getorder]
         
         end_text <- map(COMPARE, make_textout) %>% 
@@ -66,25 +66,42 @@ print.rcompare <- function(x, VARIABLE = NULL, ...){
 #' @importFrom  utils capture.output
 #' @param ... Any arguments to give to stargazer
 mod_stargazer <- function(...){
-    capture.output(stargazer(...))
+    paste0(
+        "  " , 
+        capture.output(stargazer(..., rownames = F))
+    )
 }
 
 
 
 
-#'valuefixer
+#' crop_char_value
 #'
-#' Makes any character string above 20 chars
-#' Reduce down to a 20 char string with ...
+#' Makes any character string above x chars
+#' Reduce down to a x char string with ...
 #' @param inval a single element value
-valuefixer <- function(inval){
+#' @param crop_at character limit
+crop_char_value <- function(inval, crop_at = 30 ){
+
+    if ( is.null(inval) ){
+        
+        inval <- "" 
+        
+    } else if ( is.na(inval)){
+        
+        inval <- ""
+        
+    } else {
+        
+        inval <- as.character(inval)
+        
+    }
     
-    inval <- as.character(inval)
     charlength <- stringr::str_length(inval)
     
-    if (charlength > 20){
+    if (charlength > crop_at ){
         
-        outval <- substr(inval, 1, 20)
+        outval <- substr(inval, 1, crop_at )
         outval <- paste0(outval, '...')
         
     } else {
@@ -106,81 +123,52 @@ valuefixer <- function(inval){
 #' @import dplyr
 #' @param dataframe_in data frame to display
 #' @param message Message which appears above data frame
-#' @param att_expand T/F whether we should use the trunc_mat argument
 #' @param row_limit This is the cut off point. Set at 20, but could be adjusted
 make_pasteobject <- function(
     dataframe_in,
     message,
-    att_expand,
     row_limit = 20
 ){
     
-    if (nrow(dataframe_in) > row_limit){
-        
-        display_table <- dataframe_in %>% 
-            filter(row_number() < (row_limit + 1))
+    display_table <- dataframe_in %>% 
+        filter( row_number() < (row_limit + 1) )
+    
+    if ( nrow(dataframe_in) > row_limit ){
         
         add_message <- paste0(
-            '  (First ',
+            'First ',
             row_limit,
-            ' rows are shown in table below)'
+            ' rows are shown in table below'
         )
         
     } else {
-        display_table <- dataframe_in
-        add_message <- '  (All rows are shown in table below)'
-    }
+        add_message <- 'All rows are shown in table below'
+    } 
     
-    if (att_expand){
-        display_table <- trunc_mat(display_table)$table
-    } else {
-        display_table[]  <- apply(display_table, c(1, 2), valuefixer)
-    }
+    display_table[]  <- apply(display_table, c(1, 2), crop_char_value)
+    
     
     #paste together the message, the additional message, the table
     #and an extra final line
+    
+    TABLE <- mod_stargazer(
+        display_table,
+        type = 'text',
+        summary = FALSE
+    )
     
     paste(
         c(
             message,
             add_message,
-            mod_stargazer(
-                display_table,
-                type = 'text',
-                summary = FALSE
-            ),
+            TABLE,
             '\n'
         ),
         collapse = '\n'
     )
 }
 
-#' attribute_breakdown
-#' 
-#' Split up an attribute data frame to just get base or compare
-#' This is a convenience function to tidy up code
-#' @import dplyr
-#' @param attkeep att we're going to keep. Should be a char vector, either BASEatt or COMPatt
-#' @param attdrop att we're going to drop. Should be a char vector, either BASEatt or COMPatt
-#' @param datin The data frame being reshaped
-#' @param ... Additional arguments to pass through
-attribute_breakdown <- function(attkeep, attdrop, datin, ...){
-    
-    compare_ob <- datin %>% 
-        select(-starts_with(attdrop)) %>% 
-        filter_(paste0(attkeep," != 'NULL'"))
-    
-    if (nrow(compare_ob)>0){
-        
-        compare_ob <- compare_ob %>% 
-            tidyr::unnest_(attkeep) %>% 
-            make_pasteobject('A breakdown of Base attributes', FALSE, ...)
-        
-    } else {
-        compare_ob <- NULL
-    }
-    compare_ob
-}
+
 
 
 
@@ -197,8 +185,12 @@ attribute_breakdown <- function(attkeep, attdrop, datin, ...){
 #' 
 #' 
 make_textout <- function(datin, ...){
-    
+
     checkfun <- attr(datin, 'checkfun')
+    
+    if ( is.null(checkfun)){
+        checkfun <- function(x) T
+    }
     
     if( checkfun(datin) ){  
         UseMethod('make_textout')
@@ -213,11 +205,9 @@ make_textout <- function(datin, ...){
 
 #'@export
 make_textout.rcompare_basic <- function(datin, ...){
-    
     make_pasteobject(
         datin,
         attr(datin, 'message'),
-        att_expand = FALSE, 
         ...
     )
 }
@@ -227,21 +217,45 @@ make_textout.rcompare_basic <- function(datin, ...){
 #'@export
 make_textout.rcompare_attrib <- function(datin, ...){
 
-    out <- make_pasteobject(
-        datin,
-        attr(datin, 'message'),
-        att_expand = TRUE, 
+    TYPE <- attr(datin, 'type')
+    
+    if ( length(datin$VALUES.BASE) != 1 | length(datin$VALUES.COMP) != 1) {
+        stop( "Unexpected number of values") 
+    }
+    
+    BASE_VAL <- datin$VALUES.BASE[[1]]
+    COMP_VAL <- datin$VALUES.COMP[[1]]
+    browser()
+    if ( 
+        ( !is.character(BASE_VAL) & !is.null(BASE_VAL)) | 
+        ( !is.character(COMP_VAL) & !is.null(COMP_VAL))
+    ){
+        stop( "Unsupported attribute type") 
+    }
+    
+    ALL <- unique(c( 
+        BASE_VAL ,
+        COMP_VAL
+    ))
+    
+    display <- data_frame(
+        KEY = ALL
+    ) %>% 
+        left_join( data_frame(BASE = BASE_VAL, KEY = BASE_VAL) , by = "KEY") %>% 
+        left_join( data_frame(COMP = COMP_VAL, KEY = COMP_VAL) , by = "KEY") %>% 
+        select(-KEY)
+    
+    compare_out <- make_pasteobject(
+        dataframe_in = display , 
+        message = str_c('A breakdown of ', TYPE),
         ...
     )
     
-    base_compare <- attribute_breakdown( 'VALUES.BASE', 'VALUES.COMP', datin, ...) 
-    comp_compare <- attribute_breakdown('VALUES.COMP', 'VALUES.BASE', datin, ...) 
-    
-    paste(out, base_compare, comp_compare, collapse ='\n')
+    paste( compare_out, collapse ='\n')
 }
 
 
-
+#'@importFrom tibble rownames_to_column
 #'@export  
 make_textout.rcompare_vector <-  function(datin, ...){
 
@@ -257,7 +271,6 @@ make_textout.rcompare_vector <-  function(datin, ...){
     make_pasteobject(
         datin_tibble,
         attr(datin,'message'),
-        att_expand = FALSE, 
         ...
     )
 
