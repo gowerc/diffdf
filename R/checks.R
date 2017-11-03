@@ -1,7 +1,12 @@
 
 
 
-
+#' has_unique_rows
+#' 
+#' <<TODO>>
+#' @param DAT <<TODO>>
+#' @param KEYS <<TODO>>
+#' @import dplyr
 has_unique_rows <- function(DAT , KEYS){
     BYCHECK <- DAT %>%
         group_by_( .dots =  as.list(KEYS)  )  %>%
@@ -12,24 +17,33 @@ has_unique_rows <- function(DAT , KEYS){
 }
 
 
-
-has_issues <- function(COMPARE){
+#' has_issues
+#' 
+#' <<TODO>>
+#' @param OBJ <<TODO>>
+has_issues <- function(OBJ){
     UseMethod("has_issues")
 }
 
 
-#'@export
-has_issues.default <- function(COMPOB){
-    if( attr(COMPOB, 'checkfun')(COMPOB)){
-        attr(COMPOB, 'message')
+#' has_issues.default
+#' 
+#' <<TODO>>
+#' @param OBJ <<TODO>>
+has_issues.default <- function(OBJ){
+    if( attr(OBJ, 'checkfun')(OBJ)){
+        attr(OBJ, 'message')
     }else{
         ''
     }
 }
 
 
-#'@export
-has_issues.rcompare_list <- function(COMPOB){
+#' has_issues.rcompare_list
+#' 
+#' <<TODO>>
+#' @param OBJ <<TODO>>
+has_issues.rcompare_list <- function(OBJ){
     ''
 }
 

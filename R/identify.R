@@ -4,14 +4,18 @@
 
 
 
-
+#' identify_extra_rows
+#' 
+#' Identifys rows that are in a baseline dataset but not in a comparitor dataset
+#' @param DS1 Baseline dataset (data frame)
+#' @param DS2 Comparitor dataset (data frame)
+#' @param KEYS List of variables that define a unique row within the datasets (strings)
+#' @import dplyr
 identify_extra_rows <- function (DS1 , DS2 , KEYS){
     DS1 %>%
         anti_join( DS2 , by = KEYS) %>% 
         select_(.dots = list(KEYS)) 
 }
-# identify_extra_rows( TDAT , TDAT[1:11,] , "ID" )
-# identify_extra_rows( TDAT[1:11,] , TDAT , "ID" )
 
 
 
@@ -19,6 +23,12 @@ identify_extra_rows <- function (DS1 , DS2 , KEYS){
 
 
 
+#' identify_extra_cols
+#' 
+#' Identifys columns that are in a baseline dataset but not in a comparitor dataset
+#' @param DS1 Baseline dataset (data frame)
+#' @param DS2 Comparitor dataset (data frame)
+#' @import dplyr
 identify_extra_cols <- function(DS1 , DS2){
     match.cols <- sapply ( names(DS1), "%in%", names(DS2))
     if (  !all(is.logical(match.cols)) ){
@@ -28,8 +38,6 @@ identify_extra_cols <- function(DS1 , DS2){
         COLUMNS = names(DS1)[ !match.cols]
     )
 }
-# identify_extra_cols( TDAT , TDAT[,1:6] )
-# identify_extra_cols( TDAT[,1:6] , TDAT )
 
 
 
@@ -37,20 +45,27 @@ identify_extra_cols <- function(DS1 , DS2){
 
 
 
+#' identify_matching_cols
+#' 
+#' Identifys columns with the same name in two data frames
+#' @param DS1 Input dataset 1 (data frame)
+#' @param DS2 Input dataset 2 (data frame)
+#' @param EXCLUDE Columns to ignore
 identify_matching_cols <- function(DS1, DS2 , EXCLUDE = ""){
     match_cols   <- sapply( names(DS1), "%in%" , names(DS2))
     exclude_cols <- sapply( names(DS1), "%in%" , EXCLUDE)
     names(DS1)[ match_cols & !exclude_cols ]
 }
-# identify_matching_cols( TDAT , TDAT[,1:6] )
-# identify_matching_cols( TDAT[,1:6] , TDAT )
-# identify_matching_cols( TDAT[,1:6] , TDAT , KEYS = c("GROUP1" ,"GROUP2"))
-# identify_matching_cols( TDAT[,1] , TDAT[,1] , KEYS = "ID")
 
 
 
 
 
+#' identify_unsupported_cols
+#' 
+#' Identifys any columns for which the package is not setup to handle
+#' @param dsin input dataset
+#' @import dplyr
 identify_unsupported_cols <- function(dsin){
     identify_properties(dsin) %>% 
         select( VARIABLE , MODE) %>% 
@@ -60,7 +75,12 @@ identify_unsupported_cols <- function(dsin){
 
 
 
-
+#' identify_mode_differences
+#' 
+#' Identifys any mode differences between two data frames
+#' @param BASE Base dataset for comparision (data.frame)
+#' @param COMP Comparitor dataset to compare base against (data.frame)
+#' @import dplyr
 identify_mode_differences <- function( BASE, COMP ){
     
     matching_cols <- identify_matching_cols( BASE , COMP  )
@@ -74,7 +94,13 @@ identify_mode_differences <- function( BASE, COMP ){
 
 
 
-
+#' identify_class_differences
+#' 
+#' Identifys any class differences between two data frames
+#' @param BASE Base dataset for comparision (data.frame)
+#' @param COMP Comparitor dataset to compare base against (data.frame)
+#' @import dplyr
+#' @importFrom purrr map2_lgl
 identify_class_differences <- function( BASE, COMP ){
     
     matching_cols <- identify_matching_cols( BASE , COMP )
@@ -88,7 +114,13 @@ identify_class_differences <- function( BASE, COMP ){
 
 
 
-
+#' identify_att_differences
+#' 
+#' Identifys any attribute differences between two data frames
+#' @param BASE Base dataset for comparision (data.frame)
+#' @param COMP Comparitor dataset to compare base against (data.frame)
+#' @param exclude_cols Columns to exclude from comparision
+#' @import dplyr
 identify_att_differences <- function( BASE, COMP , exclude_cols = "" ){
 
     matching_cols <- identify_matching_cols( BASE , COMP , exclude_cols )
@@ -147,7 +179,18 @@ identify_att_differences <- function( BASE, COMP , exclude_cols = "" ){
 
 
 
-
+#' identify_differences
+#' 
+#' Compares each column within 2 datasets to identify any values which they 
+#' mismatch on.
+#' @param BASE Base dataset for comparision (data.frame)
+#' @param COMP Comparitor dataset to compare base against (data.frame)
+#' @param KEYS List of variables that define a unique row within the datasets (strings)
+#' @param exclude_cols Columns to exclude from comparision
+#' @importFrom purrr pmap
+#' @importFrom purrr map
+#' @importFrom purrr set_names
+#' @import dplyr
 identify_differences <- function( BASE , COMP , KEYS, exclude_cols ) {
     
     matching_cols <- identify_matching_cols( BASE , COMP , c(KEYS, exclude_cols))
@@ -161,21 +204,41 @@ identify_differences <- function( BASE , COMP , KEYS, exclude_cols ) {
         DAT = inner_join( BASE , COMP , by = KEYS , suffix = c(".x", ".y") )
     ) %>%
         set_names(matching_cols)
-    outdat<- pmap(list(outdat,
-                       'rcompare_basic',
-                       paste0(matching_cols,
-                              ' Has the following differences between base and compare'),
-                       list(nrow),
-                       seq(1, length(outdat))),
-                  class_adder)
+    
+    outdat <- pmap(
+        list(
+            outdat,
+            new_class = 'rcompare_basic',
+            message = paste0(
+                matching_cols,
+                ' Has the following differences between base and compare'
+            ),
+            checkfun = list(nrow),
+            order = seq(1, length(outdat))
+        ),
+        class_adder
+    )
     outdat
 }
-# identify_differences( TDAT, TDAT2, KEYS = "ID")
-# identify_differences( TDAT, TDAT, KEYS = "ID")
 
 
 
 
+
+#' identify_variable_diff
+#' 
+#' For a given variable find all values between 2 datasets where they mismatch.
+#' The function takes only a single dataset as an input which is expected to have the relevent
+#' columns from 2 input datasets already merged together. It is expected that the variable names
+#' are differeniated by .x and .y
+#' 
+#' Function is only expected to be called from identify_differences which highly formats
+#' the input prior to passing it to this function
+#' @param VAR Variable to compare for differences (string)
+#' @param DAT Input dataset (data_frame)
+#' @param KEYS Variables which define a unique row within the dataset (strings)
+#' @import dplyr
+#' @importFrom  purrr set_names
 identify_variable_diff <- function( VAR, DAT , KEYS){
     cname <- paste0(VAR , c(".x" , ".y"))
     DAT %>%
@@ -185,12 +248,18 @@ identify_variable_diff <- function( VAR, DAT , KEYS){
         select_(.dots =  c("VARIABLE" , KEYS , "BASE" , "COMPARE" )) %>%
         filter ( is_different(BASE , COMPARE)) %>% 
         as_data_frame()
-    
 }
 
 
 
-
+#' identify_properties
+#' 
+#' Returns a dataframe of metadata for a given dataset.
+#' Returned values include variable names , class , mode , type & attributes
+#' @param dsin input dataframe that you want to get the metadata from
+#' @importFrom purrr map
+#' @importFrom purrr map_chr
+#' @import dplyr
 identify_properties <- function(dsin){
     
     ### If missing or null return empty dataset
@@ -213,5 +282,9 @@ identify_properties <- function(dsin){
         ATTRIBS   = lapply( dsin , attributes)
     )
 }
+
+
+
+
 
 

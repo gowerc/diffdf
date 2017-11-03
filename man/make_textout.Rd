@@ -12,8 +12,7 @@ make_textout(datin, ...)
 \item{...}{additional arguments to pass through}
 }
 \description{
-Performs check as to whether the comparison is empty or not
-If empty, returns null
-if not, returns the data frame pasted with the message
-If att_expand is true, will return breakdown of attributes as well
+Attempts to convert an object into a ascii rendtion
+suitable for printing or outputing to a file. This is the generic
+function with methods being specified for specific object types
 }

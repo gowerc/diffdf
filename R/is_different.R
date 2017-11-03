@@ -5,12 +5,26 @@
 
 
 
-
+#' is_different_wrapfun
+#' 
+#' <<TODO>>
+#' @param target <<TODO>>
+#' @param current <<TODO>>
+#' @param ...  <<TODO>>
 is_different_wrapfun <- function (target, current, ...) {
     UseMethod("is_different")
 }
 
 
+
+
+
+#' is_different
+#' 
+#' <<TODO>>
+#' @param target <<TODO>>
+#' @param current <<TODO>>
+#' @param ...  <<TODO>>
 is_different <- function (target, current, ...) {
     
     if( length(target) != length(current)){
@@ -49,16 +63,45 @@ is_different <- function (target, current, ...) {
     }  
 }
 
+
+
+
+#' is_different.default
+#' 
+#' <<TODO>>
+#' @param target <<TODO>>
+#' @param current <<TODO>>
+#' @param ...  <<TODO>>
 is_different.default <- function(target, current, ...){
     target != current 
-    
 }
 
+
+
+
+#' is_different.factor
+#' 
+#' <<TODO>>
+#' @param target <<TODO>>
+#' @param current <<TODO>>
+#' @param ...  <<TODO>>
 is_different.factor <- function(target, current, ...){
     as.character(target) != as.character(current) 
-    
 }
 
+
+
+
+
+#' is_different.numeric
+#' 
+#' This is a modified version of the all.equal function
+#' @param target <<TODO>>
+#' @param current <<TODO>>
+#' @param tolerance <<TODO>>
+#' @param scale <<TODO>>
+#' @param ... <<TODO>>
+#' @param check.attributes <<TODO>>
 is_different.numeric <- function(
     target, 
     current, 

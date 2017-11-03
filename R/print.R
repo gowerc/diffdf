@@ -1,13 +1,17 @@
 
-#' Print nice formating of the rcompare object
-#' @param x comparison object created by rcompare()
-#' @param VARIABLE specific variable to inspect the differences of
+#' Print rcompare objects
+#' 
+#' Print nicely formated version of an rcompare object
+#' @param x comparison object created by rcompare().
+#' @param VARIABLE specific variable to inspect the differences of (string).
 #' @param ... Additional arguments (not used)
 #' @examples
-#' # x <- iris[150,1]
-#' # COMPARE <- rcompare( iris, x)
-#' # print( COMPARE )
-#' # print( COMPARE , "Sepal.Length" )
+#' x <- iris[150,1]
+#' COMPARE <- rcompare( iris, x)
+#' print( COMPARE )
+#' print( COMPARE , "Sepal.Length" )
+#' @importFrom purrr map_dbl
+#' @importFrom purrr map
 #' @export 
 print.rcompare <- function(x, VARIABLE = NULL, ...){
     
@@ -81,6 +85,7 @@ mod_stargazer <- function(...){
 #' Reduce down to a x char string with ...
 #' @param inval a single element value
 #' @param crop_at character limit
+#' @importFrom stringr str_length
 crop_char_value <- function(inval, crop_at = 30 ){
 
     if ( is.null(inval) ){
@@ -97,7 +102,7 @@ crop_char_value <- function(inval, crop_at = 30 ){
         
     }
     
-    charlength <- stringr::str_length(inval)
+    charlength <- str_length(inval)
     
     if (charlength > crop_at ){
         
@@ -114,8 +119,8 @@ crop_char_value <- function(inval, crop_at = 30 ){
 }
 
 
-#'make_paste_object
-#'
+#' make_paste_object
+#' 
 #' Pastes together the message and the data frame.
 #' If more than 20 rows, its truncated
 #' If this is an attribute message, switches
@@ -123,7 +128,7 @@ crop_char_value <- function(inval, crop_at = 30 ){
 #' @import dplyr
 #' @param dataframe_in data frame to display
 #' @param message Message which appears above data frame
-#' @param row_limit This is the cut off point. Set at 20, but could be adjusted
+#' @param row_limit This is the cut off point. Default = 20.
 make_pasteobject <- function(
     dataframe_in,
     message,
@@ -172,18 +177,13 @@ make_pasteobject <- function(
 
 
 
-#'make_text out
-#'
-#' Performs check as to whether the comparison is empty or not
-#' If empty, returns null
-#' if not, returns the data frame pasted with the message
-#' If att_expand is true, will return breakdown of attributes as well
-#' @import dplyr
+#' make_text out
+#' 
+#' Attempts to convert an object into a ascii rendtion
+#' suitable for printing or outputing to a file. This is the generic
+#' function with methods being specified for specific object types
 #' @param datin the data frame being tabulated
 #' @param ... additional arguments to pass through
-#' 
-#' 
-#' 
 make_textout <- function(datin, ...){
 
     checkfun <- attr(datin, 'checkfun')
@@ -203,7 +203,12 @@ make_textout <- function(datin, ...){
 
 
 
-#'@export
+#' make_textout.rcompare_basic
+#' 
+#' Function to convert object into ascii rendition.
+#' Basic objects are passed along to make_textout.
+#' @param datin  Input data frame
+#' @param ...  any pass through options
 make_textout.rcompare_basic <- function(datin, ...){
     make_pasteobject(
         datin,
@@ -214,49 +219,16 @@ make_textout.rcompare_basic <- function(datin, ...){
 
 
 
-#'@export
-make_textout.rcompare_attrib <- function(datin, ...){
-
-    TYPE <- attr(datin, 'type')
-    
-    if ( length(datin$VALUES.BASE) != 1 | length(datin$VALUES.COMP) != 1) {
-        stop( "Unexpected number of values") 
-    }
-    
-    BASE_VAL <- datin$VALUES.BASE[[1]]
-    COMP_VAL <- datin$VALUES.COMP[[1]]
-    browser()
-    if ( 
-        ( !is.character(BASE_VAL) & !is.null(BASE_VAL)) | 
-        ( !is.character(COMP_VAL) & !is.null(COMP_VAL))
-    ){
-        stop( "Unsupported attribute type") 
-    }
-    
-    ALL <- unique(c( 
-        BASE_VAL ,
-        COMP_VAL
-    ))
-    
-    display <- data_frame(
-        KEY = ALL
-    ) %>% 
-        left_join( data_frame(BASE = BASE_VAL, KEY = BASE_VAL) , by = "KEY") %>% 
-        left_join( data_frame(COMP = COMP_VAL, KEY = COMP_VAL) , by = "KEY") %>% 
-        select(-KEY)
-    
-    compare_out <- make_pasteobject(
-        dataframe_in = display , 
-        message = str_c('A breakdown of ', TYPE),
-        ...
-    )
-    
-    paste( compare_out, collapse ='\n')
-}
 
 
-#'@importFrom tibble rownames_to_column
-#'@export  
+#' make_textout.rcompare_vector
+#' 
+#' Function to convert object into ascii rendition.
+#' <<TODO>>
+#' @param datin  Input data frame
+#' @param ...  any pass through options
+#' @importFrom tibble rownames_to_column
+#' @import dplyr 
 make_textout.rcompare_vector <-  function(datin, ...){
 
     datin_tibble <- datin %>% 
@@ -277,8 +249,13 @@ make_textout.rcompare_vector <-  function(datin, ...){
 }
 
 
-
-#'@export
+#' make_textout.rcompare_list
+#' 
+#' Function to convert object into ascii rendition.
+#' <<TODO>>
+#' @param datin  Input data frame
+#' @param ...  any pass through options
+#' @importFrom purrr map
 make_textout.rcompare_list   <-  function(datin){
     nonempty_list <- nonempty_list(datin)
     map(nonempty_list, make_textout)

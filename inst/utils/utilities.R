@@ -3,32 +3,29 @@
 
 
 
+# devtools::install( "./" , dependencies = F)
+# devtools::install( "./" , dependencies = F , local = F)
 
 
+location <- devtools::build()
 devtools::document()
-devtools::build()
 devtools::load_all()
 
 devtools::test()
 
 devtools::check()
 
-# devtools::install()
+### Remove all existing versions and re-install
+unloadNamespace("rcompare")
+utils::remove.packages("rcompare")
+install.packages( location, repos = NULL, type="source")
 
 
 
-x <- iris
-attr(x$Petal.Length, "rnd") <- "hi"
-attr(x$Petal.Length, "Label") <- "BLAH"
-x[150,1] <- 200
-x <- x[,-5]
 
+rcompare::rcompare(iris,iris)
+library(rcompare)
 rcompare(iris , iris)
-
-COMPARE <- rcompare(iris , x)
-print(COMPARE)
-print(COMPARE , "Sepal.Length")
-
 
 
 
@@ -58,4 +55,4 @@ rcompare(
     TDAT %>% select(ID , BINARY) ,
     TDAT2 %>% select( ID , BINARY) 
 )
-)
+

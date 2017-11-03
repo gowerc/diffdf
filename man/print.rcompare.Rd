@@ -2,23 +2,23 @@
 % Please edit documentation in R/print.R
 \name{print.rcompare}
 \alias{print.rcompare}
-\title{Print nice formating of the rcompare object}
+\title{Print rcompare objects}
 \usage{
 \method{print}{rcompare}(x, VARIABLE = NULL, ...)
 }
 \arguments{
-\item{x}{comparison object created by rcompare()}
+\item{x}{comparison object created by rcompare().}
 
-\item{VARIABLE}{specific variable to inspect the differences of}
+\item{VARIABLE}{specific variable to inspect the differences of (string).}
 
 \item{...}{Additional arguments (not used)}
 }
 \description{
-Print nice formating of the rcompare object
+Print nicely formated version of an rcompare object
 }
 \examples{
-# x <- iris[150,1]
-# COMPARE <- rcompare( iris, x)
-# print( COMPARE )
-# print( COMPARE , "Sepal.Length" )
+x <- iris[150,1]
+COMPARE <- rcompare( iris, x)
+print( COMPARE )
+print( COMPARE , "Sepal.Length" )
 }

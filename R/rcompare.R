@@ -8,28 +8,15 @@
 #' @param suppress_warnings Do you want to suppress warnings? (logical)
 #' @param outfile Location and name of outputted file. Leave as NULL to not output a file
 #' @import dplyr
-#' @import stringr
-#' @importFrom purrr set_names
-#' @importFrom purrr map
-#' @importFrom purrr map2
-#' @importFrom purrr pmap
 #' @importFrom purrr map_dbl
-#' @importFrom purrr map2_dbl
-#' @importFrom purrr pmap_dbl
 #' @importFrom purrr map_chr
-#' @importFrom purrr map2_chr
-#' @importFrom purrr pmap_chr
-#' @importFrom purrr map_df
-#' @importFrom purrr map2_df
-#' @importFrom purrr pmap_df
-#' @importFrom purrr map_lgl
-#' @importFrom purrr map2_lgl
-#' @importFrom purrr pmap_lgl
-#' @importFrom purrr walk
-#' @importFrom purrr walk2
-#' @importFrom purrr pwalk
 #' @examples
-#' ## rcompare( AAE , QC_AAE , c("USUBJID" , "AESEQ"))
+#' iris2 <- iris 
+#' iris2[1,3] <- NA
+#' iris2[2,4] <- 99
+#' iris2 <- iris2[-4]
+#' rcompare( iris , iris2)
+#' ## rcompare( AAE , QC_AAE , keys = c("USUBJID" , "AESEQ"))
 #' @export
 rcompare <- function (base , compare , keys = NULL, suppress_warnings = F, outfile = NULL){
     
@@ -165,8 +152,8 @@ rcompare <- function (base , compare , keys = NULL, suppress_warnings = F, outfi
         stop( "BY variables in COMPARE do not result in unique observations")
     }
     
-    BASE <- fix_factor_vars(BASE , KEYS)
-    COMP <- fix_factor_vars(COMP , KEYS)
+    BASE <- factor_to_character(BASE , KEYS)
+    COMP <- factor_to_character(COMP , KEYS)
     
     COMPARE[["ExtRowsBase"]] <- identify_extra_rows(
         DS1 = BASE, 

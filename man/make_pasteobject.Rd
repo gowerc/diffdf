@@ -11,7 +11,7 @@ make_pasteobject(dataframe_in, message, row_limit = 20)
 
 \item{message}{Message which appears above data frame}
 
-\item{row_limit}{This is the cut off point. Set at 20, but could be adjusted}
+\item{row_limit}{This is the cut off point. Default = 20.}
 }
 \description{
 Pastes together the message and the data frame.
