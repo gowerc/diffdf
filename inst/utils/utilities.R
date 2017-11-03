@@ -1,27 +1,22 @@
 
 
 
+devtools::load_all()
+devtools::test()
+devtools::check()
+
 
 
 # devtools::install( "./" , dependencies = F)
 # devtools::install( "./" , dependencies = F , local = F)
 
-
-location <- devtools::build()
-devtools::document()
-devtools::load_all()
-
-devtools::test()
-
-devtools::check()
-
-### Remove all existing versions and re-install
 unloadNamespace("rcompare")
 utils::remove.packages("rcompare")
+
+devtools::document()
+location <- devtools::build()
+
 install.packages( location, repos = NULL, type="source")
-
-
-
 
 rcompare::rcompare(iris,iris)
 library(rcompare)
