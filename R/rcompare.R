@@ -11,12 +11,7 @@
 #' @importFrom purrr map_dbl
 #' @importFrom purrr map_chr
 #' @examples
-#' iris2 <- iris 
-#' iris2[1,3] <- NA
-#' iris2[2,4] <- 99
-#' iris2 <- iris2[-4]
-#' rcompare( iris , iris2)
-#' ## rcompare( AAE , QC_AAE , keys = c("USUBJID" , "AESEQ"))
+#' # rcompare( AAE , QC_AAE , keys = c("USUBJID" , "AESEQ"))
 #' @export
 rcompare <- function (base , compare , keys = NULL, suppress_warnings = F, outfile = NULL){
     

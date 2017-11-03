@@ -1,5 +1,8 @@
 
 
+context("Testing entire function")
+
+
 ##############################
 #
 # Set up testing datasets
@@ -152,7 +155,6 @@ test_that( "Differing classes error" , {
 })
 
 
-context("Testing entire function")
 
 
 

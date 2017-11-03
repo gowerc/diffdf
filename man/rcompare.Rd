@@ -23,10 +23,5 @@ Emulates proc compare from SAS
 Compares 2 data frames and outputs any differences.
 }
 \examples{
-iris2 <- iris 
-iris2[1,3] <- NA
-iris2[2,4] <- 99
-iris2 <- iris2[-4]
-rcompare( iris , iris2)
-## rcompare( AAE , QC_AAE , keys = c("USUBJID" , "AESEQ"))
+# rcompare( AAE , QC_AAE , keys = c("USUBJID" , "AESEQ"))
 }
