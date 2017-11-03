@@ -4,6 +4,13 @@
 
 
 
+
+
+
+
+
+
+
 #' identify_extra_rows
 #' 
 #' Identifys rows that are in a baseline dataset but not in a comparitor dataset
@@ -207,16 +214,11 @@ identify_differences <- function( BASE , COMP , KEYS, exclude_cols ) {
     
     outdat <- pmap(
         list(
-            outdat,
-            new_class = 'rcompare_basic',
-            message = paste0(
-                matching_cols,
-                ' Has the following differences between base and compare'
-            ),
-            checkfun = list(nrow),
+            value = outdat,
+            message = "" ,
             order = seq(1, length(outdat))
         ),
-        class_adder
+        issue_basic$new
     )
     outdat
 }

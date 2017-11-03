@@ -109,7 +109,7 @@ numdiffcheck <-function(compdat, target, value){
   ### Only expected 1 variable to be different thus we expect 
   ### the overall # of differences to equal the # of differences
   ### in the target variable
-  rcompare_ob   <- rcompare(TDAT , compdat , suppress_warnings = T )$NumDiff
+  rcompare_ob   <- rcompare(TDAT , compdat , suppress_warnings = T )$NumDiff$value
   rcompare_targ <- rcompare_ob[target] %>% as.numeric()
   rcompare_all  <- rcompare_ob %>% sum() %>% as.numeric()
   
@@ -216,3 +216,4 @@ test_that("Additional rows error", {
   )
   
 })
+

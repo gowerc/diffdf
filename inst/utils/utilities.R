@@ -24,6 +24,7 @@ rcompare(iris , iris)
 
 
 
+source("./tests/testthat/helper-create_test_data.R")
 ### Setup test data
 TDAT2 <- TDAT
 
@@ -51,3 +52,23 @@ rcompare(
     TDAT2 %>% select( ID , BINARY) 
 )
 
+rcompare(
+    TDAT %>% select(ID , CATEGORICAL) ,
+    TDAT2 %>% select( ID , CATEGORICAL) 
+)
+
+rcompare(
+    TDAT %>% select(ID , DATE) ,
+    TDAT2 %>% select( ID , DATE) 
+)
+
+rcompare(
+    TDAT %>% select(ID , CONTINUOUS) ,
+    TDAT2 %>% select( ID , CONTINUOUS) 
+)
+
+rcompare(
+    TDAT %>% select(ID , DATETIME) ,
+    TDAT2 %>% select( ID , DATETIME) 
+)
+rcompare(TDAT , TDAT2)

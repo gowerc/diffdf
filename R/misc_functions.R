@@ -21,21 +21,7 @@ factor_to_character <- function( dsin , vars = NULL){
 
 
 
-#' class_adder
-#' 
-#' Adds a specific class to an object as well as adding any required
-#' attribute data
-#' @param objectin Object to add new class too
-#' @param new_class New class to add to object
-#' @param ...  Additional values (will be assigned as attributes)
-class_adder <- function(objectin, new_class ,  ... ){
-    ARGS <- list(...)
-    class(objectin) <- append(new_class, class(objectin))
-    for ( i in names(ARGS) ) {
-        attr(objectin ,  i) <- ARGS[[i]] 
-    }
-    objectin
-}
+
 
 
 
@@ -50,7 +36,6 @@ nonempty_list <- function(in_list){
 }
 
 
-
 #' checklength
 #' 
 #' <<TODO>>
@@ -61,7 +46,18 @@ checklength <- function(in_list){
 
 
 
-
-
-
+#' has_unique_rows
+#' 
+#' <<TODO>>
+#' @param DAT <<TODO>>
+#' @param KEYS <<TODO>>
+#' @import dplyr
+has_unique_rows <- function(DAT , KEYS){
+    BYCHECK <- DAT %>%
+        group_by_( .dots =  as.list(KEYS)  )  %>%
+        summarise( ..n.. = n()) %>%
+        filter( ..n.. > 1)
+    
+    return( nrow(BYCHECK) == 0 )
+}
 

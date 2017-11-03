@@ -149,21 +149,10 @@ if ( SET_GOLD){
     devtools::use_data( TESTING_print_msg , internal = TRUE , overwrite = TRUE)
 } else {
     for ( i in names(RES)){
-        expect_equal( RES[[i]] , TESTING_print_msg[[i]] , info = i)
+        expect_equal( RES[[i]] , TESTING_print_msg[[i]] , info = paste0( "Reference = " , i))
     }
 }
 
-#  Values
-#  Attributes
-#       Labels
-#       Factor Levels
-#  Class
-#  Mode
-#  Unequal Rows
-#  Unequal Columns
-#
-#  Combinations 
-#
-#
-#
+
+
 
