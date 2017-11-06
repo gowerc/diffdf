@@ -90,7 +90,7 @@ test_that( "Check comparision of equal objects",{
 
 test_that( "Unequal objects raise warnings" , {
   
-  msg <- "Not all values compared equal"
+  msg <- "\nNot all Values Compared Equal"
   
   expect_warning( rcompare(TDAT , TDAT_INTCHANGE)       , msg )
   expect_warning( rcompare(TDAT , TDAT_CHARCHANGE )     , msg )

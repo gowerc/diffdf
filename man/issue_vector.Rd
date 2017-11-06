@@ -15,5 +15,6 @@ issues found in the rcompare function
 \section{Methods}{
 
 \code{$get_text()} - Gets formated text suitable for printing
+\code{$has_issue()} - Returns T/F depending on whether the issue is valid
 }
 

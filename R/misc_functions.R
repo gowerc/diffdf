@@ -22,30 +22,6 @@ factor_to_character <- function( dsin , vars = NULL){
 
 
 
-
-
-
-
-#' nonempty_list
-#' 
-#' <<TODO>>
-#' @param in_list <<TODO>>
-nonempty_list <- function(in_list){
-    noenmpty_list <- in_list[map(in_list, nrow)>0]
-    noenmpty_list
-}
-
-
-#' checklength
-#' 
-#' <<TODO>>
-#' @param in_list <<TODO>>
-checklength <- function(in_list){
-    length(nonempty_list(in_list))
-}
-
-
-
 #' has_unique_rows
 #' 
 #' <<TODO>>

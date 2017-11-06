@@ -2,7 +2,6 @@
 
 context("Checking print function against gold standard")
 
-SET_GOLD <- FALSE
 
 # devtools::load_all()
 # library(dplyr)
@@ -10,28 +9,6 @@ SET_GOLD <- FALSE
 # library(devtools)
 # library(testthat)
 # source( "./tests/testthat/helper-create_test_data.R")
-
-
-### Setup test data
-TDAT2 <- TDAT
-
-## Unequal values
-TDAT2$CONTINUOUS[c(1,5,7)] <- c( 1,2,3)
-
-## Different attributes
-attr(TDAT2$BINARY , "something") <- iris
-
-## Different levels
-levels(TDAT2$CATEGORICAL) <- c("A", "B" , "D")
-
-## Different class
-class( TDAT2$DATE) <-  c("A_DATE" , "b_date" , "cDate")
-
-## Different mode
-TDAT2$INTEGER[c(1,5,7)] <- c("1" , "2" , "3")
-
-attr(TDAT2$DATETIME , "label") <- "This is the label for my amazing variable"
-
 
 
 
@@ -144,7 +121,9 @@ runme <- function(x){
 
 RES <- map( print_tests , runme)
 
-if ( SET_GOLD){
+SET_GOLD <- FALSE
+
+if ( SET_GOLD ){
     TESTING_print_msg <- RES
     devtools::use_data( TESTING_print_msg , internal = TRUE , overwrite = TRUE)
 } else {
@@ -152,7 +131,5 @@ if ( SET_GOLD){
         expect_equal( RES[[i]] , TESTING_print_msg[[i]] , info = paste0( "Reference = " , i))
     }
 }
-
-
 
 

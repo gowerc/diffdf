@@ -17,7 +17,9 @@
 Print nicely formated version of an rcompare object
 }
 \examples{
-x <- iris[150,1]
+library(dplyr)
+x <- iris \%>\% select( -Species)
+x[1,2] <- 5
 COMPARE <- rcompare( iris, x)
 print( COMPARE )
 print( COMPARE , "Sepal.Length" )

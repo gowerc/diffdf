@@ -5,6 +5,7 @@
 \title{Issue List Object}
 \description{
 List issue - Inherits from Issue Object 
+This issue is meant to contain a list of other issues
 These are used to control the flagging and warning messages associated with 
 issues found in the rcompare function
 }
@@ -15,5 +16,6 @@ issues found in the rcompare function
 \section{Methods}{
 
 \code{$get_text()} - Gets formated text suitable for printing
+\code{$has_issue()} - Returns T/F depending on whether the issue is valid
 }
 

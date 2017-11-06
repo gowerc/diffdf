@@ -1,16 +1,25 @@
 
-#' Compares dataframes
-#' @description  Emulates proc compare from SAS
+#' rcompare
+#' @description  
 #' Compares 2 data frames and outputs any differences.
+#' Emulates proc compare from SAS
 #' @param base input dataframe
 #' @param compare comparison dataframe
 #' @param keys vector of variables (as strings) that defines a unique row in the base and compare dataframes
 #' @param suppress_warnings Do you want to suppress warnings? (logical)
-#' @param outfile Location and name of outputted file. Leave as NULL to not output a file
+#' @param outfile Location and name of a file to output the results to. Setting to NULL will cause no file to be produced.
 #' @import dplyr
 #' @importFrom purrr map_dbl
 #' @importFrom purrr map_chr
 #' @examples
+#' library(dplyr)
+#' x <- iris %>% select( -Species)
+#' x[1,2] <- 5
+#' COMPARE <- rcompare( iris, x)
+#' print( COMPARE )
+#' print( COMPARE , "Sepal.Length" )
+#' 
+#' #### Example for ADaM VAD QC
 #' # rcompare( AAE , QC_AAE , keys = c("USUBJID" , "AESEQ"))
 #' @export
 rcompare <- function (base , compare , keys = NULL, suppress_warnings = F, outfile = NULL){
@@ -158,7 +167,7 @@ rcompare <- function (base , compare , keys = NULL, suppress_warnings = F, outfi
 
     COMPARE[["VarDiffs"]] <- issue_list$new(
         value =  identify_differences(BASE, COMP , KEYS, exclude_cols) ,
-        message = "Not all Values Compared Equal",
+        message = "",
         order = 11
     ) 
     
@@ -173,7 +182,7 @@ rcompare <- function (base , compare , keys = NULL, suppress_warnings = F, outfi
     
     COMPARE[["NumDiff"]] <- issue_vector$new(
         value = VALUE, 
-        message = "",
+        message = "Not all Values Compared Equal",
         order = 10
     )
     

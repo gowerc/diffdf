@@ -34,7 +34,7 @@
 #' \code{$get_text(dsin , row_limit = 20)} - Primary formating function used to prepare \code{dsin} prior
 #' to printing. This is intended to be called via the inherited objects rather than directly.
 #' 
-#' @import R6
+#' @importFrom R6 R6Class
 #' @import dplyr
 #' @name issue
 NULL
@@ -77,7 +77,11 @@ issue <- R6Class(
         },
         
         
-        get_text = function(dsin , row_limit = 20){
+        get_text = function(dsin , row_limit = 10){
+            
+            if( nrow(dsin) == 0 ) {
+                return("")
+            }
             
             display_table <- dsin %>% 
                 filter( row_number() < (row_limit + 1) )
@@ -132,6 +136,7 @@ issue <- R6Class(
 #'
 #' @section Methods:
 #' \code{$get_text()} - Gets formated text suitable for printing
+#' \code{$has_issue()} - Returns T/F depending on whether the issue is valid
 #'
 #' @name issue_basic
 NULL
@@ -140,7 +145,7 @@ issue_basic <- R6Class(
     inherit = issue,
     public = list(
         has_issue = function(){
-            nrow(self$value)
+            nrow(self$value) > 0
         },
         get_text = function(){
             super$get_text(self$value)
@@ -151,6 +156,7 @@ issue_basic <- R6Class(
 #' Issue List Object
 #' 
 #' List issue - Inherits from Issue Object 
+#' This issue is meant to contain a list of other issues
 #' These are used to control the flagging and warning messages associated with 
 #' issues found in the rcompare function
 #' 
@@ -158,8 +164,10 @@ issue_basic <- R6Class(
 #'
 #' @section Methods:
 #' \code{$get_text()} - Gets formated text suitable for printing
+#' \code{$has_issue()} - Returns T/F depending on whether the issue is valid
 #'
 #' @importFrom purrr map
+#' @importFrom purrr map_lgl
 #' @name issue_list
 NULL
 issue_list <- R6Class(
@@ -167,11 +175,12 @@ issue_list <- R6Class(
     inherit = issue,
     public = list(
         get_text = function(){
-            VALUES <- map( self$value , "value") 
-            nonemptylist <- nonempty_list(VALUES)
-            map(nonemptylist, super$get_text)
+            map( self$value , function(x) x$get_text()) 
         },
-        has_issue = function(){ T }
+        has_issue = function(){
+            num_issues =  map_lgl( self$value , function(x) x$has_issue() ) %>% any
+            return( num_issues ) 
+        }
     ) 
 )
 
@@ -185,6 +194,7 @@ issue_list <- R6Class(
 #'
 #' @section Methods:
 #' \code{$get_text()} - Gets formated text suitable for printing
+#' \code{$has_issue()} - Returns T/F depending on whether the issue is valid
 #'
 #' @import dplyr
 #' @importFrom tibble rownames_to_column
@@ -209,7 +219,7 @@ issue_vector <- R6Class(
         },
         
         has_issue = function(){
-            sum(self$value)
+            sum(self$value) > 0
         }
     ) 
 )

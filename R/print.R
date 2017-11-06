@@ -6,7 +6,9 @@
 #' @param VARIABLE specific variable to inspect the differences of (string).
 #' @param ... Additional arguments (not used)
 #' @examples
-#' x <- iris[150,1]
+#' library(dplyr)
+#' x <- iris %>% select( -Species)
+#' x[1,2] <- 5
 #' COMPARE <- rcompare( iris, x)
 #' print( COMPARE )
 #' print( COMPARE , "Sepal.Length" )
@@ -22,7 +24,7 @@ print.rcompare <- function(x, VARIABLE = NULL, ...){
         
     } else if ( !is.null(VARIABLE)) {
         
-        outob <- COMPARE$VarDiffs[[VARIABLE]]$get_print_message()
+        outob <- COMPARE$VarDiffs$value[[VARIABLE]]$get_print_message()
         
         if(is.null(outob)){
             cat('Variable matched')
