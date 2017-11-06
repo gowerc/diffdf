@@ -90,7 +90,7 @@ test_that( "Check comparision of equal objects",{
 
 test_that( "Unequal objects raise warnings" , {
   
-  msg <- "Not all values compared equal"
+  msg <- "\nNot all Values Compared Equal"
   
   expect_warning( rcompare(TDAT , TDAT_INTCHANGE)       , msg )
   expect_warning( rcompare(TDAT , TDAT_CHARCHANGE )     , msg )
@@ -109,7 +109,7 @@ numdiffcheck <-function(compdat, target, value){
   ### Only expected 1 variable to be different thus we expect 
   ### the overall # of differences to equal the # of differences
   ### in the target variable
-  rcompare_ob   <- rcompare(TDAT , compdat , suppress_warnings = T )$NumDiff
+  rcompare_ob   <- rcompare(TDAT , compdat , suppress_warnings = T )$NumDiff$value
   rcompare_targ <- rcompare_ob[target] %>% as.numeric()
   rcompare_all  <- rcompare_ob %>% sum() %>% as.numeric()
   
@@ -216,3 +216,4 @@ test_that("Additional rows error", {
   )
   
 })
+

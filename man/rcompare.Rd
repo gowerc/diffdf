@@ -2,7 +2,7 @@
 % Please edit documentation in R/rcompare.R
 \name{rcompare}
 \alias{rcompare}
-\title{Compares dataframes}
+\title{rcompare}
 \usage{
 rcompare(base, compare, keys = NULL, suppress_warnings = F,
   outfile = NULL)
@@ -16,12 +16,20 @@ rcompare(base, compare, keys = NULL, suppress_warnings = F,
 
 \item{suppress_warnings}{Do you want to suppress warnings? (logical)}
 
-\item{outfile}{Location and name of outputted file. Leave as NULL to not output a file}
+\item{outfile}{Location and name of a file to output the results to. Setting to NULL will cause no file to be produced.}
 }
 \description{
-Emulates proc compare from SAS
 Compares 2 data frames and outputs any differences.
+Emulates proc compare from SAS
 }
 \examples{
+library(dplyr)
+x <- iris \%>\% select( -Species)
+x[1,2] <- 5
+COMPARE <- rcompare( iris, x)
+print( COMPARE )
+print( COMPARE , "Sepal.Length" )
+
+#### Example for ADaM VAD QC
 # rcompare( AAE , QC_AAE , keys = c("USUBJID" , "AESEQ"))
 }

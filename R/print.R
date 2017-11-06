@@ -6,7 +6,9 @@
 #' @param VARIABLE specific variable to inspect the differences of (string).
 #' @param ... Additional arguments (not used)
 #' @examples
-#' x <- iris[150,1]
+#' library(dplyr)
+#' x <- iris %>% select( -Species)
+#' x[1,2] <- 5
 #' COMPARE <- rcompare( iris, x)
 #' print( COMPARE )
 #' print( COMPARE , "Sepal.Length" )
@@ -22,10 +24,7 @@ print.rcompare <- function(x, VARIABLE = NULL, ...){
         
     } else if ( !is.null(VARIABLE)) {
         
-        outob <- make_textout( 
-            datin     = COMPARE$VarDiffs[[VARIABLE]],
-            row_limit = 100
-        )
+        outob <- COMPARE$VarDiffs$value[[VARIABLE]]$get_print_message()
         
         if(is.null(outob)){
             cat('Variable matched')
@@ -46,10 +45,10 @@ print.rcompare <- function(x, VARIABLE = NULL, ...){
         #extra columns/rows and illegal columns
         #We make a set of 7 arguments to pass to pastefun, defined above
         COMPARE$Issues <- NULL
-        getorder <- map_dbl(COMPARE, attr, 'order') %>% order
+        getorder <- map_dbl(COMPARE, 'order') %>% order
         COMPARE <- COMPARE[getorder]
         
-        end_text <- map(COMPARE, make_textout) %>% 
+        end_text <- map(COMPARE, function(x) x$get_print_message() ) %>% 
             unlist() %>% 
             paste(collapse = '')
         
@@ -116,149 +115,6 @@ crop_char_value <- function(inval, crop_at = 30 ){
     }
     
     outval
-}
-
-
-#' make_paste_object
-#' 
-#' Pastes together the message and the data frame.
-#' If more than 20 rows, its truncated
-#' If this is an attribute message, switches
-#' the data frame into the truncated tibble version to aid reading
-#' @import dplyr
-#' @param dataframe_in data frame to display
-#' @param message Message which appears above data frame
-#' @param row_limit This is the cut off point. Default = 20.
-make_pasteobject <- function(
-    dataframe_in,
-    message,
-    row_limit = 20
-){
-    
-    display_table <- dataframe_in %>% 
-        filter( row_number() < (row_limit + 1) )
-    
-    if ( nrow(dataframe_in) > row_limit ){
-        
-        add_message <- paste0(
-            'First ',
-            row_limit,
-            ' rows are shown in table below'
-        )
-        
-    } else {
-        add_message <- 'All rows are shown in table below'
-    } 
-    
-    display_table[]  <- apply(display_table, c(1, 2), crop_char_value)
-    
-    
-    #paste together the message, the additional message, the table
-    #and an extra final line
-    
-    TABLE <- mod_stargazer(
-        display_table,
-        type = 'text',
-        summary = FALSE
-    )
-    
-    paste(
-        c(
-            message,
-            add_message,
-            TABLE,
-            '\n'
-        ),
-        collapse = '\n'
-    )
-}
-
-
-
-
-
-#' make_text out
-#' 
-#' Attempts to convert an object into a ascii rendtion
-#' suitable for printing or outputing to a file. This is the generic
-#' function with methods being specified for specific object types
-#' @param datin the data frame being tabulated
-#' @param ... additional arguments to pass through
-make_textout <- function(datin, ...){
-
-    checkfun <- attr(datin, 'checkfun')
-    
-    if ( is.null(checkfun)){
-        checkfun <- function(x) T
-    }
-    
-    if( checkfun(datin) ){  
-        UseMethod('make_textout')
-    }
-    else{
-        NULL
-    }
-    
-}
-
-
-
-#' make_textout.rcompare_basic
-#' 
-#' Function to convert object into ascii rendition.
-#' Basic objects are passed along to make_textout.
-#' @param datin  Input data frame
-#' @param ...  any pass through options
-make_textout.rcompare_basic <- function(datin, ...){
-    make_pasteobject(
-        datin,
-        attr(datin, 'message'),
-        ...
-    )
-}
-
-
-
-
-
-#' make_textout.rcompare_vector
-#' 
-#' Function to convert object into ascii rendition.
-#' <<TODO>>
-#' @param datin  Input data frame
-#' @param ...  any pass through options
-#' @importFrom tibble rownames_to_column
-#' @import dplyr 
-make_textout.rcompare_vector <-  function(datin, ...){
-
-    datin_tibble <- datin %>% 
-        as.data.frame() %>% 
-        rownames_to_column()
-    
-    names(datin_tibble) <- c('Variable', 'No of Differences')
-    
-    datin_tibble <- datin_tibble %>% 
-        filter(`No of Differences` > 0)
-    
-    make_pasteobject(
-        datin_tibble,
-        attr(datin,'message'),
-        ...
-    )
-
-}
-
-
-#' make_textout.rcompare_list
-#' 
-#' Function to convert object into ascii rendition.
-#' <<TODO>>
-#' @param datin  Input data frame
-#' @param ...  any pass through options
-#' @importFrom purrr map
-make_textout.rcompare_list   <-  function(datin){
-    nonempty_list <- nonempty_list(datin)
-    map(nonempty_list, make_textout)
 }
 
 
