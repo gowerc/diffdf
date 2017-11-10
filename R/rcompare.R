@@ -8,6 +8,8 @@
 #' @param keys vector of variables (as strings) that defines a unique row in the base and compare dataframes
 #' @param suppress_warnings Do you want to suppress warnings? (logical)
 #' @param outfile Location and name of a file to output the results to. Setting to NULL will cause no file to be produced.
+#' @param tolerance Level of tolerance for numeric differences between two variables
+#' @param scale Scale that tolerance should be set on. If NULL assume absolute
 #' @import dplyr
 #' @importFrom purrr map_dbl
 #' @importFrom purrr map_chr
@@ -37,8 +39,11 @@
 #' rcompare(DF1 , DF1 , keys = "id")
 #' rcompare(DF1 , DF2 , keys = "id")
 #' @export
-rcompare <- function (base , compare , keys = NULL, suppress_warnings = F, outfile = NULL){
-
+rcompare <- function (base , compare , keys = NULL,
+                      suppress_warnings = F, outfile = NULL,
+                      tolerance = sqrt(.Machine$double.eps),
+                      scale = NULL){
+    
     BASE = base
     COMP = compare
     KEYS = keys
@@ -67,8 +72,8 @@ rcompare <- function (base , compare , keys = NULL, suppress_warnings = F, outfi
         message = "There are columns in BASE with unsupported modes !!",
         order = 1
     )
-
-
+    
+    
     
     COMPARE[["UnsupportedColsComp"]] <- issue_basic$new(
         value = identify_unsupported_cols(COMP) ,
@@ -76,7 +81,7 @@ rcompare <- function (base , compare , keys = NULL, suppress_warnings = F, outfi
         order = 2
     )
     
-
+    
     
     COMPARE[["VarModeDiffs"]] <- issue_basic$new(
         value = identify_mode_differences( BASE, COMP ) ,
@@ -84,14 +89,14 @@ rcompare <- function (base , compare , keys = NULL, suppress_warnings = F, outfi
         order = 3
     )
     
-
+    
     COMPARE[["VarClassDiffs"]] <- issue_basic$new(
         value = identify_class_differences(BASE, COMP) ,
         message = "There are columns in BASE and COMPARE with different classes !!",
         order = 4
     )
     
-
+    
     
     exclude_cols <- c(
         COMPARE[["UnsupportedColsBase"]]$value$VARIABLE , 
@@ -165,7 +170,7 @@ rcompare <- function (base , compare , keys = NULL, suppress_warnings = F, outfi
         message = "There are rows in COMPARE that are not in BASE !!",
         order = 7
     )
-   
+    
     
     COMPARE[["ExtColsBase"]] <- issue_basic$new(
         value =  identify_extra_cols(BASE,  COMP)   ,
@@ -179,14 +184,14 @@ rcompare <- function (base , compare , keys = NULL, suppress_warnings = F, outfi
         order = 9
     )
     
-
+    
     COMPARE[["VarDiffs"]] <- issue_list$new(
-        value =  identify_differences(BASE, COMP , KEYS, exclude_cols) ,
+        value =  identify_differences(BASE, COMP , KEYS, exclude_cols, tolerance = tolerance, scale = scale) ,
         message = "",
         order = 11
     ) 
     
- 
+    
     ### Summarise the number of mismatching rows per variable
     if ( length(COMPARE[["VarDiffs"]]$value ) ){
         VALUES <- map( COMPARE[["VarDiffs"]]$value , "value" )
@@ -207,7 +212,7 @@ rcompare <- function (base , compare , keys = NULL, suppress_warnings = F, outfi
     COMPARE <- COMPARE[getorder]
     
     ISSUES <- map_chr(COMPARE, function(x) x$get_issue_message() )
-
+    
     ISSUES <- ISSUES[!ISSUES == ""] %>% paste(collapse ='\n')
     
     if( str_length(ISSUES) != 0 ){
@@ -216,9 +221,9 @@ rcompare <- function (base , compare , keys = NULL, suppress_warnings = F, outfi
     } else {
         COMPARE[["Issues"]] <- FALSE
     }
-
+    
     class(COMPARE) <- c("rcompare" , "list") 
-        
+    
     
     if (!is.null(outfile)){
         sink(outfile)

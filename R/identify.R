@@ -118,7 +118,7 @@ identify_class_differences <- function( BASE, COMP ){
 #' @param exclude_cols Columns to exclude from comparision
 #' @import dplyr
 identify_att_differences <- function( BASE, COMP , exclude_cols = "" ){
-
+    
     matching_cols <- identify_matching_cols( BASE , COMP , exclude_cols )
     
     PROPS <- identify_properties(BASE) %>% 
@@ -183,11 +183,15 @@ identify_att_differences <- function( BASE, COMP , exclude_cols = "" ){
 #' @param COMP Comparator dataset to compare base against (data.frame)
 #' @param KEYS List of variables that define a unique row within the datasets (strings)
 #' @param exclude_cols Columns to exclude from comparision
+#' @param tolerance Level of tolerance for numeric differences between two variables
+#' @param scale Scale that tolerance should be set on. If NULL assume absolute
 #' @importFrom purrr pmap
 #' @importFrom purrr map
 #' @importFrom purrr set_names
 #' @import dplyr
-identify_differences <- function( BASE , COMP , KEYS, exclude_cols ) {
+identify_differences <- function( BASE , COMP , KEYS, exclude_cols,  
+                                  tolerance = sqrt(.Machine$double.eps),
+                                  scale = NULL ) {
     
     matching_cols <- identify_matching_cols( BASE , COMP , c(KEYS, exclude_cols))
     
@@ -197,7 +201,9 @@ identify_differences <- function( BASE , COMP , KEYS, exclude_cols ) {
         matching_cols,
         identify_variable_diff,
         KEYS = KEYS ,
-        DAT = inner_join( BASE , COMP , by = KEYS , suffix = c(".x", ".y") )
+        DAT = inner_join( BASE , COMP , by = KEYS , suffix = c(".x", ".y")),
+        tolerance = tolerance ,
+        scale = scale 
     ) %>%
         set_names(matching_cols)
     
@@ -228,16 +234,20 @@ identify_differences <- function( BASE , COMP , KEYS, exclude_cols ) {
 #' @param VAR Variable to compare for differences (string)
 #' @param DAT Input dataset (data_frame)
 #' @param KEYS Variables which define a unique row within the dataset (strings)
+#' @param tolerance Level of tolerance for numeric differences between two variables
+#' @param scale Scale that tolerance should be set on. If NULL assume absolute
 #' @import dplyr
 #' @importFrom  purrr set_names
-identify_variable_diff <- function( VAR, DAT , KEYS){
+identify_variable_diff <- function( VAR, DAT , KEYS,  
+                                    tolerance = sqrt(.Machine$double.eps),
+                                    scale = NULL ){
     cname <- paste0(VAR , c(".x" , ".y"))
     DAT %>%
         select_( .dots =  c(KEYS , cname)) %>%
         rename_( .dots = set_names( as.list(cname),  c("BASE" , "COMPARE"))) %>%
         mutate( VARIABLE = VAR ) %>%
         select_(.dots =  c("VARIABLE" , KEYS , "BASE" , "COMPARE" )) %>%
-        filter ( is_different(BASE , COMPARE)) %>% 
+        filter ( is_different(BASE , COMPARE, tolerance = tolerance, scale = scale)) %>% 
         as_data_frame()
 }
 

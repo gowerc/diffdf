@@ -56,7 +56,7 @@ is_different <- function (target, current, ...) {
         target  <- target[selectvector]
         current <- current[selectvector]  
         
-        comparevect <- is_different_wrapfun(target,current)
+        comparevect <- is_different_wrapfun(target,current, ...)
         
         outvect[selectvector] <- comparevect
         
