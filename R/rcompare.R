@@ -61,6 +61,16 @@ rcompare <- function (base , compare , keys = NULL,
         KEYS  <- "..ROWNUMBER.."
     }
     
+    ## Check tolerance and scale are numeric
+    
+    if (!is.numeric(tolerance)) {
+        stop("'tolerance' should be numeric")
+    }
+    
+    if (!is.numeric(scale) && !is.null(scale)) {
+        stop("'scale' should be numeric or NULL")
+    }
+    
     
     #################
     #
