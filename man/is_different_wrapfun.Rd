@@ -7,12 +7,13 @@
 is_different_wrapfun(target, current, ...)
 }
 \arguments{
-\item{target}{<<TODO>>}
+\item{target}{the base vector}
 
-\item{current}{<<TODO>>}
+\item{current}{a vector to compare target to}
 
-\item{...}{<<TODO>>}
+\item{...}{Additional arguments which might be passed through (numerical accuracy)}
 }
 \description{
-<<TODO>>
+Wrapper which passes is_different methods. Intended only for use
+in is_different
 }

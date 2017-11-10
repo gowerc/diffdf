@@ -9,8 +9,8 @@ identify_mode_differences(BASE, COMP)
 \arguments{
 \item{BASE}{Base dataset for comparision (data.frame)}
 
-\item{COMP}{Comparitor dataset to compare base against (data.frame)}
+\item{COMP}{Comparator dataset to compare base against (data.frame)}
 }
 \description{
-Identifys any mode differences between two data frames
+Identifies any mode differences between two data frames
 }

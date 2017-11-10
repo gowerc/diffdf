@@ -5,21 +5,18 @@
 \title{is_different.numeric}
 \usage{
 is_different.numeric(target, current, tolerance = sqrt(.Machine$double.eps),
-  scale = NULL, ..., check.attributes = TRUE)
+  scale = NULL)
 }
 \arguments{
-\item{target}{<<TODO>>}
+\item{target}{the base vector}
 
-\item{current}{<<TODO>>}
+\item{current}{a vector to compare target to}
 
-\item{tolerance}{<<TODO>>}
+\item{tolerance}{Level of tolerance for differences between two variables}
 
-\item{scale}{<<TODO>>}
-
-\item{...}{<<TODO>>}
-
-\item{check.attributes}{<<TODO>>}
+\item{scale}{Scale that tolerance should be set on. If NULL assume absolute}
 }
 \description{
 This is a modified version of the all.equal function
+which returns a vector rather than a message
 }

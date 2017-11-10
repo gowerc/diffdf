@@ -4,16 +4,21 @@
 \alias{identify_differences}
 \title{identify_differences}
 \usage{
-identify_differences(BASE, COMP, KEYS, exclude_cols)
+identify_differences(BASE, COMP, KEYS, exclude_cols,
+  tolerance = sqrt(.Machine$double.eps), scale = NULL)
 }
 \arguments{
 \item{BASE}{Base dataset for comparision (data.frame)}
 
-\item{COMP}{Comparitor dataset to compare base against (data.frame)}
+\item{COMP}{Comparator dataset to compare base against (data.frame)}
 
 \item{KEYS}{List of variables that define a unique row within the datasets (strings)}
 
 \item{exclude_cols}{Columns to exclude from comparision}
+
+\item{tolerance}{Level of tolerance for numeric differences between two variables}
+
+\item{scale}{Scale that tolerance should be set on. If NULL assume absolute}
 }
 \description{
 Compares each column within 2 datasets to identify any values which they 

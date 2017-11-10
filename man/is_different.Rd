@@ -7,12 +7,18 @@
 is_different(target, current, ...)
 }
 \arguments{
-\item{target}{<<TODO>>}
+\item{target}{the base vector}
 
-\item{current}{<<TODO>>}
+\item{current}{a vector to compare target to}
 
-\item{...}{<<TODO>>}
+\item{...}{Additional arguments which might be passed through (numerical accuracy)}
+}
+\value{
+A boolean vector which is T if target and current are different
 }
 \description{
-<<TODO>>
+This determines if two vectors are different. It expects vectors of the same
+length and type, and is intended to be used after checks have already been done
+Initially picks out any nas (matching nas count as a match)
+Then compares remaining vector
 }

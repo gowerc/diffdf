@@ -7,10 +7,10 @@
 has_unique_rows(DAT, KEYS)
 }
 \arguments{
-\item{DAT}{<<TODO>>}
+\item{DAT}{input data set (data frame)}
 
-\item{KEYS}{<<TODO>>}
+\item{KEYS}{Set of keys which should be unique}
 }
 \description{
-<<TODO>>
+Check if a data sets rows are unique
 }

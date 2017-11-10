@@ -24,9 +24,9 @@ factor_to_character <- function( dsin , vars = NULL){
 
 #' has_unique_rows
 #' 
-#' <<TODO>>
-#' @param DAT <<TODO>>
-#' @param KEYS <<TODO>>
+#' Check if a data sets rows are unique
+#' @param DAT input data set (data frame)
+#' @param KEYS Set of keys which should be unique
 #' @import dplyr
 has_unique_rows <- function(DAT , KEYS){
     BYCHECK <- DAT %>%

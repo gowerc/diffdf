@@ -10,5 +10,5 @@ identify_unsupported_cols(dsin)
 \item{dsin}{input dataset}
 }
 \description{
-Identifys any columns for which the package is not setup to handle
+Identifies any columns for which the package is not setup to handle
 }

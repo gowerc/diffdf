@@ -14,5 +14,5 @@ identify_extra_rows(DS1, DS2, KEYS)
 \item{KEYS}{List of variables that define a unique row within the datasets (strings)}
 }
 \description{
-Identifys rows that are in a baseline dataset but not in a comparitor dataset
+Identifys rows that are in a baseline dataset but not in a comparator dataset
 }

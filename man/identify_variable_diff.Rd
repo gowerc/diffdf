@@ -4,7 +4,8 @@
 \alias{identify_variable_diff}
 \title{identify_variable_diff}
 \usage{
-identify_variable_diff(VAR, DAT, KEYS)
+identify_variable_diff(VAR, DAT, KEYS, tolerance = sqrt(.Machine$double.eps),
+  scale = NULL)
 }
 \arguments{
 \item{VAR}{Variable to compare for differences (string)}
@@ -12,6 +13,10 @@ identify_variable_diff(VAR, DAT, KEYS)
 \item{DAT}{Input dataset (data_frame)}
 
 \item{KEYS}{Variables which define a unique row within the dataset (strings)}
+
+\item{tolerance}{Level of tolerance for numeric differences between two variables}
+
+\item{scale}{Scale that tolerance should be set on. If NULL assume absolute}
 }
 \description{
 For a given variable find all values between 2 datasets where they mismatch.

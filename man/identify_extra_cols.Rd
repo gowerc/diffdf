@@ -12,5 +12,5 @@ identify_extra_cols(DS1, DS2)
 \item{DS2}{Comparitor dataset (data frame)}
 }
 \description{
-Identifys columns that are in a baseline dataset but not in a comparitor dataset
+Identifys columns that are in a baseline dataset but not in a comparator dataset
 }

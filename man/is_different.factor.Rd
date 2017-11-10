@@ -7,12 +7,12 @@
 is_different.factor(target, current, ...)
 }
 \arguments{
-\item{target}{<<TODO>>}
+\item{target}{the base vector}
 
-\item{current}{<<TODO>>}
+\item{current}{a vector to compare target to}
 
-\item{...}{<<TODO>>}
+\item{...}{Additional arguments which might be passed through (numerical accuracy)}
 }
 \description{
-<<TODO>>
+Compares factors. Sets them as character and then compares
 }

@@ -5,7 +5,7 @@
 \title{rcompare}
 \usage{
 rcompare(base, compare, keys = NULL, suppress_warnings = F,
-  outfile = NULL)
+  outfile = NULL, tolerance = sqrt(.Machine$double.eps), scale = NULL)
 }
 \arguments{
 \item{base}{input dataframe}
@@ -17,6 +17,10 @@ rcompare(base, compare, keys = NULL, suppress_warnings = F,
 \item{suppress_warnings}{Do you want to suppress warnings? (logical)}
 
 \item{outfile}{Location and name of a file to output the results to. Setting to NULL will cause no file to be produced.}
+
+\item{tolerance}{Level of tolerance for numeric differences between two variables}
+
+\item{scale}{Scale that tolerance should be set on. If NULL assume absolute}
 }
 \description{
 Compares 2 data frames and outputs any differences.
@@ -32,4 +36,19 @@ print( COMPARE , "Sepal.Length" )
 
 #### Example for ADaM VAD QC
 # rcompare( AAE , QC_AAE , keys = c("USUBJID" , "AESEQ"))
+#Sample data frames
+DF1 <- data.frame(
+    id = c(1,2,3,4,5,6),
+    v1 = letters[1:6],
+    v2 = c(NA , NA , 1 , 2 , 3 , NA)
+)
+
+DF2 <- data.frame(
+    id = c(1,2,3,4,5,7),
+    v1 = letters[1:6],
+    v2 = c(NA , NA , 1 , 2 , NA , NA),
+    v3 = c(NA , NA , 1 , 2 , NA , 4)
+)
+rcompare(DF1 , DF1 , keys = "id")
+rcompare(DF1 , DF2 , keys = "id")
 }
