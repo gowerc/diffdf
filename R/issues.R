@@ -48,15 +48,18 @@ issue <- R6Class(
         has_issue = function() T,
         message = NULL,
         order = NULL,
+        time = NULL,
         
         initialize = function( 
             value = NULL , 
             message = "" , 
-            order = 999
+            order = 999,
+            time = NULL
         ){
             self$value = value
             self$message = message
             self$order = order
+            self$time = time
         },
         
         get_print_message = function(){

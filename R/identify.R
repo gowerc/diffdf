@@ -186,7 +186,7 @@ identify_att_differences <- function( BASE, COMP , exclude_cols = "" ){
 #' @param tolerance Level of tolerance for numeric differences between two variables
 #' @param scale Scale that tolerance should be set on. If NULL assume absolute
 #' @importFrom purrr pmap
-#' @importFrom purrr map
+#' @importFrom purrr map map2
 #' @importFrom purrr set_names
 #' @import dplyr
 identify_differences <- function( BASE , COMP , KEYS, exclude_cols,  
@@ -196,16 +196,26 @@ identify_differences <- function( BASE , COMP , KEYS, exclude_cols,
     matching_cols <- identify_matching_cols( BASE , COMP , c(KEYS, exclude_cols))
     
     if( length(matching_cols) == 0  ) return ( data_frame() )
-    
-    outdat <- map(
-        matching_cols,
-        identify_variable_diff,
-        KEYS = KEYS ,
-        DAT = inner_join( BASE , COMP , by = KEYS , suffix = c(".x", ".y")),
-        tolerance = tolerance ,
-        scale = scale 
-    ) %>%
-        set_names(matching_cols)
+  
+    DAT = inner_join( BASE , COMP , by = KEYS , suffix = c(".x", ".y"))
+    matching_list<-list()
+    outdat <- list()
+    keyselect <- select_(DAT, .dots = KEYS)
+    for (i in matching_cols){
+      matching_list[[i]] <- is_different(DAT[[paste0(i,'.x')]], DAT[[paste0(i,'.y')]],
+                                         tolerance = tolerance ,
+                                         scale = scale )
+      keyselecti <- keyselect %>%
+        mutate(VARIABLE = i) %>%
+        select_(.dots = c('VARIABLE',KEYS))
+      keyselecti <- keyselecti[matching_list[[i]],]
+      outdat[[i]] <- as.tibble(bind_cols(keyselecti ,
+                       tibble( BASE = DAT[[paste0(i,'.x')]][matching_list[[i]] ],
+                               COMPARE = DAT[[paste0(i,'.y')]][matching_list[[i]] ])))
+    }
+
+
+    # outdat<-outdat3
     
     outdat <- pmap(
         list(
@@ -222,34 +232,7 @@ identify_differences <- function( BASE , COMP , KEYS, exclude_cols,
 
 
 
-#' identify_variable_diff
-#' 
-#' For a given variable find all values between 2 datasets where they mismatch.
-#' The function takes only a single dataset as an input which is expected to have the relevent
-#' columns from 2 input datasets already merged together. It is expected that the variable names
-#' are differeniated by .x and .y
-#' 
-#' Function is only expected to be called from identify_differences which highly formats
-#' the input prior to passing it to this function
-#' @param VAR Variable to compare for differences (string)
-#' @param DAT Input dataset (data_frame)
-#' @param KEYS Variables which define a unique row within the dataset (strings)
-#' @param tolerance Level of tolerance for numeric differences between two variables
-#' @param scale Scale that tolerance should be set on. If NULL assume absolute
-#' @import dplyr
-#' @importFrom  purrr set_names
-identify_variable_diff <- function( VAR, DAT , KEYS,  
-                                    tolerance = sqrt(.Machine$double.eps),
-                                    scale = NULL ){
-    cname <- paste0(VAR , c(".x" , ".y"))
-    DAT %>%
-        select_( .dots =  c(KEYS , cname)) %>%
-        rename_( .dots = set_names( as.list(cname),  c("BASE" , "COMPARE"))) %>%
-        mutate( VARIABLE = VAR ) %>%
-        select_(.dots =  c("VARIABLE" , KEYS , "BASE" , "COMPARE" )) %>%
-        filter ( is_different(BASE , COMPARE, tolerance = tolerance, scale = scale)) %>% 
-        as_data_frame()
-}
+
 
 
 
