@@ -1,19 +1,8 @@
 
 
-
-
-
-
-
-
-
-
-
-
-
 #' identify_extra_rows
 #' 
-#' Identifys rows that are in a baseline dataset but not in a comparitor dataset
+#' Identifys rows that are in a baseline dataset but not in a comparator dataset
 #' @param DS1 Baseline dataset (data frame)
 #' @param DS2 Comparitor dataset (data frame)
 #' @param KEYS List of variables that define a unique row within the datasets (strings)
@@ -32,7 +21,7 @@ identify_extra_rows <- function (DS1 , DS2 , KEYS){
 
 #' identify_extra_cols
 #' 
-#' Identifys columns that are in a baseline dataset but not in a comparitor dataset
+#' Identifys columns that are in a baseline dataset but not in a comparator dataset
 #' @param DS1 Baseline dataset (data frame)
 #' @param DS2 Comparitor dataset (data frame)
 #' @import dplyr
@@ -70,7 +59,7 @@ identify_matching_cols <- function(DS1, DS2 , EXCLUDE = ""){
 
 #' identify_unsupported_cols
 #' 
-#' Identifys any columns for which the package is not setup to handle
+#' Identifies any columns for which the package is not setup to handle
 #' @param dsin input dataset
 #' @import dplyr
 identify_unsupported_cols <- function(dsin){
@@ -84,9 +73,9 @@ identify_unsupported_cols <- function(dsin){
 
 #' identify_mode_differences
 #' 
-#' Identifys any mode differences between two data frames
+#' Identifies any mode differences between two data frames
 #' @param BASE Base dataset for comparision (data.frame)
-#' @param COMP Comparitor dataset to compare base against (data.frame)
+#' @param COMP Comparator dataset to compare base against (data.frame)
 #' @import dplyr
 identify_mode_differences <- function( BASE, COMP ){
     
@@ -103,9 +92,9 @@ identify_mode_differences <- function( BASE, COMP ){
 
 #' identify_class_differences
 #' 
-#' Identifys any class differences between two data frames
+#' Identifies any class differences between two data frames
 #' @param BASE Base dataset for comparision (data.frame)
-#' @param COMP Comparitor dataset to compare base against (data.frame)
+#' @param COMP Comparator dataset to compare base against (data.frame)
 #' @import dplyr
 #' @importFrom purrr map2_lgl
 identify_class_differences <- function( BASE, COMP ){
@@ -123,9 +112,9 @@ identify_class_differences <- function( BASE, COMP ){
 
 #' identify_att_differences
 #' 
-#' Identifys any attribute differences between two data frames
+#' Identifies any attribute differences between two data frames
 #' @param BASE Base dataset for comparision (data.frame)
-#' @param COMP Comparitor dataset to compare base against (data.frame)
+#' @param COMP Comparator dataset to compare base against (data.frame)
 #' @param exclude_cols Columns to exclude from comparision
 #' @import dplyr
 identify_att_differences <- function( BASE, COMP , exclude_cols = "" ){
@@ -191,7 +180,7 @@ identify_att_differences <- function( BASE, COMP , exclude_cols = "" ){
 #' Compares each column within 2 datasets to identify any values which they 
 #' mismatch on.
 #' @param BASE Base dataset for comparision (data.frame)
-#' @param COMP Comparitor dataset to compare base against (data.frame)
+#' @param COMP Comparator dataset to compare base against (data.frame)
 #' @param KEYS List of variables that define a unique row within the datasets (strings)
 #' @param exclude_cols Columns to exclude from comparision
 #' @importFrom purrr pmap
