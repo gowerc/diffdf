@@ -45,7 +45,7 @@ print.rcompare <- function(x, VARIABLE = NULL, ...){
         #extra columns/rows and illegal columns
         #We make a set of 7 arguments to pass to pastefun, defined above
         COMPARE$Issues <- NULL
-        getorder <- map_dbl(COMPARE, 'order') %>% order
+        getorder <- map_dbl(COMPARE, function(x) x$order) %>% order
         COMPARE <- COMPARE[getorder]
         
         end_text <- map(COMPARE, function(x) x$get_print_message() ) %>% 
