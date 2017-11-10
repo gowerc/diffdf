@@ -188,6 +188,7 @@ identify_att_differences <- function( BASE, COMP , exclude_cols = "" ){
 #' @importFrom purrr pmap
 #' @importFrom purrr map map2
 #' @importFrom purrr set_names
+#' @importFrom tibble as.tibble tibble
 #' @import dplyr
 identify_differences <- function( BASE , COMP , KEYS, exclude_cols,  
                                   tolerance = sqrt(.Machine$double.eps),
