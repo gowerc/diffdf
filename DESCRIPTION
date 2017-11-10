@@ -19,7 +19,8 @@ Imports:
     stringr,
     stargazer,
     tidyr,
-    utils
+    utils,
+    R6
 Suggests:
     devtools,
     readr,

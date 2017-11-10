@@ -1,8 +1,16 @@
 
 
 
-
-fix_factor_vars <- function( dsin , vars){
+#' factor_to_character
+#' 
+#' Takes a dataframe and converts any factor variables to character
+#' @param dsin input dataframe 
+#' @param vars variables to consider for conversion. Default NULL will consider 
+#' every variable within the dataset
+factor_to_character <- function( dsin , vars = NULL){
+    
+    if ( is.null(vars) ) vars = names(dsin)
+    
     for (var in vars){
         if(  is.factor(dsin[[var]])){
             dsin[[var]] <- as.character(dsin[[var]])
@@ -12,24 +20,20 @@ fix_factor_vars <- function( dsin , vars){
 }
 
 
-class_adder <- function(objectin, new_class ,  ... ){
+
+
+#' has_unique_rows
+#' 
+#' Check if a data sets rows are unique
+#' @param DAT input data set (data frame)
+#' @param KEYS Set of keys which should be unique
+#' @import dplyr
+has_unique_rows <- function(DAT , KEYS){
+    BYCHECK <- DAT %>%
+        group_by_( .dots =  as.list(KEYS)  )  %>%
+        summarise( ..n.. = n()) %>%
+        filter( ..n.. > 1)
     
-    ARGS <- list(...)
-    
-    class(objectin) <- append(new_class, class(objectin))
-    
-    for ( i in names(ARGS) ) {
-        attr(objectin ,  i) <- ARGS[[i]] 
-    }
- 
-    objectin
+    return( nrow(BYCHECK) == 0 )
 }
 
-nonempty_list <- function(in_list){
-    noenmpty_list <- in_list[map(in_list, nrow)>0]
-    noenmpty_list
-}
-
-checklength <- function(in_list){
-    length(nonempty_list(in_list))
-}

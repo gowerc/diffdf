@@ -1,56 +1,36 @@
 
+library(dplyr)
+library(testthat)
+
+devtools::load_all()
+devtools::test()
+devtools::check()
+devtools::document()
 
 
+# devtools::install( "./" , dependencies = F)
+# devtools::install( "./" , dependencies = F , local = F)
 
-
-
+unloadNamespace("rcompare")
+utils::remove.packages("rcompare")
 
 devtools::document()
-devtools::build()
-devtools::load_all()
+location <- devtools::build()
 
-devtools::test()
+install.packages( location, repos = NULL, type="source")
 
-devtools::check()
-
-# devtools::install()
-
-
-
-x <- iris
-attr(x$Petal.Length, "rnd") <- "hi"
-attr(x$Petal.Length, "Label") <- "BLAH"
-x[150,1] <- 200
-x <- x[,-5]
-
+rcompare::rcompare(iris,iris)
+library(rcompare)
 rcompare(iris , iris)
 
-COMPARE <- rcompare(iris , x)
-print(COMPARE)
-print(COMPARE , "Sepal.Length")
 
 
+source("./tests/testthat/helper-create_test_data.R")
 
 
-### Setup test data
-TDAT2 <- TDAT
-
-## Unequal values
-TDAT2$CONTINUOUS[c(1,5,7)] <- c( 1,2,3)
-
-## Different attributes
-attr(TDAT2$BINARY , "something") <- iris
-
-## Different levels
-levels(TDAT2$CATEGORICAL) <- c("A", "B" , "D")
-
-## Different class
-class( TDAT2$DATE) <-  c("A_DATE" , "b_date" , "cDate")
-
-## Different mode
-TDAT2$INTEGER[c(1,5,7)] <- c("1" , "2" , "3")
-
-attr(TDAT2$DATETIME , "label") <- "This is the label for my amazing variable"
+rcompare(iris , iris)
+rcompare(TDAT , TDAT)
+rcompare(TDAT2 , TDAT2)
 
 
 
@@ -58,4 +38,32 @@ rcompare(
     TDAT %>% select(ID , BINARY) ,
     TDAT2 %>% select( ID , BINARY) 
 )
+
+rcompare(
+    TDAT %>% select(ID , CATEGORICAL) ,
+    TDAT2 %>% select( ID , CATEGORICAL) 
 )
+
+rcompare(
+    TDAT %>% select(ID , DATE) ,
+    TDAT2 %>% select( ID , DATE) 
+)
+
+rcompare(
+    TDAT %>% select(ID , CONTINUOUS) ,
+    TDAT2 %>% select( ID , CONTINUOUS) 
+)
+
+rcompare(
+    TDAT %>% select(ID , DATETIME) ,
+    TDAT2 %>% select( ID , DATETIME) 
+)
+
+rcompare(
+    TDAT,
+    TDAT2
+)
+
+x <- rcompare(TDAT , TDAT2 , keys = c("ID" , "GROUP1"))
+print(x ,VARIABLE =  "GROUP2")
+

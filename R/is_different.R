@@ -5,12 +5,31 @@
 
 
 
-
+#' is_different_wrapfun
+#' 
+#' Wrapper which passes is_different methods. Intended only for use
+#' in is_different
+#' @param target the base vector
+#' @param current a vector to compare target to
+#' @param ...  Additional arguments which might be passed through (numerical accuracy)
 is_different_wrapfun <- function (target, current, ...) {
     UseMethod("is_different")
 }
 
 
+
+
+
+#' is_different
+#' 
+#' This determines if two vectors are different. It expects vectors of the same
+#' length and type, and is intended to be used after checks have already been done
+#' Initially picks out any nas (matching nas count as a match)
+#' Then compares remaining vector
+#' @param target the base vector
+#' @param current a vector to compare target to
+#' @param ...  Additional arguments which might be passed through (numerical accuracy)
+#' @return A boolean vector which is T if target and current are different
 is_different <- function (target, current, ...) {
     
     if( length(target) != length(current)){
@@ -37,7 +56,7 @@ is_different <- function (target, current, ...) {
         target  <- target[selectvector]
         current <- current[selectvector]  
         
-        comparevect <- is_different_wrapfun(target,current)
+        comparevect <- is_different_wrapfun(target,current, ...)
         
         outvect[selectvector] <- comparevect
         
@@ -49,23 +68,49 @@ is_different <- function (target, current, ...) {
     }  
 }
 
+
+
+
+#' is_different.default
+#' 
+#' Default method, if the vector is not numeric or factor. Basic comparison
+#' @param target the base vector
+#' @param current a vector to compare target to
+#' @param ...  Additional arguments which might be passed through (numerical accuracy)
 is_different.default <- function(target, current, ...){
     target != current 
-    
 }
 
+
+
+
+#' is_different.factor
+#' 
+#' Compares factors. Sets them as character and then compares
+#' @param target the base vector
+#' @param current a vector to compare target to
+#' @param ...  Additional arguments which might be passed through (numerical accuracy)
 is_different.factor <- function(target, current, ...){
     as.character(target) != as.character(current) 
-    
 }
 
+
+
+
+
+#' is_different.numeric
+#' 
+#' This is a modified version of the all.equal function
+#' which returns a vector rather than a message
+#' @param target the base vector
+#' @param current a vector to compare target to
+#' @param tolerance Level of tolerance for differences between two variables
+#' @param scale Scale that tolerance should be set on. If NULL assume absolute
 is_different.numeric <- function(
     target, 
     current, 
     tolerance = sqrt(.Machine$double.eps),
-    scale = NULL, 
-    ..., 
-    check.attributes = TRUE
+    scale = NULL
 ){
     if (!is.numeric(tolerance)) {
         stop("'tolerance' should be numeric")
@@ -73,11 +118,6 @@ is_different.numeric <- function(
     
     if (!is.numeric(scale) && !is.null(scale)) {
         stop("'scale' should be numeric or NULL")
-    }
-    
-    if (!is.logical(check.attributes)) {
-        stop(gettextf("'%s' must be logical", "check.attributes"), 
-             domain = NA)
     }
     
     target <- as.vector(target)
