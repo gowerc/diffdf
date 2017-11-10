@@ -204,7 +204,7 @@ rcompare <- function (base , compare , keys = NULL,
     
     ### Summarise the number of mismatching rows per variable
     if ( length(COMPARE[["VarDiffs"]]$value ) ){
-        VALUES <- map( COMPARE[["VarDiffs"]]$value , "value" )
+        VALUES <- map( COMPARE[["VarDiffs"]]$value , function(x) x$value )
         VALUE <- sapply( VALUES , nrow )
     } else {
         VALUE <- 0
@@ -218,7 +218,7 @@ rcompare <- function (base , compare , keys = NULL,
     
     
     #### Check for issues
-    getorder <- map_dbl(COMPARE, 'order') %>% order
+    getorder <- map_dbl(COMPARE, function(x) x$order) %>% order
     COMPARE <- COMPARE[getorder]
     
     ISSUES <- map_chr(COMPARE, function(x) x$get_issue_message() )
