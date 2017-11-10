@@ -21,6 +21,21 @@
 #' 
 #' #### Example for ADaM VAD QC
 #' # rcompare( AAE , QC_AAE , keys = c("USUBJID" , "AESEQ"))
+#' #Sample data frames
+#' DF1 <- data.frame(
+#'     id = c(1,2,3,4,5,6),
+#'     v1 = letters[1:6],
+#'     v2 = c(NA , NA , 1 , 2 , 3 , NA)
+#' )
+#' 
+#' DF2 <- data.frame(
+#'     id = c(1,2,3,4,5,7),
+#'     v1 = letters[1:6],
+#'     v2 = c(NA , NA , 1 , 2 , NA , NA),
+#'     v3 = c(NA , NA , 1 , 2 , NA , 4)
+#' )
+#' rcompare(DF1 , DF1 , keys = "id")
+#' rcompare(DF1 , DF2 , keys = "id")
 #' @export
 rcompare <- function (base , compare , keys = NULL, suppress_warnings = F, outfile = NULL){
 
