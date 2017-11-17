@@ -58,6 +58,26 @@ TDAT_FACTCHANGE <- TDAT %>%
 
 ##change label
 
+TDAT_LABEXT <- TDAT
+TDAT_LABEXT2 <- TDAT
+
+attr(TDAT_LABEXT$INTEGER,'label') <- 'Int label'
+attr(TDAT_LABEXT$ID,'label') <- 'ID label'
+
+attr(TDAT_LABEXT2$ID,'label') <- 'different label'
+
+### add some extra attributes
+
+TDAT_ATTEXT <- TDAT
+TDAT_ATTEXT2 <- TDAT
+
+attr(TDAT_ATTEXT$DATE, 'newatt') <- list(data.frame(x=rnorm(10), y = rnorm(10), a='test'))
+
+attr(TDAT_ATTEXT2$DATE, 'newatt') <- list(B = data.frame(x=rnorm(10), y = rnorm(10), c='test'))
+
+attr(TDAT_ATTEXT2$GROUP2, 'newatt') <- data.frame(x=4, y=5)
+
+
 #### switch integer to double
 TDAT_MODEDBL <- TDAT %>%
     mutate( INTEGER = as.double(INTEGER))
@@ -88,6 +108,11 @@ test_that( "Check comparision of equal objects",{
     expect_false( rcompare(TDAT_DATECHANGENA , TDAT_DATECHANGENA )$Issues )
     expect_false( rcompare(TDAT_LOGCHANGENA , TDAT_LOGCHANGENA )$Issues )
     expect_false( rcompare(TDAT_FACTVALCHANGENA, TDAT_FACTVALCHANGENA)$Issues )
+    
+    expect_false( rcompare(TDAT_LABEXT , TDAT_LABEXT )$Issues )
+    expect_false( rcompare(TDAT_ATTEXT , TDAT_ATTEXT )$Issues )
+    expect_false( rcompare(TDAT_FACTCHANGE, TDAT_FACTCHANGE)$Issues )
+    
     expect_false( rcompare(iris, iris, tolerance =0.2, scale=0.1 )$Issues)
     expect_false( rcompare(TDAT, TDAT, tolerance =0.2, scale=0.1 )$Issues)
     expect_false( rcompare(TDAT, TDAT, "ID", tolerance =0.2, scale=0.1 )$Issues)
@@ -96,6 +121,7 @@ test_that( "Check comparision of equal objects",{
     expect_false( rcompare(TDAT_DATECHANGENA , TDAT_DATECHANGENA , tolerance =0.2, scale=0.1 )$Issues  )
     expect_false( rcompare(TDAT_LOGCHANGENA , TDAT_LOGCHANGENA , tolerance =0.2, scale=0.1 )$Issues )
     expect_false( rcompare(TDAT_FACTVALCHANGENA, TDAT_FACTVALCHANGENA, tolerance =0.2, scale=0.1 )$Issues  )
+    
 })
 
 test_that( "Unequal objects raise warnings" , {
@@ -256,3 +282,25 @@ test_that("Bad values for scale or tolerance error", {
     
 })
 
+test_that('Objets with differing attributes produce the correct warning', {
+    warning_msg <- "There are columns in BASE and COMPARE with differing attributes"
+    expect_warning(rcompare(TDAT, TDAT_FACTCHANGE), warning_msg)
+    expect_warning(rcompare(TDAT, TDAT_ATTEXT), warning_msg)
+    expect_warning(rcompare(TDAT, TDAT_ATTEXT2), warning_msg)
+    expect_warning(rcompare(TDAT_ATTEXT, TDAT_ATTEXT2), warning_msg)
+    expect_warning(rcompare(TDAT, TDAT_LABEXT ), warning_msg)
+    expect_warning(rcompare(TDAT, TDAT_LABEXT2 ), warning_msg)
+    expect_warning(rcompare(TDAT_LABEXT, TDAT_LABEXT2), warning_msg)
+    
+})
+
+test_that('Attribute differnce size is correct!', {
+    expect_equal(nrow(rcompare(TDAT, TDAT_FACTCHANGE)$AttribDiffs$value), 1)
+    expect_equal(nrow(rcompare(TDAT, TDAT_ATTEXT)$AttribDiffs$value), 1)
+    expect_equal(nrow(rcompare(TDAT, TDAT_ATTEXT2)$AttribDiffs$value), 2)
+    expect_equal(nrow(rcompare(TDAT_ATTEXT, TDAT_ATTEXT2)$AttribDiffs$value), 2)
+    expect_equal(nrow(rcompare(TDAT, TDAT_LABEXT )$AttribDiffs$value), 2)
+    expect_equal(nrow(rcompare(TDAT, TDAT_LABEXT2 )$AttribDiffs$value), 1)
+    expect_equal(nrow(rcompare(TDAT_LABEXT, TDAT_LABEXT2)$AttribDiffs$value), 2)
+    
+})
