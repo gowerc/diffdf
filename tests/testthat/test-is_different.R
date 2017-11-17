@@ -28,7 +28,7 @@ test_that("is_different correctly uses tolerances/scale arguments",{
     expect_equal( is_different( VALS$flt, VALS$flt2, tolerance = 1,
                                 scale = 1e-13) , c(T,T,T,T,T)) 
     expect_equal( is_different( VALS$flt, VALS$flt_calc) , c(F,F,F,F,F)) 
-    expect_equal( is_different( VALS$flt, VALS$flt_calc, tolerance = 1e-15) , VALS$flt!=VALS$flt_calc) 
+    expect_equal( is_different( VALS$flt, VALS$flt_calc, tolerance = 1e-17) , VALS$flt!=VALS$flt_calc) 
 })
     
 
