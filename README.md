@@ -26,9 +26,10 @@ Note that currently rcompare only supports data frames, and columns which are no
 
 rcompare is not currently on gran, so you can install it via
 
-
-devtools::install_git(“https://github.roche.com/gowerc/rcompare.git” , upgrade_dependencies = FALSE)
+```
+devtools::install_git(“https://github.roche.com/Rpackages/rcompare” , upgrade_dependencies = FALSE)
 library(rcompare)
 rcompare( iris,  iris[-5] ) 
+```
 
 Use ?rcompare for more help. For any issues, please use the issues tracker on github.
