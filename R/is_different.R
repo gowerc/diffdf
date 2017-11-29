@@ -112,13 +112,7 @@ is_different.numeric <- function(
     tolerance = sqrt(.Machine$double.eps),
     scale = NULL
 ){
-    if (!is.numeric(tolerance)) {
-        stop("'tolerance' should be numeric")
-    }
-    
-    if (!is.numeric(scale) && !is.null(scale)) {
-        stop("'scale' should be numeric or NULL")
-    }
+
     
     target <- as.vector(target)
     current <- as.vector(current)

@@ -46,7 +46,7 @@ run_att_test <- function( dsin1, dsin2 , expect_diff ){
     expect_equal( 
         identify_att_differences(dsin1, dsin2) %>% nrow,
         expect_diff,
-        info = str_c("dsin1 = " , as.character(CALL[2]) , "\ndsin2 = " , as.character(CALL[3])) ,
+        info = stringr::str_c("dsin1 = " , as.character(CALL[2]) , "\ndsin2 = " , as.character(CALL[3])) ,
         label =  "identify_mode_differences returns a row count"
     )
 }
