@@ -1,4 +1,9 @@
 
+library(dplyr)
+library(purrr)
+library(rcompare)
+library(stringr)
+library(devtools)
 
 
 set.seed(20202)

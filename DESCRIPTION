@@ -12,7 +12,7 @@ Encoding: UTF-8
 LazyData: true
 Depends:
     R (>= 3.1.2)
-Imports: 
+Imports:
     dplyr, 
     purrr, 
     tibble,
@@ -25,5 +25,9 @@ Suggests:
     devtools,
     readr,
     testthat,
-    lubridate
+    lubridate,
+    knitr,
+    rmarkdown,
+    rclinical
 RoxygenNote: 6.0.1
+VignetteBuilder: knitr

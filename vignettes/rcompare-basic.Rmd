@@ -1,0 +1,131 @@
+---
+title: "Introduction to rcompare"
+author: "Craig Gower & Kieran Martin"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+The purpose of `rcompare` is to provide `proc compare` like functionality to R for use in second line programming. In particular we focus on raising warnings if any differences are found whilst providing in-depth diagnostics to highlight where these differences have occurred. 
+
+
+## Basic usage
+
+Here we show the basic functionality of `rcompare` using dummy `dm` data from the `rclinical` package. 
+
+```{r}
+library(rclinical)
+library(rcompare)
+access_data("dm" , prefix = "")
+rcompare(dm, dm)
+```
+
+As you would expect no differences are found. We now look to introduce various types differences into the data in order to show how `rcompare` highlights them.  Note that for the purposes of this vignette we have used the `suppress_warnings` argument; it is recommended however that this option is not used in production code as it may mask problems. 
+
+
+### Missing Columns
+
+```{r}
+dm2 <- dm 
+dm2 <- dm2[,-6]
+rcompare(dm , dm2 , suppress_warnings = T)
+```
+
+
+### Missing Rows 
+
+```{r}
+dm2 <- dm[1:(nrow(dm) - 1),]
+dm3 <- dm[1:(nrow(dm) - 2),]
+rcompare(dm2 , dm3 , suppress_warnings = T)
+```
+
+
+### Different Values 
+
+```{r}
+dm2 <- dm
+dm2[5,2] <- "CM"
+rcompare(dm , dm2 , suppress_warnings = T)
+```
+
+
+### Different Types
+
+```{r}
+dm2 <- dm
+dm2$ARMCD <- 1
+rcompare(dm , dm2 , suppress_warnings = T)
+```
+
+
+## Grouping Variables
+
+A key feature of `rcompare` that enables easier diagnostics is the ability to specify which variables form a unique row i.e. which rows should be compared against each other based upon a key. By default if no key is specified `rcompare` will use the row number as the key however in general this isn't recommended as it means two identical datasets simply sorted differently can lead to incomprehensible error messages as every observation is flagged as different.  In `rcompare` keys can be specified as character vectors using the `keys` argument.
+
+```{r}
+dm2 <- dm
+dm2[ c(1,2,3),  7] <- c( "a" , "b" , "c") 
+dm2[ c(1,2,3),  8] <- c( "x" , "y" , "z")
+rcompare( dm , dm2 , keys = c("USUBJID" , "STUDYID") , suppress_warnings = T)
+```
+
+## Printing and Saving the Compare Log
+
+When there are lots of mismatches the log can become unwieldly. In order to deal with this you can either use the `print` function to display a particular variable or the `outfile` option to save the log to a file. 
+
+```{r}
+dm2 <- dm
+dm2[ c(1,2,3),  7] <- c( "a" , "b" , "c") 
+dm2[ c(1,2,3),  8] <- c( "x" , "y" , "z")
+result <- rcompare( dm , dm2 , keys = c("USUBJID" , "STUDYID") , suppress_warnings = T)
+print(result , VARIABLE = "INVID")
+```
+
+```{r, eval=FALSE}
+result <- rcompare( 
+    dm , 
+    dm2 , 
+    keys = c("USUBJID" , "STUDYID") , 
+    outfile =  "reports/rcompare.log", 
+    suppress_warnings = T
+)
+
+```
+
+## Misc
+
+
+### Tollerance
+
+You can use the `tolerance` argument of `rcompare` to define how sensitive the comparison should be to decimal place inaccuracies. This important as very often floating point numbers will not compare equal due to machine rounding as they cannot be perfectly represented in binary. 
+
+```{r}
+dsin1 <- data.frame(x = 1.1e-06)
+dsin2 <- data.frame(x = 1.1e-07)
+
+rcompare(dsin1  , dsin2 , suppress_warnings = T)
+
+rcompare(dsin1  , dsin2 , tolerance = 0.001 , suppress_warnings = T)
+```
+
+
+
+
+
+
+
+
+

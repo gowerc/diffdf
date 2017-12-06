@@ -4,3 +4,4 @@
 .Ruserdata
 *.Rproj
 xxx_utilites.R
+inst/doc

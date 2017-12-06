@@ -295,12 +295,54 @@ test_that('Objets with differing attributes produce the correct warning', {
 })
 
 test_that('Attribute differnce size is correct!', {
-    expect_equal(nrow(rcompare(TDAT, TDAT_FACTCHANGE)$AttribDiffs$value), 1)
-    expect_equal(nrow(rcompare(TDAT, TDAT_ATTEXT)$AttribDiffs$value), 1)
-    expect_equal(nrow(rcompare(TDAT, TDAT_ATTEXT2)$AttribDiffs$value), 2)
-    expect_equal(nrow(rcompare(TDAT_ATTEXT, TDAT_ATTEXT2)$AttribDiffs$value), 2)
-    expect_equal(nrow(rcompare(TDAT, TDAT_LABEXT )$AttribDiffs$value), 2)
-    expect_equal(nrow(rcompare(TDAT, TDAT_LABEXT2 )$AttribDiffs$value), 1)
-    expect_equal(nrow(rcompare(TDAT_LABEXT, TDAT_LABEXT2)$AttribDiffs$value), 2)
+    expect_equal(
+        rcompare(TDAT, TDAT_FACTCHANGE , suppress_warnings = T)$AttribDiffs$value %>% nrow, 
+        1
+    )
+    
+    expect_equal(
+        rcompare(TDAT, TDAT_ATTEXT , suppress_warnings = T)$AttribDiffs$value %>% nrow, 
+        1
+    )
+    
+    expect_equal(
+        rcompare(TDAT, TDAT_ATTEXT2 , suppress_warnings = T)$AttribDiffs$value %>% nrow, 
+        2
+    )
+    
+    expect_equal(
+        rcompare(TDAT_ATTEXT, TDAT_ATTEXT2 , suppress_warnings = T)$AttribDiffs$value %>% nrow, 
+        2
+    )
+    
+    expect_equal(
+        rcompare(TDAT, TDAT_LABEXT , suppress_warnings = T)$AttribDiffs$value %>% nrow, 
+        2
+    )
+    
+    expect_equal(
+        rcompare(TDAT, TDAT_LABEXT2 , suppress_warnings = T)$AttribDiffs$value %>% nrow, 
+        1
+    )
+    
+    expect_equal(
+        rcompare(TDAT_LABEXT, TDAT_LABEXT2 , suppress_warnings = T)$AttribDiffs$value %>% nrow, 
+        2
+    )
     
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

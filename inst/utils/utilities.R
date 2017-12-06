@@ -2,37 +2,52 @@
 library(dplyr)
 library(testthat)
 
+
+### Most common devtools functions
 devtools::load_all()
 devtools::test()
 devtools::check()
 devtools::document()
 
-
-# devtools::install( "./" , dependencies = F)
-# devtools::install( "./" , dependencies = F , local = F)
-
+### Ensure rcompare is unloaded and removed
 unloadNamespace("rcompare")
 utils::remove.packages("rcompare")
 
+### Document build and install R compare
 devtools::document()
 location <- devtools::build()
-
 install.packages( location, repos = NULL, type="source")
 
+### Very simple test
 rcompare::rcompare(iris,iris)
 library(rcompare)
 rcompare(iris , iris)
+?rcompare
 
+###############
+#
+#  Ensure R clinical is installed
+#
+
+library(rclinical)
+
+devtools::install_git( "https://github.roche.com/Rpackages/rclinical",  dependencies= F)
+
+rclinical::clindata_names
+rclinical::access_data( c("ae" , "vs"))
+rclinical::access_data( "ae" )
+
+################
+#
+# Manually run some tests
+#
 
 
 source("./tests/testthat/helper-create_test_data.R")
 
-
 rcompare(iris , iris)
 rcompare(TDAT , TDAT)
 rcompare(TDAT2 , TDAT2)
-
-
 
 rcompare(
     TDAT %>% select(ID , BINARY) ,
