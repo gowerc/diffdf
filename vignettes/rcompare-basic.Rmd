@@ -71,6 +71,25 @@ rcompare(dm , dm2 , suppress_warnings = T)
 ```
 
 
+### Different Labels
+
+```{r}
+dm2 <- dm
+attr(dm2$USUBJID , "label") <- "Subject"
+attr(dm2$ARM , "label") <- "Treatment Arm"
+rcompare(dm , dm2 , suppress_warnings = T)
+```
+
+### Factor Levels 
+
+```{r}
+dm2 <- dm
+dm3 <- dm
+dm2$ARM <- factor(dm2$ARM)
+dm3$ARM <- factor(dm3$ARM, labels = c("A" , "B"))
+rcompare(dm2 , dm3 , suppress_warnings = T)
+```
+
 ## Grouping Variables
 
 A key feature of `rcompare` that enables easier diagnostics is the ability to specify which variables form a unique row i.e. which rows should be compared against each other based upon a key. By default if no key is specified `rcompare` will use the row number as the key however in general this isn't recommended as it means two identical datasets simply sorted differently can lead to incomprehensible error messages as every observation is flagged as different.  In `rcompare` keys can be specified as character vectors using the `keys` argument.
@@ -108,9 +127,9 @@ result <- rcompare(
 ## Misc
 
 
-### Tollerance
+### Tolerance
 
-You can use the `tolerance` argument of `rcompare` to define how sensitive the comparison should be to decimal place inaccuracies. This important as very often floating point numbers will not compare equal due to machine rounding as they cannot be perfectly represented in binary. 
+You can use the `tolerance` argument of `rcompare` to define how sensitive the comparison should be to decimal place inaccuracies. This important as very often floating point numbers will not compare equal due to machine rounding as they cannot be perfectly represented in binary. By default tolerance is set to `sqrt(.Machine$double.eps)`
 
 ```{r}
 dsin1 <- data.frame(x = 1.1e-06)
@@ -120,7 +139,6 @@ rcompare(dsin1  , dsin2 , suppress_warnings = T)
 
 rcompare(dsin1  , dsin2 , tolerance = 0.001 , suppress_warnings = T)
 ```
-
 
 
 

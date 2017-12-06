@@ -30,8 +30,12 @@ rcompare(iris , iris)
 #
 
 library(rclinical)
+?install
 
-devtools::install_git( "https://github.roche.com/Rpackages/rclinical",  dependencies= F)
+devtools::install_git( 
+    "https://github.roche.com/Rpackages/rclinical", 
+    upgrade_dependencies = F
+)
 
 rclinical::clindata_names
 rclinical::access_data( c("ae" , "vs"))
