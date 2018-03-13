@@ -10,7 +10,7 @@
 identify_extra_rows <- function (DS1 , DS2 , KEYS){
     DS1 %>%
         anti_join( DS2 , by = KEYS) %>% 
-        select_(.dots = list(KEYS)) 
+        select_(.dots = KEYS)
 }
 
 
