@@ -1,6 +1,6 @@
 
 
-context("Testing mode differnce functions")
+context("Testing mode difference functions")
 
 run_mode_test <- function( dsin1, dsin2 , expect_diff ){
     CALL  <- match.call()
