@@ -33,7 +33,7 @@ library(rclinical)
 ?install
 
 devtools::install_git( 
-    "https://github.roche.com/Rpackages/rclinical", 
+    "https://github.roche.com/Rpackages/rcompare/tree/fix_dplyr_update", 
     upgrade_dependencies = F
 )
 

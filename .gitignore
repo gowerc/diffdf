@@ -2,6 +2,3 @@
 .Rhistory
 .RData
 .Ruserdata
-*.Rproj
-xxx_utilites.R
-inst/doc
