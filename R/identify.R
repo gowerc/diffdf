@@ -224,7 +224,7 @@ identify_differences <- function( BASE , COMP , KEYS, exclude_cols,
             message = "" ,
             order = seq(1, length(outdat))
         ),
-        issue_basic$new
+        function(...) construct_s3("issue_basic" , ...)
     )
     outdat
 }

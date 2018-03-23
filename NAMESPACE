@@ -3,7 +3,6 @@
 S3method(print,rcompare)
 export(rcompare)
 import(dplyr)
-importFrom(R6,R6Class)
 importFrom(purrr,map)
 importFrom(purrr,map2)
 importFrom(purrr,map2_lgl)

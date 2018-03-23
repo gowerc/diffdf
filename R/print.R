@@ -24,7 +24,7 @@ print.rcompare <- function(x, VARIABLE = NULL, ...){
         
     } else if ( !is.null(VARIABLE)) {
         
-        outob <- COMPARE$VarDiffs$value[[VARIABLE]]$get_print_message()
+        outob <- get_print_message(COMPARE$VarDiffs$value[[VARIABLE]])
         
         if(is.null(outob)){
             cat('Variable matched')
@@ -48,7 +48,7 @@ print.rcompare <- function(x, VARIABLE = NULL, ...){
         getorder <- map_dbl(COMPARE, function(x) x$order) %>% order
         COMPARE <- COMPARE[getorder]
         
-        end_text <- map(COMPARE, function(x) x$get_print_message() ) %>% 
+        end_text <- map(COMPARE, function(x) get_print_message(x) ) %>% 
             unlist() %>% 
             paste(collapse = '')
         

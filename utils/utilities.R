@@ -83,6 +83,9 @@ rcompare(
     TDAT2
 )
 
+TDAT3 <- TDAT %>% sample_frac(1)
+rcompare(TDAT , TDAT3)
+
 x <- rcompare(TDAT , TDAT2 , keys = c("ID" , "GROUP1"))
 print(x ,VARIABLE =  "GROUP2")
 

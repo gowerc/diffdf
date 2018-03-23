@@ -77,30 +77,34 @@ rcompare <- function (base , compare , keys = NULL,
     # Check essential variable properties (class & mode)
     # 
     
-    COMPARE[["UnsupportedColsBase"]] <- issue_basic$new(
-        value = identify_unsupported_cols(BASE) ,
-        message = "There are columns in BASE with unsupported modes !!",
+    COMPARE[["UnsupportedColsBase"]] <- construct_s3(
+        Class = "issue_basic" , 
+        value = identify_unsupported_cols(BASE) , 
+        message  = "There are columns in BASE with unsupported modes !!" , 
         order = 1
     )
     
-    
-    
-    COMPARE[["UnsupportedColsComp"]] <- issue_basic$new(
-        value = identify_unsupported_cols(COMP) ,
-        message = "There are columns in COMPARE with unsupported modes !!",
+
+    COMPARE[["UnsupportedColsComp"]] <- construct_s3(
+        Class = "issue_basic" , 
+        value = identify_unsupported_cols(COMP) , 
+        message  = "There are columns in COMPARE with unsupported modes !!" , 
         order = 2
     )
     
     
     
-    COMPARE[["VarModeDiffs"]] <- issue_basic$new(
+    
+    COMPARE[["VarModeDiffs"]] <- construct_s3(
+        Class = "issue_basic" , 
         value = identify_mode_differences( BASE, COMP ) ,
         message = "There are columns in BASE and COMPARE with different modes !!",
         order = 3
     )
     
     
-    COMPARE[["VarClassDiffs"]] <- issue_basic$new(
+    COMPARE[["VarClassDiffs"]] <- construct_s3(
+        Class = "issue_basic" , 
         value = identify_class_differences(BASE, COMP) ,
         message = "There are columns in BASE and COMPARE with different classes !!",
         order = 4
@@ -145,7 +149,8 @@ rcompare <- function (base , compare , keys = NULL,
     # Check Attributes
     # 
     
-    COMPARE[["AttribDiffs"]] <- issue_basic$new(
+    COMPARE[["AttribDiffs"]] <- construct_s3(
+        Class = "issue_basic" , 
         value = identify_att_differences(BASE,  COMP ,  exclude_cols)  ,
         message = "There are columns in BASE and COMPARE with differing attributes !!",
         order = 5
@@ -169,33 +174,38 @@ rcompare <- function (base , compare , keys = NULL,
     BASE <- factor_to_character(BASE , KEYS)
     COMP <- factor_to_character(COMP , KEYS)
     
-    COMPARE[["ExtRowsBase"]] <- issue_basic$new(
+    COMPARE[["ExtRowsBase"]] <- construct_s3(
+        Class = "issue_basic" , 
         value = identify_extra_rows(  BASE, COMP,   KEYS )   ,
         message = "There are rows in BASE that are not in COMPARE !!",
         order = 6
     )
     
-    COMPARE[["ExtRowsComp"]] <- issue_basic$new(
+    COMPARE[["ExtRowsComp"]] <- construct_s3(
+        Class = "issue_basic" , 
         value = identify_extra_rows(  COMP, BASE,   KEYS )   ,
         message = "There are rows in COMPARE that are not in BASE !!",
         order = 7
     )
     
     
-    COMPARE[["ExtColsBase"]] <- issue_basic$new(
+    COMPARE[["ExtColsBase"]] <- construct_s3(
+        Class = "issue_basic" , 
         value =  identify_extra_cols(BASE,  COMP)   ,
         message = "There are columns in BASE that are not in COMPARE !!",
         order = 8
     )
     
-    COMPARE[["ExtColsComp"]] <- issue_basic$new(
+    COMPARE[["ExtColsComp"]] <- construct_s3(
+        Class = "issue_basic" , 
         value =  identify_extra_cols(COMP,  BASE)   ,
         message = "There are columns in COMPARE that are not in BASE !!",
         order = 9
     )
     
     
-    COMPARE[["VarDiffs"]] <- issue_list$new(
+    COMPARE[["VarDiffs"]] <- construct_s3(
+        Class = "issue_list" , 
         value =  identify_differences(BASE, COMP , KEYS, exclude_cols, tolerance = tolerance, scale = scale) ,
         message = "",
         order = 11
@@ -210,7 +220,8 @@ rcompare <- function (base , compare , keys = NULL,
         VALUE <- 0
     }
     
-    COMPARE[["NumDiff"]] <- issue_vector$new(
+    COMPARE[["NumDiff"]] <- construct_s3(
+        Class = "issue_vector" , 
         value = VALUE, 
         message = "Not all Values Compared Equal",
         order = 10
@@ -221,7 +232,7 @@ rcompare <- function (base , compare , keys = NULL,
     getorder <- map_dbl(COMPARE, function(x) x$order) %>% order
     COMPARE <- COMPARE[getorder]
     
-    ISSUES <- map_chr(COMPARE, function(x) x$get_issue_message() )
+    ISSUES <- map_chr(COMPARE, function(x) get_issue_message(x) )
     
     ISSUES <- ISSUES[!ISSUES == ""] %>% paste(collapse ='\n')
     
