@@ -93,7 +93,9 @@ issue <- R6Class(
                 
                 add_message <- paste0(
                     'First ',
-                    row_limit,
+                    row_limit, 
+                    " of " ,
+                    nrow(dsin),
                     ' rows are shown in table below'
                 )
                 
