@@ -111,6 +111,11 @@ print_tests <- list(
     "everything 2"  = list(
         TDAT2,
         TDAT
+    ),
+    
+    "Missing Vs NA"  = list(
+        TDAT %>% mutate( CHARACTER= ifelse(row_number() ==1 , NA , CHARACTER)),
+        TDAT %>% mutate( CHARACTER= ifelse(row_number() ==1 , "" , CHARACTER))
     )
 )
 
@@ -131,5 +136,17 @@ if ( SET_GOLD ){
         expect_equal( RES[[i]] , TESTING_print_msg[[i]] , info = paste0( "Reference = " , i))
     }
 }
+
+
+# for ( i in 1:length(RES)){
+#     sink( paste0("./utils/print_output/output_",i,".txt"))
+#     RES[[i]] %>% cat(sep = "\n")
+#     sink()
+# 
+#     # sink( paste0("./utils/print_output/output_",i,"_gold.txt"))
+#     # TESTING_print_msg[[i]] %>% cat(sep = "\n")
+#     # sink()
+# }
+
 
 

@@ -86,23 +86,11 @@ get_text.default <- function(object, dsin , row_limit = 10){
         add_message <- 'All rows are shown in table below'
     } 
     
-    display_table[]  <- apply(display_table, c(1, 2), crop_char_value)
-    
-    
-    #paste together the message, the additional message, the table
-    #and an extra final line
-    
-    TABLE <- mod_stargazer(
-        display_table,
-        type = 'text',
-        summary = FALSE
-    )
-    
     RETURN <- paste(
         c(
             object$message,
             add_message,
-            TABLE,
+            as_ascii_table(display_table),
             '\n'
         ),
         collapse = '\n'
