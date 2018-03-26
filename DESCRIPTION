@@ -17,10 +17,8 @@ Imports:
     purrr, 
     tibble,
     stringr,
-    stargazer,
     tidyr,
-    utils,
-    R6
+    utils
 Suggests:
     devtools,
     readr,
