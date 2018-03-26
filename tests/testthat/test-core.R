@@ -45,16 +45,19 @@ TDAT_FACTVALCHANGENA$CATEGORICAL[TDAT_FACTVALCHANGENA$CATEGORICAL == "C"] <- NA
 
 
 #### add a unsupported column
-TDAT_PLUSLIST <- TDAT %>%
-    mutate(LIST = rep(list(CATEGORICAL) , nrow(.)))
+TDAT_PLUSLIST <- TDAT 
+TDAT_PLUSLIST$LIST <- rep(list(TDAT$CATEGORICAL) , nrow(TDAT))
 
 #### add change in mode
-TDAT_MODECHANGE <- TDAT %>%
-    mutate( INTEGER = as.character(INTEGER))
+TDAT_MODECHANGE <- TDAT 
+TDAT_MODECHANGE$INTEGER = as.character(TDAT$INTEGER)
 
 #### Add extra factor levels
-TDAT_FACTCHANGE <- TDAT %>%
-    mutate( CATEGORICAL = factor(CATEGORICAL, levels = c(levels(CATEGORICAL), 'New')))
+TDAT_FACTCHANGE <- TDAT 
+TDAT_FACTCHANGE$CATEGORICAL = factor(
+    TDAT$CATEGORICAL, 
+    levels = c(levels(TDAT$CATEGORICAL), 'New')
+)
 
 ##change label
 
@@ -79,19 +82,18 @@ attr(TDAT_ATTEXT2$GROUP2, 'newatt') <- data.frame(x=4, y=5)
 
 
 #### switch integer to double
-TDAT_MODEDBL <- TDAT %>%
-    mutate( INTEGER = as.double(INTEGER))
+TDAT_MODEDBL <- TDAT 
+TDAT_MODEDBL$INTEGER <- as.double(TDAT$INTEGER)
 
 #### add extra columns
-TDAT_EXTCOLS <- TDAT %>%
-    mutate(
-        ext = CATEGORICAL,
-        ext2 = CATEGORICAL
-    )
+TDAT_EXTCOLS <- TDAT
+TDAT_EXTCOLS$ext <- TDAT$CATEGORICAL
+TDAT_EXTCOLS$ext2 <- TDAT$CATEGORICAL
+
 
 
 #### add extra rows
-TDAT_EXTROWS <- bind_rows(TDAT, TDAT)
+TDAT_EXTROWS <- rbind(TDAT, TDAT)
 
 
 ###################################
@@ -193,8 +195,14 @@ test_that( "Differing classes error" , {
         "There are columns in BASE and COMPARE with different classes"
     )
     
-    expect_warning( 
-        rcompare(TDAT %>% select(CONTINUOUS ), TDAT %>% select(CONTINUOUS = INTEGER)),
+    TEMP <- TDAT
+    TEMP$CONTINUOUS <- TEMP$INTEGER
+    
+    expect_warning(
+        rcompare(
+            TDAT[,"CONTINUOUS", drop=FALSE], 
+            TEMP[,"CONTINUOUS", drop=FALSE] 
+        ),
         "There are columns in BASE and COMPARE with different classes"
     )
 })

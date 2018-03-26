@@ -2,7 +2,7 @@
 
 S3method(print,rcompare)
 export(rcompare)
-import(dplyr)
+importFrom(purrr,"%>%")
 importFrom(purrr,map)
 importFrom(purrr,map2)
 importFrom(purrr,map2_lgl)

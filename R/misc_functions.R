@@ -27,13 +27,14 @@ factor_to_character <- function( dsin , vars = NULL){
 #' Check if a data sets rows are unique
 #' @param DAT input data set (data frame)
 #' @param KEYS Set of keys which should be unique
-#' @import dplyr
 has_unique_rows <- function(DAT , KEYS){
-    BYCHECK <- DAT %>%
-        group_by_( .dots =  as.list(KEYS)  )  %>%
-        summarise( ..n.. = n()) %>%
-        filter( ..n.. > 1)
     
-    return( nrow(BYCHECK) == 0 )
+    NDUPS <- DAT %>%
+        subset(select= KEYS) %>% 
+        duplicated %>% 
+        sum
+        
+    return( NDUPS == 0 )
 }
+
 

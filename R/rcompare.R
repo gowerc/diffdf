@@ -10,12 +10,11 @@
 #' @param outfile Location and name of a file to output the results to. Setting to NULL will cause no file to be produced.
 #' @param tolerance Level of tolerance for numeric differences between two variables
 #' @param scale Scale that tolerance should be set on. If NULL assume absolute
-#' @import dplyr
 #' @importFrom purrr map_dbl
 #' @importFrom purrr map_chr
+#' @importFrom purrr "%>%"
 #' @examples
-#' library(dplyr)
-#' x <- iris %>% select( -Species)
+#' x <- subset( iris,  -Species)
 #' x[1,2] <- 5
 #' COMPARE <- rcompare( iris, x)
 #' print( COMPARE )
@@ -23,7 +22,8 @@
 #' 
 #' #### Example for ADaM VAD QC
 #' # rcompare( AAE , QC_AAE , keys = c("USUBJID" , "AESEQ"))
-#' #Sample data frames
+#' 
+#' #### Sample data frames
 #' DF1 <- data.frame(
 #'     id = c(1,2,3,4,5,6),
 #'     v1 = letters[1:6],
@@ -56,8 +56,8 @@ rcompare <- function (base , compare , keys = NULL,
     
     ### If no key is suplied match values based upon row number
     if (is.null(KEYS)){
-        BASE <- BASE %>% mutate( ..ROWNUMBER.. = row_number())
-        COMP <- COMP %>% mutate( ..ROWNUMBER.. = row_number())
+        BASE[["..ROWNUMBER.."]] <-  1:nrow(BASE) 
+        COMP[["..ROWNUMBER.."]] <-  1:nrow(COMP) 
         KEYS  <- "..ROWNUMBER.."
     }
     
@@ -71,7 +71,7 @@ rcompare <- function (base , compare , keys = NULL,
         stop("'scale' should be numeric or NULL")
     }
     
-    
+
     #################
     #
     # Check essential variable properties (class & mode)
@@ -124,13 +124,20 @@ rcompare <- function (base , compare , keys = NULL,
     # Check Validity of Keys
     # 
     
-    BASE_key_count <- identify_properties(BASE) %>% 
-        filter( VARIABLE %in% KEYS) %>% 
+    BASE_key_count <- identify_properties(BASE) 
+    BASE_key_count <- BASE_key_count[ 
+        BASE_key_count[["VARIABLE"]] %in% KEYS,,
+        drop=FALSE
+    ] %>% 
         nrow
     
-    COMP_key_count <- identify_properties(COMP) %>% 
-        filter( VARIABLE %in% KEYS) %>% 
+    COMP_key_count <- identify_properties(COMP) 
+    COMP_key_count <- COMP_key_count[ 
+        COMP_key_count[["VARIABLE"]] %in% KEYS,,
+        drop=FALSE
+    ] %>% 
         nrow
+    
     
     if ( BASE_key_count != length(KEYS)  ){
         stop( "BASE is missing variables specified in KEYS")
@@ -254,6 +261,9 @@ rcompare <- function (base , compare , keys = NULL,
     
     return(COMPARE)
 }
+
+
+
 
 
 

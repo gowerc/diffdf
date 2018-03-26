@@ -27,8 +27,7 @@ Compares 2 data frames and outputs any differences.
 Emulates proc compare from SAS
 }
 \examples{
-library(dplyr)
-x <- iris \%>\% select( -Species)
+x <- subset( iris,  -Species)
 x[1,2] <- 5
 COMPARE <- rcompare( iris, x)
 print( COMPARE )
@@ -36,7 +35,8 @@ print( COMPARE , "Sepal.Length" )
 
 #### Example for ADaM VAD QC
 # rcompare( AAE , QC_AAE , keys = c("USUBJID" , "AESEQ"))
-#Sample data frames
+
+#### Sample data frames
 DF1 <- data.frame(
     id = c(1,2,3,4,5,6),
     v1 = letters[1:6],
