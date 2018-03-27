@@ -11,28 +11,25 @@ context("Checking print function against gold standard")
 # source( "./tests/testthat/helper-create_test_data.R")
 
 
-M_TDAT <- TDAT 
-M_TDAT$CHARACTER[1] <- NA
 
-M_TDAT2 <- TDAT 
-M_TDAT2$CHARACTER[1] <- ""
+
 
 print_tests <- list(
     "Identical" = list(
-        TDAT  %>% subset( select = ID ), 
-        TDAT2 %>% subset( select = ID )
+        TDAT[ ,"ID", drop=FALSE], 
+        TDAT2[ , "ID" , drop=FALSE]
     ), 
     
     "Identical 2" = list(  
-        TDAT2  %>% subset( select = ID ), 
-        TDAT %>% subset( select = ID )
+        TDAT2[,"ID", drop=FALSE], 
+        TDAT[, "ID" , drop =FALSE]
     ),
     
     
     
     "Different Values" = list(
-        TDAT  %>% subset( select = c(ID,CONTINUOUS)), 
-        TDAT2 %>% subset( select = c(ID,CONTINUOUS))
+        TDAT[, c("ID","CONTINUOUS")], 
+        TDAT2[ ,c("ID","CONTINUOUS")]
     ), 
     
     "Different Values 2" = list(
@@ -47,62 +44,62 @@ print_tests <- list(
     ),
     
     "Different attributes 2" = list(
-        TDAT2  %>% subset( select = c(ID , BINARY)), 
-        TDAT %>% subset( select =c(ID , BINARY))
+        TDAT2[, c("ID" , "BINARY")], 
+        TDAT[,c("ID" , "BINARY")]
     ),
     
     
     
     "Different Levels" = list(
-        TDAT  %>% subset( select =c(ID , CATEGORICAL)), 
-        TDAT2 %>% subset( select =c(ID , CATEGORICAL))
+        TDAT[,c("ID" , "CATEGORICAL")], 
+        TDAT2[,c("ID" , "CATEGORICAL")]
     ),
     "Different Levels 2" = list(
-        TDAT2  %>% subset( select =c(ID , CATEGORICAL)), 
-        TDAT %>% subset( select = c(ID , CATEGORICAL))
+        TDAT2[,c("ID" , "CATEGORICAL")], 
+        TDAT[,c("ID" , "CATEGORICAL")]
     ),
     
     
     "Different Class" = list(
-        TDAT  %>% subset(select =c( ID , DATE)), 
-        TDAT2 %>% subset(select =c( ID , DATE))
+        TDAT[,c( "ID" , "DATE")], 
+        TDAT2[,c( "ID" , "DATE")]
     ),
     "Different Class 2" = list(
-        TDAT2  %>% subset( select =c(ID , DATE)), 
-        TDAT %>% subset( select =c(ID , DATE))
+        TDAT2[,c("ID" , "DATE")], 
+        TDAT[,c("ID" , "DATE")]
     ),
     
     
     
     "Different Modes" = list(
-        TDAT  %>% subset(select =c( ID , INTEGER)), 
-        TDAT2 %>% subset( select =c(ID , INTEGER))
+        TDAT[,c( "ID" , "INTEGER")], 
+        TDAT2[,c("ID" , "INTEGER")]
     ),
     "Different Modes 2" = list(
-        TDAT2  %>% subset(select =c( ID , INTEGER)), 
-        TDAT %>% subset( select =c(ID , INTEGER))
+        TDAT2[,c( "ID" , "INTEGER")], 
+        TDAT[,c("ID" , "INTEGER")]
     ),
     
     
     "Missing Columns" = list(
-        TDAT  %>% subset( select =c(ID , INTEGER, BINARY)), 
-        TDAT2 %>% subset(select =c( ID , INTEGER))
+        TDAT[,c("ID" , "INTEGER", "BINARY")], 
+        TDAT2[,c( "ID" , "INTEGER")]
     ),
     
     "Missing Columns 2" = list(
-        TDAT2  %>% subset(select =c( ID , INTEGER, BINARY)), 
-        TDAT %>% subset( select =c(ID , INTEGER))
+        TDAT2[,c( "ID" , "INTEGER", "BINARY")], 
+        TDAT[,c("ID" , "INTEGER")]
     ),
     
     
     "Missing Rows" = list(
-        TDAT  %>% subset(select =c( ID , GROUP1))  , 
-        TDAT2 %>% subset( 1:nrow(TDAT2)<=10, c(ID , GROUP1)),
+        TDAT[,c( "ID" , "GROUP1")]  , 
+        TDAT2[ 1:nrow(TDAT2)<=10, c("ID" , "GROUP1")],
         keys = "ID"
     ),
     "Missing Rows 2"  = list( 
-        TDAT2  %>% subset(select =c( ID , GROUP1))  , 
-        TDAT %>% subset(  1:nrow(TDAT2) <= 10, c(ID , GROUP1)),
+        TDAT2[,c( "ID" , "GROUP1")]  , 
+        TDAT[1:nrow(TDAT2) <= 10, c("ID" , "GROUP1")],
         keys = "ID"
     ),
     
@@ -118,8 +115,16 @@ print_tests <- list(
     ),
     
     "Missing Vs NA"  = list(
-        M_TDAT,
-        M_TDAT2
+        {
+            M_TDAT <- TDAT 
+            M_TDAT$CHARACTER[1] <- NA
+            M_TDAT
+        },
+        {
+            M_TDAT2 <- TDAT 
+            M_TDAT2$CHARACTER[1] <- ""
+            M_TDAT2
+        }
     )
 )
 
@@ -144,15 +149,15 @@ if ( SET_GOLD ){
     }
 }
 
-i <- 5
-print_tests[[i]]
-RES[[i]]
-TESTING_print_msg[[i]]
-
-rcompare(
- print_tests[[i]][[1]],
- print_tests[[i]][[2]]
-)
+# i <- 6
+# print_tests[[i]]
+# RES[[i]]
+# TESTING_print_msg[[i]]
+# 
+# rcompare(
+#  print_tests[[i]][[1]],
+#  print_tests[[i]][[2]]
+# )
 
 # for ( i in 1:length(RES)){
 #     sink( paste0("./utils/print_output/output_",i,".txt"))
