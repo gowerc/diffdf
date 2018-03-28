@@ -18,7 +18,7 @@ print.rcompare <- function(x, VARIABLE = NULL, ...){
     
     COMPARE <- x
     
-    if ( !COMPARE$Issues){
+    if ( !COMPARE$Issue_fl){
         cat("No issues were found!")
         
     } else if ( !is.null(VARIABLE)) {
@@ -43,7 +43,7 @@ print.rcompare <- function(x, VARIABLE = NULL, ...){
         #Start by looking at simple comparisons
         #extra columns/rows and illegal columns
         #We make a set of 7 arguments to pass to pastefun, defined above
-        COMPARE$Issues <- NULL
+        COMPARE$Issue_fl <- NULL
         getorder <- map_dbl(COMPARE, function(x) x$order) %>% order
         COMPARE <- COMPARE[getorder]
         

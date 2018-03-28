@@ -239,15 +239,15 @@ rcompare <- function (base , compare , keys = NULL,
     getorder <- map_dbl(COMPARE, function(x) x$order) %>% order
     COMPARE <- COMPARE[getorder]
     
-    ISSUES <- map_chr(COMPARE, function(x) get_issue_message(x) )
+    ISSUE_MSGS <- map_chr(COMPARE, function(x) get_issue_message(x) )
     
-    ISSUES <- ISSUES[!ISSUES == ""] %>% paste(collapse ='\n')
+    ISSUE_MSGS <- ISSUE_MSGS[!ISSUE_MSGS == ""] %>% paste(collapse ='\n')
     
-    if( str_length(ISSUES) != 0 ){
-        if(!SUPWARN) warning( c("\n" , ISSUES))
-        COMPARE[["Issues"]] <- TRUE
+    if( str_length(ISSUE_MSGS) != 0 ){
+        if(!SUPWARN) warning( c("\n" , ISSUE_MSGS))
+        COMPARE[["Issue_fl"]] <- TRUE
     } else {
-        COMPARE[["Issues"]] <- FALSE
+        COMPARE[["Issue_fl"]] <- FALSE
     }
     
     class(COMPARE) <- c("rcompare" , "list") 
