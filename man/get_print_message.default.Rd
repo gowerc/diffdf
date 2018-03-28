@@ -2,13 +2,14 @@
 % Please edit documentation in R/issues.R
 \name{get_print_message.default}
 \alias{get_print_message.default}
-\title{Title}
+\title{get_print_message.default}
 \usage{
 \method{get_print_message}{default}(object)
 }
 \arguments{
-\item{object}{TODO}
+\item{object}{inputted object}
 }
 \description{
-Description
+Default method for geting print method. Checks if the object has an issue
+And returns the text. Otherwise returns NULL
 }

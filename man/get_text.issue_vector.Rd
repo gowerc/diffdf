@@ -2,13 +2,13 @@
 % Please edit documentation in R/issues.R
 \name{get_text.issue_vector}
 \alias{get_text.issue_vector}
-\title{Title}
+\title{get_text.issue_vector}
 \usage{
 \method{get_text}{issue_vector}(object)
 }
 \arguments{
-\item{object}{TODO}
+\item{object}{an issue_vector object}
 }
 \description{
-Description
+Generate text for an issue_vector object, adds text at top then applies default method
 }

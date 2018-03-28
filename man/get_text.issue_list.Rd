@@ -2,13 +2,13 @@
 % Please edit documentation in R/issues.R
 \name{get_text.issue_list}
 \alias{get_text.issue_list}
-\title{Title}
+\title{get_text.issue_list}
 \usage{
 \method{get_text}{issue_list}(object)
 }
 \arguments{
-\item{object}{TODO}
+\item{object}{an object of class issue_list}
 }
 \description{
-Description
+Get the text for a list object, by applying get_text over the list
 }

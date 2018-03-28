@@ -2,13 +2,14 @@
 % Please edit documentation in R/issues.R
 \name{has_issue.issue_list}
 \alias{has_issue.issue_list}
-\title{Title}
+\title{has_issue.issue_list}
 \usage{
 \method{has_issue}{issue_list}(object)
 }
 \arguments{
-\item{object}{TODO}
+\item{object}{an issue_list object}
 }
 \description{
-Description
+Determine if a list issue has any issues, looks through each object in turn and apply
+has issue
 }

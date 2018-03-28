@@ -2,13 +2,13 @@
 % Please edit documentation in R/issues.R
 \name{has_issue.default}
 \alias{has_issue.default}
-\title{Title}
+\title{has_issue.default}
 \usage{
 \method{has_issue}{default}(object)
 }
 \arguments{
-\item{object}{TODO}
+\item{object}{Inputted object}
 }
 \description{
-Description
+Default method for default objects, just returns true
 }

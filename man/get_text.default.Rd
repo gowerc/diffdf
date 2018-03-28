@@ -2,17 +2,17 @@
 % Please edit documentation in R/issues.R
 \name{get_text.default}
 \alias{get_text.default}
-\title{Title}
+\title{get_text.default}
 \usage{
 \method{get_text}{default}(object, dsin, row_limit = 10)
 }
 \arguments{
-\item{object}{TODO}
+\item{object}{issue}
 
-\item{dsin}{TODO}
+\item{dsin}{dataset provided by issue}
 
-\item{row_limit}{TODO}
+\item{row_limit}{Maximum number of rows displayed in dataset}
 }
 \description{
-Description
+Default method for getting text, generates ascii output for an issue
 }
