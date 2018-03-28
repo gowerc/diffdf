@@ -1,6 +1,6 @@
 
-library(dplyr)
-library(testthat)
+# library(dplyr)
+# library(testthat)
 
 
 ### Most common devtools functions
@@ -8,6 +8,8 @@ devtools::load_all()
 devtools::test()
 devtools::check()
 devtools::document()
+
+devtools::build()
 
 ### Ensure rcompare is unloaded and removed
 unloadNamespace("rcompare")
@@ -49,6 +51,8 @@ rclinical::access_data( "ae" )
 
 source("./tests/testthat/helper-create_test_data.R")
 
+
+devtools::load_all()
 rcompare(iris , iris)
 rcompare(TDAT , TDAT)
 rcompare(TDAT2 , TDAT2)
@@ -88,4 +92,6 @@ rcompare(TDAT , TDAT3)
 
 x <- rcompare(TDAT , TDAT2 , keys = c("ID" , "GROUP1"))
 print(x ,VARIABLE =  "GROUP2")
+
+
 

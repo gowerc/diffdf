@@ -13,17 +13,12 @@ LazyData: true
 Depends:
     R (>= 3.1.2)
 Imports:
-    dplyr, 
     purrr, 
     tibble,
-    stringr,
-    stargazer,
-    tidyr,
-    utils,
-    R6
+    stringr
 Suggests:
     devtools,
-    readr,
+    utils,
     testthat,
     lubridate,
     knitr,

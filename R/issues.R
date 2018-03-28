@@ -70,7 +70,7 @@ get_text.default <- function(object, dsin , row_limit = 10){
     }
     
     display_table <- dsin %>% 
-        filter( row_number() < (row_limit + 1) )
+        subset( 1:nrow(dsin) < (row_limit + 1) )
     
     if ( nrow(dsin) > row_limit ){
         
@@ -86,23 +86,11 @@ get_text.default <- function(object, dsin , row_limit = 10){
         add_message <- 'All rows are shown in table below'
     } 
     
-    display_table[]  <- apply(display_table, c(1, 2), crop_char_value)
-    
-    
-    #paste together the message, the additional message, the table
-    #and an extra final line
-    
-    TABLE <- mod_stargazer(
-        display_table,
-        type = 'text',
-        summary = FALSE
-    )
-    
     RETURN <- paste(
         c(
             object$message,
             add_message,
-            TABLE,
+            as_ascii_table(display_table),
             '\n'
         ),
         collapse = '\n'
@@ -173,8 +161,7 @@ get_text.issue_vector <- function(object){
     
     names(datin_tibble) <- c('Variable', 'No of Differences')
     
-    datin_tibble <- datin_tibble %>% 
-        filter(`No of Differences` > 0)
+    datin_tibble <- datin_tibble[ datin_tibble[["No of Differences"]] > 0, , drop = FALSE]
     
     NextMethod(dsin = datin_tibble)
 }
