@@ -17,8 +17,7 @@
 Print nicely formated version of an rcompare object
 }
 \examples{
-library(dplyr)
-x <- iris \%>\% select( -Species)
+x <- subset( iris , -Species )
 x[1,2] <- 5
 COMPARE <- rcompare( iris, x)
 print( COMPARE )

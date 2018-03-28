@@ -6,8 +6,7 @@
 #' @param VARIABLE specific variable to inspect the differences of (string).
 #' @param ... Additional arguments (not used)
 #' @examples
-#' library(dplyr)
-#' x <- iris %>% select( -Species)
+#' x <- subset( iris , -Species )
 #' x[1,2] <- 5
 #' COMPARE <- rcompare( iris, x)
 #' print( COMPARE )

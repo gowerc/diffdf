@@ -7,7 +7,7 @@ test_that( "is_different correctly doesn't flag identical objects", {
         expect_true( !is_different( x , x) %>%  all, label = name ) 
     }
     
-    walk2( VALS , names(VALS) , expect_self)
+    purrr::walk2( VALS , names(VALS) , expect_self)
     
     expect_true( !is_different( VALS$flt , VALS$flt_calc) %>%  all )
 })
