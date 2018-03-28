@@ -11,7 +11,8 @@ identify_extra_rows <- function(DS1, DS2 , KEYS){
     dat <- merge(
         subset( DS1 , select = KEYS) , 
         subset( DS2 , select = c(KEYS, "..FLAG..")) , 
-        by = KEYS, all.x = T
+        by = KEYS, all.x = T,
+        sort = TRUE
     ) 
     
     dat[ is.na(dat[["..FLAG.."]]) , KEYS, drop=FALSE]
@@ -86,7 +87,7 @@ identify_mode_differences <- function( BASE, COMP ){
         by = "VARIABLE",
         all = TRUE,
         suffixes = c(".BASE", ".COMP"),
-        sort=F
+        sort = TRUE
     ) %>% 
         subset( select = c("VARIABLE" , "MODE.BASE" , "MODE.COMP"))
     
@@ -114,7 +115,7 @@ identify_class_differences <- function( BASE, COMP ){
         y = identify_properties(COMP),
         by = "VARIABLE",
         all = TRUE, 
-        sort=F,
+        sort = TRUE,
         suffixes =  c(".BASE", ".COMP")
     ) %>% 
         subset( select = c("VARIABLE" , "CLASS.BASE" , "CLASS.COMP")) 
@@ -148,7 +149,7 @@ identify_att_differences <- function( BASE, COMP , exclude_cols = "" ){
         y = identify_properties(COMP) , 
         by = "VARIABLE",  
         all = TRUE,
-        sort=F,
+        sort = TRUE,
         suffixes = c(".BASE", ".COMP")
     ) %>% 
         subset( select =  c("VARIABLE", "ATTRIBS.BASE" , "ATTRIBS.COMP")) 
@@ -231,7 +232,7 @@ identify_differences <- function( BASE , COMP , KEYS, exclude_cols,
         y = COMP , 
         by = KEYS , 
         suffix = c(".x", ".y"),
-        sort = FALSE
+        sort = TRUE
     )
     
     matching_list <- list()

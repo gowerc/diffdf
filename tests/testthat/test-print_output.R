@@ -94,13 +94,11 @@ print_tests <- list(
     
     "Missing Rows" = list(
         TDAT[,c( "ID" , "GROUP1")]  , 
-        TDAT2[ 1:nrow(TDAT2)<=10, c("ID" , "GROUP1")],
-        keys = "ID"
+        TDAT2[ 1:nrow(TDAT2)<=10, c("ID" , "GROUP1")]
     ),
     "Missing Rows 2"  = list( 
         TDAT2[,c( "ID" , "GROUP1")]  , 
-        TDAT[1:nrow(TDAT2) <= 10, c("ID" , "GROUP1")],
-        keys = "ID"
+        TDAT[1:nrow(TDAT2) <= 10, c("ID" , "GROUP1")]
     ),
     
     
