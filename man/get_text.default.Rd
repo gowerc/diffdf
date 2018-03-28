@@ -4,15 +4,11 @@
 \alias{get_text.default}
 \title{get_text.default}
 \usage{
-\method{get_text}{default}(object, dsin, row_limit = 10)
+\method{get_text}{default}(object)
 }
 \arguments{
 \item{object}{issue}
-
-\item{dsin}{dataset provided by issue}
-
-\item{row_limit}{Maximum number of rows displayed in dataset}
 }
 \description{
-Default method for getting text, generates ascii output for an issue
+Errors, as this should only ever be given an issue
 }

@@ -78,7 +78,7 @@ rcompare <- function (base , compare , keys = NULL,
     # 
     
     COMPARE[["UnsupportedColsBase"]] <- construct_s3(
-        Class = "issue_basic" , 
+        Class = "issue" , 
         value = identify_unsupported_cols(BASE) , 
         message  = "There are columns in BASE with unsupported modes !!" , 
         order = 1
@@ -86,7 +86,7 @@ rcompare <- function (base , compare , keys = NULL,
     
 
     COMPARE[["UnsupportedColsComp"]] <- construct_s3(
-        Class = "issue_basic" , 
+        Class = "issue" , 
         value = identify_unsupported_cols(COMP) , 
         message  = "There are columns in COMPARE with unsupported modes !!" , 
         order = 2
@@ -96,7 +96,7 @@ rcompare <- function (base , compare , keys = NULL,
     
     
     COMPARE[["VarModeDiffs"]] <- construct_s3(
-        Class = "issue_basic" , 
+        Class = "issue" , 
         value = identify_mode_differences( BASE, COMP ) ,
         message = "There are columns in BASE and COMPARE with different modes !!",
         order = 3
@@ -104,7 +104,7 @@ rcompare <- function (base , compare , keys = NULL,
     
     
     COMPARE[["VarClassDiffs"]] <- construct_s3(
-        Class = "issue_basic" , 
+        Class = "issue" , 
         value = identify_class_differences(BASE, COMP) ,
         message = "There are columns in BASE and COMPARE with different classes !!",
         order = 4
@@ -157,7 +157,7 @@ rcompare <- function (base , compare , keys = NULL,
     # 
     
     COMPARE[["AttribDiffs"]] <- construct_s3(
-        Class = "issue_basic" , 
+        Class = "issue" , 
         value = identify_att_differences(BASE,  COMP ,  exclude_cols)  ,
         message = "There are columns in BASE and COMPARE with differing attributes !!",
         order = 5
@@ -182,14 +182,14 @@ rcompare <- function (base , compare , keys = NULL,
     COMP <- factor_to_character(COMP , KEYS)
     
     COMPARE[["ExtRowsBase"]] <- construct_s3(
-        Class = "issue_basic" , 
+        Class = "issue" , 
         value = identify_extra_rows(  BASE, COMP,   KEYS )   ,
         message = "There are rows in BASE that are not in COMPARE !!",
         order = 6
     )
     
     COMPARE[["ExtRowsComp"]] <- construct_s3(
-        Class = "issue_basic" , 
+        Class = "issue" , 
         value = identify_extra_rows(  COMP, BASE,   KEYS )   ,
         message = "There are rows in COMPARE that are not in BASE !!",
         order = 7
@@ -197,14 +197,14 @@ rcompare <- function (base , compare , keys = NULL,
     
     
     COMPARE[["ExtColsBase"]] <- construct_s3(
-        Class = "issue_basic" , 
+        Class = "issue" , 
         value =  identify_extra_cols(BASE,  COMP)   ,
         message = "There are columns in BASE that are not in COMPARE !!",
         order = 8
     )
     
     COMPARE[["ExtColsComp"]] <- construct_s3(
-        Class = "issue_basic" , 
+        Class = "issue" , 
         value =  identify_extra_cols(COMP,  BASE)   ,
         message = "There are columns in COMPARE that are not in BASE !!",
         order = 9
@@ -212,7 +212,7 @@ rcompare <- function (base , compare , keys = NULL,
     
     
     COMPARE[["VarDiffs"]] <- construct_s3(
-        Class = "issue_list" , 
+        Class = c("issue_list", "issue"), 
         value =  identify_differences(BASE, COMP , KEYS, exclude_cols, tolerance = tolerance, scale = scale) ,
         message = "",
         order = 11
@@ -228,7 +228,7 @@ rcompare <- function (base , compare , keys = NULL,
     }
     
     COMPARE[["NumDiff"]] <- construct_s3(
-        Class = "issue_vector" , 
+        Class = c("issue_count", "issue"), 
         value = VALUE, 
         message = "Not all Values Compared Equal",
         order = 10

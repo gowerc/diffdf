@@ -2,7 +2,7 @@
 % Please edit documentation in R/issues.R
 \name{get_print_message}
 \alias{get_print_message}
-\title{get_issue_message}
+\title{get_print_message}
 \usage{
 get_print_message(object, ...)
 }

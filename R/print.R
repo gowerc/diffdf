@@ -15,7 +15,6 @@
 #' @importFrom purrr map
 #' @export 
 print.rcompare <- function(x, VARIABLE = NULL, ...){
-    
     COMPARE <- x
     
     if ( !COMPARE$Issue_fl){
