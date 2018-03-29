@@ -43,8 +43,7 @@ print.rcompare <- function(x, VARIABLE = NULL, ...){
         #extra columns/rows and illegal columns
         #We make a set of 7 arguments to pass to pastefun, defined above
         COMPARE$Issue_fl <- NULL
-        getorder <- map_chr(COMPARE, function(x) attr(x, "order")) %>%
-            as.numeric() %>% 
+        getorder <- map_dbl(COMPARE, function(x) attr(x, "order")) %>%
             order()
         COMPARE <- COMPARE[getorder]
         

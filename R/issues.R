@@ -9,9 +9,8 @@
 construct_issue <- function(value, message, order, add_class = NULL){
     x <- value
     class(x) <- c(add_class, "issue", class(x))
-    attributes(x)[c("message",
-                     "order")] <- c(message,
-                          order)
+    attributes(x)[["message"]] <- message
+    attributes(x)[["order"]]   <- order
     return(x)
 }
 

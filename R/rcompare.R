@@ -226,8 +226,7 @@ rcompare <- function (base , compare , keys = NULL,
     
     
     #### Check for issues
-    getorder <- map_chr(COMPARE, function(x) attr(x, "order")) %>%
-        as.numeric() %>% 
+    getorder <- map_dbl(COMPARE, function(x) attr(x, "order")) %>%
         order()
     COMPARE <- COMPARE[getorder]
     
