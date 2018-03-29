@@ -41,6 +41,7 @@ has_unique_rows <- function(DAT , KEYS){
 #'
 #'converts the count value into the correct issue format
 #'@param datin data inputted
+#'@importFrom tibble rownames_to_column
 convert_to_issue <- function(datin){
     datin_tibble <- datin %>% 
         as.tibble() %>% 
