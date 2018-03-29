@@ -22,7 +22,7 @@ print.rcompare <- function(x, VARIABLE = NULL, ...){
         
     } else if ( !is.null(VARIABLE)) {
         
-        outob <- get_print_message(COMPARE$VarDiffs$value[[VARIABLE]])
+        outob <- get_print_message(COMPARE$VarDiffs[[VARIABLE]])
         
         if(is.null(outob)){
             cat('Variable matched')
@@ -43,7 +43,9 @@ print.rcompare <- function(x, VARIABLE = NULL, ...){
         #extra columns/rows and illegal columns
         #We make a set of 7 arguments to pass to pastefun, defined above
         COMPARE$Issue_fl <- NULL
-        getorder <- map_dbl(COMPARE, function(x) x$order) %>% order
+        getorder <- map_chr(COMPARE, function(x) attr(x, "order")) %>%
+            as.numeric() %>% 
+            order()
         COMPARE <- COMPARE[getorder]
         
         end_text <- map(COMPARE, function(x) get_print_message(x) ) %>% 

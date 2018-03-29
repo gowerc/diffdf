@@ -156,30 +156,41 @@ numdiffcheck <-function(compdat, target, value){
     ### Only expected 1 variable to be different thus we expect 
     ### the overall # of differences to equal the # of differences
     ### in the target variable
-    rcompare_ob   <- rcompare(TDAT , compdat , suppress_warnings = T )$NumDiff$value
-    rcompare_targ <- rcompare_ob[target] %>% as.numeric()
-    rcompare_all  <- rcompare_ob %>% sum() %>% as.numeric()
-    
-    expect_false(
-        rcompare_targ == 0,
-        info = 'targeted value wrong!'
+    rcompare_ob   <- rcompare(TDAT , compdat , suppress_warnings = T )$NumDiff
+
+    expect_true(
+        nrow(rcompare_ob) == 1,
+        info = 'Too many columns detected as different'
     )
     
-    expect_false(
-        rcompare_all == 0 ,
-        info = 'overall value wrong!'
+    expect_true(
+        rcompare_ob$Variable[1] == target,
+        info = 'Wrong target!'
+    )
+    
+    expect_equal(
+        rcompare_ob$`No of Differences`[1] , value,
+        info = 'Number of differences incorrect'
     )
 }
 
 test_that( "Unequal object, checking numbers correct" , {
-    numdiffcheck( TDAT_CHARCHANGE,      'CHARACTER')
-    numdiffcheck( TDAT_DATECHANGE,      'DATE')
-    numdiffcheck( TDAT_LOGCHANGE,       'LOGICAL')
-    numdiffcheck( TDAT_FACTVALCHANGE,   'CATEGORICAL')
-    numdiffcheck( TDAT_CHARCHANGENA,    'CHARACTER')
-    numdiffcheck( TDAT_DATECHANGENA,    'DATE')
-    numdiffcheck( TDAT_LOGCHANGENA,     'LOGICAL')
-    numdiffcheck( TDAT_FACTVALCHANGENA, 'CATEGORICAL')
+    numdiffcheck( TDAT_CHARCHANGE,      'CHARACTER',
+                  1)
+    numdiffcheck( TDAT_DATECHANGE,      'DATE',
+                  1)
+    numdiffcheck( TDAT_LOGCHANGE,       'LOGICAL',
+                  1)
+    numdiffcheck( TDAT_FACTVALCHANGE,   'CATEGORICAL',
+                  8)
+    numdiffcheck( TDAT_CHARCHANGENA,    'CHARACTER',
+                  sum(is.na(TDAT_CHARCHANGENA$CHARACTER)))
+    numdiffcheck( TDAT_DATECHANGENA,    'DATE',
+                  sum(is.na(TDAT_DATECHANGENA$DATE)))
+    numdiffcheck( TDAT_LOGCHANGENA,     'LOGICAL',
+                  sum(is.na(TDAT_LOGCHANGENA$LOGICAL)))
+    numdiffcheck( TDAT_FACTVALCHANGENA, 'CATEGORICAL',
+                  sum(is.na(TDAT_FACTVALCHANGENA$CATEGORICAL)))
 })
 
 test_that( "Differing modes error" , {
@@ -304,37 +315,37 @@ test_that('Objets with differing attributes produce the correct warning', {
 
 test_that('Attribute differnce size is correct!', {
     expect_equal(
-        rcompare(TDAT, TDAT_FACTCHANGE , suppress_warnings = T)$AttribDiffs$value %>% nrow, 
+        rcompare(TDAT, TDAT_FACTCHANGE , suppress_warnings = T)$AttribDiffs %>% nrow, 
         1
     )
     
     expect_equal(
-        rcompare(TDAT, TDAT_ATTEXT , suppress_warnings = T)$AttribDiffs$value %>% nrow, 
+        rcompare(TDAT, TDAT_ATTEXT , suppress_warnings = T)$AttribDiffs %>% nrow, 
         1
     )
     
     expect_equal(
-        rcompare(TDAT, TDAT_ATTEXT2 , suppress_warnings = T)$AttribDiffs$value %>% nrow, 
+        rcompare(TDAT, TDAT_ATTEXT2 , suppress_warnings = T)$AttribDiffs %>% nrow, 
         2
     )
     
     expect_equal(
-        rcompare(TDAT_ATTEXT, TDAT_ATTEXT2 , suppress_warnings = T)$AttribDiffs$value %>% nrow, 
+        rcompare(TDAT_ATTEXT, TDAT_ATTEXT2 , suppress_warnings = T)$AttribDiffs %>% nrow, 
         2
     )
     
     expect_equal(
-        rcompare(TDAT, TDAT_LABEXT , suppress_warnings = T)$AttribDiffs$value %>% nrow, 
+        rcompare(TDAT, TDAT_LABEXT , suppress_warnings = T)$AttribDiffs %>% nrow, 
         2
     )
     
     expect_equal(
-        rcompare(TDAT, TDAT_LABEXT2 , suppress_warnings = T)$AttribDiffs$value %>% nrow, 
+        rcompare(TDAT, TDAT_LABEXT2 , suppress_warnings = T)$AttribDiffs %>% nrow, 
         1
     )
     
     expect_equal(
-        rcompare(TDAT_LABEXT, TDAT_LABEXT2 , suppress_warnings = T)$AttribDiffs$value %>% nrow, 
+        rcompare(TDAT_LABEXT, TDAT_LABEXT2 , suppress_warnings = T)$AttribDiffs%>% nrow, 
         2
     )
     

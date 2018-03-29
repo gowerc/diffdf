@@ -1,11 +1,17 @@
-#' construct_s3
+#' construct_issue
 #' 
-#' Make an s3 object with added s3 class, preserving other arguments
-#' @param Class new class to provide to bject
-#' @param .... Other arguments
-construct_s3 <- function(Class , ...){
-    x <- list(...)
-    class(x) <- Class
+#' Make an s3 object with class issue and possible additional class,
+#' and assign other arguments to attributes
+#' @param value the value of the object
+#' @param message the value of the message attribute
+#' @param order the value of the order attribute
+#' @param add_class additional class to add
+construct_issue <- function(value, message, order, add_class = NULL){
+    x <- value
+    class(x) <- c(add_class, "issue", class(x))
+    attributes(x)[c("message",
+                     "order")] <- c(message,
+                          order)
     return(x)
 }
 
@@ -53,7 +59,7 @@ get_table <- function(dsin , row_limit = 10){
 #' @param ... other arguments
 get_issue_message <- function (object, ...) {
     if ( has_issue(object) ) {
-        return( object$message)
+        return( attr(object,"message"))
     } else {
         return("")
     }
@@ -124,7 +130,7 @@ get_text.default <- function(object) stop("Error: An issue has not been provided
 #'Check whether a basic issue has some problems by checking nrows in the object
 #' @param object an object of class issue_basic
 has_issue.issue <-  function(object){
-    nrow(object$value) > 0
+    nrow(object) > 0
 }
 
 #' get_text.issue
@@ -134,12 +140,12 @@ has_issue.issue <-  function(object){
 #' @param object an object of class issue_basic
 get_text.issue <- function(object){
     
-    table_print <- get_table(object$value) 
+    table_print <- get_table(object) 
     if (table_print == ""){
         return(table_print)
     }
     paste(
-        c(object$message, table_print),
+        c(attr(object, "message"), table_print),
         collapse = '\n'
     )
 }
@@ -154,7 +160,7 @@ get_text.issue <- function(object){
 #' @param object an issue_list object
 #' @importFrom purrr map_lgl
 has_issue.issue_list <- function(object){
-    num_issues =  map_lgl( object$value , function(x) has_issue(x) ) %>% any
+    num_issues =  map_lgl( object , function(x) has_issue(x) ) %>% any
     return( num_issues )
 }
 
@@ -164,39 +170,11 @@ has_issue.issue_list <- function(object){
 #' @param object an object of class issue_list
 #' @importFrom purrr map
 get_text.issue_list <- function(object){
-    map( object$value , function(x) get_text(x))
+    map( object , function(x) get_text(x))
 }
 
 
 
-
-###### Vector as an Issue
-
-#' has_issue.issue_count
-#' 
-#' Determine if a vector issue has any issues, by summing over value
-#' @param object an issue_count object
-has_issue.issue_count <-  function(object){
-    sum(object$value) > 0
-}
-
-
-#' get_text.issue_count
-#' 
-#' Generate text for an issue_count object, adds text at top then applies default method
-#' @param object an issue_vector object
-#' @importFrom tibble rownames_to_column
-get_text.issue_count <- function(object){
-    datin_tibble <- object$value %>% 
-        as.data.frame() %>% 
-        rownames_to_column()
-    
-    names(datin_tibble) <- c('Variable', 'No of Differences')
-    
-    datin_tibble <- datin_tibble[ datin_tibble[["No of Differences"]] > 0, , drop = FALSE]
-    object$value <-  datin_tibble
-    NextMethod(object)
-}
 
 
 

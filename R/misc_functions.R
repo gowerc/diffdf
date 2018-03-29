@@ -37,4 +37,17 @@ has_unique_rows <- function(DAT , KEYS){
     return( NDUPS == 0 )
 }
 
+#'convert_to_issue
+#'
+#'converts the count value into the correct issue format
+#'@param datin data inputted
+convert_to_issue <- function(datin){
+    datin_tibble <- datin %>% 
+        as.tibble() %>% 
+        rownames_to_column()
+    
+    names(datin_tibble) <- c('Variable', 'No of Differences')
+    
+    datin_tibble[ datin_tibble[["No of Differences"]] > 0, , drop = FALSE]
+}
 
