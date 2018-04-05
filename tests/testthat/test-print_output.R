@@ -143,20 +143,21 @@ if ( SET_GOLD ){
         expect_equal( 
             RES[[i]] , 
             TESTING_print_msg[[i]] , 
-            info = paste0( "Reference = " , i , " - " , names(RES)[i]))
+            info = paste0( "Reference = " , i , " - " , names(RES)[i])
+        )
     }
 }
 
-# i <- 6
+# i <- 3
 # print_tests[[i]]
-# RES[[i]]
-# TESTING_print_msg[[i]]
+# RES[[i]] %>% cat(sep = "\n")
+# TESTING_print_msg[[i]] %>% cat(sep = "\n")
 # 
 # rcompare(
 #  print_tests[[i]][[1]],
 #  print_tests[[i]][[2]]
 # )
-
+# 
 # for ( i in 1:length(RES)){
 #     sink( paste0("./utils/print_output/output_",i,".txt"))
 #     RES[[i]] %>% cat(sep = "\n")
@@ -166,6 +167,4 @@ if ( SET_GOLD ){
 #     # TESTING_print_msg[[i]] %>% cat(sep = "\n")
 #     # sink()
 # }
-
-
 

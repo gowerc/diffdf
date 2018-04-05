@@ -6,16 +6,16 @@ Authors@R: c(
     person("Craig" ,"Gower" , email = "craig.gower@roche.com" , role = c("cre","aut")),
     person("Kieran", "Martin" , email = "kieran.martin@roche.com" , role = "aut")
     )
-Description: This package provides functions for comparing dataframes similar to how proc compare works in SAS.
-License: GPL
+Description: This package provides functions for comparing two dataframes against 
+    each other. The package will provide detailed descriptions of any discrepancies as well as utility 
+    functions to help narrow down on the source of problems.
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Depends:
     R (>= 3.1.2)
 Imports:
-    purrr, 
-    tibble,
-    stringr
+    tibble
 Suggests:
     devtools,
     utils,
@@ -23,6 +23,6 @@ Suggests:
     lubridate,
     knitr,
     rmarkdown,
-    rclinical
+    stringi
 RoxygenNote: 6.0.1
 VignetteBuilder: knitr

@@ -4,14 +4,12 @@
 \alias{construct_issue}
 \title{construct_issue}
 \usage{
-construct_issue(value, message, order, add_class = NULL)
+construct_issue(value, message, add_class = NULL)
 }
 \arguments{
 \item{value}{the value of the object}
 
 \item{message}{the value of the message attribute}
-
-\item{order}{the value of the order attribute}
 
 \item{add_class}{additional class to add}
 }

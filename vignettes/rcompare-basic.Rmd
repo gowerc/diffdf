@@ -23,103 +23,109 @@ The purpose of `rcompare` is to provide `proc compare` like functionality to R f
 
 ## Basic usage
 
-Here we show the basic functionality of `rcompare` using dummy `dm` data from the `rclinical` package. 
+Here we show the basic functionality of `rcompare` using a dummy data set.
 
 ```{r}
-library(rclinical)
 library(rcompare)
-access_data("dm" , prefix = "")
-rcompare(dm, dm)
+
+LENGTH = 30
+set.seed(12334)
+test_data <- tibble::tibble( 
+    ID          = 1:LENGTH,
+    GROUP1      = rep( c(1,2) , each = LENGTH/2),
+    GROUP2      = rep( c(1:(LENGTH/2)), 2 ),
+    INTEGER     = rpois(LENGTH , 40),
+    BINARY      = sample( c("M" , "F") , LENGTH , replace = T),
+    DATE        = lubridate::ymd("2000-01-01") + rnorm(LENGTH, 0, 7000),
+    DATETIME    = lubridate::ymd_hms("2000-01-01 00:00:00") + rnorm(LENGTH, 0, 200000000), 
+    CONTINUOUS  = rnorm(LENGTH , 30 , 12),
+    CATEGORICAL = factor(sample( c("A" , "B" , "C") , LENGTH , replace = T)),
+    LOGICAL     = sample( c(TRUE , FALSE) , LENGTH , replace = T),
+    CHARACTER   = stringi::stri_rand_strings(LENGTH,  rpois(LENGTH , 13),  pattern = "[ A-Za-z0-9]")
+)
+
+test_data
+
+rcompare( test_data , test_data)
 ```
 
-As you would expect no differences are found. We now look to introduce various types differences into the data in order to show how `rcompare` highlights them.  Note that for the purposes of this vignette we have used the `suppress_warnings` argument; it is recommended however that this option is not used in production code as it may mask problems. 
+As you would expect no differences are found. We now look to introduce various types differences into the data in order to show how `rcompare` highlights them.  Note that for the purposes of this vignette we have used the `suppress_warnings` argument to stop errors being raised; it is recommended however that this option is not used in production code as it may mask problems. 
 
 
 ### Missing Columns
 
 ```{r}
-dm2 <- dm 
-dm2 <- dm2[,-6]
-rcompare(dm , dm2 , suppress_warnings = T)
+test_data2 <- test_data 
+test_data2 <- test_data2[,-6]
+rcompare(test_data , test_data2 , suppress_warnings = T)
 ```
 
 
 ### Missing Rows 
 
 ```{r}
-dm2 <- dm[1:(nrow(dm) - 1),]
-dm3 <- dm[1:(nrow(dm) - 2),]
-rcompare(dm2 , dm3 , suppress_warnings = T)
+test_data2 <- test_data
+test_data2 <- test_data2[1:(nrow(test_data2) - 2),]
+rcompare(test_data, test_data2 , suppress_warnings = T)
 ```
 
 
 ### Different Values 
 
 ```{r}
-dm2 <- dm
-dm2[5,2] <- "CM"
-rcompare(dm , dm2 , suppress_warnings = T)
+test_data2 <- test_data
+test_data2[5,2] <- 6
+rcompare(test_data , test_data2 , suppress_warnings = T)
 ```
 
 
 ### Different Types
 
 ```{r}
-dm2 <- dm
-dm2$ARMCD <- 1
-rcompare(dm , dm2 , suppress_warnings = T)
+test_data2 <- test_data
+test_data2[5,2] <- "blah"
+rcompare(test_data , test_data2 , suppress_warnings = T)
 ```
 
 
 ### Different Labels
 
 ```{r}
-dm2 <- dm
-attr(dm2$USUBJID , "label") <- "Subject"
-attr(dm2$ARM , "label") <- "Treatment Arm"
-rcompare(dm , dm2 , suppress_warnings = T)
+test_data2 <- test_data
+attr(test_data$ID , "label") <- "This is a interesting label"
+attr(test_data2$ID , "label") <- "what do I type here?"
+rcompare(test_data , test_data2 , suppress_warnings = T)
 ```
 
-### Factor Levels 
+### Different Factor Levels 
 
 ```{r}
-dm2 <- dm
-dm3 <- dm
-dm2$ARM <- factor(dm2$ARM)
-dm3$ARM <- factor(dm3$ARM, labels = c("A" , "B"))
-rcompare(dm2 , dm3 , suppress_warnings = T)
+test_data2 <- test_data
+levels(test_data2$CATEGORICAL) <- c(1,2,3)
+rcompare(test_data , test_data2 , suppress_warnings = T)
 ```
 
 ## Grouping Variables
 
-A key feature of `rcompare` that enables easier diagnostics is the ability to specify which variables form a unique row i.e. which rows should be compared against each other based upon a key. By default if no key is specified `rcompare` will use the row number as the key however in general this isn't recommended as it means two identical datasets simply sorted differently can lead to incomprehensible error messages as every observation is flagged as different.  In `rcompare` keys can be specified as character vectors using the `keys` argument.
+A key feature of `rcompare` that enables easier diagnostics is the ability to specify which variables form a unique row i.e. which rows should be compared against each other based upon a key. By default if no key is specified `rcompare` will use the rownumber as the key however in general this isn't recommended as it means two identical datasets simply sorted differently can lead to incomprehensible error messages as every observation is flagged as different.  In `rcompare` keys can be specified as character vectors using the `keys` argument.
 
 ```{r}
-dm2 <- dm
-dm2[ c(1,2,3),  7] <- c( "a" , "b" , "c") 
-dm2[ c(1,2,3),  8] <- c( "x" , "y" , "z")
-rcompare( dm , dm2 , keys = c("USUBJID" , "STUDYID") , suppress_warnings = T)
+test_data2 <- test_data
+test_data2$INTEGER[c(5,2,15)] <- 99L 
+rcompare( test_data , test_data2 , keys = c("GROUP1" , "GROUP2") , suppress_warnings = T)
 ```
 
 ## Printing and Saving the Compare Log
 
 When there are lots of mismatches the log can become unwieldly. In order to deal with this you can either use the `print` function to display a particular variable or the `outfile` option to save the log to a file. 
 
-```{r}
-dm2 <- dm
-dm2[ c(1,2,3),  7] <- c( "a" , "b" , "c") 
-dm2[ c(1,2,3),  8] <- c( "x" , "y" , "z")
-result <- rcompare( dm , dm2 , keys = c("USUBJID" , "STUDYID") , suppress_warnings = T)
-print(result , VARIABLE = "INVID")
-```
 
 ```{r, eval=FALSE}
 result <- rcompare( 
-    dm , 
-    dm2 , 
-    keys = c("USUBJID" , "STUDYID") , 
-    outfile =  "reports/rcompare.log", 
-    suppress_warnings = T
+    test_data , 
+    test_data2 , 
+    keys = c("GROUP1" , "GROUP2") , 
+    outfile =  "reports/rcompare.log"
 )
 
 ```

@@ -28,12 +28,8 @@ factor_to_character <- function( dsin , vars = NULL){
 #' @param DAT input data set (data frame)
 #' @param KEYS Set of keys which should be unique
 has_unique_rows <- function(DAT , KEYS){
-    
-    NDUPS <- DAT %>%
-        subset(select= KEYS) %>% 
-        duplicated %>% 
-        sum
-        
+    DUPS <- duplicated( subset(DAT , select= KEYS) ) 
+    NDUPS <- sum( DUPS)
     return( NDUPS == 0 )
 }
 
@@ -43,9 +39,7 @@ has_unique_rows <- function(DAT , KEYS){
 #'@param datin data inputted
 #'@importFrom tibble rownames_to_column
 convert_to_issue <- function(datin){
-    datin_tibble <- datin %>% 
-        as.tibble() %>% 
-        rownames_to_column()
+    datin_tibble <- rownames_to_column(as.tibble(datin)) 
     
     names(datin_tibble) <- c('Variable', 'No of Differences')
     

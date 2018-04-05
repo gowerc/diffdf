@@ -93,5 +93,14 @@ rcompare(TDAT , TDAT3)
 x <- rcompare(TDAT , TDAT2 , keys = c("ID" , "GROUP1"))
 print(x ,VARIABLE =  "GROUP2")
 
+class(x)
 
 
+rcompare_has_pass <- function(x){
+    if (  class(x)[[1]] != "rcompare" )  stop( "x is not an rcompare object")
+    return( length(x) == 0 ) 
+}
+
+
+
+rcompare_has_pass(x)
