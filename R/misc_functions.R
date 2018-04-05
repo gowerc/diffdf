@@ -27,13 +27,28 @@ factor_to_character <- function( dsin , vars = NULL){
 #' Check if a data sets rows are unique
 #' @param DAT input data set (data frame)
 #' @param KEYS Set of keys which should be unique
-#' @import dplyr
 has_unique_rows <- function(DAT , KEYS){
-    BYCHECK <- DAT %>%
-        group_by_( .dots =  as.list(KEYS)  )  %>%
-        summarise( ..n.. = n()) %>%
-        filter( ..n.. > 1)
     
-    return( nrow(BYCHECK) == 0 )
+    NDUPS <- DAT %>%
+        subset(select= KEYS) %>% 
+        duplicated %>% 
+        sum
+        
+    return( NDUPS == 0 )
+}
+
+#'convert_to_issue
+#'
+#'converts the count value into the correct issue format
+#'@param datin data inputted
+#'@importFrom tibble rownames_to_column
+convert_to_issue <- function(datin){
+    datin_tibble <- datin %>% 
+        as.tibble() %>% 
+        rownames_to_column()
+    
+    names(datin_tibble) <- c('Variable', 'No of Differences')
+    
+    datin_tibble[ datin_tibble[["No of Differences"]] > 0, , drop = FALSE]
 }
 

@@ -1,10 +1,8 @@
 
-library(dplyr)
-library(purrr)
+library(testthat)
 library(rcompare)
-library(stringr)
-library(devtools)
-
+library(purrr)
+library(tibble)
 
 set.seed(20202)
 

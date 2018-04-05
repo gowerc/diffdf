@@ -45,16 +45,19 @@ TDAT_FACTVALCHANGENA$CATEGORICAL[TDAT_FACTVALCHANGENA$CATEGORICAL == "C"] <- NA
 
 
 #### add a unsupported column
-TDAT_PLUSLIST <- TDAT %>%
-    mutate(LIST = rep(list(CATEGORICAL) , nrow(.)))
+TDAT_PLUSLIST <- TDAT 
+TDAT_PLUSLIST$LIST <- rep(list(TDAT$CATEGORICAL) , nrow(TDAT))
 
 #### add change in mode
-TDAT_MODECHANGE <- TDAT %>%
-    mutate( INTEGER = as.character(INTEGER))
+TDAT_MODECHANGE <- TDAT 
+TDAT_MODECHANGE$INTEGER = as.character(TDAT$INTEGER)
 
 #### Add extra factor levels
-TDAT_FACTCHANGE <- TDAT %>%
-    mutate( CATEGORICAL = factor(CATEGORICAL, levels = c(levels(CATEGORICAL), 'New')))
+TDAT_FACTCHANGE <- TDAT 
+TDAT_FACTCHANGE$CATEGORICAL = factor(
+    TDAT$CATEGORICAL, 
+    levels = c(levels(TDAT$CATEGORICAL), 'New')
+)
 
 ##change label
 
@@ -79,19 +82,18 @@ attr(TDAT_ATTEXT2$GROUP2, 'newatt') <- data.frame(x=4, y=5)
 
 
 #### switch integer to double
-TDAT_MODEDBL <- TDAT %>%
-    mutate( INTEGER = as.double(INTEGER))
+TDAT_MODEDBL <- TDAT 
+TDAT_MODEDBL$INTEGER <- as.double(TDAT$INTEGER)
 
 #### add extra columns
-TDAT_EXTCOLS <- TDAT %>%
-    mutate(
-        ext = CATEGORICAL,
-        ext2 = CATEGORICAL
-    )
+TDAT_EXTCOLS <- TDAT
+TDAT_EXTCOLS$ext <- TDAT$CATEGORICAL
+TDAT_EXTCOLS$ext2 <- TDAT$CATEGORICAL
+
 
 
 #### add extra rows
-TDAT_EXTROWS <- bind_rows(TDAT, TDAT)
+TDAT_EXTROWS <- rbind(TDAT, TDAT)
 
 
 ###################################
@@ -100,27 +102,27 @@ TDAT_EXTROWS <- bind_rows(TDAT, TDAT)
 #
 
 test_that( "Check comparision of equal objects",{
-    expect_false( rcompare(iris, iris)$Issues )
-    expect_false( rcompare(TDAT, TDAT)$Issues )
-    expect_false( rcompare(TDAT, TDAT, "ID")$Issues )
-    expect_false( rcompare(TDAT, TDAT, c("GROUP1" , "GROUP2"))$Issues )
-    expect_false( rcompare(TDAT_CHARCHANGENA , TDAT_CHARCHANGENA )$Issues )
-    expect_false( rcompare(TDAT_DATECHANGENA , TDAT_DATECHANGENA )$Issues )
-    expect_false( rcompare(TDAT_LOGCHANGENA , TDAT_LOGCHANGENA )$Issues )
-    expect_false( rcompare(TDAT_FACTVALCHANGENA, TDAT_FACTVALCHANGENA)$Issues )
+    expect_false( rcompare(iris, iris)$Issue_fl )
+    expect_false( rcompare(TDAT, TDAT)$Issue_fl )
+    expect_false( rcompare(TDAT, TDAT, "ID")$Issue_fl )
+    expect_false( rcompare(TDAT, TDAT, c("GROUP1" , "GROUP2"))$Issue_fl )
+    expect_false( rcompare(TDAT_CHARCHANGENA , TDAT_CHARCHANGENA )$Issue_fl )
+    expect_false( rcompare(TDAT_DATECHANGENA , TDAT_DATECHANGENA )$Issue_fl )
+    expect_false( rcompare(TDAT_LOGCHANGENA , TDAT_LOGCHANGENA )$Issue_fl )
+    expect_false( rcompare(TDAT_FACTVALCHANGENA, TDAT_FACTVALCHANGENA)$Issue_fl )
     
-    expect_false( rcompare(TDAT_LABEXT , TDAT_LABEXT )$Issues )
-    expect_false( rcompare(TDAT_ATTEXT , TDAT_ATTEXT )$Issues )
-    expect_false( rcompare(TDAT_FACTCHANGE, TDAT_FACTCHANGE)$Issues )
+    expect_false( rcompare(TDAT_LABEXT , TDAT_LABEXT )$Issue_fl )
+    expect_false( rcompare(TDAT_ATTEXT , TDAT_ATTEXT )$Issue_fl )
+    expect_false( rcompare(TDAT_FACTCHANGE, TDAT_FACTCHANGE)$Issue_fl )
     
-    expect_false( rcompare(iris, iris, tolerance =0.2, scale=0.1 )$Issues)
-    expect_false( rcompare(TDAT, TDAT, tolerance =0.2, scale=0.1 )$Issues)
-    expect_false( rcompare(TDAT, TDAT, "ID", tolerance =0.2, scale=0.1 )$Issues)
-    expect_false( rcompare(TDAT, TDAT, c("GROUP1" , "GROUP2"), tolerance =0.2, scale=0.1 )$Issues )
-    expect_false( rcompare(TDAT_CHARCHANGENA , TDAT_CHARCHANGENA , tolerance =0.2, scale=0.1 )$Issues )
-    expect_false( rcompare(TDAT_DATECHANGENA , TDAT_DATECHANGENA , tolerance =0.2, scale=0.1 )$Issues  )
-    expect_false( rcompare(TDAT_LOGCHANGENA , TDAT_LOGCHANGENA , tolerance =0.2, scale=0.1 )$Issues )
-    expect_false( rcompare(TDAT_FACTVALCHANGENA, TDAT_FACTVALCHANGENA, tolerance =0.2, scale=0.1 )$Issues  )
+    expect_false( rcompare(iris, iris, tolerance =0.2, scale=0.1 )$Issue_fl)
+    expect_false( rcompare(TDAT, TDAT, tolerance =0.2, scale=0.1 )$Issue_fl)
+    expect_false( rcompare(TDAT, TDAT, "ID", tolerance =0.2, scale=0.1 )$Issue_fl)
+    expect_false( rcompare(TDAT, TDAT, c("GROUP1" , "GROUP2"), tolerance =0.2, scale=0.1 )$Issue_fl )
+    expect_false( rcompare(TDAT_CHARCHANGENA , TDAT_CHARCHANGENA , tolerance =0.2, scale=0.1 )$Issue_fl )
+    expect_false( rcompare(TDAT_DATECHANGENA , TDAT_DATECHANGENA , tolerance =0.2, scale=0.1 )$Issue_fl  )
+    expect_false( rcompare(TDAT_LOGCHANGENA , TDAT_LOGCHANGENA , tolerance =0.2, scale=0.1 )$Issue_fl )
+    expect_false( rcompare(TDAT_FACTVALCHANGENA, TDAT_FACTVALCHANGENA, tolerance =0.2, scale=0.1 )$Issue_fl  )
     
 })
 
@@ -154,30 +156,41 @@ numdiffcheck <-function(compdat, target, value){
     ### Only expected 1 variable to be different thus we expect 
     ### the overall # of differences to equal the # of differences
     ### in the target variable
-    rcompare_ob   <- rcompare(TDAT , compdat , suppress_warnings = T )$NumDiff$value
-    rcompare_targ <- rcompare_ob[target] %>% as.numeric()
-    rcompare_all  <- rcompare_ob %>% sum() %>% as.numeric()
-    
-    expect_false(
-        rcompare_targ == 0,
-        info = 'targeted value wrong!'
+    rcompare_ob   <- rcompare(TDAT , compdat , suppress_warnings = T )$NumDiff
+
+    expect_true(
+        nrow(rcompare_ob) == 1,
+        info = 'Too many columns detected as different'
     )
     
-    expect_false(
-        rcompare_all == 0 ,
-        info = 'overall value wrong!'
+    expect_true(
+        rcompare_ob$Variable[1] == target,
+        info = 'Wrong target!'
+    )
+    
+    expect_equal(
+        rcompare_ob$`No of Differences`[1] , value,
+        info = 'Number of differences incorrect'
     )
 }
 
 test_that( "Unequal object, checking numbers correct" , {
-    numdiffcheck( TDAT_CHARCHANGE,      'CHARACTER')
-    numdiffcheck( TDAT_DATECHANGE,      'DATE')
-    numdiffcheck( TDAT_LOGCHANGE,       'LOGICAL')
-    numdiffcheck( TDAT_FACTVALCHANGE,   'CATEGORICAL')
-    numdiffcheck( TDAT_CHARCHANGENA,    'CHARACTER')
-    numdiffcheck( TDAT_DATECHANGENA,    'DATE')
-    numdiffcheck( TDAT_LOGCHANGENA,     'LOGICAL')
-    numdiffcheck( TDAT_FACTVALCHANGENA, 'CATEGORICAL')
+    numdiffcheck( TDAT_CHARCHANGE,      'CHARACTER',
+                  1)
+    numdiffcheck( TDAT_DATECHANGE,      'DATE',
+                  1)
+    numdiffcheck( TDAT_LOGCHANGE,       'LOGICAL',
+                  1)
+    numdiffcheck( TDAT_FACTVALCHANGE,   'CATEGORICAL',
+                  8)
+    numdiffcheck( TDAT_CHARCHANGENA,    'CHARACTER',
+                  sum(is.na(TDAT_CHARCHANGENA$CHARACTER)))
+    numdiffcheck( TDAT_DATECHANGENA,    'DATE',
+                  sum(is.na(TDAT_DATECHANGENA$DATE)))
+    numdiffcheck( TDAT_LOGCHANGENA,     'LOGICAL',
+                  sum(is.na(TDAT_LOGCHANGENA$LOGICAL)))
+    numdiffcheck( TDAT_FACTVALCHANGENA, 'CATEGORICAL',
+                  sum(is.na(TDAT_FACTVALCHANGENA$CATEGORICAL)))
 })
 
 test_that( "Differing modes error" , {
@@ -193,8 +206,14 @@ test_that( "Differing classes error" , {
         "There are columns in BASE and COMPARE with different classes"
     )
     
-    expect_warning( 
-        rcompare(TDAT %>% select(CONTINUOUS ), TDAT %>% select(CONTINUOUS = INTEGER)),
+    TEMP <- TDAT
+    TEMP$CONTINUOUS <- TEMP$INTEGER
+    
+    expect_warning(
+        rcompare(
+            TDAT[,"CONTINUOUS", drop=FALSE], 
+            TEMP[,"CONTINUOUS", drop=FALSE] 
+        ),
         "There are columns in BASE and COMPARE with different classes"
     )
 })
@@ -296,37 +315,37 @@ test_that('Objets with differing attributes produce the correct warning', {
 
 test_that('Attribute differnce size is correct!', {
     expect_equal(
-        rcompare(TDAT, TDAT_FACTCHANGE , suppress_warnings = T)$AttribDiffs$value %>% nrow, 
+        rcompare(TDAT, TDAT_FACTCHANGE , suppress_warnings = T)$AttribDiffs %>% nrow, 
         1
     )
     
     expect_equal(
-        rcompare(TDAT, TDAT_ATTEXT , suppress_warnings = T)$AttribDiffs$value %>% nrow, 
+        rcompare(TDAT, TDAT_ATTEXT , suppress_warnings = T)$AttribDiffs %>% nrow, 
         1
     )
     
     expect_equal(
-        rcompare(TDAT, TDAT_ATTEXT2 , suppress_warnings = T)$AttribDiffs$value %>% nrow, 
+        rcompare(TDAT, TDAT_ATTEXT2 , suppress_warnings = T)$AttribDiffs %>% nrow, 
         2
     )
     
     expect_equal(
-        rcompare(TDAT_ATTEXT, TDAT_ATTEXT2 , suppress_warnings = T)$AttribDiffs$value %>% nrow, 
+        rcompare(TDAT_ATTEXT, TDAT_ATTEXT2 , suppress_warnings = T)$AttribDiffs %>% nrow, 
         2
     )
     
     expect_equal(
-        rcompare(TDAT, TDAT_LABEXT , suppress_warnings = T)$AttribDiffs$value %>% nrow, 
+        rcompare(TDAT, TDAT_LABEXT , suppress_warnings = T)$AttribDiffs %>% nrow, 
         2
     )
     
     expect_equal(
-        rcompare(TDAT, TDAT_LABEXT2 , suppress_warnings = T)$AttribDiffs$value %>% nrow, 
+        rcompare(TDAT, TDAT_LABEXT2 , suppress_warnings = T)$AttribDiffs %>% nrow, 
         1
     )
     
     expect_equal(
-        rcompare(TDAT_LABEXT, TDAT_LABEXT2 , suppress_warnings = T)$AttribDiffs$value %>% nrow, 
+        rcompare(TDAT_LABEXT, TDAT_LABEXT2 , suppress_warnings = T)$AttribDiffs%>% nrow, 
         2
     )
     

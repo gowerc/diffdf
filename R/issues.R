@@ -1,232 +1,185 @@
-
-
-
-
- 
-#' Issue Object
+#' construct_issue
 #' 
-#' Base class for containing issues
-#' These are used to control the flagging and warning messages associated with 
-#' issues found in the rcompare function
+#' Make an s3 object with class issue and possible additional class,
+#' and assign other arguments to attributes
+#' @param value the value of the object
+#' @param message the value of the message attribute
+#' @param order the value of the order attribute
+#' @param add_class additional class to add
+construct_issue <- function(value, message, order, add_class = NULL){
+    x <- value
+    class(x) <- c(add_class, "issue", class(x))
+    attributes(x)[["message"]] <- message
+    attributes(x)[["order"]]   <- order
+    return(x)
+}
+
+
+#' get_table
 #' 
-#' @section Usage: Not intended for direct use. This object is intended to be inhertied by other 
-#' objects which call it in an apprioate manner. 
+#' Generate nice looking table from a data frame
+#' @param dsin dataset 
+#' @param row_limit Maximum number of rows displayed in dataset
+get_table <- function(dsin , row_limit = 10){
+    
+    if( nrow(dsin) == 0 ) {
+        return("")
+    }
+    
+    display_table <- dsin %>% 
+        subset( 1:nrow(dsin) < (row_limit + 1) )
+    
+    if ( nrow(dsin) > row_limit ){
+        
+        add_message <- paste0(
+            'First ',
+            row_limit, 
+            " of " ,
+            nrow(dsin),
+            ' rows are shown in table below'
+        )
+        
+    } else {
+        add_message <- 'All rows are shown in table below'
+    } 
+    
+    
+    return(paste(c(add_message,
+                   as_ascii_table(display_table),
+                   '\n'),
+                 collapse = '\n'))
+}
+
+
+#' get_issue_message
+#' 
+#' Simple function to grab the issue message
+#' @param object inputted object of class issue
+#' @param ... other arguments
+get_issue_message <- function (object, ...) {
+    if ( has_issue(object) ) {
+        return( attr(object,"message"))
+    } else {
+        return("")
+    }
+}
+
+#' get_print_message
+#' 
+#' Simple function to grab the print message
+#' @param object inputted object of class issue
+#' @param ... other arguments
+get_print_message <- function (object, ...) {
+    if( has_issue(object) ){  
+        get_text(object)
+    } else{
+        NULL
+    }
+}
+
+
+#' get_text
+#' 
+#' Get the required text depending on type of issue
+#' @param object inputted object of class issue
+#' @param ... other arguments
+get_text <- function (object, ...) {
+    UseMethod("get_text", object)
+}
+
+
+
+
+
+
+
+#' has_issue_message
+#' 
+#' Determine if a function has an issue
+#' @param object inputted object of class issue
+#' @param ... other arguments
+has_issue <- function (object, ...) {
+    UseMethod("has_issue", object)
+}
+
+
+#' has_issue.default
+#' 
+#' Default method for default objects, just returns true
+#' @param object Inputted object
+has_issue.default <- function(object) TRUE
+
+
+
+
+#' get_text.default
+#' 
+#' Errors, as this should only ever be given an issue
+#' @param object issue
+get_text.default <- function(object) stop("Error: An issue has not been provided to this function!")
+
+
+
+
+######  Basic issues 
+
+
+#' has_issue.issue
 #'
-#' @section Arguments:
-#' \code{value} - The values to be used by \code{checkfun} when deciding if an issue has been found or not.
-#' This is also what is printed out when the print method for RCOMPARE is called
-#' 
-#' \code{message} - Warning message to be displayed if an issue is found
-#' 
-#' \code{checkfun} - Function to be run on \code{value} which decides whether or not an issue has been 
-#' found
-#'
-#' \code{order} - The order in which the warning messages should be displayed in relation to the other
-#' issues found
-#' 
-#' @section Methods:
-#' \code{$get_print_message()} - Returns text for printing.
-#'   
-#' \code{$has_issue()}  - Returns T/F based upon whether \code{checkfun} finds an issue in \code{value}.
-#'
-#' \code{$get_issue_message()} - Returns the \code{message} if there are any issues.
-#'   
-#' \code{$get_text(dsin , row_limit = 20)} - Primary formating function used to prepare \code{dsin} prior
-#' to printing. This is intended to be called via the inherited objects rather than directly.
-#' 
-#' @importFrom R6 R6Class
-#' @import dplyr
-#' @name issue
-NULL
+#'Check whether a basic issue has some problems by checking nrows in the object
+#' @param object an object of class issue_basic
+has_issue.issue <-  function(object){
+    nrow(object) > 0
+}
 
-
-issue <- R6Class(
-    "issue",
-    public = list(
-        
-        value = NULL,
-        has_issue = function() T,
-        message = NULL,
-        order = NULL,
-        time = NULL,
-        
-        initialize = function( 
-            value = NULL , 
-            message = "" , 
-            order = 999,
-            time = NULL
-        ){
-            self$value = value
-            self$message = message
-            self$order = order
-            self$time = time
-        },
-        
-        get_print_message = function(){
-            if( self$has_issue() ){  
-                self$get_text()
-            } else{
-                NULL
-            }
-        },
-        
-        
-        get_issue_message = function(){
-            if ( self$has_issue() ) {
-                return( self$message)
-            } else {
-                return("")
-            }
-        },
-        
-        
-        get_text = function(dsin , row_limit = 10){
-            
-            if( nrow(dsin) == 0 ) {
-                return("")
-            }
-            
-            display_table <- dsin %>% 
-                filter( row_number() < (row_limit + 1) )
-            
-            if ( nrow(dsin) > row_limit ){
-                
-                add_message <- paste0(
-                    'First ',
-                    row_limit, 
-                    " of " ,
-                    nrow(dsin),
-                    ' rows are shown in table below'
-                )
-                
-            } else {
-                add_message <- 'All rows are shown in table below'
-            } 
-            
-            display_table[]  <- apply(display_table, c(1, 2), crop_char_value)
-            
-            
-            #paste together the message, the additional message, the table
-            #and an extra final line
-            
-            TABLE <- mod_stargazer(
-                display_table,
-                type = 'text',
-                summary = FALSE
-            )
-            
-            RETURN <- paste(
-                c(
-                    self$message,
-                    add_message,
-                    TABLE,
-                    '\n'
-                ),
-                collapse = '\n'
-            )
-            
-            return(RETURN)
-        }
+#' get_text.issue
+#'
+#' Get text from a basic issue, based on the class of the value of the issue
+#'
+#' @param object an object of class issue_basic
+get_text.issue <- function(object){
+    
+    table_print <- get_table(object) 
+    if (table_print == ""){
+        return(table_print)
+    }
+    paste(
+        c(attr(object, "message"), table_print),
+        collapse = '\n'
     )
-)
+}
 
 
-#' Issue Basic Object
-#' 
-#' Basic issue - Inherits from Issue Object 
-#' These are used to control the flagging and warning messages associated with 
-#' issues found in the rcompare function
-#' 
-#' @section Usage:  \code{ ob = issue_basic$new(...) }
-#'
-#' @section Methods:
-#' \code{$get_text()} - Gets formated text suitable for printing
-#' \code{$has_issue()} - Returns T/F depending on whether the issue is valid
-#'
-#' @name issue_basic
-NULL
-issue_basic <- R6Class(
-    "issue_basic",
-    inherit = issue,
-    public = list(
-        has_issue = function(){
-            nrow(self$value) > 0
-        },
-        get_text = function(){
-            super$get_text(self$value)
-        }
-    )
-)
+######  List of Issues
 
-#' Issue List Object
+#' has_issue.issue_list
 #' 
-#' List issue - Inherits from Issue Object 
-#' This issue is meant to contain a list of other issues
-#' These are used to control the flagging and warning messages associated with 
-#' issues found in the rcompare function
-#' 
-#' @section Usage:  \code{ ob = issue_list$new(...) }
-#'
-#' @section Methods:
-#' \code{$get_text()} - Gets formated text suitable for printing
-#' \code{$has_issue()} - Returns T/F depending on whether the issue is valid
-#'
-#' @importFrom purrr map
+#' Determine if a list issue has any issues, looks through each object in turn and apply
+#' has issue
+#' @param object an issue_list object
 #' @importFrom purrr map_lgl
-#' @name issue_list
-NULL
-issue_list <- R6Class(
-    "issue_list",
-    inherit = issue,
-    public = list(
-        get_text = function(){
-            map( self$value , function(x) x$get_text()) 
-        },
-        has_issue = function(){
-            num_issues =  map_lgl( self$value , function(x) x$has_issue() ) %>% any
-            return( num_issues ) 
-        }
-    ) 
-)
+has_issue.issue_list <- function(object){
+    num_issues =  map_lgl( object , function(x) has_issue(x) ) %>% any
+    return( num_issues )
+}
 
-#' Issue Vector Object
+#' get_text.issue_list
 #' 
-#' Vector issue - Inherits from Issue Object 
-#' These are used to control the flagging and warning messages associated with 
-#' issues found in the rcompare function
-#' 
-#' @section Usage:  \code{ ob = issue_vector$new(...) }
-#'
-#' @section Methods:
-#' \code{$get_text()} - Gets formated text suitable for printing
-#' \code{$has_issue()} - Returns T/F depending on whether the issue is valid
-#'
-#' @import dplyr
-#' @importFrom tibble rownames_to_column
-#' @name issue_vector
-NULL
-issue_vector <- R6Class(
-    "issue_vector",
-    inherit = issue,
-    public = list(
-        get_text = function(){
-            
-            datin_tibble <- self$value %>% 
-                as.data.frame() %>% 
-                rownames_to_column()
-            
-            names(datin_tibble) <- c('Variable', 'No of Differences')
-            
-            datin_tibble <- datin_tibble %>% 
-                filter(`No of Differences` > 0)
-            
-            super$get_text(datin_tibble)
-        },
-        
-        has_issue = function(){
-            sum(self$value) > 0
-        }
-    ) 
-)
+#' Get the text for a list object, by applying get_text over the list
+#' @param object an object of class issue_list
+#' @importFrom purrr map
+get_text.issue_list <- function(object){
+    map( object , function(x) get_text(x))
+}
+
+
+
+
+
+
+
+
+
+
 
 

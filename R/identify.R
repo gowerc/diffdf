@@ -6,16 +6,17 @@
 #' @param DS1 Baseline dataset (data frame)
 #' @param DS2 Comparitor dataset (data frame)
 #' @param KEYS List of variables that define a unique row within the datasets (strings)
-#' @import dplyr
-identify_extra_rows <- function (DS1 , DS2 , KEYS){
-    DS1 %>%
-        anti_join( DS2 , by = KEYS) %>% 
-        select(one_of(KEYS))
+identify_extra_rows <- function(DS1, DS2 , KEYS){
+    DS2[["..FLAG.."]] <- "Y"
+    dat <- merge(
+        subset( DS1 , select = KEYS) , 
+        subset( DS2 , select = c(KEYS, "..FLAG..")) , 
+        by = KEYS, all.x = T,
+        sort = TRUE
+    ) 
+    
+    dat[ is.na(dat[["..FLAG.."]]) , KEYS, drop=FALSE]
 }
-
-
-
-
 
 
 
@@ -24,13 +25,13 @@ identify_extra_rows <- function (DS1 , DS2 , KEYS){
 #' Identifys columns that are in a baseline dataset but not in a comparator dataset
 #' @param DS1 Baseline dataset (data frame)
 #' @param DS2 Comparitor dataset (data frame)
-#' @import dplyr
+#' @importFrom tibble tibble
 identify_extra_cols <- function(DS1 , DS2){
     match.cols <- sapply ( names(DS1), "%in%", names(DS2))
     if (  !all(is.logical(match.cols)) ){
         stop("Assumption of logical return type is not true")
     }
-    data_frame(
+    tibble(
         COLUMNS = names(DS1)[ !match.cols]
     )
 }
@@ -61,13 +62,13 @@ identify_matching_cols <- function(DS1, DS2 , EXCLUDE = ""){
 #' 
 #' Identifies any columns for which the package is not setup to handle
 #' @param dsin input dataset
-#' @import dplyr
 identify_unsupported_cols <- function(dsin){
-    identify_properties(dsin) %>% 
-        select( VARIABLE , MODE) %>% 
-        filter( ! MODE %in%  c('numeric', 'character', 'logical') )
-}
+    dat <- identify_properties(dsin)  %>% 
+        subset(select = c("VARIABLE", "MODE")) 
+    
+    dat[ !dat[["MODE"]] %in% c('numeric', 'character', 'logical') ,, drop=FALSE]
 
+}
 
 
 
@@ -76,16 +77,25 @@ identify_unsupported_cols <- function(dsin){
 #' Identifies any mode differences between two data frames
 #' @param BASE Base dataset for comparision (data.frame)
 #' @param COMP Comparator dataset to compare base against (data.frame)
-#' @import dplyr
 identify_mode_differences <- function( BASE, COMP ){
-    
+
     matching_cols <- identify_matching_cols( BASE , COMP  )
     
-    identify_properties(BASE) %>% 
-        full_join(identify_properties(COMP) , by = "VARIABLE",  suffix = c(".BASE", ".COMP")) %>% 
-        select( VARIABLE , MODE.BASE , MODE.COMP) %>% 
-        filter( VARIABLE %in% matching_cols) %>% 
-        filter( MODE.BASE != MODE.COMP)
+    dat <- merge(
+        x = identify_properties(BASE),
+        y = identify_properties(COMP),
+        by = "VARIABLE",
+        all = TRUE,
+        suffixes = c(".BASE", ".COMP"),
+        sort = TRUE
+    ) %>% 
+        subset( select = c("VARIABLE" , "MODE.BASE" , "MODE.COMP"))
+    
+    KEEP1 <- dat[["VARIABLE"]] %in% matching_cols
+    KEEP2 <- dat[["MODE.BASE"]] != dat[["MODE.COMP"]]
+    
+    dat[ KEEP1 & KEEP2 ,, drop=FALSE]
+
 }
 
 
@@ -95,17 +105,30 @@ identify_mode_differences <- function( BASE, COMP ){
 #' Identifies any class differences between two data frames
 #' @param BASE Base dataset for comparision (data.frame)
 #' @param COMP Comparator dataset to compare base against (data.frame)
-#' @import dplyr
 #' @importFrom purrr map2_lgl
 identify_class_differences <- function( BASE, COMP ){
     
     matching_cols <- identify_matching_cols( BASE , COMP )
     
-    identify_properties(BASE) %>% 
-        full_join(identify_properties(COMP) , by = "VARIABLE",  suffix = c(".BASE", ".COMP")) %>% 
-        select( VARIABLE , CLASS.BASE , CLASS.COMP) %>% 
-        filter( VARIABLE %in% matching_cols) %>% 
-        filter( !map2_lgl( CLASS.BASE , CLASS.COMP , identical)  )
+    dat <- merge(
+        x = identify_properties(BASE),
+        y = identify_properties(COMP),
+        by = "VARIABLE",
+        all = TRUE, 
+        sort = TRUE,
+        suffixes =  c(".BASE", ".COMP")
+    ) %>% 
+        subset( select = c("VARIABLE" , "CLASS.BASE" , "CLASS.COMP")) 
+    
+    KEEP1 <- dat[["VARIABLE"]] %in% matching_cols
+    KEEP2 <- !map2_lgl( 
+        dat[["CLASS.BASE"]] , 
+        dat[["CLASS.COMP"]] , 
+        identical
+    )
+    
+    dat[ KEEP1 & KEEP2 ,, drop=FALSE] 
+
 }
 
 
@@ -116,33 +139,40 @@ identify_class_differences <- function( BASE, COMP ){
 #' @param BASE Base dataset for comparision (data.frame)
 #' @param COMP Comparator dataset to compare base against (data.frame)
 #' @param exclude_cols Columns to exclude from comparision
-#' @import dplyr
+#' @importFrom tibble tibble
 identify_att_differences <- function( BASE, COMP , exclude_cols = "" ){
     
     matching_cols <- identify_matching_cols( BASE , COMP , exclude_cols )
     
-    PROPS <- identify_properties(BASE) %>% 
-        full_join(identify_properties(COMP) , by = "VARIABLE",  suffix = c(".BASE", ".COMP")) %>% 
-        select( VARIABLE, ATTRIBS.BASE , ATTRIBS.COMP) %>% 
-        filter( VARIABLE %in% matching_cols) 
+    PROPS <- merge(
+        x = identify_properties(BASE) ,
+        y = identify_properties(COMP) , 
+        by = "VARIABLE",  
+        all = TRUE,
+        sort = TRUE,
+        suffixes = c(".BASE", ".COMP")
+    ) %>% 
+        subset( select =  c("VARIABLE", "ATTRIBS.BASE" , "ATTRIBS.COMP")) 
+    
+    PROPS <- PROPS[ PROPS[["VARIABLE"]] %in% matching_cols,, drop = FALSE]
+ 
     
     ### Setup dummy return value
-    RETURN <- data_frame(
+    RETURN <- tibble(
         VARIABLE = character(),
         ATTR_NAME = character(),
         VALUES.BASE = list(),
         VALUES.COMP = list()
     )
     
-    for ( i in  PROPS$VARIABLE ){
+    for ( i in  PROPS[["VARIABLE"]] ){
         
-        PROPS_filt <- PROPS %>% 
-            filter( VARIABLE == i)
-        
+        PROPS_filt <- PROPS[ PROPS[["VARIABLE"]] == i ,, drop=FALSE]
+
         ### Get a vector of all available attributes across both variables
         ATTRIB_NAMES = c( 
-            names(PROPS_filt$ATTRIBS.BASE[[1]]) , 
-            names(PROPS_filt$ATTRIBS.COMP[[1]])
+            names(PROPS_filt[["ATTRIBS.BASE"]][[1]]) , 
+            names(PROPS_filt[["ATTRIBS.COMP"]][[1]])
         ) %>% unique
         
         ### If variable has no attributes move onto the next variable
@@ -152,19 +182,19 @@ identify_att_differences <- function( BASE, COMP , exclude_cols = "" ){
         ### anyones that arn't
         for ( j in ATTRIB_NAMES){
             
-            ATTRIB_BASE = PROPS_filt$ATTRIBS.BASE[[1]][j]
-            ATTRIB_COMP = PROPS_filt$ATTRIBS.COMP[[1]][j]
+            ATTRIB_BASE = PROPS_filt[["ATTRIBS.BASE"]][[1]][j]
+            ATTRIB_COMP = PROPS_filt[["ATTRIBS.COMP"]][[1]][j]
             
             if ( !identical(ATTRIB_BASE , ATTRIB_COMP) ){
                 
-                ATT_DIFFS <- data_frame(
+                ATT_DIFFS <- tibble(
                     VARIABLE = i , 
                     ATTR_NAME = j , 
                     VALUES.BASE = ifelse( is.null(ATTRIB_BASE) , list() , ATTRIB_BASE),  
                     VALUES.COMP = ifelse( is.null(ATTRIB_COMP) , list() , ATTRIB_COMP)
                 ) 
                 
-                RETURN <- bind_rows(RETURN , ATT_DIFFS)
+                RETURN <- rbind(RETURN , ATT_DIFFS)
             }
         }
     }
@@ -189,44 +219,61 @@ identify_att_differences <- function( BASE, COMP , exclude_cols = "" ){
 #' @importFrom purrr map map2
 #' @importFrom purrr set_names
 #' @importFrom tibble as.tibble tibble
-#' @import dplyr
 identify_differences <- function( BASE , COMP , KEYS, exclude_cols,  
                                   tolerance = sqrt(.Machine$double.eps),
                                   scale = NULL ) {
     
     matching_cols <- identify_matching_cols( BASE , COMP , c(KEYS, exclude_cols))
     
-    if( length(matching_cols) == 0  ) return ( data_frame() )
+    if( length(matching_cols) == 0  ) return ( tibble() )
   
-    DAT = inner_join( BASE , COMP , by = KEYS , suffix = c(".x", ".y"))
-    matching_list<-list()
+    DAT = merge( 
+        x = BASE , 
+        y = COMP , 
+        by = KEYS , 
+        suffix = c(".x", ".y"),
+        sort = TRUE
+    )
+    
+    matching_list <- list()
     outdat <- list()
-    keyselect <- select_(DAT, .dots = KEYS)
+    keyselect <- subset(DAT, select = KEYS)
+    
     for (i in matching_cols){
-      matching_list[[i]] <- is_different(DAT[[paste0(i,'.x')]], DAT[[paste0(i,'.y')]],
-                                         tolerance = tolerance ,
-                                         scale = scale )
-      keyselecti <- keyselect %>%
-        mutate(VARIABLE = i) %>%
-        select_(.dots = c('VARIABLE',KEYS))
-      keyselecti <- keyselecti[matching_list[[i]],]
-      outdat[[i]] <- as.tibble(bind_cols(keyselecti ,
-                       tibble( BASE = DAT[[paste0(i,'.x')]][matching_list[[i]] ],
-                               COMPARE = DAT[[paste0(i,'.y')]][matching_list[[i]] ])))
+        matching_list[[i]] <- is_different(
+            DAT[[paste0(i,'.x')]], 
+            DAT[[paste0(i,'.y')]],
+            tolerance = tolerance ,
+            scale = scale 
+        )
+        
+        keyselect[["VARIABLE"]] = i
+        
+        keyselecti <- keyselect %>%
+            subset(select = c('VARIABLE',KEYS))
+        
+        keyselecti <- keyselecti[matching_list[[i]],]
+        
+        outdat[[i]] <- as.tibble(
+            cbind(
+                keyselecti ,
+                tibble( 
+                    BASE = DAT[[paste0(i,'.x')]][matching_list[[i]] ],
+                    COMPARE = DAT[[paste0(i,'.y')]][matching_list[[i]] ]
+                )
+            )
+        )
     }
 
-
-    # outdat<-outdat3
-    
-    outdat <- pmap(
+    pmap(
         list(
             value = outdat,
             message = "" ,
             order = seq(1, length(outdat))
         ),
-        issue_basic$new
+        construct_issue
     )
-    outdat
+
 }
 
 
@@ -244,12 +291,12 @@ identify_differences <- function( BASE , COMP , KEYS, exclude_cols,
 #' @param dsin input dataframe that you want to get the metadata from
 #' @importFrom purrr map
 #' @importFrom purrr map_chr
-#' @import dplyr
+#' @importFrom tibble tibble
 identify_properties <- function(dsin){
     
     ### If missing or null return empty dataset
     if( is.null(dsin) ) {
-        x <- data_frame(
+        x <- tibble(
             VARIABLE = character(),
             CLASS     = list(),
             MODE      = character(),
@@ -259,7 +306,7 @@ identify_properties <- function(dsin){
         return(x)
     }
     
-    data_frame(
+    tibble(
         VARIABLE = names(dsin),
         CLASS     = map(dsin, class),
         MODE      = map_chr(dsin , mode),
