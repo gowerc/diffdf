@@ -18,6 +18,29 @@ runme <- function(x){
 
 RES <- map( list_of_comparisons , runme)
 
+
+### Add additional examples that make use of keys
+
+x <- dfdiff(
+    list_of_comparisons[["everything"]][[1]] ,
+    list_of_comparisons[["everything"]][[2]] ,
+    keys = "ID",
+    suppress_warnings = T
+)
+RES[[ "With 1 key"]] <- print(x , as_string = TRUE)
+
+
+x <- dfdiff(
+    list_of_comparisons[["everything"]][[1]] ,
+    list_of_comparisons[["everything"]][[2]] ,
+    keys = c("ID" , "GROUP1"),
+    suppress_warnings = T
+)
+RES[["With 2 keys"]] <- print(x , as_string = TRUE)
+
+
+
+
 SET_GOLD <- FALSE
 
 if ( SET_GOLD ){
@@ -32,6 +55,17 @@ if ( SET_GOLD ){
         )
     }
 }
+
+
+
+
+
+
+
+
+
+
+
 
 # i <- 3
 # print_tests[[i]]

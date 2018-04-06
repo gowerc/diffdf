@@ -1,13 +1,12 @@
 
 #' dfdiff
 #' @description  
-#' Compares 2 data frames and outputs any differences.
-#' Emulates proc compare from SAS
+#' Compares 2 dataframes and outputs any differences.
 #' @param base input dataframe
 #' @param compare comparison dataframe
 #' @param keys vector of variables (as strings) that defines a unique row in the base and compare dataframes
 #' @param suppress_warnings Do you want to suppress warnings? (logical)
-#' @param outfile Location and name of a file to output the results to. Setting to NULL will cause no file to be produced.
+#' @param outfile Location and name of a text file to output the results to. Setting to NULL will cause no file to be produced.
 #' @param tolerance Level of tolerance for numeric differences between two variables
 #' @param scale Scale that tolerance should be set on. If NULL assume absolute
 #' @examples
@@ -17,8 +16,6 @@
 #' print( COMPARE )
 #' print( COMPARE , "Sepal.Length" )
 #' 
-#' #### Example for ADaM VAD QC
-#' # dfdiff( AAE , QC_AAE , keys = c("USUBJID" , "AESEQ"))
 #' 
 #' #### Sample data frames
 #' DF1 <- data.frame(

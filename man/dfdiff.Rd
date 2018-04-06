@@ -16,15 +16,14 @@ dfdiff(base, compare, keys = NULL, suppress_warnings = F, outfile = NULL,
 
 \item{suppress_warnings}{Do you want to suppress warnings? (logical)}
 
-\item{outfile}{Location and name of a file to output the results to. Setting to NULL will cause no file to be produced.}
+\item{outfile}{Location and name of a text file to output the results to. Setting to NULL will cause no file to be produced.}
 
 \item{tolerance}{Level of tolerance for numeric differences between two variables}
 
 \item{scale}{Scale that tolerance should be set on. If NULL assume absolute}
 }
 \description{
-Compares 2 data frames and outputs any differences.
-Emulates proc compare from SAS
+Compares 2 dataframes and outputs any differences.
 }
 \examples{
 x <- subset( iris,  -Species)
@@ -33,8 +32,6 @@ COMPARE <- dfdiff( iris, x)
 print( COMPARE )
 print( COMPARE , "Sepal.Length" )
 
-#### Example for ADaM VAD QC
-# dfdiff( AAE , QC_AAE , keys = c("USUBJID" , "AESEQ"))
 
 #### Sample data frames
 DF1 <- data.frame(
