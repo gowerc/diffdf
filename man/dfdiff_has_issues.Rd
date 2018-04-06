@@ -10,8 +10,8 @@ dfdiff_has_issues(x)
 \item{x}{dfdiff object}
 }
 \description{
-Utility function which returns True if an dfdiff
-object has  issues or False if an dfdiff object does not have issues
+Utility function which returns TRUE if an dfdiff
+object has issues or FALSE if an dfdiff object does not have issues
 }
 \examples{
 
