@@ -11,9 +11,9 @@ devtools::document()
 
 devtools::build()
 
-### Ensure dfcompare is unloaded and removed
-unloadNamespace("dfcompare")
-utils::remove.packages("dfcompare")
+### Ensure dfdiff is unloaded and removed
+unloadNamespace("dfdiff")
+utils::remove.packages("dfdiff")
 
 ### Document build and install R compare
 devtools::document()
@@ -21,10 +21,10 @@ location <- devtools::build()
 install.packages( location, repos = NULL, type="source")
 
 ### Very simple test
-dfcompare::dfcompare(iris,iris)
-library(dfcompare)
-dfcompare(iris , iris)
-?dfcompare
+dfdiff::dfdiff(iris,iris)
+library(dfdiff)
+dfdiff(iris , iris)
+?dfdiff
 
 ###############
 #
@@ -35,7 +35,7 @@ library(rclinical)
 ?install
 
 devtools::install_git( 
-    "https://github.roche.com/Rpackages/dfcompare/tree/fix_dplyr_update", 
+    "https://github.roche.com/Rpackages/dfdiff/tree/fix_dplyr_update", 
     upgrade_dependencies = F
 )
 
@@ -53,60 +53,60 @@ source("./tests/testthat/helper-create_test_data.R")
 
 
 devtools::load_all()
-dfcompare(iris , iris)
-dfcompare(TDAT , TDAT)
-dfcompare(TDAT2 , TDAT2)
+dfdiff(iris , iris)
+dfdiff(TDAT , TDAT)
+dfdiff(TDAT2 , TDAT2)
 
-dfcompare(
+dfdiff(
     TDAT %>% select(ID , BINARY) ,
     TDAT2 %>% select( ID , BINARY) 
 )
 
-dfcompare(
+dfdiff(
     TDAT %>% select(ID , CATEGORICAL) ,
     TDAT2 %>% select( ID , CATEGORICAL) 
 )
 
-dfcompare(
+dfdiff(
     TDAT %>% select(ID , DATE) ,
     TDAT2 %>% select( ID , DATE) 
 )
 
-dfcompare(
+dfdiff(
     TDAT %>% select(ID , CONTINUOUS) ,
     TDAT2 %>% select( ID , CONTINUOUS) 
 )
 
-dfcompare(
+dfdiff(
     TDAT %>% select(ID , DATETIME) ,
     TDAT2 %>% select( ID , DATETIME) 
 )
 
-dfcompare(
+dfdiff(
     TDAT,
     TDAT2
 )
 
 TDAT3 <- TDAT %>% sample_frac(1)
-dfcompare(TDAT , TDAT3)
+dfdiff(TDAT , TDAT3)
 
-x <- dfcompare(TDAT , TDAT2 , keys = c("ID" , "GROUP1"))
+x <- dfdiff(TDAT , TDAT2 , keys = c("ID" , "GROUP1"))
 print(x ,VARIABLE =  "GROUP2")
 
 class(x)
 
 
-dfcompare_has_pass <- function(x){
-    if (  class(x)[[1]] != "dfcompare" )  stop( "x is not an dfcompare object")
+dfdiff_has_pass <- function(x){
+    if (  class(x)[[1]] != "dfdiff" )  stop( "x is not an dfdiff object")
     return( length(x) == 0 ) 
 }
 
 
 
-dfcompare_has_pass(x)
+dfdiff_has_pass(x)
 
 
 
 
 
-dfcompare(TDAT , TDAT2 , outfile = "./testing2.txt")
+dfdiff(TDAT , TDAT2 , outfile = "./testing2.txt")

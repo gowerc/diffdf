@@ -1,6 +1,6 @@
 library(testthat)
-library(dfcompare)
+library(dfdiff)
 
-test_check("dfcompare")
+test_check("dfdiff")
 
 

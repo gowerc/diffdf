@@ -1,5 +1,5 @@
 ---
-title: "Introduction to dfcompare"
+title: "Introduction to dfdiff"
 author: "Craig Gower & Kieran Martin"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -18,15 +18,15 @@ knitr::opts_chunk$set(
 )
 ```
 
-The purpose of `dfcompare` is to provide `proc compare` like functionality to R for use in second line programming. In particular we focus on raising warnings if any differences are found whilst providing in-depth diagnostics to highlight where these differences have occurred. 
+The purpose of `dfdiff` is to provide `proc compare` like functionality to R for use in second line programming. In particular we focus on raising warnings if any differences are found whilst providing in-depth diagnostics to highlight where these differences have occurred. 
 
 
 ## Basic usage
 
-Here we show the basic functionality of `dfcompare` using a dummy data set.
+Here we show the basic functionality of `dfdiff` using a dummy data set.
 
 ```{r}
-library(dfcompare)
+library(dfdiff)
 
 LENGTH = 30
 set.seed(12334)
@@ -46,10 +46,10 @@ test_data <- tibble::tibble(
 
 test_data
 
-dfcompare( test_data , test_data)
+dfdiff( test_data , test_data)
 ```
 
-As you would expect no differences are found. We now look to introduce various types differences into the data in order to show how `dfcompare` highlights them.  Note that for the purposes of this vignette we have used the `suppress_warnings` argument to stop errors being raised; it is recommended however that this option is not used in production code as it may mask problems. 
+As you would expect no differences are found. We now look to introduce various types differences into the data in order to show how `dfdiff` highlights them.  Note that for the purposes of this vignette we have used the `suppress_warnings` argument to stop errors being raised; it is recommended however that this option is not used in production code as it may mask problems. 
 
 
 ### Missing Columns
@@ -57,7 +57,7 @@ As you would expect no differences are found. We now look to introduce various t
 ```{r}
 test_data2 <- test_data 
 test_data2 <- test_data2[,-6]
-dfcompare(test_data , test_data2 , suppress_warnings = T)
+dfdiff(test_data , test_data2 , suppress_warnings = T)
 ```
 
 
@@ -66,7 +66,7 @@ dfcompare(test_data , test_data2 , suppress_warnings = T)
 ```{r}
 test_data2 <- test_data
 test_data2 <- test_data2[1:(nrow(test_data2) - 2),]
-dfcompare(test_data, test_data2 , suppress_warnings = T)
+dfdiff(test_data, test_data2 , suppress_warnings = T)
 ```
 
 
@@ -75,7 +75,7 @@ dfcompare(test_data, test_data2 , suppress_warnings = T)
 ```{r}
 test_data2 <- test_data
 test_data2[5,2] <- 6
-dfcompare(test_data , test_data2 , suppress_warnings = T)
+dfdiff(test_data , test_data2 , suppress_warnings = T)
 ```
 
 
@@ -84,7 +84,7 @@ dfcompare(test_data , test_data2 , suppress_warnings = T)
 ```{r}
 test_data2 <- test_data
 test_data2[5,2] <- "blah"
-dfcompare(test_data , test_data2 , suppress_warnings = T)
+dfdiff(test_data , test_data2 , suppress_warnings = T)
 ```
 
 
@@ -94,7 +94,7 @@ dfcompare(test_data , test_data2 , suppress_warnings = T)
 test_data2 <- test_data
 attr(test_data$ID , "label") <- "This is a interesting label"
 attr(test_data2$ID , "label") <- "what do I type here?"
-dfcompare(test_data , test_data2 , suppress_warnings = T)
+dfdiff(test_data , test_data2 , suppress_warnings = T)
 ```
 
 ### Different Factor Levels 
@@ -102,17 +102,17 @@ dfcompare(test_data , test_data2 , suppress_warnings = T)
 ```{r}
 test_data2 <- test_data
 levels(test_data2$CATEGORICAL) <- c(1,2,3)
-dfcompare(test_data , test_data2 , suppress_warnings = T)
+dfdiff(test_data , test_data2 , suppress_warnings = T)
 ```
 
 ## Grouping Variables
 
-A key feature of `dfcompare` that enables easier diagnostics is the ability to specify which variables form a unique row i.e. which rows should be compared against each other based upon a key. By default if no key is specified `dfcompare` will use the rownumber as the key however in general this isn't recommended as it means two identical datasets simply sorted differently can lead to incomprehensible error messages as every observation is flagged as different.  In `dfcompare` keys can be specified as character vectors using the `keys` argument.
+A key feature of `dfdiff` that enables easier diagnostics is the ability to specify which variables form a unique row i.e. which rows should be compared against each other based upon a key. By default if no key is specified `dfdiff` will use the rownumber as the key however in general this isn't recommended as it means two identical datasets simply sorted differently can lead to incomprehensible error messages as every observation is flagged as different.  In `dfdiff` keys can be specified as character vectors using the `keys` argument.
 
 ```{r}
 test_data2 <- test_data
 test_data2$INTEGER[c(5,2,15)] <- 99L 
-dfcompare( test_data , test_data2 , keys = c("GROUP1" , "GROUP2") , suppress_warnings = T)
+dfdiff( test_data , test_data2 , keys = c("GROUP1" , "GROUP2") , suppress_warnings = T)
 ```
 
 ## Printing and Saving the Compare Log
@@ -121,11 +121,11 @@ When there are lots of mismatches the log can become unwieldly. In order to deal
 
 
 ```{r, eval=FALSE}
-result <- dfcompare( 
+result <- dfdiff( 
     test_data , 
     test_data2 , 
     keys = c("GROUP1" , "GROUP2") , 
-    outfile =  "reports/dfcompare.log"
+    outfile =  "reports/dfdiff.log"
 )
 
 ```
@@ -135,15 +135,15 @@ result <- dfcompare(
 
 ### Tolerance
 
-You can use the `tolerance` argument of `dfcompare` to define how sensitive the comparison should be to decimal place inaccuracies. This important as very often floating point numbers will not compare equal due to machine rounding as they cannot be perfectly represented in binary. By default tolerance is set to `sqrt(.Machine$double.eps)`
+You can use the `tolerance` argument of `dfdiff` to define how sensitive the comparison should be to decimal place inaccuracies. This important as very often floating point numbers will not compare equal due to machine rounding as they cannot be perfectly represented in binary. By default tolerance is set to `sqrt(.Machine$double.eps)`
 
 ```{r}
 dsin1 <- data.frame(x = 1.1e-06)
 dsin2 <- data.frame(x = 1.1e-07)
 
-dfcompare(dsin1  , dsin2 , suppress_warnings = T)
+dfdiff(dsin1  , dsin2 , suppress_warnings = T)
 
-dfcompare(dsin1  , dsin2 , tolerance = 0.001 , suppress_warnings = T)
+dfdiff(dsin1  , dsin2 , tolerance = 0.001 , suppress_warnings = T)
 ```
 
 

@@ -1,5 +1,5 @@
 
-#' dfcompare
+#' dfdiff
 #' @description  
 #' Compares 2 data frames and outputs any differences.
 #' Emulates proc compare from SAS
@@ -13,12 +13,12 @@
 #' @examples
 #' x <- subset( iris,  -Species)
 #' x[1,2] <- 5
-#' COMPARE <- dfcompare( iris, x)
+#' COMPARE <- dfdiff( iris, x)
 #' print( COMPARE )
 #' print( COMPARE , "Sepal.Length" )
 #' 
 #' #### Example for ADaM VAD QC
-#' # dfcompare( AAE , QC_AAE , keys = c("USUBJID" , "AESEQ"))
+#' # dfdiff( AAE , QC_AAE , keys = c("USUBJID" , "AESEQ"))
 #' 
 #' #### Sample data frames
 #' DF1 <- data.frame(
@@ -33,10 +33,10 @@
 #'     v2 = c(NA , NA , 1 , 2 , NA , NA),
 #'     v3 = c(NA , NA , 1 , 2 , NA , 4)
 #' )
-#' dfcompare(DF1 , DF1 , keys = "id")
-#' dfcompare(DF1 , DF2 , keys = "id")
+#' dfdiff(DF1 , DF1 , keys = "id")
+#' dfdiff(DF1 , DF2 , keys = "id")
 #' @export
-dfcompare <- function (base , compare , keys = NULL,
+dfdiff <- function (base , compare , keys = NULL,
                       suppress_warnings = F, outfile = NULL,
                       tolerance = sqrt(.Machine$double.eps),
                       scale = NULL){
@@ -213,7 +213,7 @@ dfcompare <- function (base , compare , keys = NULL,
         }
     } 
     
-    class(COMPARE) <- c("dfcompare" , "list") 
+    class(COMPARE) <- c("dfdiff" , "list") 
     
     if (!is.null(outfile)){
         x <- print(COMPARE , as_string = TRUE)
@@ -243,25 +243,25 @@ dfcompare <- function (base , compare , keys = NULL,
 
 
 
-#' dfcompare_has_issues
+#' dfdiff_has_issues
 #' 
-#' Utility function which returns True if an dfcompare
-#' object has  issues or False if an dfcompare object does not have issues
-#' @param x dfcompare object
+#' Utility function which returns True if an dfdiff
+#' object has  issues or False if an dfdiff object does not have issues
+#' @param x dfdiff object
 #' @examples
 #' 
 #' # Example with no issues
-#' x <- dfcompare( iris, iris )
-#' dfcompare_has_issues(x)
+#' x <- dfdiff( iris, iris )
+#' dfdiff_has_issues(x)
 #' 
 #' # Example with issues
 #' iris2 <- iris
 #' iris2[2,2] <- NA
-#' x <- dfcompare( iris , iris2 , suppress_warnings = TRUE)
-#' dfcompare_has_issues(x)
+#' x <- dfdiff( iris , iris2 , suppress_warnings = TRUE)
+#' dfdiff_has_issues(x)
 #' @export
-dfcompare_has_issues <- function(x){
-    if (  class(x)[[1]] != "dfcompare" )  stop( "x is not an dfcompare object")
+dfdiff_has_issues <- function(x){
+    if (  class(x)[[1]] != "dfdiff" )  stop( "x is not an dfdiff object")
     return( length(x) != 0 ) 
 }
 

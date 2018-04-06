@@ -1,4 +1,4 @@
-Package: dfcompare
+Package: dfdiff
 Type: Package
 Title: Compares dataframes
 Version: 0.1.0
