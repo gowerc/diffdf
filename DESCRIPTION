@@ -8,7 +8,7 @@ Authors@R: c(
     )
 Description: This package provides functions for comparing two dataframes against 
     each other. The core dfdiff function will provide a detailed breakdown of any differences 
-    between two dataframes as well as providing utility functions to help narrow down on the 
+    between two dataframes as well as providing utility functions to help narrow down the 
     source of problems.
 License: MIT + file LICENSE
 Encoding: UTF-8
