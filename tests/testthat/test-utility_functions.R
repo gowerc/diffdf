@@ -7,12 +7,12 @@
 context("Utility Functions")
 
 
-test_that( "rcompare_has_issue works as expected"){
+test_that( "rcompare_has_issue works as expected",{
     
     ### Note that the first 2 comparisons in list_of_datasets are identical so we expect true
     ### all others are different so we expect false
     
-    for ( i in length(RES)){
+    for ( i in 1:length(list_of_comparisons)){
         x <- rcompare(
             list_of_comparisons[[i]][[1]] , 
             list_of_comparisons[[i]][[2]] , 
@@ -41,7 +41,7 @@ test_that( "rcompare_has_issue works as expected"){
     )
     
     
-}
+})
 
 
 
