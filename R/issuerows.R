@@ -37,15 +37,16 @@ dfdiff_issuerows <- function( df , diff, vars = NULL){
     
     issue_vars <- names(diff)[grep( "^VarDiff_", names(diff))]
     
-    if ( length(issue_vars) == 0){
-        return(df[1==0,])
-    }
-    
     if ( is.null(vars)){
         vars <- issue_vars
     }  else {
         vars <- paste0("VarDiff_" , vars)
     }
+    
+    if ( length(issue_vars) == 0 | sum( vars %in% issue_vars) == 0){
+        return(df[FALSE,])
+    }
+    
     
     KEEP <- mapply(get_issue_dataset, vars, diff = list(diff) , SIMPLIFY = F)
     KEEP <- recursive_reduce( KEEP , rbind)
