@@ -35,7 +35,7 @@ print.dfdiff <- function(x, ..., as_string = FALSE){
         return(strsplit(outtext, '\n')[[1]])
     } else {
         cat(outtext)
-        invisible(COMPARE)
+        return(invisible(COMPARE))
     }
 }
 

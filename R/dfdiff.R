@@ -37,9 +37,9 @@
 #' dfdiff(DF1 , DF2 , keys = "id")
 #' @export
 dfdiff <- function (base , compare , keys = NULL,
-                      suppress_warnings = F, outfile = NULL,
-                      tolerance = sqrt(.Machine$double.eps),
-                      scale = NULL){
+                    suppress_warnings = F, outfile = NULL,
+                    tolerance = sqrt(.Machine$double.eps),
+                    scale = NULL){
     BASE = base
     COMP = compare
     KEYS = keys
@@ -74,7 +74,7 @@ dfdiff <- function (base , compare , keys = NULL,
         stop( "BY variables in COMPARE do not result in unique observations")
     }
     
-
+    
     #################
     #
     # Check essential variable properties (class & mode)
@@ -85,7 +85,7 @@ dfdiff <- function (base , compare , keys = NULL,
         message  = "There are columns in BASE with unsupported modes !!" 
     )
     
-
+    
     COMPARE[["UnsupportedColsComp"]] <- construct_issue(
         value = identify_unsupported_cols(COMP) , 
         message  = "There are columns in COMPARE with unsupported modes !!" 
@@ -202,7 +202,7 @@ dfdiff <- function (base , compare , keys = NULL,
         )
     }
     
-    ### Get all issue messages , remove blank message, colapse into single string
+    ### Get all issue messages, remove blank message, and collapse into single string
     ISSUE_MSGS <- sapply(COMPARE, function(x) get_issue_message(x))
     ISSUE_MSGS <- ISSUE_MSGS[ ISSUE_MSGS != ""]
     
@@ -233,8 +233,8 @@ dfdiff <- function (base , compare , keys = NULL,
                 stop(e)
             }
         )
-        invisible(COMPARE)
-
+        return(invisible(COMPARE))
+        
     }
     
     return(COMPARE)
@@ -245,8 +245,8 @@ dfdiff <- function (base , compare , keys = NULL,
 
 #' dfdiff_has_issues
 #' 
-#' Utility function which returns True if an dfdiff
-#' object has  issues or False if an dfdiff object does not have issues
+#' Utility function which returns TRUE if an dfdiff
+#' object has issues or FALSE if an dfdiff object does not have issues
 #' @param x dfdiff object
 #' @examples
 #' 

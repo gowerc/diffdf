@@ -1,6 +1,6 @@
 
 
-context("Checking print function against gold standard")
+context("print function")
 
 
 # devtools::load_all()

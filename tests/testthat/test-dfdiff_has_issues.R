@@ -4,7 +4,7 @@
 
 
 
-context("Utility Functions")
+context("dfdiff_has_issues")
 
 
 test_that( "dfdiff_has_issues works as expected",{
