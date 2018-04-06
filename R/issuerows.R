@@ -62,8 +62,9 @@ dfdiff_issuerows <- function( df , diff, vars = NULL){
     RET <- merge( 
         x = df,
         y= KEEP,
-        sort = FALSE
+        sort = TRUE
     )  
+    RET <- RET[do.call("order", RET[keys]), ]
     
     RET[ ,! names(RET) %in% "..ROWNUMBER..", drop=FALSE]    
 }
