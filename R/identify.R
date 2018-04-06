@@ -13,7 +13,8 @@ identify_extra_rows <- function(DS1, DS2 , KEYS){
         subset( DS2 , select = c(KEYS, "..FLAG..")) , 
         by = KEYS, all.x = T,
         sort = TRUE
-    ) 
+    )
+    dat <- dat[do.call("order", dat[KEYS]), ]
     
     dat[ is.na(dat[["..FLAG.."]]) , KEYS, drop=FALSE]
 }
@@ -91,7 +92,6 @@ identify_mode_differences <- function( BASE, COMP ){
         suffixes = c(".BASE", ".COMP"),
         sort = TRUE
     ) 
-
     dat <-  subset( dat, select = c("VARIABLE" , "MODE.BASE" , "MODE.COMP"))
     
     KEEP1 <- dat[["VARIABLE"]] %in% matching_cols
@@ -235,6 +235,7 @@ identify_differences <- function( BASE , COMP , KEYS, exclude_cols,
         suffix = c(".x", ".y"),
         sort = TRUE
     )
+    DAT <- DAT[do.call("order", DAT[KEYS]), ]
     
     matching_list <- list()
     outdat <- list()

@@ -1,14 +1,15 @@
-Package: rcompare
+Package: dfdiff
 Type: Package
-Title: Compares dataframes
-Version: 0.1.0
+Title: Dataframe difference tool
+Version: 1.0.0
 Authors@R: c( 
     person("Craig" ,"Gower" , email = "craig.gower@roche.com" , role = c("cre","aut")),
     person("Kieran", "Martin" , email = "kieran.martin@roche.com" , role = "aut")
     )
 Description: This package provides functions for comparing two dataframes against 
-    each other. The package will provide detailed descriptions of any discrepancies as well as utility 
-    functions to help narrow down on the source of problems.
+    each other. The core dfdiff function will provide a detailed breakdown of any differences 
+    between two dataframes as well as providing utility functions to help narrow down the 
+    source of problems.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -17,7 +18,6 @@ Depends:
 Imports:
     tibble
 Suggests:
-    devtools,
     testthat,
     lubridate,
     knitr,

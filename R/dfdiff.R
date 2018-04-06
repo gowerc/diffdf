@@ -1,24 +1,21 @@
 
-#' rcompare
+#' dfdiff
 #' @description  
-#' Compares 2 data frames and outputs any differences.
-#' Emulates proc compare from SAS
+#' Compares 2 dataframes and outputs any differences.
 #' @param base input dataframe
 #' @param compare comparison dataframe
 #' @param keys vector of variables (as strings) that defines a unique row in the base and compare dataframes
 #' @param suppress_warnings Do you want to suppress warnings? (logical)
-#' @param outfile Location and name of a file to output the results to. Setting to NULL will cause no file to be produced.
+#' @param outfile Location and name of a text file to output the results to. Setting to NULL will cause no file to be produced.
 #' @param tolerance Level of tolerance for numeric differences between two variables
 #' @param scale Scale that tolerance should be set on. If NULL assume absolute
 #' @examples
 #' x <- subset( iris,  -Species)
 #' x[1,2] <- 5
-#' COMPARE <- rcompare( iris, x)
+#' COMPARE <- dfdiff( iris, x)
 #' print( COMPARE )
 #' print( COMPARE , "Sepal.Length" )
 #' 
-#' #### Example for ADaM VAD QC
-#' # rcompare( AAE , QC_AAE , keys = c("USUBJID" , "AESEQ"))
 #' 
 #' #### Sample data frames
 #' DF1 <- data.frame(
@@ -33,13 +30,13 @@
 #'     v2 = c(NA , NA , 1 , 2 , NA , NA),
 #'     v3 = c(NA , NA , 1 , 2 , NA , 4)
 #' )
-#' rcompare(DF1 , DF1 , keys = "id")
-#' rcompare(DF1 , DF2 , keys = "id")
+#' dfdiff(DF1 , DF1 , keys = "id")
+#' dfdiff(DF1 , DF2 , keys = "id")
 #' @export
-rcompare <- function (base , compare , keys = NULL,
-                      suppress_warnings = F, outfile = NULL,
-                      tolerance = sqrt(.Machine$double.eps),
-                      scale = NULL){
+dfdiff <- function (base , compare , keys = NULL,
+                    suppress_warnings = F, outfile = NULL,
+                    tolerance = sqrt(.Machine$double.eps),
+                    scale = NULL){
     BASE = base
     COMP = compare
     KEYS = keys
@@ -74,7 +71,7 @@ rcompare <- function (base , compare , keys = NULL,
         stop( "BY variables in COMPARE do not result in unique observations")
     }
     
-
+    
     #################
     #
     # Check essential variable properties (class & mode)
@@ -85,7 +82,7 @@ rcompare <- function (base , compare , keys = NULL,
         message  = "There are columns in BASE with unsupported modes !!" 
     )
     
-
+    
     COMPARE[["UnsupportedColsComp"]] <- construct_issue(
         value = identify_unsupported_cols(COMP) , 
         message  = "There are columns in COMPARE with unsupported modes !!" 
@@ -202,7 +199,7 @@ rcompare <- function (base , compare , keys = NULL,
         )
     }
     
-    ### Get all issue messages , remove blank message, colapse into single string
+    ### Get all issue messages, remove blank message, and collapse into single string
     ISSUE_MSGS <- sapply(COMPARE, function(x) get_issue_message(x))
     ISSUE_MSGS <- ISSUE_MSGS[ ISSUE_MSGS != ""]
     
@@ -213,7 +210,7 @@ rcompare <- function (base , compare , keys = NULL,
         }
     } 
     
-    class(COMPARE) <- c("rcompare" , "list") 
+    class(COMPARE) <- c("dfdiff" , "list") 
     
     if (!is.null(outfile)){
         x <- print(COMPARE , as_string = TRUE)
@@ -233,8 +230,8 @@ rcompare <- function (base , compare , keys = NULL,
                 stop(e)
             }
         )
-        invisible(COMPARE)
-
+        return(invisible(COMPARE))
+        
     }
     
     return(COMPARE)
@@ -243,25 +240,25 @@ rcompare <- function (base , compare , keys = NULL,
 
 
 
-#' rcompare_has_issues
+#' dfdiff_has_issues
 #' 
-#' Utility function which returns True if an rcompare
-#' object has  issues or False if an rcompare object does not have issues
-#' @param x rcompare object
+#' Utility function which returns TRUE if an dfdiff
+#' object has issues or FALSE if an dfdiff object does not have issues
+#' @param x dfdiff object
 #' @examples
 #' 
 #' # Example with no issues
-#' x <- rcompare( iris, iris )
-#' rcompare_has_issues(x)
+#' x <- dfdiff( iris, iris )
+#' dfdiff_has_issues(x)
 #' 
 #' # Example with issues
 #' iris2 <- iris
 #' iris2[2,2] <- NA
-#' x <- rcompare( iris , iris2 , suppress_warnings = TRUE)
-#' rcompare_has_issues(x)
+#' x <- dfdiff( iris , iris2 , suppress_warnings = TRUE)
+#' dfdiff_has_issues(x)
 #' @export
-rcompare_has_issues <- function(x){
-    if (  class(x)[[1]] != "rcompare" )  stop( "x is not an rcompare object")
+dfdiff_has_issues <- function(x){
+    if (  class(x)[[1]] != "dfdiff" )  stop( "x is not an dfdiff object")
     return( length(x) != 0 ) 
 }
 
