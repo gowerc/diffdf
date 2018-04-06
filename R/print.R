@@ -4,6 +4,7 @@
 #' Print nicely formated version of an rcompare object
 #' @param x comparison object created by rcompare().
 #' @param ... Additional arguments (not used)
+#' @param as_string Return printed message as an R character vector? 
 #' @examples
 #' x <- subset( iris , -Species )
 #' x[1,2] <- 5
@@ -11,11 +12,11 @@
 #' print( COMPARE )
 #' print( COMPARE , "Sepal.Length" )
 #' @export 
-print.rcompare <- function(x, ...){
+print.rcompare <- function(x, ..., as_string = FALSE){
     COMPARE <- x
 
     if ( length(COMPARE) == 0 ){
-        cat("No issues were found!")
+        outtext <- "No issues were found!"
         
     } else {
         
@@ -28,10 +29,15 @@ print.rcompare <- function(x, ...){
         end_text <- paste0(unlist(end_text), collapse = "")
 
         outtext <- paste0(start_text, end_text)
-        cat(outtext)
     }
     
-    invisible(COMPARE)
+    if ( as_string){
+        return(strsplit(outtext, '\n')[[1]])
+    } else {
+        cat(outtext)
+        invisible(COMPARE)
+    }
 }
+
 
 

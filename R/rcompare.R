@@ -216,21 +216,51 @@ rcompare <- function (base , compare , keys = NULL,
     class(COMPARE) <- c("rcompare" , "list") 
     
     if (!is.null(outfile)){
-        sink(outfile)
-        print(COMPARE )
-        sink()
+        x <- print(COMPARE , as_string = TRUE)
+        
+        tryCatch(
+            {
+                sink(outfile)
+                cat(x, sep = "\n")
+                sink()
+            },
+            warning = function(w){
+                sink() 
+                warning(w)
+            },
+            error = function(e){
+                sink()
+                stop(e)
+            }
+        )
+        invisible(COMPARE)
+
     }
     
     return(COMPARE)
 }
 
-#' rcompare_has_issue
+
+
+
+#' rcompare_has_issues
 #' 
 #' Utility function which returns True if an rcompare
 #' object has  issues or False if an rcompare object does not have issues
 #' @param x rcompare object
+#' @examples
+#' 
+#' # Example with no issues
+#' x <- rcompare( iris, iris )
+#' rcompare_has_issues(x)
+#' 
+#' # Example with issues
+#' iris2 <- iris
+#' iris2[2,2] <- NA
+#' x <- rcompare( iris , iris2 , suppress_warnings = TRUE)
+#' rcompare_has_issues(x)
 #' @export
-rcompare_has_issue <- function(x){
+rcompare_has_issues <- function(x){
     if (  class(x)[[1]] != "rcompare" )  stop( "x is not an rcompare object")
     return( length(x) != 0 ) 
 }

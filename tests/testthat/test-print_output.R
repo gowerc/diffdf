@@ -12,7 +12,8 @@ context("Checking print function against gold standard")
 
 
 runme <- function(x){
-    utils::capture.output(rcompare(x[[1]] , x[[2]] , suppress_warnings = T))
+    x2 <- rcompare(x[[1]] , x[[2]] , suppress_warnings = T)
+    print(x2 , as_string = TRUE)
 }
 
 RES <- map( list_of_comparisons , runme)

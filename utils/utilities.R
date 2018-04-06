@@ -104,3 +104,9 @@ rcompare_has_pass <- function(x){
 
 
 rcompare_has_pass(x)
+
+
+
+
+
+rcompare(TDAT , TDAT2 , outfile = "./testing2.txt")
