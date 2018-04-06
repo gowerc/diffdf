@@ -224,9 +224,10 @@ rcompare <- function (base , compare , keys = NULL,
     return(COMPARE)
 }
 
-#' rcompare_has_pass
-#' @description  Utility function which returns True if an rcompare
-#' object has no issues or False if an rcompare object does have issues
+#' rcompare_has_issue
+#' 
+#' Utility function which returns True if an rcompare
+#' object has  issues or False if an rcompare object does not have issues
 #' @param x rcompare object
 #' @export
 rcompare_has_issue <- function(x){
