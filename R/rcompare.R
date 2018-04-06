@@ -229,8 +229,8 @@ rcompare <- function (base , compare , keys = NULL,
 #' object has no issues or False if an rcompare object does have issues
 #' @param x rcompare object
 #' @export
-rcompare_has_pass <- function(x){
+rcompare_has_issue <- function(x){
     if (  class(x)[[1]] != "rcompare" )  stop( "x is not an rcompare object")
-    return( length(x) == 0 ) 
+    return( length(x) != 0 ) 
 }
 
