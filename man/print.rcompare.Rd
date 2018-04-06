@@ -4,14 +4,14 @@
 \alias{print.rcompare}
 \title{Print rcompare objects}
 \usage{
-\method{print}{rcompare}(x, VARIABLE = NULL, ...)
+\method{print}{rcompare}(x, ..., as_string = FALSE)
 }
 \arguments{
 \item{x}{comparison object created by rcompare().}
 
-\item{VARIABLE}{specific variable to inspect the differences of (string).}
-
 \item{...}{Additional arguments (not used)}
+
+\item{as_string}{Return printed message as an R character vector?}
 }
 \description{
 Print nicely formated version of an rcompare object

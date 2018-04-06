@@ -63,8 +63,10 @@ identify_matching_cols <- function(DS1, DS2 , EXCLUDE = ""){
 #' Identifies any columns for which the package is not setup to handle
 #' @param dsin input dataset
 identify_unsupported_cols <- function(dsin){
-    dat <- identify_properties(dsin)  %>% 
-        subset(select = c("VARIABLE", "MODE")) 
+    dat <- subset(
+        identify_properties(dsin) ,
+        select = c("VARIABLE", "MODE")
+    ) 
     
     dat[ !dat[["MODE"]] %in% c('numeric', 'character', 'logical') ,, drop=FALSE]
 
@@ -88,8 +90,9 @@ identify_mode_differences <- function( BASE, COMP ){
         all = TRUE,
         suffixes = c(".BASE", ".COMP"),
         sort = TRUE
-    ) %>% 
-        subset( select = c("VARIABLE" , "MODE.BASE" , "MODE.COMP"))
+    ) 
+
+    dat <-  subset( dat, select = c("VARIABLE" , "MODE.BASE" , "MODE.COMP"))
     
     KEEP1 <- dat[["VARIABLE"]] %in% matching_cols
     KEEP2 <- dat[["MODE.BASE"]] != dat[["MODE.COMP"]]
@@ -105,7 +108,6 @@ identify_mode_differences <- function( BASE, COMP ){
 #' Identifies any class differences between two data frames
 #' @param BASE Base dataset for comparision (data.frame)
 #' @param COMP Comparator dataset to compare base against (data.frame)
-#' @importFrom purrr map2_lgl
 identify_class_differences <- function( BASE, COMP ){
     
     matching_cols <- identify_matching_cols( BASE , COMP )
@@ -117,14 +119,15 @@ identify_class_differences <- function( BASE, COMP ){
         all = TRUE, 
         sort = TRUE,
         suffixes =  c(".BASE", ".COMP")
-    ) %>% 
-        subset( select = c("VARIABLE" , "CLASS.BASE" , "CLASS.COMP")) 
+    ) 
+    
+    dat <- subset( dat , select = c("VARIABLE" , "CLASS.BASE" , "CLASS.COMP")) 
     
     KEEP1 <- dat[["VARIABLE"]] %in% matching_cols
-    KEEP2 <- !map2_lgl( 
+    KEEP2 <- !mapply( 
+        identical,
         dat[["CLASS.BASE"]] , 
-        dat[["CLASS.COMP"]] , 
-        identical
+        dat[["CLASS.COMP"]] 
     )
     
     dat[ KEEP1 & KEEP2 ,, drop=FALSE] 
@@ -151,8 +154,9 @@ identify_att_differences <- function( BASE, COMP , exclude_cols = "" ){
         all = TRUE,
         sort = TRUE,
         suffixes = c(".BASE", ".COMP")
-    ) %>% 
-        subset( select =  c("VARIABLE", "ATTRIBS.BASE" , "ATTRIBS.COMP")) 
+    )
+    
+    PROPS <- subset( PROPS , select =  c("VARIABLE", "ATTRIBS.BASE" , "ATTRIBS.COMP")) 
     
     PROPS <- PROPS[ PROPS[["VARIABLE"]] %in% matching_cols,, drop = FALSE]
  
@@ -170,10 +174,10 @@ identify_att_differences <- function( BASE, COMP , exclude_cols = "" ){
         PROPS_filt <- PROPS[ PROPS[["VARIABLE"]] == i ,, drop=FALSE]
 
         ### Get a vector of all available attributes across both variables
-        ATTRIB_NAMES = c( 
+        ATTRIB_NAMES = unique(c( 
             names(PROPS_filt[["ATTRIBS.BASE"]][[1]]) , 
             names(PROPS_filt[["ATTRIBS.COMP"]][[1]])
-        ) %>% unique
+        ))
         
         ### If variable has no attributes move onto the next variable
         if ( is.null(ATTRIB_NAMES) ) next()
@@ -215,9 +219,6 @@ identify_att_differences <- function( BASE, COMP , exclude_cols = "" ){
 #' @param exclude_cols Columns to exclude from comparision
 #' @param tolerance Level of tolerance for numeric differences between two variables
 #' @param scale Scale that tolerance should be set on. If NULL assume absolute
-#' @importFrom purrr pmap
-#' @importFrom purrr map map2
-#' @importFrom purrr set_names
 #' @importFrom tibble as.tibble tibble
 identify_differences <- function( BASE , COMP , KEYS, exclude_cols,  
                                   tolerance = sqrt(.Machine$double.eps),
@@ -249,8 +250,7 @@ identify_differences <- function( BASE , COMP , KEYS, exclude_cols,
         
         keyselect[["VARIABLE"]] = i
         
-        keyselecti <- keyselect %>%
-            subset(select = c('VARIABLE',KEYS))
+        keyselecti <- subset(keyselect, select = c('VARIABLE',KEYS))
         
         keyselecti <- keyselecti[matching_list[[i]],]
         
@@ -264,16 +264,7 @@ identify_differences <- function( BASE , COMP , KEYS, exclude_cols,
             )
         )
     }
-
-    pmap(
-        list(
-            value = outdat,
-            message = "" ,
-            order = seq(1, length(outdat))
-        ),
-        construct_issue
-    )
-
+    outdat
 }
 
 
@@ -289,8 +280,6 @@ identify_differences <- function( BASE , COMP , KEYS, exclude_cols,
 #' Returns a dataframe of metadata for a given dataset.
 #' Returned values include variable names , class , mode , type & attributes
 #' @param dsin input dataframe that you want to get the metadata from
-#' @importFrom purrr map
-#' @importFrom purrr map_chr
 #' @importFrom tibble tibble
 identify_properties <- function(dsin){
     
@@ -308,9 +297,9 @@ identify_properties <- function(dsin){
     
     tibble(
         VARIABLE = names(dsin),
-        CLASS     = map(dsin, class),
-        MODE      = map_chr(dsin , mode),
-        TYPE      = map_chr(dsin , typeof) ,
+        CLASS     = lapply(dsin, class),
+        MODE      = sapply(dsin , mode),
+        TYPE      = sapply(dsin , typeof) ,
         ATTRIBS   = lapply( dsin , attributes)
     )
 }

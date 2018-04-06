@@ -101,28 +101,32 @@ TDAT_EXTROWS <- rbind(TDAT, TDAT)
 # Tests
 #
 
+expect_length_0 <- function(x){
+    expect_length( x , 0 )
+}
+
 test_that( "Check comparision of equal objects",{
-    expect_false( rcompare(iris, iris)$Issue_fl )
-    expect_false( rcompare(TDAT, TDAT)$Issue_fl )
-    expect_false( rcompare(TDAT, TDAT, "ID")$Issue_fl )
-    expect_false( rcompare(TDAT, TDAT, c("GROUP1" , "GROUP2"))$Issue_fl )
-    expect_false( rcompare(TDAT_CHARCHANGENA , TDAT_CHARCHANGENA )$Issue_fl )
-    expect_false( rcompare(TDAT_DATECHANGENA , TDAT_DATECHANGENA )$Issue_fl )
-    expect_false( rcompare(TDAT_LOGCHANGENA , TDAT_LOGCHANGENA )$Issue_fl )
-    expect_false( rcompare(TDAT_FACTVALCHANGENA, TDAT_FACTVALCHANGENA)$Issue_fl )
+    expect_length_0( rcompare(iris, iris) )
+    expect_length_0( rcompare(TDAT, TDAT))
+    expect_length_0( rcompare(TDAT, TDAT, "ID"))
+    expect_length_0( rcompare(TDAT, TDAT, c("GROUP1" , "GROUP2")))
+    expect_length_0( rcompare(TDAT_CHARCHANGENA , TDAT_CHARCHANGENA ))
+    expect_length_0( rcompare(TDAT_DATECHANGENA , TDAT_DATECHANGENA ))
+    expect_length_0( rcompare(TDAT_LOGCHANGENA , TDAT_LOGCHANGENA ))
+    expect_length_0( rcompare(TDAT_FACTVALCHANGENA, TDAT_FACTVALCHANGENA))
     
-    expect_false( rcompare(TDAT_LABEXT , TDAT_LABEXT )$Issue_fl )
-    expect_false( rcompare(TDAT_ATTEXT , TDAT_ATTEXT )$Issue_fl )
-    expect_false( rcompare(TDAT_FACTCHANGE, TDAT_FACTCHANGE)$Issue_fl )
+    expect_length_0( rcompare(TDAT_LABEXT , TDAT_LABEXT ) )
+    expect_length_0( rcompare(TDAT_ATTEXT , TDAT_ATTEXT ) )
+    expect_length_0( rcompare(TDAT_FACTCHANGE, TDAT_FACTCHANGE) )
     
-    expect_false( rcompare(iris, iris, tolerance =0.2, scale=0.1 )$Issue_fl)
-    expect_false( rcompare(TDAT, TDAT, tolerance =0.2, scale=0.1 )$Issue_fl)
-    expect_false( rcompare(TDAT, TDAT, "ID", tolerance =0.2, scale=0.1 )$Issue_fl)
-    expect_false( rcompare(TDAT, TDAT, c("GROUP1" , "GROUP2"), tolerance =0.2, scale=0.1 )$Issue_fl )
-    expect_false( rcompare(TDAT_CHARCHANGENA , TDAT_CHARCHANGENA , tolerance =0.2, scale=0.1 )$Issue_fl )
-    expect_false( rcompare(TDAT_DATECHANGENA , TDAT_DATECHANGENA , tolerance =0.2, scale=0.1 )$Issue_fl  )
-    expect_false( rcompare(TDAT_LOGCHANGENA , TDAT_LOGCHANGENA , tolerance =0.2, scale=0.1 )$Issue_fl )
-    expect_false( rcompare(TDAT_FACTVALCHANGENA, TDAT_FACTVALCHANGENA, tolerance =0.2, scale=0.1 )$Issue_fl  )
+    expect_length_0( rcompare(iris, iris, tolerance =0.2, scale=0.1 ))
+    expect_length_0( rcompare(TDAT, TDAT, tolerance =0.2, scale=0.1 ))
+    expect_length_0( rcompare(TDAT, TDAT, "ID", tolerance =0.2, scale=0.1 ))
+    expect_length_0( rcompare(TDAT, TDAT, c("GROUP1" , "GROUP2"), tolerance =0.2, scale=0.1 ) )
+    expect_length_0( rcompare(TDAT_CHARCHANGENA , TDAT_CHARCHANGENA , tolerance =0.2, scale=0.1 ) )
+    expect_length_0( rcompare(TDAT_DATECHANGENA , TDAT_DATECHANGENA , tolerance =0.2, scale=0.1 )  )
+    expect_length_0( rcompare(TDAT_LOGCHANGENA , TDAT_LOGCHANGENA , tolerance =0.2, scale=0.1 ) )
+    expect_length_0( rcompare(TDAT_FACTVALCHANGENA, TDAT_FACTVALCHANGENA, tolerance =0.2, scale=0.1 )  )
     
 })
 

@@ -12,5 +12,5 @@ get_print_message(object, ...)
 \item{...}{other arguments}
 }
 \description{
-Simple function to grab the print message
+Get the required text depending on type of issue
 }
