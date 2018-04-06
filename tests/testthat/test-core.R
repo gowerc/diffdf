@@ -106,27 +106,27 @@ expect_length_0 <- function(x){
 }
 
 test_that( "Check comparision of equal objects",{
-    expect_length_0( rcompare(iris, iris) )
-    expect_length_0( rcompare(TDAT, TDAT))
-    expect_length_0( rcompare(TDAT, TDAT, "ID"))
-    expect_length_0( rcompare(TDAT, TDAT, c("GROUP1" , "GROUP2")))
-    expect_length_0( rcompare(TDAT_CHARCHANGENA , TDAT_CHARCHANGENA ))
-    expect_length_0( rcompare(TDAT_DATECHANGENA , TDAT_DATECHANGENA ))
-    expect_length_0( rcompare(TDAT_LOGCHANGENA , TDAT_LOGCHANGENA ))
-    expect_length_0( rcompare(TDAT_FACTVALCHANGENA, TDAT_FACTVALCHANGENA))
+    expect_length_0( dfcompare(iris, iris) )
+    expect_length_0( dfcompare(TDAT, TDAT))
+    expect_length_0( dfcompare(TDAT, TDAT, "ID"))
+    expect_length_0( dfcompare(TDAT, TDAT, c("GROUP1" , "GROUP2")))
+    expect_length_0( dfcompare(TDAT_CHARCHANGENA , TDAT_CHARCHANGENA ))
+    expect_length_0( dfcompare(TDAT_DATECHANGENA , TDAT_DATECHANGENA ))
+    expect_length_0( dfcompare(TDAT_LOGCHANGENA , TDAT_LOGCHANGENA ))
+    expect_length_0( dfcompare(TDAT_FACTVALCHANGENA, TDAT_FACTVALCHANGENA))
     
-    expect_length_0( rcompare(TDAT_LABEXT , TDAT_LABEXT ) )
-    expect_length_0( rcompare(TDAT_ATTEXT , TDAT_ATTEXT ) )
-    expect_length_0( rcompare(TDAT_FACTCHANGE, TDAT_FACTCHANGE) )
+    expect_length_0( dfcompare(TDAT_LABEXT , TDAT_LABEXT ) )
+    expect_length_0( dfcompare(TDAT_ATTEXT , TDAT_ATTEXT ) )
+    expect_length_0( dfcompare(TDAT_FACTCHANGE, TDAT_FACTCHANGE) )
     
-    expect_length_0( rcompare(iris, iris, tolerance =0.2, scale=0.1 ))
-    expect_length_0( rcompare(TDAT, TDAT, tolerance =0.2, scale=0.1 ))
-    expect_length_0( rcompare(TDAT, TDAT, "ID", tolerance =0.2, scale=0.1 ))
-    expect_length_0( rcompare(TDAT, TDAT, c("GROUP1" , "GROUP2"), tolerance =0.2, scale=0.1 ) )
-    expect_length_0( rcompare(TDAT_CHARCHANGENA , TDAT_CHARCHANGENA , tolerance =0.2, scale=0.1 ) )
-    expect_length_0( rcompare(TDAT_DATECHANGENA , TDAT_DATECHANGENA , tolerance =0.2, scale=0.1 )  )
-    expect_length_0( rcompare(TDAT_LOGCHANGENA , TDAT_LOGCHANGENA , tolerance =0.2, scale=0.1 ) )
-    expect_length_0( rcompare(TDAT_FACTVALCHANGENA, TDAT_FACTVALCHANGENA, tolerance =0.2, scale=0.1 )  )
+    expect_length_0( dfcompare(iris, iris, tolerance =0.2, scale=0.1 ))
+    expect_length_0( dfcompare(TDAT, TDAT, tolerance =0.2, scale=0.1 ))
+    expect_length_0( dfcompare(TDAT, TDAT, "ID", tolerance =0.2, scale=0.1 ))
+    expect_length_0( dfcompare(TDAT, TDAT, c("GROUP1" , "GROUP2"), tolerance =0.2, scale=0.1 ) )
+    expect_length_0( dfcompare(TDAT_CHARCHANGENA , TDAT_CHARCHANGENA , tolerance =0.2, scale=0.1 ) )
+    expect_length_0( dfcompare(TDAT_DATECHANGENA , TDAT_DATECHANGENA , tolerance =0.2, scale=0.1 )  )
+    expect_length_0( dfcompare(TDAT_LOGCHANGENA , TDAT_LOGCHANGENA , tolerance =0.2, scale=0.1 ) )
+    expect_length_0( dfcompare(TDAT_FACTVALCHANGENA, TDAT_FACTVALCHANGENA, tolerance =0.2, scale=0.1 )  )
     
 })
 
@@ -134,24 +134,24 @@ test_that( "Unequal objects raise warnings" , {
     
     msg <- "\nNot all Values Compared Equal"
     
-    expect_warning( rcompare(TDAT , TDAT_INTCHANGE)       , msg )
-    expect_warning( rcompare(TDAT , TDAT_CHARCHANGE )     , msg )
-    expect_warning( rcompare(TDAT , TDAT_DATECHANGE )     , msg )
-    expect_warning( rcompare(TDAT , TDAT_LOGCHANGE )      , msg )
-    expect_warning( rcompare(TDAT , TDAT_FACTVALCHANGE )  , msg )
-    expect_warning( rcompare(TDAT , TDAT_CHARCHANGENA )   , msg )
-    expect_warning( rcompare(TDAT , TDAT_DATECHANGENA )   , msg )
-    expect_warning( rcompare(TDAT , TDAT_LOGCHANGENA )    , msg )
-    expect_warning( rcompare(TDAT , TDAT_FACTVALCHANGENA ), msg )
-    expect_warning( rcompare(TDAT , TDAT_INTCHANGE, tolerance =0.2, scale=0.1 )       , msg )
-    expect_warning( rcompare(TDAT , TDAT_CHARCHANGE, tolerance =0.2, scale=0.1  )     , msg )
-    expect_warning( rcompare(TDAT , TDAT_DATECHANGE, tolerance =0.2, scale=0.1  )     , msg )
-    expect_warning( rcompare(TDAT , TDAT_LOGCHANGE, tolerance =0.2, scale=0.1  )      , msg )
-    expect_warning( rcompare(TDAT , TDAT_FACTVALCHANGE, tolerance =0.2, scale=0.1  )  , msg )
-    expect_warning( rcompare(TDAT , TDAT_CHARCHANGENA , tolerance =0.2, scale=0.1 )   , msg )
-    expect_warning( rcompare(TDAT , TDAT_DATECHANGENA, tolerance =0.2, scale=0.1  )   , msg )
-    expect_warning( rcompare(TDAT , TDAT_LOGCHANGENA , tolerance =0.2, scale=0.1 )    , msg )
-    expect_warning( rcompare(TDAT , TDAT_FACTVALCHANGENA, tolerance =0.2, scale=0.1  ), msg )
+    expect_warning( dfcompare(TDAT , TDAT_INTCHANGE)       , msg )
+    expect_warning( dfcompare(TDAT , TDAT_CHARCHANGE )     , msg )
+    expect_warning( dfcompare(TDAT , TDAT_DATECHANGE )     , msg )
+    expect_warning( dfcompare(TDAT , TDAT_LOGCHANGE )      , msg )
+    expect_warning( dfcompare(TDAT , TDAT_FACTVALCHANGE )  , msg )
+    expect_warning( dfcompare(TDAT , TDAT_CHARCHANGENA )   , msg )
+    expect_warning( dfcompare(TDAT , TDAT_DATECHANGENA )   , msg )
+    expect_warning( dfcompare(TDAT , TDAT_LOGCHANGENA )    , msg )
+    expect_warning( dfcompare(TDAT , TDAT_FACTVALCHANGENA ), msg )
+    expect_warning( dfcompare(TDAT , TDAT_INTCHANGE, tolerance =0.2, scale=0.1 )       , msg )
+    expect_warning( dfcompare(TDAT , TDAT_CHARCHANGE, tolerance =0.2, scale=0.1  )     , msg )
+    expect_warning( dfcompare(TDAT , TDAT_DATECHANGE, tolerance =0.2, scale=0.1  )     , msg )
+    expect_warning( dfcompare(TDAT , TDAT_LOGCHANGE, tolerance =0.2, scale=0.1  )      , msg )
+    expect_warning( dfcompare(TDAT , TDAT_FACTVALCHANGE, tolerance =0.2, scale=0.1  )  , msg )
+    expect_warning( dfcompare(TDAT , TDAT_CHARCHANGENA , tolerance =0.2, scale=0.1 )   , msg )
+    expect_warning( dfcompare(TDAT , TDAT_DATECHANGENA, tolerance =0.2, scale=0.1  )   , msg )
+    expect_warning( dfcompare(TDAT , TDAT_LOGCHANGENA , tolerance =0.2, scale=0.1 )    , msg )
+    expect_warning( dfcompare(TDAT , TDAT_FACTVALCHANGENA, tolerance =0.2, scale=0.1  ), msg )
 })
 
 
@@ -160,20 +160,20 @@ numdiffcheck <-function(compdat, target, value){
     ### Only expected 1 variable to be different thus we expect 
     ### the overall # of differences to equal the # of differences
     ### in the target variable
-    rcompare_ob   <- rcompare(TDAT , compdat , suppress_warnings = T )$NumDiff
+    dfcompare_ob   <- dfcompare(TDAT , compdat , suppress_warnings = T )$NumDiff
 
     expect_true(
-        nrow(rcompare_ob) == 1,
+        nrow(dfcompare_ob) == 1,
         info = 'Too many columns detected as different'
     )
     
     expect_true(
-        rcompare_ob$Variable[1] == target,
+        dfcompare_ob$Variable[1] == target,
         info = 'Wrong target!'
     )
     
     expect_equal(
-        rcompare_ob$`No of Differences`[1] , value,
+        dfcompare_ob$`No of Differences`[1] , value,
         info = 'Number of differences incorrect'
     )
 }
@@ -199,14 +199,14 @@ test_that( "Unequal object, checking numbers correct" , {
 
 test_that( "Differing modes error" , {
     expect_warning(
-        rcompare(TDAT , TDAT_MODECHANGE ),
+        dfcompare(TDAT , TDAT_MODECHANGE ),
         'There are columns in BASE and COMPARE with different modes'
     )
 })
 
 test_that( "Differing classes error" , {
     expect_warning( 
-        rcompare(TDAT, TDAT_MODEDBL),
+        dfcompare(TDAT, TDAT_MODEDBL),
         "There are columns in BASE and COMPARE with different classes"
     )
     
@@ -214,7 +214,7 @@ test_that( "Differing classes error" , {
     TEMP$CONTINUOUS <- TEMP$INTEGER
     
     expect_warning(
-        rcompare(
+        dfcompare(
             TDAT[,"CONTINUOUS", drop=FALSE], 
             TEMP[,"CONTINUOUS", drop=FALSE] 
         ),
@@ -229,7 +229,7 @@ test_that( "Differing classes error" , {
 
 test_that("Non-Unique rows error", {
     expect_error(
-        rcompare(TDAT , TDAT , "GROUP1"),
+        dfcompare(TDAT , TDAT , "GROUP1"),
         'BY variables in BASE do not result in unique observations'
     )
 })
@@ -238,17 +238,17 @@ test_that("Non-Unique rows error", {
 
 test_that("Illegal columns error", {
     expect_warning(
-        rcompare(TDAT_PLUSLIST, TDAT_PLUSLIST),
+        dfcompare(TDAT_PLUSLIST, TDAT_PLUSLIST),
         'There are columns in BASE with unsupported modes'
     )
     
     expect_warning(
-        rcompare(TDAT_PLUSLIST, TDAT_PLUSLIST),
+        dfcompare(TDAT_PLUSLIST, TDAT_PLUSLIST),
         'There are columns in COMPARE with unsupported modes'
     )
     
     expect_warning(
-        rcompare(TDAT, TDAT_PLUSLIST),
+        dfcompare(TDAT, TDAT_PLUSLIST),
         'There are columns in COMPARE with unsupported modes'
     )
 })
@@ -258,12 +258,12 @@ test_that("Illegal columns error", {
 test_that("Additional columns error", {
     
     expect_warning(
-        rcompare(TDAT, TDAT_EXTCOLS),
+        dfcompare(TDAT, TDAT_EXTCOLS),
         'There are columns in COMPARE that are not in BASE'
     )
     
     expect_warning(
-        rcompare(TDAT_EXTCOLS, TDAT),
+        dfcompare(TDAT_EXTCOLS, TDAT),
         'There are columns in BASE that are not in COMPARE'
     )
     
@@ -274,12 +274,12 @@ test_that("Additional columns error", {
 test_that("Additional rows error", {
     
     expect_warning(
-        rcompare(TDAT, TDAT_EXTROWS),
+        dfcompare(TDAT, TDAT_EXTROWS),
         'There are rows in COMPARE that are not in BASE'
     )
     
     expect_warning(
-        rcompare(TDAT_EXTROWS, TDAT),
+        dfcompare(TDAT_EXTROWS, TDAT),
         'There are rows in BASE that are not in COMPARE'
     )
     
@@ -287,19 +287,19 @@ test_that("Additional rows error", {
 
 test_that("Bad values for scale or tolerance error", {
     expect_error(
-        rcompare(TDAT, TDAT, tolerance = 'bad value'),
+        dfcompare(TDAT, TDAT, tolerance = 'bad value'),
         "tolerance' should be numeric"
     )
     expect_error(
-        rcompare(TDAT, TDAT, scale = 'bad value'),
+        dfcompare(TDAT, TDAT, scale = 'bad value'),
         "'scale' should be numeric or NULL"
     )
     expect_error(
-        rcompare(TDAT, TDAT_EXTROWS, scale = 'bad value'),
+        dfcompare(TDAT, TDAT_EXTROWS, scale = 'bad value'),
         "'scale' should be numeric or NULL"
     )
     expect_error(
-        rcompare(TDAT, TDAT_CHARCHANGE, tolerance = 'bad value'),
+        dfcompare(TDAT, TDAT_CHARCHANGE, tolerance = 'bad value'),
         "tolerance' should be numeric"
     )
     
@@ -307,49 +307,49 @@ test_that("Bad values for scale or tolerance error", {
 
 test_that('Objets with differing attributes produce the correct warning', {
     warning_msg <- "There are columns in BASE and COMPARE with differing attributes"
-    expect_warning(rcompare(TDAT, TDAT_FACTCHANGE), warning_msg)
-    expect_warning(rcompare(TDAT, TDAT_ATTEXT), warning_msg)
-    expect_warning(rcompare(TDAT, TDAT_ATTEXT2), warning_msg)
-    expect_warning(rcompare(TDAT_ATTEXT, TDAT_ATTEXT2), warning_msg)
-    expect_warning(rcompare(TDAT, TDAT_LABEXT ), warning_msg)
-    expect_warning(rcompare(TDAT, TDAT_LABEXT2 ), warning_msg)
-    expect_warning(rcompare(TDAT_LABEXT, TDAT_LABEXT2), warning_msg)
+    expect_warning(dfcompare(TDAT, TDAT_FACTCHANGE), warning_msg)
+    expect_warning(dfcompare(TDAT, TDAT_ATTEXT), warning_msg)
+    expect_warning(dfcompare(TDAT, TDAT_ATTEXT2), warning_msg)
+    expect_warning(dfcompare(TDAT_ATTEXT, TDAT_ATTEXT2), warning_msg)
+    expect_warning(dfcompare(TDAT, TDAT_LABEXT ), warning_msg)
+    expect_warning(dfcompare(TDAT, TDAT_LABEXT2 ), warning_msg)
+    expect_warning(dfcompare(TDAT_LABEXT, TDAT_LABEXT2), warning_msg)
     
 })
 
 test_that('Attribute differnce size is correct!', {
     expect_equal(
-        rcompare(TDAT, TDAT_FACTCHANGE , suppress_warnings = T)$AttribDiffs %>% nrow, 
+        dfcompare(TDAT, TDAT_FACTCHANGE , suppress_warnings = T)$AttribDiffs %>% nrow, 
         1
     )
     
     expect_equal(
-        rcompare(TDAT, TDAT_ATTEXT , suppress_warnings = T)$AttribDiffs %>% nrow, 
+        dfcompare(TDAT, TDAT_ATTEXT , suppress_warnings = T)$AttribDiffs %>% nrow, 
         1
     )
     
     expect_equal(
-        rcompare(TDAT, TDAT_ATTEXT2 , suppress_warnings = T)$AttribDiffs %>% nrow, 
+        dfcompare(TDAT, TDAT_ATTEXT2 , suppress_warnings = T)$AttribDiffs %>% nrow, 
         2
     )
     
     expect_equal(
-        rcompare(TDAT_ATTEXT, TDAT_ATTEXT2 , suppress_warnings = T)$AttribDiffs %>% nrow, 
+        dfcompare(TDAT_ATTEXT, TDAT_ATTEXT2 , suppress_warnings = T)$AttribDiffs %>% nrow, 
         2
     )
     
     expect_equal(
-        rcompare(TDAT, TDAT_LABEXT , suppress_warnings = T)$AttribDiffs %>% nrow, 
+        dfcompare(TDAT, TDAT_LABEXT , suppress_warnings = T)$AttribDiffs %>% nrow, 
         2
     )
     
     expect_equal(
-        rcompare(TDAT, TDAT_LABEXT2 , suppress_warnings = T)$AttribDiffs %>% nrow, 
+        dfcompare(TDAT, TDAT_LABEXT2 , suppress_warnings = T)$AttribDiffs %>% nrow, 
         1
     )
     
     expect_equal(
-        rcompare(TDAT_LABEXT, TDAT_LABEXT2 , suppress_warnings = T)$AttribDiffs%>% nrow, 
+        dfcompare(TDAT_LABEXT, TDAT_LABEXT2 , suppress_warnings = T)$AttribDiffs%>% nrow, 
         2
     )
     

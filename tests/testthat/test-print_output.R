@@ -12,7 +12,7 @@ context("Checking print function against gold standard")
 
 
 runme <- function(x){
-    x2 <- rcompare(x[[1]] , x[[2]] , suppress_warnings = T)
+    x2 <- dfcompare(x[[1]] , x[[2]] , suppress_warnings = T)
     print(x2 , as_string = TRUE)
 }
 
@@ -38,7 +38,7 @@ if ( SET_GOLD ){
 # RES[[i]] %>% cat(sep = "\n")
 # TESTING_print_msg[[i]] %>% cat(sep = "\n")
 # 
-# rcompare(
+# dfcompare(
 #  print_tests[[i]][[1]],
 #  print_tests[[i]][[2]]
 # )

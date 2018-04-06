@@ -1,6 +1,6 @@
 
 library(testthat)
-library(rcompare)
+library(dfcompare)
 library(purrr)
 library(tibble)
 

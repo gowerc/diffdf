@@ -1,4 +1,4 @@
-Package: rcompare
+Package: dfcompare
 Type: Package
 Title: Compares dataframes
 Version: 0.1.0

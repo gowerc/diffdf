@@ -1,6 +1,6 @@
 library(testthat)
-library(rcompare)
+library(dfcompare)
 
-test_check("rcompare")
+test_check("dfcompare")
 
 
