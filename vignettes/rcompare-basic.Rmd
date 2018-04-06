@@ -107,7 +107,7 @@ dfdiff(test_data , test_data2 , suppress_warnings = T)
 
 ## Grouping Variables
 
-A key feature of `dfdiff` that enables easier diagnostics is the ability to specify which variables form a unique row i.e. which rows should be compared against each other based upon a key. By default if no key is specified `dfdiff` will use the rownumber as the key however in general this isn't recommended as it means two identical datasets simply sorted differently can lead to incomprehensible error messages as every observation is flagged as different.  In `dfdiff` keys can be specified as character vectors using the `keys` argument.
+A key feature of `dfdiff` that enables easier diagnostics is the ability to specify which variables form a unique row i.e. which rows should be compared against each other based upon a key. By default if no key is specified `dfdiff` will use the row numbers as the key however in general this isn't recommended as it means two identical datasets simply sorted differently can lead to incomprehensible error messages as every observation is flagged as different.  In `dfdiff` keys can be specified as character vectors using the `keys` argument.
 
 ```{r}
 test_data2 <- test_data
@@ -131,6 +131,44 @@ result <- dfdiff(
 ```
 
 ## Misc
+
+### Accessing problem rows
+
+As an additional utility `dfdiff` comes with the function `dfdiff_issuerows()` which can be used to subset your dataset against the issue object to return just the rows that are flagged as containing issues.
+
+```{r}
+iris2 <- iris
+for (i in 1:3) iris2[i,i] <- 99
+diff <- dfdiff( iris , iris2, suppress_warnings = TRUE)
+dfdiff_issuerows( iris , diff)
+dfdiff_issuerows( iris2 , diff)
+```
+
+Bear in mind that the `vars` option can be used to just subset down to issues associated with particular variables.
+
+```{r}
+dfdiff_issuerows( iris2 , diff , vars = "Sepal.Length")
+dfdiff_issuerows( iris2 , diff , vars = c("Sepal.Length" , "Sepal.Width"))
+
+```
+
+### Are there issues ?
+
+Sometimes it can be useful to use the comparison result to fuel further checks or programming logic. To assist with this `dfdiff` offers two pieces of functionality namely the `suppress_warnings` argument (which has already been shown) and the `dfdiff_has_issues()` helper function which simply returns TRUE if differences have been found else FALSE. 
+
+```{r}
+iris2 <- iris
+for (i in 1:3) iris2[i,i] <- 99
+diff <- dfdiff( iris , iris2, suppress_warnings = TRUE)
+
+dfdiff_has_issues(diff)
+```
+
+```{r eval = FALSE}
+if ( dfdiff_has_issues(diff)){
+    #<Further programming steps / logic> 
+}
+```
 
 
 ### Tolerance
