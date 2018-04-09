@@ -9,6 +9,7 @@
 #' @param outfile Location and name of a text file to output the results to. Setting to NULL will cause no file to be produced.
 #' @param tolerance Level of tolerance for numeric differences between two variables
 #' @param scale Scale that tolerance should be set on. If NULL assume absolute
+#' @param strict Flag for less strict comparisons. This will cast numeric to character and factor to character when needed 
 #' @examples
 #' x <- subset( iris,  -Species)
 #' x[1,2] <- 5
@@ -36,7 +37,7 @@
 dfdiff <- function (base , compare , keys = NULL,
                     suppress_warnings = F, outfile = NULL,
                     tolerance = sqrt(.Machine$double.eps),
-                    scale = NULL){
+                    scale = NULL, strict = TRUE){
     BASE = base
     COMP = compare
     KEYS = keys
@@ -87,6 +88,13 @@ dfdiff <- function (base , compare , keys = NULL,
         value = identify_unsupported_cols(COMP) , 
         message  = "There are columns in COMPARE with unsupported modes !!" 
     )
+    
+    # cast variables if strict is off
+    if (!strict){
+        recast <- cast_variables(BASE, COMP, KEYS)
+        BASE <- recast$BASE
+        COMP <- recast$COMP
+    }
     
     
     COMPARE[["VarModeDiffs"]] <- construct_issue(
