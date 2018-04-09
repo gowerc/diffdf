@@ -40,13 +40,6 @@ cast_vector <- function(colin, typecast, colname,  whichdat){
 #'
 cast_variables <- function(BASE, COMPARE, keys){
     
-    
-    BASE <- data.frame(num = 1, int = as.integer(1), char = "a", fact = factor("f"),
-                       stringsAsFactors = FALSE)
-    
-    COMPARE <- data.frame(num = "1", int = 1, char = factor("a"), fact = factor("f"),
-                       stringsAsFactors = FALSE)
-    
     BASE_class <- data.frame(class_BASE = sapply(BASE, class),
                              stringsAsFactors = FALSE)
     BASE_class <- rownames_to_column(BASE_class)
@@ -57,10 +50,7 @@ cast_variables <- function(BASE, COMPARE, keys){
     
     all_class <- merge(BASE_class, COMPARE_class, by = "rowname")
     all_class <- all_class[all_class$class_BASE != all_class$class_COMPARE,]
-    
-  
 
-    
     all_class$classmerge <- mapply(sort_join, all_class$class_COMPARE, all_class$class_BASE)
     all_class <- all_class[all_class$classmerge %in% c("integernumeric", "characterfactor",
                                                        "characternumeric")]
@@ -70,10 +60,19 @@ cast_variables <- function(BASE, COMPARE, keys){
     }
     
     BASE[,all_class$rowname] <- mapply(cast_vector, 
-                                       colin = BASE[,all_class$rowname] ,
+                                      colin = as.list(BASE[,all_class$rowname] ),
                                       all_class$classmerge, 
                                       colname = names(BASE[,all_class$rowname]), 
-                                      whichdat = "BASE")
+                                      whichdat = "BASE",
+                                      SIMPLIFY = FALSE)
     
+    COMPARE[,all_class$rowname] <- mapply(cast_vector, 
+                                       colin = as.list(COMPARE[,all_class$rowname] ),
+                                       all_class$classmerge, 
+                                       colname = names(COMPARE[,all_class$rowname]), 
+                                       whichdat = "COMPARE",
+                                       SIMPLIFY = FALSE)
+    
+    return(list(BASE = BASE, COMPARE = COMPARE))
     
 }
