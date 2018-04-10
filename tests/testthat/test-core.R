@@ -156,7 +156,6 @@ test_that( "Unequal objects raise warnings" , {
 
 
 numdiffcheck <-function(compdat, target, value){
-    browser()
     ### Only expected 1 variable to be different thus we expect 
     ### the overall # of differences to equal the # of differences
     ### in the target variable
