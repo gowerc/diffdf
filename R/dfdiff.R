@@ -49,13 +49,16 @@ dfdiff <- function (base , compare , keys = NULL,
     
     ### If no key is suplied match values based upon row number
     if (is.null(KEYS)){
+        
         keyname <- "..ROWNUMBER.."
+        # check that this doesn't exist on the data set. If it does, change the name
+        # until we find an empty name
         while (!is.null(BASE[["..ROWNUMBER.."]]) | !is.null( COMP[["..ROWNUMBER.."]])){
             keyname <- paste0(".", keyname, ".")
         }
-        BASE[["..ROWNUMBER.."]] <-  1:nrow(BASE) 
-        COMP[["..ROWNUMBER.."]] <-  1:nrow(COMP) 
-        KEYS  <- "..ROWNUMBER.."
+        BASE[[keyname]] <-  1:nrow(BASE) 
+        COMP[[keyname]] <-  1:nrow(COMP) 
+        KEYS  <- keyname
     }
     
     ## Check tolerance and scale are numeric
