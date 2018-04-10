@@ -23,15 +23,16 @@ class_merge <- function(x){
 #' @param typecast type of casting to do
 #' @param colname name of vector
 #' @param whichdat whether base or compare is being casted (used for warnings)
+#' @param supwarn Whether warnings should be printed
 #' 
-cast_vector <- function(colin, typecast, colname,  whichdat){
+cast_vector <- function(colin, typecast, colname,  whichdat, supwarn){
     
     if (typecast == "characterfactor" & class(colin) == "factor"){
-        warning(paste0("Casting ", colname, " in ", whichdat, " to character"))
+        if(!supwarn) warning(paste0("Casting ", colname, " in ", whichdat, " to character"))
         return(as.character(colin))
     }
     if (typecast == "integernumeric" & class(colin) == "integer"){
-        warning(paste0("Casting ", colname, " in ", whichdat, " to numeric"))
+        if(!supwarn) warning(paste0("Casting ", colname, " in ", whichdat, " to numeric"))
         return(as.numeric(colin))
     }
     colin
@@ -46,9 +47,9 @@ cast_vector <- function(colin, typecast, colname,  whichdat){
 #' 
 #' @param BASE base dataset
 #' @param COMPARE comparison dataset
-#' @param KEYS unique keys to compare with
+#' @param SUPWARN Should warning about variables being cast be printed?
 #'
-cast_variables <- function(BASE, COMPARE, keys){
+cast_variables <- function(BASE, COMPARE, SUPWARN = FALSE){
     
     BASE_class <- data.frame(class_BASE = sapply(BASE, class_merge),
                              stringsAsFactors = FALSE)
@@ -74,6 +75,7 @@ cast_variables <- function(BASE, COMPARE, keys){
                                       all_class$classmerge, 
                                       colname = names(BASE[,all_class$rowname]), 
                                       whichdat = "base",
+                                      supwarn = SUPWARN,
                                       SIMPLIFY = FALSE)
     
     COMPARE[,all_class$rowname] <- mapply(cast_vector, 
@@ -81,6 +83,7 @@ cast_variables <- function(BASE, COMPARE, keys){
                                        all_class$classmerge, 
                                        colname = names(COMPARE[,all_class$rowname]), 
                                        whichdat = "compare",
+                                       supwarn = SUPWARN,
                                        SIMPLIFY = FALSE)
     
     return(list(BASE = BASE, COMP = COMPARE))

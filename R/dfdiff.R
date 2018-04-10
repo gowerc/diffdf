@@ -98,7 +98,7 @@ dfdiff <- function (base , compare , keys = NULL,
     
     # cast variables if strict is off
     if (!strict){
-        recast <- cast_variables(BASE, COMP, KEYS)
+        recast <- cast_variables(BASE, COMP, SUPWARN)
         BASE <- recast$BASE
         COMP <- recast$COMP
     }

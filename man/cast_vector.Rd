@@ -4,7 +4,7 @@
 \alias{cast_vector}
 \title{cast_vector}
 \usage{
-cast_vector(colin, typecast, colname, whichdat)
+cast_vector(colin, typecast, colname, whichdat, supwarn)
 }
 \arguments{
 \item{colin}{column to cast}
@@ -14,6 +14,8 @@ cast_vector(colin, typecast, colname, whichdat)
 \item{colname}{name of vector}
 
 \item{whichdat}{whether base or compare is being casted (used for warnings)}
+
+\item{supwarn}{Whether warnings should be printed}
 }
 \description{
 casts a vector depending on its type and input

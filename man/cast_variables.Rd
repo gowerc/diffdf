@@ -4,14 +4,14 @@
 \alias{cast_variables}
 \title{cast_variables}
 \usage{
-cast_variables(BASE, COMPARE, keys)
+cast_variables(BASE, COMPARE, SUPWARN = FALSE)
 }
 \arguments{
 \item{BASE}{base dataset}
 
 \item{COMPARE}{comparison dataset}
 
-\item{KEYS}{unique keys to compare with}
+\item{SUPWARN}{Should warning about variables being cast be printed?}
 }
 \description{
 Function to cast datasets columns if they have differting types
