@@ -156,7 +156,7 @@ test_that( "Unequal objects raise warnings" , {
 
 
 numdiffcheck <-function(compdat, target, value){
-    
+    browser()
     ### Only expected 1 variable to be different thus we expect 
     ### the overall # of differences to equal the # of differences
     ### in the target variable
@@ -186,7 +186,7 @@ test_that( "Unequal object, checking numbers correct" , {
     numdiffcheck( TDAT_LOGCHANGE,       'LOGICAL',
                   1)
     numdiffcheck( TDAT_FACTVALCHANGE,   'CATEGORICAL',
-                  8)
+                  7)
     numdiffcheck( TDAT_CHARCHANGENA,    'CHARACTER',
                   sum(is.na(TDAT_CHARCHANGENA$CHARACTER)))
     numdiffcheck( TDAT_DATECHANGENA,    'DATE',
@@ -354,7 +354,6 @@ test_that('Attribute differnce size is correct!', {
     )
     
 })
-
 
 
 
