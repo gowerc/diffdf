@@ -60,28 +60,28 @@ cast_variables <- function(BASE, COMPARE, SUPWARN = FALSE){
     COMPARE_class <- rownames_to_column(COMPARE_class)
     
     all_class <- merge(BASE_class, COMPARE_class, by = "rowname")
-    all_class <- all_class[all_class$class_BASE != all_class$class_COMPARE,]
+    all_class <- all_class[all_class$class_BASE != all_class$class_COMPARE,, drop = FALSE]
 
     all_class$classmerge <- mapply(sort_join, all_class$class_COMPARE, all_class$class_BASE)
     all_class <- all_class[all_class$classmerge %in% c("integernumeric", "characterfactor",
-                                                       "characternumeric")]
+                                                       "characternumeric"),, drop = FALSE]
     
     if(nrow(all_class)==0){
             return(list(BASE= BASE, COMPARE = COMPARE))
     }
     
     BASE[,all_class$rowname] <- mapply(cast_vector, 
-                                      colin = as.list(BASE[,all_class$rowname] ),
+                                      colin = as.list(BASE[,all_class$rowname, drop = FALSE] ),
                                       all_class$classmerge, 
-                                      colname = names(BASE[,all_class$rowname]), 
+                                      colname = names(BASE[,all_class$rowname, drop = FALSE]), 
                                       whichdat = "base",
                                       supwarn = SUPWARN,
                                       SIMPLIFY = FALSE)
     
     COMPARE[,all_class$rowname] <- mapply(cast_vector, 
-                                       colin = as.list(COMPARE[,all_class$rowname] ),
+                                       colin = as.list(COMPARE[,all_class$rowname, drop = FALSE] ),
                                        all_class$classmerge, 
-                                       colname = names(COMPARE[,all_class$rowname]), 
+                                       colname = names(COMPARE[,all_class$rowname, drop = FALSE]), 
                                        whichdat = "compare",
                                        supwarn = SUPWARN,
                                        SIMPLIFY = FALSE)
