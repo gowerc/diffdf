@@ -49,5 +49,34 @@ DF2 <- data.frame(
     v3 = c(NA , NA , 1 , 2 , NA , 4)
 )
 dfdiff(DF1 , DF1 , keys = "id")
-dfdiff(DF1 , DF2 , keys = "id")
+# We can control matching with scale/location, e.g.
+DF1 <- data.frame(
+    id = c(1,2,3,4,5,6),
+    v1 = letters[1:6],
+    v2 = c(1,2,3,4,5,6)
+)
+DF2 <- data.frame(
+    id = c(1,2,3,4,5,6),
+    v1 = letters[1:6],
+    v2 = c(1.1,2,3,4,5,6)
+)
+ dfdiff(DF1 , DF2 , keys = "id")
+ dfdiff(DF1 , DF2 , keys = "id", tolerance = 0.2)
+ dfdiff(DF1 , DF2 , keys = "id", scale = 10, tolerance = 0.2)
+ 
+# We can use strict flag to compare factors, as in this example
+DF1 <- data.frame(
+    id = c(1,2,3,4,5,6),
+    v1 = letters[1:6],
+    v2 = c(NA , NA , 1 , 2 , 3 , NA), stringsAsFactors = FALSE
+)
+
+DF2 <- data.frame(
+    id = c(1,2,3,4,5,6),
+    v1 = letters[1:6],
+    v2 = c(NA , NA , 1 , 2 , 3 , NA)
+)
+
+ dfdiff(DF1 , DF2 , keys = "id", strict = TRUE)
+ dfdiff(DF1 , DF2 , keys = "id", strict = FALSE)
 }
