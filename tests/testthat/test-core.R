@@ -85,6 +85,10 @@ attr(TDAT_ATTEXT2$GROUP2, 'newatt') <- data.frame(x=4, y=5)
 TDAT_MODEDBL <- TDAT 
 TDAT_MODEDBL$INTEGER <- as.double(TDAT$INTEGER)
 
+#### switch factor to char
+TDAT_MODECHR <- TDAT 
+TDAT_MODECHR$CATEGORICAL <- as.character(TDAT_MODECHR$CATEGORICAL)
+
 #### add extra columns
 TDAT_EXTCOLS <- TDAT
 TDAT_EXTCOLS$ext <- TDAT$CATEGORICAL
@@ -185,7 +189,7 @@ test_that( "Unequal object, checking numbers correct" , {
     numdiffcheck( TDAT_LOGCHANGE,       'LOGICAL',
                   1)
     numdiffcheck( TDAT_FACTVALCHANGE,   'CATEGORICAL',
-                  7)
+                  8)
     numdiffcheck( TDAT_CHARCHANGENA,    'CHARACTER',
                   sum(is.na(TDAT_CHARCHANGENA$CHARACTER)))
     numdiffcheck( TDAT_DATECHANGENA,    'DATE',
@@ -201,6 +205,11 @@ test_that( "Differing modes error" , {
         dfdiff(TDAT , TDAT_MODECHANGE ),
         'There are columns in BASE and COMPARE with different modes'
     )
+    expect_warning(
+        dfdiff(TDAT , TDAT_MODECHR ),
+        'There are columns in BASE and COMPARE with different modes'
+    )
+    
 })
 
 test_that( "Differing classes error" , {
@@ -355,8 +364,23 @@ test_that('Attribute differnce size is correct!', {
 })
 
 
+test_that("Integer and Numeric compare succesfully with strict = FALSE",
+          {
+              expect_length_0(dfdiff(TDAT_MODEDBL, TDAT, strict = FALSE, suppress_warnings = TRUE)) 
+              expect_warning(dfdiff(TDAT_MODEDBL, TDAT, strict = FALSE),
+                             "Casting INTEGER in compare to numeric", all = TRUE, fixed = TRUE)
+              expect_warning(dfdiff(TDAT, TDAT_MODEDBL, strict = FALSE),
+                             "Casting INTEGER in base to numeric", all = TRUE, fixed = TRUE)
+          })
 
-
+test_that("Character and Factor compare succesfully with strict = FALSE",
+          {
+              expect_length_0(dfdiff(TDAT_MODECHR, TDAT, strict = FALSE, suppress_warnings = TRUE)) 
+              expect_warning(dfdiff(TDAT_MODECHR, TDAT, strict = FALSE),
+                             "Casting CATEGORICAL in compare to character", all = TRUE, fixed = TRUE)
+              expect_warning(dfdiff(TDAT, TDAT_MODECHR, strict = FALSE),
+                             "Casting CATEGORICAL in base to character", all = TRUE, fixed = TRUE)
+          })
 
 
 
