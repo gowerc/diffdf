@@ -237,34 +237,26 @@ identify_differences <- function( BASE , COMP , KEYS, exclude_cols,
     )
     DAT <- DAT[do.call("order", DAT[KEYS]), ]
     
-    matching_list <- list()
-    outdat <- list()
     keyselect <- subset(DAT, select = KEYS)
     
-    for (i in matching_cols){
-        matching_list[[i]] <- is_different(
-            DAT[[paste0(i,'.x')]], 
-            DAT[[paste0(i,'.y')]],
-            tolerance = tolerance ,
-            scale = scale 
-        )
-        
-        keyselect[["VARIABLE"]] = i
-        
-        keyselecti <- subset(keyselect, select = c('VARIABLE',KEYS))
-        
-        keyselecti <- keyselecti[matching_list[[i]],]
-        
-        outdat[[i]] <- as.tibble(
-            cbind(
-                keyselecti ,
-                tibble( 
-                    BASE = DAT[[paste0(i,'.x')]][matching_list[[i]] ],
-                    COMPARE = DAT[[paste0(i,'.y')]][matching_list[[i]] ]
-                )
-            )
-        )
+    matching_list <- Map(is_different, as.list(DAT[paste0(matching_cols,'.x')]),
+                         as.list(DAT[paste0(matching_cols,'.y')]),
+                         MoreArgs = list(tolerance = tolerance ,
+                         scale = scale))
+    
+    keyfun <- function(variablename, matching_list, keyselect,
+                       DAT){
+        keyselect[["VARIABLE"]] <- variablename
+        as.tibble(cbind(subset(keyselect,matching_list[[paste0(variablename,'.x')]], select = c('VARIABLE',KEYS)),
+                        tibble(BASE = DAT[[paste0(variablename,'.x')]][matching_list[[paste0(variablename,'.x')]] ],
+                               COMPARE = DAT[[paste0(variablename,'.y')]][matching_list[[paste0(variablename,'.x')]] ])))
     }
+    
+        
+        outdat<- Map(keyfun, matching_cols, MoreArgs = list(matching_list = matching_list,
+                                                            keyselect = keyselect,
+                                                            DAT = DAT))
+
     outdat
 }
 
