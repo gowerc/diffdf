@@ -5,7 +5,7 @@
 \title{dfdiff}
 \usage{
 dfdiff(base, compare, keys = NULL, suppress_warnings = F, outfile = NULL,
-  tolerance = sqrt(.Machine$double.eps), scale = NULL)
+  tolerance = sqrt(.Machine$double.eps), scale = NULL, strict = TRUE)
 }
 \arguments{
 \item{base}{input dataframe}
@@ -21,6 +21,8 @@ dfdiff(base, compare, keys = NULL, suppress_warnings = F, outfile = NULL,
 \item{tolerance}{Level of tolerance for numeric differences between two variables}
 
 \item{scale}{Scale that tolerance should be set on. If NULL assume absolute}
+
+\item{strict}{Flag for less strict comparisons. This will cast numeric to character and factor to character when needed}
 }
 \description{
 Compares 2 dataframes and outputs any differences.

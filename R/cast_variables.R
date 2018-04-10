@@ -8,6 +8,13 @@
 sort_join <- function(string1, string2){
     paste0(sort(c(string1, string2)), collapse = '')
 }
+#' class_merge
+#' 
+#' Convenience function to put all classes an object has into one string
+#' @param x an object
+class_merge <- function(x){
+    paste(class(x), collapse = "_")
+}
 
 #' cast_vector
 #' 
@@ -20,12 +27,11 @@ sort_join <- function(string1, string2){
 cast_vector <- function(colin, typecast, colname,  whichdat){
     
     if (typecast == "characterfactor" & class(colin) == "factor"){
-        warning(paste0("Casting ", colname, " in ", whichdat, "to character"))
+        warning(paste0("Casting ", colname, " in ", whichdat, " to character"))
         return(as.character(colin))
     }
-    if ((typecast == "characternumeric" & class(colin) == "numeric")|
-        (typecast == "integernumeric" & class(colin) == "integer")){
-        warning(paste0("Casting ", colname, " in ", whichdat, "to numeric"))
+    if (typecast == "integernumeric" & class(colin) == "integer"){
+        warning(paste0("Casting ", colname, " in ", whichdat, " to numeric"))
         return(as.numeric(colin))
     }
     colin
@@ -33,18 +39,22 @@ cast_vector <- function(colin, typecast, colname,  whichdat){
 
 
 
-
+#' cast_variables
+#' 
+#' Function to cast datasets columns if they have differting types
+#' Restricted to specific cases
+#' 
 #' @param BASE base dataset
 #' @param COMPARE comparison dataset
 #' @param KEYS unique keys to compare with
 #'
 cast_variables <- function(BASE, COMPARE, keys){
     
-    BASE_class <- data.frame(class_BASE = sapply(BASE, class),
+    BASE_class <- data.frame(class_BASE = sapply(BASE, class_merge),
                              stringsAsFactors = FALSE)
     BASE_class <- rownames_to_column(BASE_class)
     
-    COMPARE_class <- data.frame(class_COMPARE = sapply(COMPARE, class),
+    COMPARE_class <- data.frame(class_COMPARE = sapply(COMPARE, class_merge),
                                 stringsAsFactors = FALSE)
     COMPARE_class <- rownames_to_column(COMPARE_class)
     
@@ -63,16 +73,16 @@ cast_variables <- function(BASE, COMPARE, keys){
                                       colin = as.list(BASE[,all_class$rowname] ),
                                       all_class$classmerge, 
                                       colname = names(BASE[,all_class$rowname]), 
-                                      whichdat = "BASE",
+                                      whichdat = "base",
                                       SIMPLIFY = FALSE)
     
     COMPARE[,all_class$rowname] <- mapply(cast_vector, 
                                        colin = as.list(COMPARE[,all_class$rowname] ),
                                        all_class$classmerge, 
                                        colname = names(COMPARE[,all_class$rowname]), 
-                                       whichdat = "COMPARE",
+                                       whichdat = "compare",
                                        SIMPLIFY = FALSE)
     
-    return(list(BASE = BASE, COMPARE = COMPARE))
+    return(list(BASE = BASE, COMP = COMPARE))
     
 }
