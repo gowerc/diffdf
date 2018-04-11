@@ -219,7 +219,6 @@ identify_att_differences <- function( BASE, COMP , exclude_cols = "" ){
 #' @param exclude_cols Columns to exclude from comparision
 #' @param tolerance Level of tolerance for numeric differences between two variables
 #' @param scale Scale that tolerance should be set on. If NULL assume absolute
-#' @importFrom tibble as.tibble tibble
 identify_differences <- function( BASE , COMP , KEYS, exclude_cols,  
                                   tolerance = sqrt(.Machine$double.eps),
                                   scale = NULL ) {
@@ -237,27 +236,15 @@ identify_differences <- function( BASE , COMP , KEYS, exclude_cols,
     )
     DAT <- DAT[do.call("order", DAT[KEYS]), ]
     
-    keyselect <- subset(DAT, select = KEYS)
-    
-    matching_list <- Map(is_different, as.list(DAT[paste0(matching_cols,'.x')]),
-                         as.list(DAT[paste0(matching_cols,'.y')]),
-                         MoreArgs = list(tolerance = tolerance ,
-                         scale = scale))
-    
-    keyfun <- function(variablename, matching_list, keyselect,
-                       DAT){
-        keyselect[["VARIABLE"]] <- variablename
-        as.tibble(cbind(subset(keyselect,matching_list[[paste0(variablename,'.x')]], select = c('VARIABLE',KEYS)),
-                        tibble(BASE = DAT[[paste0(variablename,'.x')]][matching_list[[paste0(variablename,'.x')]] ],
-                               COMPARE = DAT[[paste0(variablename,'.y')]][matching_list[[paste0(variablename,'.x')]] ])))
-    }
-    
-        
-        outdat<- Map(keyfun, matching_cols, MoreArgs = list(matching_list = matching_list,
-                                                            keyselect = keyselect,
-                                                            DAT = DAT))
 
-    outdat
+    matching_list <- mapply(is_variable_different , 
+                         matching_cols,
+                         MoreArgs = list(keynames = KEYS, datain = DAT, 
+                                         tolerance = tolerance ,
+                                         scale = scale),
+                         SIMPLIFY = FALSE)
+    
+    matching_list
 }
 
 
