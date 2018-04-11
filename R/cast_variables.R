@@ -51,12 +51,10 @@ cast_vector <- function(colin, typecast, colname,  whichdat, supwarn){
 #'
 cast_variables <- function(BASE, COMPARE, SUPWARN = FALSE){
     
-    BASE_class <- data.frame(class_BASE = sapply(BASE, class_merge),
-                             stringsAsFactors = FALSE)
+    BASE_class <- data.frame(class_BASE = sapply(BASE, class_merge), stringsAsFactors = FALSE)
     BASE_class <- rownames_to_column(BASE_class)
     
-    COMPARE_class <- data.frame(class_COMPARE = sapply(COMPARE, class_merge),
-                                stringsAsFactors = FALSE)
+    COMPARE_class <- data.frame(class_COMPARE = sapply(COMPARE, class_merge), stringsAsFactors = FALSE)
     COMPARE_class <- rownames_to_column(COMPARE_class)
     
     all_class <- merge(BASE_class, COMPARE_class, by = "rowname")
@@ -69,21 +67,25 @@ cast_variables <- function(BASE, COMPARE, SUPWARN = FALSE){
             return(list(BASE= BASE, COMPARE = COMPARE))
     }
     
-    BASE[,all_class$rowname] <- mapply(cast_vector, 
-                                      colin = as.list(BASE[,all_class$rowname, drop = FALSE] ),
-                                      all_class$classmerge, 
-                                      colname = names(BASE[,all_class$rowname, drop = FALSE]), 
-                                      whichdat = "base",
-                                      supwarn = SUPWARN,
-                                      SIMPLIFY = FALSE)
+    BASE[,all_class$rowname] <- mapply(
+        cast_vector, 
+        colin = as.list(BASE[,all_class$rowname, drop = FALSE] ),
+        all_class$classmerge, 
+        colname = names(BASE[,all_class$rowname, drop = FALSE]), 
+        whichdat = "base",
+        supwarn = SUPWARN,
+        SIMPLIFY = FALSE
+        )
     
-    COMPARE[,all_class$rowname] <- mapply(cast_vector, 
-                                       colin = as.list(COMPARE[,all_class$rowname, drop = FALSE] ),
-                                       all_class$classmerge, 
-                                       colname = names(COMPARE[,all_class$rowname, drop = FALSE]), 
-                                       whichdat = "compare",
-                                       supwarn = SUPWARN,
-                                       SIMPLIFY = FALSE)
+    COMPARE[,all_class$rowname] <- mapply(
+        cast_vector, 
+        colin = as.list(COMPARE[,all_class$rowname, drop = FALSE] ),
+        all_class$classmerge, 
+        colname = names(COMPARE[,all_class$rowname, drop = FALSE]), 
+        whichdat = "compare",
+        supwarn = SUPWARN,
+        SIMPLIFY = FALSE
+        )
     
     return(list(BASE = BASE, COMP = COMPARE))
     
