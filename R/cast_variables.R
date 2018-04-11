@@ -42,8 +42,8 @@ cast_vector <- function(colin, typecast, colname,  whichdat, supwarn){
 
 #' cast_variables
 #' 
-#' Function to cast datasets columns if they have differting types
-#' Restricted to specific cases
+#' Function to cast datasets columns if they have differing types
+#' Restricted to specific cases, currently integer and double, and character and factor
 #' 
 #' @param BASE base dataset
 #' @param COMPARE comparison dataset

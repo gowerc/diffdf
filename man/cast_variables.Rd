@@ -14,6 +14,6 @@ cast_variables(BASE, COMPARE, SUPWARN = FALSE)
 \item{SUPWARN}{Should warning about variables being cast be printed?}
 }
 \description{
-Function to cast datasets columns if they have differting types
-Restricted to specific cases
+Function to cast datasets columns if they have differing types
+Restricted to specific cases, currently integer and double, and character and factor
 }
