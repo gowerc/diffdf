@@ -34,6 +34,7 @@ dfdiff_issuerows <- function( df , diff, vars = NULL){
     if ( class(diff)[[1]] != "dfdiff") {
         stop("diff should be an dfdiff object")
     }
+    if(is.null(attr(diff, "keys"))) stop("diff is missing the keys attribute")
     
     issue_vars <- names(diff)[grep( "^VarDiff_", names(diff))]
     
@@ -51,10 +52,10 @@ dfdiff_issuerows <- function( df , diff, vars = NULL){
     KEEP <- mapply(get_issue_dataset, vars, diff = list(diff) , SIMPLIFY = F)
     KEEP <- recursive_reduce( KEEP , rbind)
     KEEP <- KEEP[!duplicated(KEEP),]
+    if(attr(diff, "keys")$is_derived)  df[[attr(diff, "keys")$value]] <- 1:nrow(df)
+
     
-    df[["..ROWNUMBER.."]] <- 1:nrow(df)
-    
-    keys <- names(KEEP)[ !names(KEEP) %in% c("BASE", "COMPARE")]
+    keys <- attr(diff, "keys")$value
     
     if ( any( ! keys %in% names(df))){
         stop("df does not contain all variables specified as keys in diff")
