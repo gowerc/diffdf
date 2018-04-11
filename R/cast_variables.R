@@ -63,8 +63,7 @@ cast_variables <- function(BASE, COMPARE, SUPWARN = FALSE){
     all_class <- all_class[all_class$class_BASE != all_class$class_COMPARE,, drop = FALSE]
 
     all_class$classmerge <- mapply(sort_join, all_class$class_COMPARE, all_class$class_BASE)
-    all_class <- all_class[all_class$classmerge %in% c("integernumeric", "characterfactor",
-                                                       "characternumeric"),, drop = FALSE]
+    all_class <- all_class[all_class$classmerge %in% c("integernumeric", "characterfactor"),, drop = FALSE]
     
     if(nrow(all_class)==0){
             return(list(BASE= BASE, COMPARE = COMPARE))
