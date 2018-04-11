@@ -44,7 +44,7 @@ cast_vector <- function(colin, typecast, colname,  whichdat, supwarn){
 #' 
 #' Function to cast datasets columns if they have differing types
 #' Restricted to specific cases, currently integer and double, and character and factor
-#' 
+#' @importFrom tibble rownames_to_column
 #' @param BASE base dataset
 #' @param COMPARE comparison dataset
 #' @param SUPWARN Should warning about variables being cast be printed?
