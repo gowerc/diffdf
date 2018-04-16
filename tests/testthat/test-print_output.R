@@ -1,6 +1,6 @@
 
 
-context("print function")
+context("Testing print functionality")
 
 
 # devtools::load_all()

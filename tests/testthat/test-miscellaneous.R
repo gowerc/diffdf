@@ -1,6 +1,6 @@
 
 
-context( "Miscellaneous")
+context( "Testing misc (currently sorting only)")
 
 
 test_that( "sort order is as expected (sorted by keys)", {

@@ -4,7 +4,8 @@
 \alias{dfdiff}
 \title{dfdiff}
 \usage{
-dfdiff(base, compare, keys = NULL, suppress_warnings = F, outfile = NULL,
+dfdiff(base, compare, keys = NULL, suppress_warnings = FALSE,
+  strict_numeric = TRUE, strict_factor = TRUE, file = NULL,
   tolerance = sqrt(.Machine$double.eps), scale = NULL)
 }
 \arguments{
@@ -16,11 +17,15 @@ dfdiff(base, compare, keys = NULL, suppress_warnings = F, outfile = NULL,
 
 \item{suppress_warnings}{Do you want to suppress warnings? (logical)}
 
-\item{outfile}{Location and name of a text file to output the results to. Setting to NULL will cause no file to be produced.}
+\item{strict_numeric}{Flag for strict numeric to numeric comparisons (default = TRUE). If False dfdiff will cast integer to double where required for comparisons. Note that variables specified in the keys will never be casted.}
 
-\item{tolerance}{Level of tolerance for numeric differences between two variables}
+\item{strict_factor}{Flag for strict factor to character comparisons (default = TRUE). If False dfdiff will cast factors to characters where required for comparisons. Note that variables specified in the keys will never be casted.}
 
-\item{scale}{Scale that tolerance should be set on. If NULL assume absolute}
+\item{file}{Location and name of a text file to output the results to. Setting to NULL will cause no file to be produced.}
+
+\item{tolerance}{Set tolerance for numeric comparisons. Note that comparisons fail if (x-y)/scale > tolerance.}
+
+\item{scale}{Set scale for numeric comparisons. Note that comparisons fail if (x-y)/scale > tolerance. Setting as NULL is a slightly more efficient version of scale = 1.}
 }
 \description{
 Compares 2 dataframes and outputs any differences.
@@ -32,8 +37,8 @@ COMPARE <- dfdiff( iris, x)
 print( COMPARE )
 print( COMPARE , "Sepal.Length" )
 
-
 #### Sample data frames
+
 DF1 <- data.frame(
     id = c(1,2,3,4,5,6),
     v1 = letters[1:6],
@@ -46,6 +51,42 @@ DF2 <- data.frame(
     v2 = c(NA , NA , 1 , 2 , NA , NA),
     v3 = c(NA , NA , 1 , 2 , NA , 4)
 )
+
 dfdiff(DF1 , DF1 , keys = "id")
+
+# We can control matching with scale/location for example:
+
+DF1 <- data.frame(
+    id = c(1,2,3,4,5,6),
+    v1 = letters[1:6],
+    v2 = c(1,2,3,4,5,6)
+)
+DF2 <- data.frame(
+    id = c(1,2,3,4,5,6),
+    v1 = letters[1:6],
+    v2 = c(1.1,2,3,4,5,6)
+)
+
 dfdiff(DF1 , DF2 , keys = "id")
+dfdiff(DF1 , DF2 , keys = "id", tolerance = 0.2)
+dfdiff(DF1 , DF2 , keys = "id", scale = 10, tolerance = 0.2)
+ 
+# We can use strict_factor to compare factors with characters for example:
+
+DF1 <- data.frame(
+    id = c(1,2,3,4,5,6),
+    v1 = letters[1:6],
+    v2 = c(NA , NA , 1 , 2 , 3 , NA), 
+    stringsAsFactors = FALSE
+)
+
+DF2 <- data.frame(
+    id = c(1,2,3,4,5,6),
+    v1 = letters[1:6],
+    v2 = c(NA , NA , 1 , 2 , 3 , NA)
+)
+
+dfdiff(DF1 , DF2 , keys = "id", strict_factor = TRUE)
+dfdiff(DF1 , DF2 , keys = "id", strict_factor = FALSE)
+ 
 }

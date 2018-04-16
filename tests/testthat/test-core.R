@@ -85,6 +85,10 @@ attr(TDAT_ATTEXT2$GROUP2, 'newatt') <- data.frame(x=4, y=5)
 TDAT_MODEDBL <- TDAT 
 TDAT_MODEDBL$INTEGER <- as.double(TDAT$INTEGER)
 
+#### switch factor to char
+TDAT_MODECHR <- TDAT 
+TDAT_MODECHR$CATEGORICAL <- as.character(TDAT_MODECHR$CATEGORICAL)
+
 #### add extra columns
 TDAT_EXTCOLS <- TDAT
 TDAT_EXTCOLS$ext <- TDAT$CATEGORICAL
@@ -156,7 +160,6 @@ test_that( "Unequal objects raise warnings" , {
 
 
 numdiffcheck <-function(compdat, target, value){
-    
     ### Only expected 1 variable to be different thus we expect 
     ### the overall # of differences to equal the # of differences
     ### in the target variable
@@ -178,30 +181,29 @@ numdiffcheck <-function(compdat, target, value){
     )
 }
 
+
 test_that( "Unequal object, checking numbers correct" , {
-    numdiffcheck( TDAT_CHARCHANGE,      'CHARACTER',
-                  1)
-    numdiffcheck( TDAT_DATECHANGE,      'DATE',
-                  1)
-    numdiffcheck( TDAT_LOGCHANGE,       'LOGICAL',
-                  1)
-    numdiffcheck( TDAT_FACTVALCHANGE,   'CATEGORICAL',
-                  8)
-    numdiffcheck( TDAT_CHARCHANGENA,    'CHARACTER',
-                  sum(is.na(TDAT_CHARCHANGENA$CHARACTER)))
-    numdiffcheck( TDAT_DATECHANGENA,    'DATE',
-                  sum(is.na(TDAT_DATECHANGENA$DATE)))
-    numdiffcheck( TDAT_LOGCHANGENA,     'LOGICAL',
-                  sum(is.na(TDAT_LOGCHANGENA$LOGICAL)))
-    numdiffcheck( TDAT_FACTVALCHANGENA, 'CATEGORICAL',
-                  sum(is.na(TDAT_FACTVALCHANGENA$CATEGORICAL)))
+    numdiffcheck( TDAT_CHARCHANGE,      'CHARACTER'  , 1)
+    numdiffcheck( TDAT_DATECHANGE,      'DATE'       , 1)
+    numdiffcheck( TDAT_LOGCHANGE,       'LOGICAL'    , 1)
+    numdiffcheck( TDAT_FACTVALCHANGE,   'CATEGORICAL', 8)
+    numdiffcheck( TDAT_CHARCHANGENA,    'CHARACTER'  , sum(is.na(TDAT_CHARCHANGENA$CHARACTER)))
+    numdiffcheck( TDAT_DATECHANGENA,    'DATE'       , sum(is.na(TDAT_DATECHANGENA$DATE)))
+    numdiffcheck( TDAT_LOGCHANGENA,     'LOGICAL'    , sum(is.na(TDAT_LOGCHANGENA$LOGICAL)))
+    numdiffcheck( TDAT_FACTVALCHANGENA, 'CATEGORICAL', sum(is.na(TDAT_FACTVALCHANGENA$CATEGORICAL)))
 })
+
 
 test_that( "Differing modes error" , {
     expect_warning(
         dfdiff(TDAT , TDAT_MODECHANGE ),
         'There are columns in BASE and COMPARE with different modes'
     )
+    expect_warning(
+        dfdiff(TDAT , TDAT_MODECHR ),
+        'There are columns in BASE and COMPARE with different modes'
+    )
+    
 })
 
 test_that( "Differing classes error" , {
@@ -314,8 +316,8 @@ test_that('Objets with differing attributes produce the correct warning', {
     expect_warning(dfdiff(TDAT, TDAT_LABEXT ), warning_msg)
     expect_warning(dfdiff(TDAT, TDAT_LABEXT2 ), warning_msg)
     expect_warning(dfdiff(TDAT_LABEXT, TDAT_LABEXT2), warning_msg)
-    
 })
+
 
 test_that('Attribute differnce size is correct!', {
     expect_equal(
@@ -357,6 +359,77 @@ test_that('Attribute differnce size is correct!', {
 
 
 
+
+test_that( "strict_numeric and strict_factor was as intended", {
+
+    ####  Test - Integer and Numeric compare succesfully with strict_numeric = FALSE
+    
+    expect_length_0(
+        suppressMessages(
+            dfdiff(TDAT_MODEDBL, TDAT, strict_numeric = FALSE)    
+        )
+    ) 
+    
+    expect_message(
+        dfdiff(TDAT_MODEDBL, TDAT, strict_numeric = FALSE),
+        "NOTE: Variable INTEGER in compare was casted to numeric", 
+        all = TRUE, 
+        fixed = TRUE
+    )
+    
+    expect_message(
+        dfdiff(TDAT, TDAT_MODEDBL, strict_numeric = FALSE),
+        "NOTE: Variable INTEGER in base was casted to numeric", 
+        all = TRUE, 
+        fixed = TRUE
+    )
+    
+
+    ### Test - Character and Factor compare succesfully with strict_factor = FALSE
+    
+    expect_length_0(
+        suppressMessages(
+            dfdiff(TDAT_MODECHR, TDAT, strict_factor = FALSE)
+        )
+    ) 
+    
+    expect_message(
+        dfdiff(TDAT_MODECHR, TDAT, strict_factor = FALSE),
+        "NOTE: Variable CATEGORICAL in compare was casted to character", 
+        all = TRUE, 
+        fixed = TRUE
+    )
+    
+    expect_message(
+        dfdiff(TDAT, TDAT_MODECHR, strict_factor = FALSE),
+        "NOTE: Variable CATEGORICAL in base was casted to character", 
+        all = TRUE, 
+        fixed = TRUE
+    )
+    
+    #### Test - interaction of both options
+    
+    expect_message(
+        dfdiff(TDAT, TDAT_MODEDBL, strict_numeric = FALSE, strict_factor = FALSE),
+        "NOTE: Variable INTEGER in base was casted to numeric", 
+        all = TRUE, 
+        fixed = TRUE
+    )
+    
+    expect_message(
+        dfdiff(TDAT, TDAT_MODECHR, strict_factor = FALSE, strict_numeric = FALSE),
+        "NOTE: Variable CATEGORICAL in base was casted to character", 
+        all = TRUE, 
+        fixed = TRUE
+    )
+    
+    expect_message(
+        dfdiff(TDAT_MODEDBL, TDAT_MODECHR, strict_factor = FALSE, strict_numeric = FALSE),
+        "NOTE: Variable CATEGORICAL in base was casted to character|NOTE: Variable INTEGER in compare was casted to numeric", 
+        all = TRUE
+    )
+    
+})
 
 
 

@@ -24,9 +24,9 @@ variable(s) will be returned.
 Note that dfdiff_issuerows can be used to subset against any dataframe. The only
 requirement is that the original variables specified in the keys argument to dfdiff
 are present on the dataframe you are subsetting against. However please note that if 
-no keys are specified in dfdiff then rownumber is used which means using 
-dfdiff_issuerows against an arbitary dataset can easily result in nonsense rows 
-being returned. It is always recommended to supply keys to dfdiff.
+no keys were specified in dfdiff then the row number is used. This means using 
+dfdiff_issuerows without a keys against an arbitary dataset can easily result in 
+nonsense rows being returned. It is always recommended to supply keys to dfdiff.
 }
 \examples{
 iris2 <- iris
