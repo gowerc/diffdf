@@ -2,7 +2,7 @@
 % Please edit documentation in R/is_different.R
 \name{find_difference.factor}
 \alias{find_difference.factor}
-\title{find_different.factor}
+\title{find_difference.factor}
 \usage{
 find_difference.factor(target, current, ...)
 }

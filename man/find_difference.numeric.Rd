@@ -2,7 +2,7 @@
 % Please edit documentation in R/is_different.R
 \name{find_difference.numeric}
 \alias{find_difference.numeric}
-\title{find_different.numeric}
+\title{find_difference.numeric}
 \usage{
 find_difference.numeric(target, current,
   tolerance = sqrt(.Machine$double.eps), scale = NULL)

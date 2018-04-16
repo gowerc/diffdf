@@ -95,7 +95,7 @@ find_difference.default <- function(target, current, ...){
 
 
 
-#' find_different.factor
+#' find_difference.factor
 #' 
 #' Compares factors. Sets them as character and then compares
 #' @param target the base vector
@@ -109,7 +109,7 @@ find_difference.factor <- function(target, current, ...){
 
 
 
-#' find_different.numeric
+#' find_difference.numeric
 #' 
 #' This is a modified version of the all.equal function
 #' which returns a vector rather than a message
