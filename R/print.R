@@ -16,7 +16,7 @@ print.dfdiff <- function(x, ..., as_string = FALSE){
     COMPARE <- x
 
     if ( length(COMPARE) == 0 ){
-        outtext <- "No issues were found!"
+        outtext <- "No issues were found!\n"
         
     } else {
         

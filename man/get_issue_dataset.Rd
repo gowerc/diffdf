@@ -7,7 +7,7 @@
 get_issue_dataset(issue, diff)
 }
 \arguments{
-\item{issue}{name of issue to extract issue from}
+\item{issue}{name of issue to extract the dataset from diff}
 
 \item{diff}{dfdiff object which contains issues}
 }
