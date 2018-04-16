@@ -5,11 +5,12 @@
 #' @param base input dataframe
 #' @param compare comparison dataframe
 #' @param keys vector of variables (as strings) that defines a unique row in the base and compare dataframes
+#' @param strict_numeric Flag for strict numeric to numeric comparisons (default = TRUE). If False dfdiff will cast integer to double where required for comparisons. Note that variables specified in the keys will never be casted.
+#' @param strict_factor Flag for strict factor to character comparisons (default = TRUE). If False dfdiff will cast factors to characters where required for comparisons. Note that variables specified in the keys will never be casted.
 #' @param suppress_warnings Do you want to suppress warnings? (logical)
-#' @param outfile Location and name of a text file to output the results to. Setting to NULL will cause no file to be produced.
-#' @param tolerance Level of tolerance for numeric differences between two variables
-#' @param scale Scale that tolerance should be set on. If NULL assume absolute
-#' @param strict Flag for less strict comparisons. This will cast numeric to character and factor to character when needed 
+#' @param file Location and name of a text file to output the results to. Setting to NULL will cause no file to be produced.
+#' @param tolerance Set tolerance for numeric comparisons. Note that comparisons fail if (x-y)/scale > tolerance.
+#' @param scale Set scale for numeric comparisons. Note that comparisons fail if (x-y)/scale > tolerance. Setting as NULL is a slightly more efficient version of scale = 1. 
 #' @examples
 #' x <- subset( iris,  -Species)
 #' x[1,2] <- 5
@@ -17,8 +18,8 @@
 #' print( COMPARE )
 #' print( COMPARE , "Sepal.Length" )
 #' 
-#' 
 #' #### Sample data frames
+#' 
 #' DF1 <- data.frame(
 #'     id = c(1,2,3,4,5,6),
 #'     v1 = letters[1:6],
@@ -31,8 +32,11 @@
 #'     v2 = c(NA , NA , 1 , 2 , NA , NA),
 #'     v3 = c(NA , NA , 1 , 2 , NA , 4)
 #' )
+#' 
 #' dfdiff(DF1 , DF1 , keys = "id")
-#' # We can control matching with scale/location, e.g.
+#' 
+#' # We can control matching with scale/location for example:
+#' 
 #' DF1 <- data.frame(
 #'     id = c(1,2,3,4,5,6),
 #'     v1 = letters[1:6],
@@ -43,15 +47,18 @@
 #'     v1 = letters[1:6],
 #'     v2 = c(1.1,2,3,4,5,6)
 #' )
-#'  dfdiff(DF1 , DF2 , keys = "id")
-#'  dfdiff(DF1 , DF2 , keys = "id", tolerance = 0.2)
-#'  dfdiff(DF1 , DF2 , keys = "id", scale = 10, tolerance = 0.2)
+#' 
+#' dfdiff(DF1 , DF2 , keys = "id")
+#' dfdiff(DF1 , DF2 , keys = "id", tolerance = 0.2)
+#' dfdiff(DF1 , DF2 , keys = "id", scale = 10, tolerance = 0.2)
 #'  
-#' # We can use strict flag to compare factors, as in this example
+#' # We can use strict_factor to compare factors with characters for example:
+#' 
 #' DF1 <- data.frame(
 #'     id = c(1,2,3,4,5,6),
 #'     v1 = letters[1:6],
-#'     v2 = c(NA , NA , 1 , 2 , 3 , NA), stringsAsFactors = FALSE
+#'     v2 = c(NA , NA , 1 , 2 , 3 , NA), 
+#'     stringsAsFactors = FALSE
 #' )
 #' 
 #' DF2 <- data.frame(
@@ -60,22 +67,34 @@
 #'     v2 = c(NA , NA , 1 , 2 , 3 , NA)
 #' )
 #' 
-#'  dfdiff(DF1 , DF2 , keys = "id", strict = TRUE)
-#'  dfdiff(DF1 , DF2 , keys = "id", strict = FALSE)
+#' dfdiff(DF1 , DF2 , keys = "id", strict_factor = TRUE)
+#' dfdiff(DF1 , DF2 , keys = "id", strict_factor = FALSE)
+#'  
 #' @export
-dfdiff <- function (base , compare , keys = NULL,
-                    suppress_warnings = F, outfile = NULL,
-                    tolerance = sqrt(.Machine$double.eps),
-                    scale = NULL, strict = TRUE){
+dfdiff <- function (
+    base , 
+    compare , 
+    keys = NULL, 
+    suppress_warnings = FALSE, 
+    strict_numeric = TRUE,
+    strict_factor = TRUE,
+    file = NULL,
+    tolerance = sqrt(.Machine$double.eps),
+    scale = NULL
+){
+    
     BASE = base
     COMP = compare
     KEYS = keys
     SUPWARN = suppress_warnings
     
+    
     ### Initatiate output object
     COMPARE <- list()
+    class(COMPARE) <- c("dfdiff" , "list") 
     
     is_derived <- FALSE
+    
     ### If no key is suplied match values based upon row number
     if (is.null(KEYS)){
         is_derived <- TRUE
@@ -84,8 +103,10 @@ dfdiff <- function (base , compare , keys = NULL,
         COMP[[keyname]] <-  1:nrow(COMP) 
         KEYS  <- keyname
     }
+    attr(COMPARE, 'keys') <- list(value = KEYS, is_derived = is_derived)
     
-    ## Check tolerance and scale are numeric
+    
+    
     if (!is.numeric(tolerance)) {
         stop("'tolerance' should be numeric")
     }
@@ -94,7 +115,8 @@ dfdiff <- function (base , compare , keys = NULL,
         stop("'scale' should be numeric or NULL")
     }
     
-    ##  Check the provided by groups define unique rows
+
+    
     if ( !has_unique_rows(BASE , KEYS) ){
         stop( "BY variables in BASE do not result in unique observations")
     }
@@ -104,10 +126,8 @@ dfdiff <- function (base , compare , keys = NULL,
     }
     
     
-    #################
-    #
-    # Check essential variable properties (class & mode)
-    # 
+
+    #### Check essential variable properties (class & mode)
     
     COMPARE[["UnsupportedColsBase"]] <- construct_issue(
         value = identify_unsupported_cols(BASE) , 
@@ -119,12 +139,22 @@ dfdiff <- function (base , compare , keys = NULL,
         value = identify_unsupported_cols(COMP) , 
         message  = "There are columns in COMPARE with unsupported modes !!" 
     )
+
     
     # cast variables if strict is off
-    if (!strict){
-        recast <- cast_variables(BASE, COMP, SUPWARN)
-        BASE <- recast$BASE
-        COMP <- recast$COMP
+    if ( !strict_factor | !strict_numeric ){
+        
+        casted_df <- cast_variables( 
+            BASE = BASE, 
+            COMPARE = COMP, 
+            ignore_vars = KEYS, 
+            cast_integers = !strict_numeric , 
+            cast_factors = !strict_factor
+        )
+        
+        BASE <- casted_df$BASE
+        COMP <- casted_df$COMP
+        
     }
     
     
@@ -139,8 +169,7 @@ dfdiff <- function (base , compare , keys = NULL,
         message = "There are columns in BASE and COMPARE with different classes !!"
     )
     
-    
-    
+
     exclude_cols <- c(
         COMPARE[["UnsupportedColsBase"]]$VARIABLE , 
         COMPARE[["UnsupportedColsComp"]]$VARIABLE,
@@ -148,10 +177,8 @@ dfdiff <- function (base , compare , keys = NULL,
         COMPARE[["VarModeDiffs"]]$VARIABLE
     )
     
-    #################
-    #
-    # Check Validity of Keys
-    # 
+
+    ##### Check Validity of Keys
     
     BASE_keys <- names(BASE)[names(BASE) %in% KEYS] 
     COMP_keys <- names(COMP)[names(COMP) %in% KEYS] 
@@ -169,10 +196,9 @@ dfdiff <- function (base , compare , keys = NULL,
         stop("KEYS are either an invalid or contain different modes between BASE and COMP")
     }
     
-    #################
-    #
-    # Check Attributes
-    # 
+
+    ##### Check Attributes
+
     
     COMPARE[["AttribDiffs"]] <- construct_issue(
         value = identify_att_differences(BASE,  COMP ,  exclude_cols)  ,
@@ -180,10 +206,7 @@ dfdiff <- function (base , compare , keys = NULL,
     )
     
     
-    #################
-    #
-    # Check data
-    # 
+    ##### Check data
     
     BASE <- factor_to_character(BASE , KEYS)
     COMP <- factor_to_character(COMP , KEYS)
@@ -221,7 +244,7 @@ dfdiff <- function (base , compare , keys = NULL,
     )
     
     
-    ### Summarise the number of mismatching rows per variable
+    ## Summarise the number of mismatching rows per variable
     if ( length(VALUE_DIFFERENCES) ){
         NDIFF  <- sapply( VALUE_DIFFERENCES , nrow )
         COMPARE[["NumDiff"]] <- construct_issue(
@@ -238,7 +261,7 @@ dfdiff <- function (base , compare , keys = NULL,
         )
     }
     
-    ### Get all issue messages, remove blank message, and collapse into single string
+    ## Get all issue messages, remove blank message, and collapse into single string
     ISSUE_MSGS <- sapply(COMPARE, function(x) get_issue_message(x))
     ISSUE_MSGS <- ISSUE_MSGS[ ISSUE_MSGS != ""]
     
@@ -249,15 +272,13 @@ dfdiff <- function (base , compare , keys = NULL,
         }
     } 
     
-    class(COMPARE) <- c("dfdiff" , "list") 
-    attr(COMPARE, 'keys') <- list(value = KEYS, is_derived = is_derived)
     
-    if (!is.null(outfile)){
+    if (!is.null(file)){
         x <- print(COMPARE , as_string = TRUE)
         
         tryCatch(
             {
-                sink(outfile)
+                sink(file)
                 cat(x, sep = "\n")
                 sink()
             },

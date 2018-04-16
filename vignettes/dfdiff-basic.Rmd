@@ -187,20 +187,20 @@ dfdiff(dsin1  , dsin2 , tolerance = 0.001 , suppress_warnings = T)
 
 ### Strictness
 
-By default, the function will note a difference between integer and double columns, and factor and character columns. It can be useful in some contexts to prevent this from occuring. We can do so with the `strict = FALSE` argument
+By default, the function will note a difference between integer and double columns, and factor and character columns. It can be useful in some contexts to prevent this from occuring. We can do so with the `strict_numeric = FALSE` and `strict_factor = FALSE` arguments.
 
 ```{r}
 dsin1 <- data.frame(x = as.integer(c(1,2,3)))
 dsin2 <- data.frame(x = as.numeric(c(1,2,3)))
 
 dfdiff(dsin1  , dsin2 , suppress_warnings = T)
-dfdiff(dsin1  , dsin2 , suppress_warnings = T, strict = FALSE)
+dfdiff(dsin1  , dsin2 , suppress_warnings = T, strict_numeric = FALSE)
 
 dsin1 <- data.frame(x = as.character(c(1,2,3)), stringsAsFactors = FALSE)
 dsin2 <- data.frame(x = as.factor(c(1,2,3)))
 
 dfdiff(dsin1  , dsin2 , suppress_warnings = T)
-dfdiff(dsin1  , dsin2 , suppress_warnings = T, strict = FALSE)
+dfdiff(dsin1  , dsin2 , suppress_warnings = T, strict_factor = FALSE)
 ```
 
 

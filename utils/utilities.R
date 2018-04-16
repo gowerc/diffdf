@@ -57,9 +57,12 @@ dfdiff(iris , iris)
 dfdiff(TDAT , TDAT)
 dfdiff(TDAT2 , TDAT2)
 
+
+library(dplyr)
 dfdiff(
-    TDAT %>% select(ID , BINARY) ,
-    TDAT2 %>% select( ID , BINARY) 
+    TDAT %>% select(ID , INTEGER) %>% mutate( INTEGER = as.numeric(INTEGER)) ,
+    TDAT %>% select( ID , INTEGER) , 
+    strict_numeric = FALSE
 )
 
 dfdiff(

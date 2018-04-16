@@ -1,47 +1,78 @@
-context("Test generate keyname")
+
+
+context("Testing generate keyname")
+
 
 nonetaken <-  data.frame(a = 1)
 onetaken <- data.frame(..ROWNUMBER.. = 1)
 twotaken <- data.frame(..ROWNUMBER.. = 1, ..RN.. = 1)
 threetaken <- data.frame(..ROWNUMBER.. = 1, ..RN.. = 1,  ..ROWN.. = 1)
 fourtaken <- data.frame(..ROWNUMBER.. = 1, ..RN.. = 1, ..ROWN.. = 1, ..N..= 1)
+allbaronetaken <- data.frame( ..RN.. = 1, ..ROWN.. = 1, ..N..= 1)
 
 
 test_that("Correct name returned",{
-    expect_equal("..ROWNUMBER..", generate_keyname(nonetaken, nonetaken))
     
-    expect_equal("..RN..", generate_keyname(onetaken, onetaken))
-    expect_equal("..RN..", generate_keyname(onetaken, nonetaken))
-    expect_equal("..RN..", generate_keyname(nonetaken, onetaken))
+    DATASETS <- list(
+        
+        list("..ROWNUMBER..", nonetaken, nonetaken),
+        list("..ROWNUMBER..", allbaronetaken, allbaronetaken),
+        
+        list("..RN..", onetaken,  onetaken),
+        list("..RN..", onetaken,  nonetaken),
+        list("..RN..", nonetaken, onetaken),
+        
+        list("..ROWN..", twotaken, onetaken),
+        list("..ROWN..", twotaken, nonetaken),
+        list("..ROWN..", twotaken, twotaken),
+        list("..ROWN..", onetaken, twotaken),
+        list("..ROWN..", onetaken, twotaken),
+        
+        list("..N..", threetaken, onetaken),
+        list("..N..", threetaken, nonetaken),
+        list("..N..", threetaken, twotaken),
+        list("..N..", nonetaken, threetaken),
+        list("..N..", onetaken, threetaken),
+        list("..N..", twotaken, threetaken),
+        list("..N..", threetaken, threetaken)
+    )
     
-    expect_equal("..ROWN..", generate_keyname(twotaken, onetaken))
-    expect_equal("..ROWN..", generate_keyname(twotaken, nonetaken))
-    expect_equal("..ROWN..", generate_keyname(twotaken, twotaken))
-    expect_equal("..ROWN..", generate_keyname(onetaken, twotaken))
-    expect_equal("..ROWN..", generate_keyname(onetaken, twotaken))
+    for ( i in DATASETS){
+        expect_equal( i[[1]], generate_keyname(i[[2]] , i[[3]]))    
+    }
+})
+
+
+test_that("Error if all names taken in at least 1 datasets",{
+
+    DATASETS <- list(
+        list(fourtaken, onetaken), 
+        list(fourtaken, nonetaken),
+        list(fourtaken, twotaken),
+        list(fourtaken, threetaken),
+        list(onetaken, fourtaken),
+        list(twotaken, fourtaken),
+        list(nonetaken, fourtaken),
+        list(fourtaken, fourtaken)
+    )
     
-    expect_equal("..N..", generate_keyname(threetaken, onetaken))
-    expect_equal("..N..", generate_keyname(threetaken, nonetaken))
-    expect_equal("..N..", generate_keyname(threetaken, twotaken))
-    expect_equal("..N..", generate_keyname(nonetaken, threetaken))
-    expect_equal("..N..", generate_keyname(onetaken, threetaken))
-    expect_equal("..N..", generate_keyname(twotaken, threetaken))
-    expect_equal("..N..", generate_keyname(threetaken, threetaken))
-
-}
-)
+    for ( i in DATASETS){
+        expect_error(
+            generate_keyname( i[[1]] , i[[2]]),
+            "All default row names are in use in BASE/COMPARE. Please provide a KEY argument"    
+        )
+    }
+})
 
 
-test_that("Error if all names taken",{
 
-    expect_error( generate_keyname(fourtaken, onetaken), "All default row names are in use in BASE/COMPARE. Please provide a KEY argument")
-    expect_error( generate_keyname(fourtaken, nonetaken), "All default row names are in use in BASE/COMPARE. Please provide a KEY argument")
-    expect_error( generate_keyname(fourtaken, twotaken), "All default row names are in use in BASE/COMPARE. Please provide a KEY argument")
-    expect_error( generate_keyname(fourtaken, threetaken), "All default row names are in use in BASE/COMPARE. Please provide a KEY argument")
-    expect_error( generate_keyname(onetaken, fourtaken), "All default row names are in use in BASE/COMPARE. Please provide a KEY argument")
-    expect_error( generate_keyname(twotaken, fourtaken), "All default row names are in use in BASE/COMPARE. Please provide a KEY argument")
-    expect_error( generate_keyname(nonetaken, fourtaken), "All default row names are in use in BASE/COMPARE. Please provide a KEY argument")
-    expect_error( generate_keyname(fourtaken, fourtaken), "All default row names are in use in BASE/COMPARE. Please provide a KEY argument")
-    
-}
-)
+
+
+
+
+
+
+
+
+
+

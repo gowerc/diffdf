@@ -1,13 +1,14 @@
 
-#' sort_join
+#' sort_then_join
 #' 
 #' Convenience function to sort two strings and paste them together
 #' @param string1 first string
 #' @param string2 second string
-#' 
-sort_join <- function(string1, string2){
+sort_then_join <- function(string1, string2){
     paste0(sort(c(string1, string2)), collapse = '')
 }
+
+
 #' class_merge
 #' 
 #' Convenience function to put all classes an object has into one string
@@ -16,27 +17,53 @@ class_merge <- function(x){
     paste(class(x), collapse = "_")
 }
 
-#' cast_vector
+
+get_message <- function( colname , whichdat, totype){
+    message(paste0(
+        "NOTE: Variable " , colname, " in " , tolower(whichdat) , " was casted to " , totype
+    ))
+}
+
+
+#' get_casted_vector
 #' 
 #' casts a vector depending on its type and input
 #' @param colin column to cast
-#' @param typecast type of casting to do
 #' @param colname name of vector
-#' @param whichdat whether base or compare is being casted (used for warnings)
-#' @param supwarn Whether warnings should be printed
-#' 
-cast_vector <- function(colin, typecast, colname,  whichdat, supwarn){
+#' @param whichdat whether base or compare is being casted (used for messages)
+get_casted_vector <- function(colin, colname,  whichdat){
     
-    if (typecast == "characterfactor" & class(colin) == "factor"){
-        if(!supwarn) warning(paste0("Casting ", colname, " in ", whichdat, " to character"))
+    if ( class(colin) == "factor"){
+        get_message( colname , whichdat , "character")
         return(as.character(colin))
     }
-    if (typecast == "integernumeric" & class(colin) == "integer"){
-        if(!supwarn) warning(paste0("Casting ", colname, " in ", whichdat, " to numeric"))
+    
+    if ( class(colin) == "integer"){
+        get_message( colname , whichdat , "numeric")
         return(as.numeric(colin))
     }
+    
     colin
 }
+
+
+
+#' get_casted_dataset
+#' 
+#' Internal utility function to loop across a dataset casting all target 
+#' variables 
+#' @param df dataset to be casted
+#' @param columns columns to be casted
+#' @param whichdat whether base or compare is being casted (used for messages)
+get_casted_dataset <- function(df , columns , whichdat){
+    for ( col in  columns ){
+        df[[col]] <- get_casted_vector( df[[col]]  , col , whichdat )
+    }
+    return(df)
+}
+
+
+
 
 
 
@@ -44,49 +71,103 @@ cast_vector <- function(colin, typecast, colname,  whichdat, supwarn){
 #' 
 #' Function to cast datasets columns if they have differing types
 #' Restricted to specific cases, currently integer and double, and character and factor
-#' @importFrom tibble rownames_to_column
 #' @param BASE base dataset
 #' @param COMPARE comparison dataset
-#' @param SUPWARN Should warning about variables being cast be printed?
-#'
-cast_variables <- function(BASE, COMPARE, SUPWARN = FALSE){
-    
-    BASE_class <- data.frame(class_BASE = sapply(BASE, class_merge), stringsAsFactors = FALSE)
-    BASE_class <- rownames_to_column(BASE_class)
-    
-    COMPARE_class <- data.frame(class_COMPARE = sapply(COMPARE, class_merge), stringsAsFactors = FALSE)
-    COMPARE_class <- rownames_to_column(COMPARE_class)
-    
-    all_class <- merge(BASE_class, COMPARE_class, by = "rowname")
-    all_class <- all_class[all_class$class_BASE != all_class$class_COMPARE,, drop = FALSE]
+#' @param ignore_vars Variables not to be considered for casting
+#' @param cast_integers Logical - Whether integers should be cased to double when compared to doubles
+#' @param cast_factors Logical - Whether characters should be casted to characters when compared to characters
+cast_variables <- function(
+    BASE, 
+    COMPARE, 
+    ignore_vars = NULL, 
+    cast_integers = FALSE , 
+    cast_factors = FALSE 
+){
 
-    all_class$classmerge <- mapply(sort_join, all_class$class_COMPARE, all_class$class_BASE)
-    all_class <- all_class[all_class$classmerge %in% c("integernumeric", "characterfactor"),, drop = FALSE]
+    allowed_class_casts <- c( "integernumeric" , "characterfactor")[c(cast_integers, cast_factors)]
     
-    if(nrow(all_class)==0){
-            return(list(BASE= BASE, COMPARE = COMPARE))
+    BASE_class <- data.frame(
+        class_BASE = sapply(BASE, class_merge), 
+        colname = names(BASE),
+        stringsAsFactors = FALSE
+    )
+    BASE_class <- BASE_class[!BASE_class[["colname"]] %in% ignore_vars,, drop=FALSE] 
+    
+    
+    COMPARE_class <- data.frame(
+        class_COMPARE = sapply(COMPARE, class_merge), 
+        colname = names(COMPARE),
+        stringsAsFactors = FALSE
+    )
+    COMPARE_class <- COMPARE_class[!COMPARE_class[["colname"]] %in% ignore_vars ,, drop=FALSE] 
+    
+    common_class <- merge(
+        x = BASE_class, 
+        y = COMPARE_class, 
+        by = "colname"
+    )
+    
+    
+    diff_class <- common_class[ common_class[["class_BASE"]] != common_class[["class_COMPARE"]] ,,drop=FALSE]
+
+    
+    diff_class$classmerge <- mapply(
+        sort_then_join, 
+        diff_class$class_COMPARE, 
+        diff_class$class_BASE
+    )
+    
+    
+    cast_columns <- diff_class[  diff_class[["classmerge"]] %in% allowed_class_casts ,,drop=FALSE] 
+    
+    
+    DATASETS <- list(
+        "BASE" = BASE,
+        "COMPARE" = COMPARE
+    )
+    
+
+    if( nrow(cast_columns) == 0 ){
+        return( DATASETS )
     }
     
-    BASE[,all_class$rowname] <- mapply(
-        cast_vector, 
-        colin = as.list(BASE[,all_class$rowname, drop = FALSE] ),
-        all_class$classmerge, 
-        colname = names(BASE[,all_class$rowname, drop = FALSE]), 
-        whichdat = "base",
-        supwarn = SUPWARN,
-        SIMPLIFY = FALSE
-        )
     
-    COMPARE[,all_class$rowname] <- mapply(
-        cast_vector, 
-        colin = as.list(COMPARE[,all_class$rowname, drop = FALSE] ),
-        all_class$classmerge, 
-        colname = names(COMPARE[,all_class$rowname, drop = FALSE]), 
-        whichdat = "compare",
-        supwarn = SUPWARN,
-        SIMPLIFY = FALSE
-        )
+    for ( i in names(DATASETS)){
+        DATASETS[[i]] <- get_casted_dataset( DATASETS[[i]] , cast_columns$colname , i)
+    }
+        
     
-    return(list(BASE = BASE, COMP = COMPARE))
-    
+    return(DATASETS)
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

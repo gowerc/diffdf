@@ -4,7 +4,7 @@
 \alias{generate_keyname}
 \title{generate_keyname}
 \usage{
-generate_keyname(BASE, COMP, replace_names = list("..ROWNUMBER..", "..RN..",
+generate_keyname(BASE, COMP, replace_names = c("..ROWNUMBER..", "..RN..",
   "..ROWN..", "..N.."))
 }
 \arguments{
@@ -12,7 +12,7 @@ generate_keyname(BASE, COMP, replace_names = list("..ROWNUMBER..", "..RN..",
 
 \item{COMP}{comparison dataset}
 
-\item{replace_names}{a list of replacement names. Used for recursion, should be edited in function for clarity}
+\item{replace_names}{a vector of replacement names. Used for recursion, should be edited in function for clarity}
 }
 \description{
 Function to generate a name for the keys if not provided

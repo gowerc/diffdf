@@ -25,16 +25,21 @@
 #' Note that dfdiff_issuerows can be used to subset against any dataframe. The only
 #' requirement is that the original variables specified in the keys argument to dfdiff
 #' are present on the dataframe you are subsetting against. However please note that if 
-#' no keys are specified in dfdiff then rownumber is used which means using 
-#' dfdiff_issuerows against an arbitary dataset can easily result in nonsense rows 
-#' being returned. It is always recommended to supply keys to dfdiff.
+#' no keys were specified in dfdiff then the row number is used. This means using 
+#' dfdiff_issuerows without a keys against an arbitary dataset can easily result in 
+#' nonsense rows being returned. It is always recommended to supply keys to dfdiff.
 #' @export
 dfdiff_issuerows <- function( df , diff, vars = NULL){    
 
     if ( class(diff)[[1]] != "dfdiff") {
         stop("diff should be an dfdiff object")
     }
-    if(is.null(attr(diff, "keys"))) stop("diff is missing the keys attribute")
+    
+    KEYS_ATT = attr(diff, "keys")
+    
+    if( is.null(KEYS_ATT) ) {
+        stop("diff is missing the keys attribute")
+    }
     
     issue_vars <- names(diff)[grep( "^VarDiff_", names(diff))]
     
@@ -48,14 +53,21 @@ dfdiff_issuerows <- function( df , diff, vars = NULL){
         return(df[FALSE,])
     }
     
+    KEEP <- mapply(
+        FUN      = get_issue_dataset, 
+        issue    = vars, 
+        diff     = list(diff) , 
+        SIMPLIFY = F
+    )
     
-    KEEP <- mapply(get_issue_dataset, vars, diff = list(diff) , SIMPLIFY = F)
     KEEP <- recursive_reduce( KEEP , rbind)
     KEEP <- KEEP[!duplicated(KEEP),]
-    if(attr(diff, "keys")$is_derived)  df[[attr(diff, "keys")$value]] <- 1:nrow(df)
-
     
-    keys <- attr(diff, "keys")$value
+    if ( KEYS_ATT$is_derived ){
+        df[[KEYS_ATT$value]] <- 1:nrow(df)
+    }
+
+    keys <- KEYS_ATT$value
     
     if ( any( ! keys %in% names(df))){
         stop("df does not contain all variables specified as keys in diff")
@@ -63,12 +75,18 @@ dfdiff_issuerows <- function( df , diff, vars = NULL){
     
     RET <- merge( 
         x = df,
-        y= KEEP,
+        y = KEEP,
         sort = TRUE
     )  
+    
     RET <- RET[do.call("order", RET[keys]), ]
     
-    RET[ ,! names(RET) %in% "..ROWNUMBER..", drop=FALSE]    
+    if ( KEYS_ATT$is_derived ){
+        keep_vars <- !names(RET) %in% KEYS_ATT$value
+        RET <- RET[, keep_vars , drop = FALSE]
+    }
+    
+    return(RET)
 }
 
 
@@ -79,7 +97,7 @@ dfdiff_issuerows <- function( df , diff, vars = NULL){
 #' Internal function used by dfdiff_issuerows to extract the dataframe
 #' from each a target issue. In particular it also strips off any 
 #' non-key variables
-#' @param issue name of issue to extract issue from
+#' @param issue name of issue to extract the dataset from diff 
 #' @param diff dfdiff object which contains issues
 get_issue_dataset <- function(issue, diff){
     issue_df <- diff[[issue]]

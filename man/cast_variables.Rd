@@ -4,14 +4,19 @@
 \alias{cast_variables}
 \title{cast_variables}
 \usage{
-cast_variables(BASE, COMPARE, SUPWARN = FALSE)
+cast_variables(BASE, COMPARE, ignore_vars = NULL, cast_integers = FALSE,
+  cast_factors = FALSE)
 }
 \arguments{
 \item{BASE}{base dataset}
 
 \item{COMPARE}{comparison dataset}
 
-\item{SUPWARN}{Should warning about variables being cast be printed?}
+\item{ignore_vars}{Variables not to be considered for casting}
+
+\item{cast_integers}{Logical - Whether integers should be cased to double when compared to doubles}
+
+\item{cast_factors}{Logical - Whether characters should be casted to characters when compared to characters}
 }
 \description{
 Function to cast datasets columns if they have differing types
