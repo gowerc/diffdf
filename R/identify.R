@@ -237,12 +237,17 @@ identify_differences <- function( BASE , COMP , KEYS, exclude_cols,
     DAT <- DAT[do.call("order", DAT[KEYS]), ]
     
 
-    matching_list <- mapply(is_variable_different , 
-                         matching_cols,
-                         MoreArgs = list(keynames = KEYS, datain = DAT, 
-                                         tolerance = tolerance ,
-                                         scale = scale),
-                         SIMPLIFY = FALSE)
+    matching_list <- mapply(
+        is_variable_different , 
+        matching_cols,
+        MoreArgs = list(
+            keynames = KEYS, 
+            datain = DAT, 
+            tolerance = tolerance ,
+            scale = scale
+        ),
+        SIMPLIFY = FALSE
+    )
     
     matching_list
 }

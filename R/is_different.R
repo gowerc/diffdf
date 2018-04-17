@@ -9,13 +9,21 @@
 #' @param ...  Additional arguments which might be passed through (numerical accuracy)
 #' @return A boolean vector which is T if target and current are different
 is_variable_different <- function (variablename, keynames, datain, ...) {
+
+    xvar <- paste0(variablename,'.x')
+    yvar <- paste0(variablename,'.y')
     
-    target  <- datain[[paste0(variablename,'.x')]]
-    current <- datain[[paste0(variablename,'.y')]]
+    if ( ! xvar %in% names(datain) | ! yvar %in% names(datain)){
+        stop("Variable does not exist within input dataset")
+    }
+    
+    target  <- datain[[xvar]]
+    current <- datain[[yvar]]
     outvect <- find_difference(target, current, ...)
     
     datain[["VARIABLE"]] <- variablename
-    names(datain)[names(datain) %in% c(paste0(variablename,'.x'), paste0(variablename,'.y'))] <- c("BASE", "COMPARE")
+    
+    names(datain)[names(datain) %in% c(xvar, yvar)] <- c("BASE", "COMPARE")
     
     as.tibble(subset(datain, outvect, select = c("VARIABLE", keynames, "BASE", "COMPARE")))
     
@@ -44,20 +52,18 @@ find_difference_wrapfun <- function (target, current, ...) {
 #' @param current a vector to compare target to
 #' @param ...  Additional arguments which might be passed through (numerical accuracy)
 find_difference <- function (target, current, ...) {
+    
     if( length(target) != length(current)){
         warning("Inputs are not of the same length")
         return(NULL)
     }
+    
     if( is.null(target) | is.null(current) ){
-        
         return( is.null(target) != is.null(current) )
-        
     } 
-    
-    
+
     N <- length(target)
     outvect <- rep(TRUE,N)
-    
     
     nas_t <- is.na(target) 
     nas_c <- is.na(current)
