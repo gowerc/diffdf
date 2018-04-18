@@ -148,7 +148,7 @@ find_difference.numeric <- function(
         xy <- xy/scale
     }
     
-    ifelse(xy > tolerance, T, F) 
+    xy > tolerance
 
 }
 
