@@ -29,15 +29,15 @@ is_variable_different <- function (variablename, keynames, datain, ...) {
     
 }
 
-#' find_difference_wrapfun
+#' compare_vectors
 #' 
-#' Wrapper which passes find_difference methods. Intended only for use
-#' in is_different
+#' Compare two vectors looking for differences
+#' 
 #' @param target the base vector
 #' @param current a vector to compare target to
 #' @param ...  Additional arguments which might be passed through (numerical accuracy)
-find_difference_wrapfun <- function (target, current, ...) {
-    UseMethod("find_difference")
+compare_vectors <- function (target, current, ...) {
+    UseMethod("compare_vectors")
 }
 
 
@@ -67,14 +67,14 @@ find_difference <- function (target, current, ...) {
     
     nas_t <- is.na(target) 
     nas_c <- is.na(current)
-    nacompare <- is.na(target) != is.na(current)
+    nacompare <- nas_t != nas_c
     
     selectvector <- as.logical( (!nas_t) * (!nas_c) )
     
     target  <- target[selectvector]
     current <- current[selectvector]  
     
-    comparevect <- find_difference_wrapfun(target,current, ...)
+    comparevect <- compare_vectors(target,current, ...)
     
     outvect[selectvector] <- comparevect
     
@@ -88,26 +88,26 @@ find_difference <- function (target, current, ...) {
 
 
 
-#' find_difference.default
+#' compare_vectors.default
 #' 
 #' Default method, if the vector is not numeric or factor. Basic comparison
 #' @param target the base vector
 #' @param current a vector to compare target to
 #' @param ...  Additional arguments which might be passed through (numerical accuracy)
-find_difference.default <- function(target, current, ...){
+compare_vectors.default <- function(target, current, ...){
     target != current 
 }
 
 
 
 
-#' find_difference.factor
+#' compare_vectors.factor
 #' 
 #' Compares factors. Sets them as character and then compares
 #' @param target the base vector
 #' @param current a vector to compare target to
 #' @param ...  Additional arguments which might be passed through (numerical accuracy)
-find_difference.factor <- function(target, current, ...){
+compare_vectors.factor <- function(target, current, ...){
     as.character(target) != as.character(current) 
 }
 
@@ -115,7 +115,7 @@ find_difference.factor <- function(target, current, ...){
 
 
 
-#' find_difference.numeric
+#' compare_vectors.numeric
 #' 
 #' This is a modified version of the all.equal function
 #' which returns a vector rather than a message
@@ -123,7 +123,7 @@ find_difference.factor <- function(target, current, ...){
 #' @param current a vector to compare target to
 #' @param tolerance Level of tolerance for differences between two variables
 #' @param scale Scale that tolerance should be set on. If NULL assume absolute
-find_difference.numeric <- function(
+compare_vectors.numeric <- function(
     target, 
     current, 
     tolerance = sqrt(.Machine$double.eps),
