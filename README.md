@@ -1,35 +1,36 @@
 # diffdf
 
+Find data.frame differences !
 
 ## Introduction
 
-diffdf is a package for R which enables detailed comparison of data frames in R. Similar in conception to R, it provides a detailed level of comparisons between two data frames.
+The diffdf package is designed to enable detailed comparison of two data.frames. Whilst many packages exist for informing you if there are differences between data.frames, none provide as much detail on what and where those differences are as diffdf does!
 
-It is called via the library(diffdf), then using
+## Example
 
-diffdf(data1,data2).
-
-You can save the outputted information into a file, and also interogate the objects produced in more detail.
+```
+library(diffdf)
+iris2 <- iris
+for ( i in 1:3) iris2[i,i] <- i^2
+iris2$new_var <- "hello"
+class(iris2$Species) <- "some class"
+dfdiff( iris, iris2)
+```
 
 ## Features
 
-The following is possible in diffdf
+Currently diffdf supports the following:
+   - Checking for differences in values
+   - Checking for differences in attributes
+   - Checking for differences in classes
+   - Checking for differences in column names
+   - Checking for differences in the number of observations
+   - Matching rows by key/id variables
+   - Fuzzy comparisons (i.e. treating doubles and integers as the same)
+   - Extracting datasets of different rows
+   
 
-- Difference in number of columns/rows
-- Comparison of attributes (such as labels, factor levels)
-- Checking columns are of the same class and mode
-- Controlling the level of accuracy used when comparing numeric values
+For more information on features please consult the vignette and man pages. 
 
-Note that currently diffdf only supports data frames, and columns which are not lists.
 
-## Installation
 
-diffdf is not currently on gran, so you can install it via
-
-```
-devtools::install_git(“https://github.roche.com/Rpackages/diffdf” , upgrade_dependencies = FALSE)
-library(diffdf)
-diffdf( iris,  iris[-5] ) 
-```
-
-Use ?diffdf for more help. For any issues, please use the issues tracker on github.
