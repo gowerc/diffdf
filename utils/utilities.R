@@ -11,9 +11,9 @@ devtools::document()
 
 devtools::build()
 
-### Ensure dfdiff is unloaded and removed
-unloadNamespace("dfdiff")
-utils::remove.packages("dfdiff")
+### Ensure diffdf is unloaded and removed
+unloadNamespace("diffdf")
+utils::remove.packages("diffdf")
 
 ### Document build and install R compare
 devtools::document()
@@ -21,10 +21,10 @@ location <- devtools::build()
 install.packages( location, repos = NULL, type="source")
 
 ### Very simple test
-dfdiff::dfdiff(iris,iris)
-library(dfdiff)
-dfdiff(iris , iris)
-?dfdiff
+diffdf::diffdf(iris,iris)
+library(diffdf)
+diffdf(iris , iris)
+?diffdf
 
 ###############
 #
@@ -35,7 +35,7 @@ library(rclinical)
 ?install
 
 devtools::install_git( 
-    "https://github.roche.com/Rpackages/dfdiff/tree/fix_dplyr_update", 
+    "https://github.roche.com/Rpackages/diffdf/tree/fix_dplyr_update", 
     upgrade_dependencies = F
 )
 
@@ -53,63 +53,63 @@ source("./tests/testthat/helper-create_test_data.R")
 
 
 devtools::load_all()
-dfdiff(iris , iris)
-dfdiff(TDAT , TDAT)
-dfdiff(TDAT2 , TDAT2)
+diffdf(iris , iris)
+diffdf(TDAT , TDAT)
+diffdf(TDAT2 , TDAT2)
 
 
 library(dplyr)
-dfdiff(
+diffdf(
     TDAT %>% select(ID , INTEGER) %>% mutate( INTEGER = as.numeric(INTEGER)) ,
     TDAT %>% select( ID , INTEGER) , 
     strict_numeric = FALSE
 )
 
-dfdiff(
+diffdf(
     TDAT %>% select(ID , CATEGORICAL) ,
     TDAT2 %>% select( ID , CATEGORICAL) 
 )
 
-dfdiff(
+diffdf(
     TDAT %>% select(ID , DATE) ,
     TDAT2 %>% select( ID , DATE) 
 )
 
-dfdiff(
+diffdf(
     TDAT %>% select(ID , CONTINUOUS) ,
     TDAT2 %>% select( ID , CONTINUOUS) 
 )
 
-dfdiff(
+diffdf(
     TDAT %>% select(ID , DATETIME) ,
     TDAT2 %>% select( ID , DATETIME) 
 )
 
-dfdiff(
+diffdf(
     TDAT,
     TDAT2
 )
 
 TDAT3 <- TDAT %>% sample_frac(1)
-dfdiff(TDAT , TDAT3)
+diffdf(TDAT , TDAT3)
 
-x <- dfdiff(TDAT , TDAT2 , keys = c("ID" , "GROUP1"))
+x <- diffdf(TDAT , TDAT2 , keys = c("ID" , "GROUP1"))
 print(x ,VARIABLE =  "GROUP2")
 
 class(x)
 
 
-dfdiff_has_pass <- function(x){
-    if (  class(x)[[1]] != "dfdiff" )  stop( "x is not an dfdiff object")
+diffdf_has_pass <- function(x){
+    if (  class(x)[[1]] != "diffdf" )  stop( "x is not an diffdf object")
     return( length(x) == 0 ) 
 }
 
 
 
-dfdiff_has_pass(x)
+diffdf_has_pass(x)
 
 
 
 
 
-dfdiff(TDAT , TDAT2 , outfile = "./testing2.txt")
+diffdf(TDAT , TDAT2 , outfile = "./testing2.txt")

@@ -1,12 +1,12 @@
 
-#' dfdiff
+#' diffdf
 #' @description  
 #' Compares 2 dataframes and outputs any differences.
 #' @param base input dataframe
 #' @param compare comparison dataframe
 #' @param keys vector of variables (as strings) that defines a unique row in the base and compare dataframes
-#' @param strict_numeric Flag for strict numeric to numeric comparisons (default = TRUE). If False dfdiff will cast integer to double where required for comparisons. Note that variables specified in the keys will never be casted.
-#' @param strict_factor Flag for strict factor to character comparisons (default = TRUE). If False dfdiff will cast factors to characters where required for comparisons. Note that variables specified in the keys will never be casted.
+#' @param strict_numeric Flag for strict numeric to numeric comparisons (default = TRUE). If False diffdf will cast integer to double where required for comparisons. Note that variables specified in the keys will never be casted.
+#' @param strict_factor Flag for strict factor to character comparisons (default = TRUE). If False diffdf will cast factors to characters where required for comparisons. Note that variables specified in the keys will never be casted.
 #' @param suppress_warnings Do you want to suppress warnings? (logical)
 #' @param file Location and name of a text file to output the results to. Setting to NULL will cause no file to be produced.
 #' @param tolerance Set tolerance for numeric comparisons. Note that comparisons fail if (x-y)/scale > tolerance.
@@ -14,7 +14,7 @@
 #' @examples
 #' x <- subset( iris,  -Species)
 #' x[1,2] <- 5
-#' COMPARE <- dfdiff( iris, x)
+#' COMPARE <- diffdf( iris, x)
 #' print( COMPARE )
 #' print( COMPARE , "Sepal.Length" )
 #' 
@@ -33,7 +33,7 @@
 #'     v3 = c(NA , NA , 1 , 2 , NA , 4)
 #' )
 #' 
-#' dfdiff(DF1 , DF1 , keys = "id")
+#' diffdf(DF1 , DF1 , keys = "id")
 #' 
 #' # We can control matching with scale/location for example:
 #' 
@@ -48,9 +48,9 @@
 #'     v2 = c(1.1,2,3,4,5,6)
 #' )
 #' 
-#' dfdiff(DF1 , DF2 , keys = "id")
-#' dfdiff(DF1 , DF2 , keys = "id", tolerance = 0.2)
-#' dfdiff(DF1 , DF2 , keys = "id", scale = 10, tolerance = 0.2)
+#' diffdf(DF1 , DF2 , keys = "id")
+#' diffdf(DF1 , DF2 , keys = "id", tolerance = 0.2)
+#' diffdf(DF1 , DF2 , keys = "id", scale = 10, tolerance = 0.2)
 #'  
 #' # We can use strict_factor to compare factors with characters for example:
 #' 
@@ -67,11 +67,11 @@
 #'     v2 = c(NA , NA , 1 , 2 , 3 , NA)
 #' )
 #' 
-#' dfdiff(DF1 , DF2 , keys = "id", strict_factor = TRUE)
-#' dfdiff(DF1 , DF2 , keys = "id", strict_factor = FALSE)
+#' diffdf(DF1 , DF2 , keys = "id", strict_factor = TRUE)
+#' diffdf(DF1 , DF2 , keys = "id", strict_factor = FALSE)
 #'  
 #' @export
-dfdiff <- function (
+diffdf <- function (
     base , 
     compare , 
     keys = NULL, 
@@ -91,7 +91,7 @@ dfdiff <- function (
     
     ### Initatiate output object
     COMPARE <- list()
-    class(COMPARE) <- c("dfdiff" , "list") 
+    class(COMPARE) <- c("diffdf" , "list") 
     
     is_derived <- FALSE
     
@@ -303,25 +303,25 @@ dfdiff <- function (
 
 
 
-#' dfdiff_has_issues
+#' diffdf_has_issues
 #' 
-#' Utility function which returns TRUE if an dfdiff
-#' object has issues or FALSE if an dfdiff object does not have issues
-#' @param x dfdiff object
+#' Utility function which returns TRUE if an diffdf
+#' object has issues or FALSE if an diffdf object does not have issues
+#' @param x diffdf object
 #' @examples
 #' 
 #' # Example with no issues
-#' x <- dfdiff( iris, iris )
-#' dfdiff_has_issues(x)
+#' x <- diffdf( iris, iris )
+#' diffdf_has_issues(x)
 #' 
 #' # Example with issues
 #' iris2 <- iris
 #' iris2[2,2] <- NA
-#' x <- dfdiff( iris , iris2 , suppress_warnings = TRUE)
-#' dfdiff_has_issues(x)
+#' x <- diffdf( iris , iris2 , suppress_warnings = TRUE)
+#' diffdf_has_issues(x)
 #' @export
-dfdiff_has_issues <- function(x){
-    if (  class(x)[[1]] != "dfdiff" )  stop( "x is not an dfdiff object")
+diffdf_has_issues <- function(x){
+    if (  class(x)[[1]] != "diffdf" )  stop( "x is not an diffdf object")
     return( length(x) != 0 ) 
 }
 

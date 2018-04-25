@@ -1,5 +1,5 @@
 library(dplyr)
-library(dfdiff)
+library(diffdf)
 
 benchmark <- function(nrow, ncol, seedin, same = T){
   set.seed(seedin)
@@ -9,20 +9,20 @@ benchmark <- function(nrow, ncol, seedin, same = T){
   data2 <- rnorm(nrow*ncol)
   Y<- matrix(data2, ncol = ncol) %>% as.data.frame()
   start_time <- Sys.time()
-  compob <- suppressMessages(suppressWarnings(dfdiff(X,Y)))
+  compob <- suppressMessages(suppressWarnings(diffdf(X,Y)))
   end_time <- Sys.time()
   start_time2 <- Sys.time()
   compob <- suppressMessages(suppressWarnings(all.equal(X,Y)))
   end_time2 <- Sys.time()  
   }else{
     start_time <- Sys.time()
-    compob <- suppressMessages(suppressWarnings(dfdiff(X,X)))
+    compob <- suppressMessages(suppressWarnings(diffdf(X,X)))
     end_time <- Sys.time()
     start_time2 <- Sys.time()
     compob <- suppressMessages(suppressWarnings(all.equal(X,X)))
     end_time2 <- Sys.time() 
   }
-  list(dfdiff = end_time - start_time,
+  list(diffdf = end_time - start_time,
        is.equal = end_time2 - start_time2)
 }
 

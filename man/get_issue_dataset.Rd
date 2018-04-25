@@ -9,10 +9,10 @@ get_issue_dataset(issue, diff)
 \arguments{
 \item{issue}{name of issue to extract the dataset from diff}
 
-\item{diff}{dfdiff object which contains issues}
+\item{diff}{diffdf object which contains issues}
 }
 \description{
-Internal function used by dfdiff_issuerows to extract the dataframe
+Internal function used by diffdf_issuerows to extract the dataframe
 from each a target issue. In particular it also strips off any 
 non-key variables
 }

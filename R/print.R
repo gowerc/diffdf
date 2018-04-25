@@ -1,18 +1,18 @@
 
-#' Print dfdiff objects
+#' Print diffdf objects
 #' 
-#' Print nicely formated version of an dfdiff object
-#' @param x comparison object created by dfdiff().
+#' Print nicely formated version of an diffdf object
+#' @param x comparison object created by diffdf().
 #' @param ... Additional arguments (not used)
 #' @param as_string Return printed message as an R character vector? 
 #' @examples
 #' x <- subset( iris , -Species )
 #' x[1,2] <- 5
-#' COMPARE <- dfdiff( iris, x)
+#' COMPARE <- diffdf( iris, x)
 #' print( COMPARE )
 #' print( COMPARE , "Sepal.Length" )
 #' @export 
-print.dfdiff <- function(x, ..., as_string = FALSE){
+print.diffdf <- function(x, ..., as_string = FALSE){
     COMPARE <- x
 
     if ( length(COMPARE) == 0 ){

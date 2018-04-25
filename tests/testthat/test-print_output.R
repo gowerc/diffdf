@@ -12,7 +12,7 @@ context("Testing print functionality")
 
 
 runme <- function(x){
-    x2 <- dfdiff(x[[1]] , x[[2]] , suppress_warnings = T)
+    x2 <- diffdf(x[[1]] , x[[2]] , suppress_warnings = T)
     print(x2 , as_string = TRUE)
 }
 
@@ -21,7 +21,7 @@ RES <- map( list_of_comparisons , runme)
 
 ### Add additional examples that make use of keys
 
-x <- dfdiff(
+x <- diffdf(
     list_of_comparisons[["everything"]][[1]] ,
     list_of_comparisons[["everything"]][[2]] ,
     keys = "ID",
@@ -30,7 +30,7 @@ x <- dfdiff(
 RES[[ "With 1 key"]] <- print(x , as_string = TRUE)
 
 
-x <- dfdiff(
+x <- diffdf(
     list_of_comparisons[["everything"]][[1]] ,
     list_of_comparisons[["everything"]][[2]] ,
     keys = c("ID" , "GROUP1"),
@@ -72,7 +72,7 @@ if ( SET_GOLD ){
 # RES[[i]] %>% cat(sep = "\n")
 # TESTING_print_msg[[i]] %>% cat(sep = "\n")
 # 
-# dfdiff(
+# diffdf(
 #  print_tests[[i]][[1]],
 #  print_tests[[i]][[2]]
 # )
