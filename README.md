@@ -1,35 +1,23 @@
 # diffdf
 
+Find data.frame differences !
 
 ## Introduction
 
-diffdf is a package for R which enables detailed comparison of data frames in R. Similar in conception to R, it provides a detailed level of comparisons between two data frames.
+The diffdf package is designed to enable detailed comparisons of data.frames. Whilst many packages exist for informing you if there are differences between data.frames non provide as much detail on what and where those differences are as diffdf !
 
-It is called via the library(diffdf), then using
-
-diffdf(data1,data2).
-
-You can save the outputted information into a file, and also interogate the objects produced in more detail.
-
-## Features
-
-The following is possible in diffdf
-
-- Difference in number of columns/rows
-- Comparison of attributes (such as labels, factor levels)
-- Checking columns are of the same class and mode
-- Controlling the level of accuracy used when comparing numeric values
-
-Note that currently diffdf only supports data frames, and columns which are not lists.
-
-## Installation
-
-diffdf is not currently on gran, so you can install it via
+## Basic example
 
 ```
-devtools::install_git(“https://github.roche.com/Rpackages/diffdf” , upgrade_dependencies = FALSE)
 library(diffdf)
-diffdf( iris,  iris[-5] ) 
+iris2 <- iris
+for ( i in 1:3) iris2[i,i] <- i^2
+iris2$new_var <- "hello"
+class(iris2$Species) <- "some class"
+dfdiff( iris, iris2)
 ```
 
-Use ?diffdf for more help. For any issues, please use the issues tracker on github.
+For more information on features please consult the vignette and man pages. 
+
+
+
