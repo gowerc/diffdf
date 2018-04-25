@@ -219,7 +219,6 @@ identify_att_differences <- function( BASE, COMP , exclude_cols = "" ){
 #' @param exclude_cols Columns to exclude from comparision
 #' @param tolerance Level of tolerance for numeric differences between two variables
 #' @param scale Scale that tolerance should be set on. If NULL assume absolute
-#' @importFrom tibble as.tibble tibble
 identify_differences <- function( BASE , COMP , KEYS, exclude_cols,  
                                   tolerance = sqrt(.Machine$double.eps),
                                   scale = NULL ) {
@@ -237,35 +236,20 @@ identify_differences <- function( BASE , COMP , KEYS, exclude_cols,
     )
     DAT <- DAT[do.call("order", DAT[KEYS]), ]
     
-    matching_list <- list()
-    outdat <- list()
-    keyselect <- subset(DAT, select = KEYS)
-    
-    for (i in matching_cols){
-        matching_list[[i]] <- is_different(
-            DAT[[paste0(i,'.x')]], 
-            DAT[[paste0(i,'.y')]],
+
+    matching_list <- mapply(
+        is_variable_different , 
+        matching_cols,
+        MoreArgs = list(
+            keynames = KEYS, 
+            datain = DAT, 
             tolerance = tolerance ,
-            scale = scale 
-        )
-        
-        keyselect[["VARIABLE"]] = i
-        
-        keyselecti <- subset(keyselect, select = c('VARIABLE',KEYS))
-        
-        keyselecti <- keyselecti[matching_list[[i]],]
-        
-        outdat[[i]] <- as.tibble(
-            cbind(
-                keyselecti ,
-                tibble( 
-                    BASE = DAT[[paste0(i,'.x')]][matching_list[[i]] ],
-                    COMPARE = DAT[[paste0(i,'.y')]][matching_list[[i]] ]
-                )
-            )
-        )
-    }
-    outdat
+            scale = scale
+        ),
+        SIMPLIFY = FALSE
+    )
+    
+    matching_list
 }
 
 

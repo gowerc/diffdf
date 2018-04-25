@@ -238,22 +238,24 @@ dfdiff <- function (
     
     
     VALUE_DIFFERENCES <- identify_differences(
-        BASE, COMP , KEYS, exclude_cols, 
-        tolerance = tolerance, 
+        BASE, COMP , KEYS, exclude_cols,
+        tolerance = tolerance,
         scale = scale
     )
+
     
     
     ## Summarise the number of mismatching rows per variable
+
     if ( length(VALUE_DIFFERENCES) ){
         NDIFF  <- sapply( VALUE_DIFFERENCES , nrow )
         COMPARE[["NumDiff"]] <- construct_issue(
-            value = convert_to_issue(NDIFF), 
+            value = convert_to_issue(NDIFF),
             message = "Not all Values Compared Equal"
         )
-    } 
-    
-    
+    }
+
+
     for ( i in names(VALUE_DIFFERENCES) ){
         COMPARE[[ paste0( "VarDiff_", i)]] <- construct_issue(
             value = VALUE_DIFFERENCES[[i]] ,

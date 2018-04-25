@@ -1,36 +1,64 @@
-
-
-
-
-
-
-
-#' is_different_wrapfun
+#' is_variable_different 
 #' 
-#' Wrapper which passes is_different methods. Intended only for use
-#' in is_different
+#' This subsets the data set on the variable name, picks out differences and returns a tibble
+#' of differences for the given variable
+#' @importFrom tibble as.tibble
+#' @param variablename name of variable being compared
+#' @param keynames name of keys
+#' @param datain Inputted dataset with base and compare vectors
+#' @param ...  Additional arguments which might be passed through (numerical accuracy)
+#' @return A boolean vector which is T if target and current are different
+is_variable_different <- function (variablename, keynames, datain, ...) {
+
+    xvar <- paste0(variablename,'.x')
+    yvar <- paste0(variablename,'.y')
+    
+    if ( ! xvar %in% names(datain) | ! yvar %in% names(datain)){
+        stop("Variable does not exist within input dataset")
+    }
+    
+    target  <- datain[[xvar]]
+    current <- datain[[yvar]]
+    outvect <- find_difference(target, current, ...)
+    
+    datain[["VARIABLE"]] <- variablename
+    
+    names(datain)[names(datain) %in% c(xvar, yvar)] <- c("BASE", "COMPARE")
+    
+    x <- as.tibble(
+        subset(
+            datain, 
+            outvect, 
+            select = c("VARIABLE", keynames, "BASE", "COMPARE")
+        )
+    )
+    
+    return(x)
+}
+
+#' compare_vectors
+#' 
+#' Compare two vectors looking for differences
+#' 
 #' @param target the base vector
 #' @param current a vector to compare target to
 #' @param ...  Additional arguments which might be passed through (numerical accuracy)
-is_different_wrapfun <- function (target, current, ...) {
-    UseMethod("is_different")
+compare_vectors <- function (target, current, ...) {
+    UseMethod("compare_vectors")
 }
 
 
-
-
-
-#' is_different
+#' find_difference
 #' 
 #' This determines if two vectors are different. It expects vectors of the same
 #' length and type, and is intended to be used after checks have already been done
 #' Initially picks out any nas (matching nas count as a match)
 #' Then compares remaining vector
+#' 
 #' @param target the base vector
 #' @param current a vector to compare target to
 #' @param ...  Additional arguments which might be passed through (numerical accuracy)
-#' @return A boolean vector which is T if target and current are different
-is_different <- function (target, current, ...) {
+find_difference <- function (target, current, ...) {
     
     if( length(target) != length(current)){
         warning("Inputs are not of the same length")
@@ -38,59 +66,60 @@ is_different <- function (target, current, ...) {
     }
     
     if( is.null(target) | is.null(current) ){
-        
         return( is.null(target) != is.null(current) )
-        
-    } else {
-        
-        N <- length(target)
-        outvect <- rep(TRUE,N)
-        
-        
-        nas_t <- is.na(target) 
-        nas_c <- is.na(current)
-        nacompare <- is.na(target) != is.na(current)
-        
-        selectvector <- as.logical( (!nas_t) * (!nas_c) )
-        
-        target  <- target[selectvector]
-        current <- current[selectvector]  
-        
-        comparevect <- is_different_wrapfun(target,current, ...)
-        
-        outvect[selectvector] <- comparevect
-        
-        outvect[nas_t|nas_c]  <- nacompare[nas_t|nas_c]
-        
-        as.logical(outvect)
-        
-        
-    }  
+    } 
+    
+    ### Initalise output, assume problem unless evidence otherwise
+    return_vector <- rep(TRUE, length(target))
+    
+    nas_t <- is.na(target) 
+    nas_c <- is.na(current)
+    
+    ## compare missing values
+    nacompare <- nas_t != nas_c
+    naselect <- nas_t|nas_c
+    return_vector[naselect]  <- nacompare[naselect]
+    
+    ## compare non-missing values
+    selectvector <- as.logical( (!nas_t) * (!nas_c) )
+    
+    comparevect <- compare_vectors( 
+        target[selectvector] ,
+        current[selectvector], 
+        ...
+    )
+    
+    return_vector[selectvector] <- comparevect
+    
+    return(return_vector)
 }
 
 
 
 
-#' is_different.default
+
+
+
+#' compare_vectors.default
 #' 
 #' Default method, if the vector is not numeric or factor. Basic comparison
 #' @param target the base vector
 #' @param current a vector to compare target to
 #' @param ...  Additional arguments which might be passed through (numerical accuracy)
-is_different.default <- function(target, current, ...){
+compare_vectors.default <- function(target, current, ...){
     target != current 
 }
 
 
 
 
-#' is_different.factor
+#' compare_vectors.factor
 #' 
 #' Compares factors. Sets them as character and then compares
 #' @param target the base vector
 #' @param current a vector to compare target to
 #' @param ...  Additional arguments which might be passed through (numerical accuracy)
-is_different.factor <- function(target, current, ...){
+compare_vectors.factor <- function(target, current, ...){
     as.character(target) != as.character(current) 
 }
 
@@ -98,7 +127,7 @@ is_different.factor <- function(target, current, ...){
 
 
 
-#' is_different.numeric
+#' compare_vectors.numeric
 #' 
 #' This is a modified version of the all.equal function
 #' which returns a vector rather than a message
@@ -106,53 +135,32 @@ is_different.factor <- function(target, current, ...){
 #' @param current a vector to compare target to
 #' @param tolerance Level of tolerance for differences between two variables
 #' @param scale Scale that tolerance should be set on. If NULL assume absolute
-is_different.numeric <- function(
+compare_vectors.numeric <- function(
     target, 
     current, 
     tolerance = sqrt(.Machine$double.eps),
     scale = NULL
 ){
 
-    
-    target <- as.vector(target)
-    current <- as.vector(current)
     out <- target == current
     
     if (all(out)) {
-        return(rep(FALSE, length(out)))
+        return(!out)
     }
     
-    N <- length(target)
-    target <- target[!out]
-    current <- current[!out]
-    
-    if (is.integer(target) && is.integer(current)){ 
+    if (is.integer(target) || is.integer(current)){ 
         target <- as.double(target)
+        current <- as.double(current)
     }
     
-    xy <- mean(abs(target - current))
+    xy <- abs(target - current)
     
-    what <- if (is.null(scale)) {
-        xn <- mean(abs(target))
-        if (is.finite(xn) && xn > tolerance) {
-            xy <- xy/xn
-        }
-    } else {
+    if (!is.null(scale)) {
         xy <- xy/scale
     }
     
-    msg <- NULL
-    
-    if (is.na(xy) || xy > tolerance) {
-        msg <- !out
-    }
-    
-    if (is.null(msg)) {
-        rep(FALSE,length(out))
-    } else {
-        msg
-    }
-    
+    return(xy > tolerance)
+
 }
 
 

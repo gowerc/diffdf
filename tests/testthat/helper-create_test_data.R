@@ -30,6 +30,7 @@ VALS <- list(
     num_na   = c(1,2,3,4,NA), 
     flt      = c(0, 0.1, 0.2 , 0.3, 0.4) ,
     flt2     = c(0, 0.1, 0.2 , 0.3, 0.4) - 0.000000000001,
+    flt3    = c(0 + 1e-12, 0.1, 0.2 , 0.3, 0.4),
     flt_calc = c(0.08, 0.18, 0.28 , 0.38, 0.48) - 0.08,
     chr      = c('antelope', 'bear', 'cake', 'gpro/', "^admw"),
     chr_na   = c('antelope', 'bear', 'cake', NA , "@awd"),
