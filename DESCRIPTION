@@ -1,4 +1,4 @@
-Package: dfdiff
+Package: diffdf
 Type: Package
 Title: Dataframe difference tool
 Version: 1.0.0
@@ -7,7 +7,7 @@ Authors@R: c(
     person("Kieran", "Martin" , email = "kieran.martin@roche.com" , role = "aut")
     )
 Description: This package provides functions for comparing two dataframes against 
-    each other. The core dfdiff function will provide a detailed breakdown of any differences 
+    each other. The core diffdf function will provide a detailed breakdown of any differences 
     between two dataframes as well as providing utility functions to help narrow down the 
     source of problems.
 License: MIT + file LICENSE

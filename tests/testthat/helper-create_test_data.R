@@ -1,6 +1,6 @@
 
 library(testthat)
-library(dfdiff)
+library(diffdf)
 library(purrr)
 library(tibble)
 
