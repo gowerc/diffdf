@@ -33,7 +33,7 @@ seedset <- 10112017
 benchmark(100, 500, seedset, T)
 benchmark(100, 500, seedset, F)
 
-benchmark(100000, 100, seedset, T)
+benchmark(1000000, 100, seedset, T)
 benchmark(100000, 100, seedset, F)
 
 benchmark(1000, 1000, seedset, F)

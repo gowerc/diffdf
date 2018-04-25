@@ -25,8 +25,15 @@ is_variable_different <- function (variablename, keynames, datain, ...) {
     
     names(datain)[names(datain) %in% c(xvar, yvar)] <- c("BASE", "COMPARE")
     
-    as.tibble(subset(datain, outvect, select = c("VARIABLE", keynames, "BASE", "COMPARE")))
+    x <- as.tibble(
+        subset(
+            datain, 
+            outvect, 
+            select = c("VARIABLE", keynames, "BASE", "COMPARE")
+        )
+    )
     
+    return(x)
 }
 
 #' compare_vectors
@@ -61,25 +68,30 @@ find_difference <- function (target, current, ...) {
     if( is.null(target) | is.null(current) ){
         return( is.null(target) != is.null(current) )
     } 
-
-    N <- length(target)
-    outvect <- rep(TRUE,N)
+    
+    ### Initalise output, assume problem unless evidence otherwise
+    return_vector <- rep(TRUE, length(target))
     
     nas_t <- is.na(target) 
     nas_c <- is.na(current)
-    nacompare <- nas_t != nas_c
     
+    ## compare missing values
+    nacompare <- nas_t != nas_c
+    naselect <- nas_t|nas_c
+    return_vector[naselect]  <- nacompare[naselect]
+    
+    ## compare non-missing values
     selectvector <- as.logical( (!nas_t) * (!nas_c) )
     
-    target  <- target[selectvector]
-    current <- current[selectvector]  
+    comparevect <- compare_vectors( 
+        target[selectvector] ,
+        current[selectvector], 
+        ...
+    )
     
-    comparevect <- compare_vectors(target,current, ...)
+    return_vector[selectvector] <- comparevect
     
-    outvect[selectvector] <- comparevect
-    
-    outvect[nas_t|nas_c]  <- nacompare[nas_t|nas_c]
-    as.logical(outvect)
+    return(return_vector)
 }
 
 
@@ -130,7 +142,6 @@ compare_vectors.numeric <- function(
     scale = NULL
 ){
 
-    
     out <- target == current
     
     if (all(out)) {
@@ -148,7 +159,7 @@ compare_vectors.numeric <- function(
         xy <- xy/scale
     }
     
-    xy > tolerance
+    return(xy > tolerance)
 
 }
 
