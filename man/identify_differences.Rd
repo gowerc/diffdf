@@ -8,13 +8,13 @@ identify_differences(BASE, COMP, KEYS, exclude_cols,
   tolerance = sqrt(.Machine$double.eps), scale = NULL)
 }
 \arguments{
-\item{BASE}{Base dataset for comparision (data.frame)}
+\item{BASE}{Base dataset for comparison (data.frame)}
 
 \item{COMP}{Comparator dataset to compare base against (data.frame)}
 
 \item{KEYS}{List of variables that define a unique row within the datasets (strings)}
 
-\item{exclude_cols}{Columns to exclude from comparision}
+\item{exclude_cols}{Columns to exclude from comparison}
 
 \item{tolerance}{Level of tolerance for numeric differences between two variables}
 

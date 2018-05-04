@@ -2,7 +2,7 @@
 
 #' identify_extra_rows
 #' 
-#' Identifys rows that are in a baseline dataset but not in a comparator dataset
+#' Identifies rows that are in a baseline dataset but not in a comparator dataset
 #' @param DS1 Baseline dataset (data frame)
 #' @param DS2 Comparator dataset (data frame)
 #' @param KEYS List of variables that define a unique row within the datasets (strings)
@@ -23,7 +23,7 @@ identify_extra_rows <- function(DS1, DS2 , KEYS){
 
 #' identify_extra_cols
 #' 
-#' Identifys columns that are in a baseline dataset but not in a comparator dataset
+#' Identifies columns that are in a baseline dataset but not in a comparator dataset
 #' @param DS1 Baseline dataset (data frame)
 #' @param DS2 Comparator dataset (data frame)
 #' @importFrom tibble tibble
@@ -78,7 +78,7 @@ identify_unsupported_cols <- function(dsin){
 #' identify_mode_differences
 #' 
 #' Identifies any mode differences between two data frames
-#' @param BASE Base dataset for comparision (data.frame)
+#' @param BASE Base dataset for comparison (data.frame)
 #' @param COMP Comparator dataset to compare base against (data.frame)
 identify_mode_differences <- function( BASE, COMP ){
 
@@ -106,7 +106,7 @@ identify_mode_differences <- function( BASE, COMP ){
 #' identify_class_differences
 #' 
 #' Identifies any class differences between two data frames
-#' @param BASE Base dataset for comparision (data.frame)
+#' @param BASE Base dataset for comparison (data.frame)
 #' @param COMP Comparator dataset to compare base against (data.frame)
 identify_class_differences <- function( BASE, COMP ){
     
@@ -213,10 +213,10 @@ identify_att_differences <- function( BASE, COMP , exclude_cols = "" ){
 #' 
 #' Compares each column within 2 datasets to identify any values which they 
 #' mismatch on.
-#' @param BASE Base dataset for comparision (data.frame)
+#' @param BASE Base dataset for comparison (data.frame)
 #' @param COMP Comparator dataset to compare base against (data.frame)
 #' @param KEYS List of variables that define a unique row within the datasets (strings)
-#' @param exclude_cols Columns to exclude from comparision
+#' @param exclude_cols Columns to exclude from comparison
 #' @param tolerance Level of tolerance for numeric differences between two variables
 #' @param scale Scale that tolerance should be set on. If NULL assume absolute
 identify_differences <- function( BASE , COMP , KEYS, exclude_cols,  
