@@ -7,11 +7,11 @@
 identify_att_differences(BASE, COMP, exclude_cols = "")
 }
 \arguments{
-\item{BASE}{Base dataset for comparision (data.frame)}
+\item{BASE}{Base dataset for comparison (data.frame)}
 
 \item{COMP}{Comparator dataset to compare base against (data.frame)}
 
-\item{exclude_cols}{Columns to exclude from comparision}
+\item{exclude_cols}{Columns to exclude from comparison}
 }
 \description{
 Identifies any attribute differences between two data frames

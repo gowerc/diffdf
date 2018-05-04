@@ -4,7 +4,7 @@
 #' 
 #' Identifys rows that are in a baseline dataset but not in a comparator dataset
 #' @param DS1 Baseline dataset (data frame)
-#' @param DS2 Comparitor dataset (data frame)
+#' @param DS2 Comparator dataset (data frame)
 #' @param KEYS List of variables that define a unique row within the datasets (strings)
 identify_extra_rows <- function(DS1, DS2 , KEYS){
     DS2[["..FLAG.."]] <- "Y"
@@ -25,7 +25,7 @@ identify_extra_rows <- function(DS1, DS2 , KEYS){
 #' 
 #' Identifys columns that are in a baseline dataset but not in a comparator dataset
 #' @param DS1 Baseline dataset (data frame)
-#' @param DS2 Comparitor dataset (data frame)
+#' @param DS2 Comparator dataset (data frame)
 #' @importFrom tibble tibble
 identify_extra_cols <- function(DS1 , DS2){
     match.cols <- sapply ( names(DS1), "%in%", names(DS2))
@@ -45,7 +45,7 @@ identify_extra_cols <- function(DS1 , DS2){
 
 #' identify_matching_cols
 #' 
-#' Identifys columns with the same name in two data frames
+#' Identifies columns with the same name in two data frames
 #' @param DS1 Input dataset 1 (data frame)
 #' @param DS2 Input dataset 2 (data frame)
 #' @param EXCLUDE Columns to ignore
@@ -139,9 +139,9 @@ identify_class_differences <- function( BASE, COMP ){
 #' identify_att_differences
 #' 
 #' Identifies any attribute differences between two data frames
-#' @param BASE Base dataset for comparision (data.frame)
+#' @param BASE Base dataset for comparison (data.frame)
 #' @param COMP Comparator dataset to compare base against (data.frame)
-#' @param exclude_cols Columns to exclude from comparision
+#' @param exclude_cols Columns to exclude from comparison
 #' @importFrom tibble tibble
 identify_att_differences <- function( BASE, COMP , exclude_cols = "" ){
     

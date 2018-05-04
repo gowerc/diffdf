@@ -1,7 +1,7 @@
 
 #' Print diffdf objects
 #' 
-#' Print nicely formated version of an diffdf object
+#' Print nicely formatted version of an diffdf object
 #' @param x comparison object created by diffdf().
 #' @param ... Additional arguments (not used)
 #' @param as_string Return printed message as an R character vector? 

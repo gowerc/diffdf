@@ -9,7 +9,7 @@ identify_extra_cols(DS1, DS2)
 \arguments{
 \item{DS1}{Baseline dataset (data frame)}
 
-\item{DS2}{Comparitor dataset (data frame)}
+\item{DS2}{Comparator dataset (data frame)}
 }
 \description{
 Identifys columns that are in a baseline dataset but not in a comparator dataset

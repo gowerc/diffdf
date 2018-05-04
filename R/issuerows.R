@@ -26,7 +26,7 @@
 #' requirement is that the original variables specified in the keys argument to diffdf
 #' are present on the dataframe you are subsetting against. However please note that if 
 #' no keys were specified in diffdf then the row number is used. This means using 
-#' diffdf_issuerows without a keys against an arbitary dataset can easily result in 
+#' diffdf_issuerows without a keys against an arbitrary dataset can easily result in 
 #' nonsense rows being returned. It is always recommended to supply keys to diffdf.
 #' @export
 diffdf_issuerows <- function( df , diff, vars = NULL){    

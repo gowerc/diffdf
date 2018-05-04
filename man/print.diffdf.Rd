@@ -14,7 +14,7 @@
 \item{as_string}{Return printed message as an R character vector?}
 }
 \description{
-Print nicely formated version of an diffdf object
+Print nicely formatted version of an diffdf object
 }
 \examples{
 x <- subset( iris , -Species )

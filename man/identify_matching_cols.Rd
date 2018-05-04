@@ -14,5 +14,5 @@ identify_matching_cols(DS1, DS2, EXCLUDE = "")
 \item{EXCLUDE}{Columns to ignore}
 }
 \description{
-Identifys columns with the same name in two data frames
+Identifies columns with the same name in two data frames
 }

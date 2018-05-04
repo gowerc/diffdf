@@ -9,7 +9,7 @@ identify_extra_rows(DS1, DS2, KEYS)
 \arguments{
 \item{DS1}{Baseline dataset (data frame)}
 
-\item{DS2}{Comparitor dataset (data frame)}
+\item{DS2}{Comparator dataset (data frame)}
 
 \item{KEYS}{List of variables that define a unique row within the datasets (strings)}
 }
