@@ -1,16 +1,15 @@
 Package: diffdf
 Type: Package
-Title: Dataframe difference tool
+Title: Dataframe Difference Tool
 Version: 1.0.0
 Authors@R: c( 
     person("Craig" ,"Gower" , email = "craig.gower@roche.com" , role = c("cre","aut")),
     person("Kieran", "Martin" , email = "kieran.martin@roche.com" , role = "aut")
     )
-Description: This package provides functions for comparing two dataframes against 
-    each other. The core diffdf function will provide a detailed breakdown of any differences 
-    between two dataframes as well as providing utility functions to help narrow down the 
-    source of problems.
-License: MIT + file LICENSE
+Description: Functions for comparing two data.frames against 
+    each other. The core functionality is to provide a detailed breakdown of any differences 
+    between two data.frames as well as providing utility functions to help narrow down the 
+    source of problems and differences.
 Encoding: UTF-8
 LazyData: true
 Depends:
@@ -22,6 +21,9 @@ Suggests:
     lubridate,
     knitr,
     rmarkdown,
+    purrr,
+    dplyr,
     stringi
 RoxygenNote: 6.0.1
 VignetteBuilder: knitr
+License: MIT + file LICENSE
