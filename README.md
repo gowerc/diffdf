@@ -1,6 +1,6 @@
 # diffdf
 
-Find data.frame differences !
+Find data.frame differences ! This package is now on CRAN, see https://cran.r-project.org/web/packages/diffdf/index.html . Master branch is always in line with the CRAN release, see devel branch for latest development version.
 
 ## Introduction
 
