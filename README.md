@@ -14,7 +14,7 @@ iris2 <- iris
 for ( i in 1:3) iris2[i,i] <- i^2
 iris2$new_var <- "hello"
 class(iris2$Species) <- "some class"
-dfdiff( iris, iris2)
+diffdf( iris, iris2)
 ```
 
 ## Features
