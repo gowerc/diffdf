@@ -1,7 +1,7 @@
 Package: diffdf
 Type: Package
 Title: Dataframe Difference Tool
-Version: 1.0.0
+Version: 1.0.1
 Authors@R: c( 
     person("Craig" ,"Gower" , email = "craig.gower@roche.com" , role = c("cre","aut")),
     person("Kieran", "Martin" , email = "kieran.martin@roche.com" , role = "aut")
@@ -16,7 +16,7 @@ Depends:
     R (>= 3.1.2)
 Imports:
     tibble
-Suggests:
+Suggests: 
     testthat,
     lubridate,
     knitr,
@@ -25,7 +25,10 @@ Suggests:
     dplyr,
     stringi,
     stringr,
-    devtools
+    devtools,
+    covr
 RoxygenNote: 6.0.1
 VignetteBuilder: knitr
 License: MIT + file LICENSE
+URL: https://github.com/gowerc/diffdf
+BugReports: https://github.com/gowerc/diffdf/issues
