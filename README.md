@@ -1,6 +1,6 @@
 # diffdf
 
-Find data.frame differences !
+Find data.frame differences ! This package is now on CRAN, see https://cran.r-project.org/web/packages/diffdf/index.html . Master branch is always in line with the CRAN release, see devel branch for latest development version.
 
 ## Introduction
 
@@ -14,7 +14,7 @@ iris2 <- iris
 for ( i in 1:3) iris2[i,i] <- i^2
 iris2$new_var <- "hello"
 class(iris2$Species) <- "some class"
-dfdiff( iris, iris2)
+diffdf( iris, iris2)
 ```
 
 ## Features

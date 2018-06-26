@@ -23,7 +23,9 @@ Suggests:
     rmarkdown,
     purrr,
     dplyr,
-    stringi
+    stringi,
+    stringr,
+    devtools
 RoxygenNote: 6.0.1
 VignetteBuilder: knitr
 License: MIT + file LICENSE
