@@ -1,3 +1,12 @@
+
+
+
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/diffdf)](https://cran.r-project.org/package=diffdf)
+[![Travis build status](https://travis-ci.org/gowerc/diffdf.svg?branch=master)](https://travis-ci.org/gowerc/diffdf)
+[![Coverage status](https://codecov.io/gh/gowerc/diffdf/branch/master/graph/badge.svg)](https://codecov.io/github/gowerc/diffdf?branch=master)
+
+
+
 # diffdf
 
 Find data.frame differences ! This package is now on CRAN, see https://cran.r-project.org/web/packages/diffdf/index.html . Master branch is always in line with the CRAN release, see devel branch for latest development version.
