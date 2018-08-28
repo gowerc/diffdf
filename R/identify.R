@@ -9,14 +9,15 @@
 identify_extra_rows <- function(DS1, DS2 , KEYS){
     DS2[["..FLAG.."]] <- "Y"
     dat <- merge(
-        subset( DS1 , select = KEYS) , 
+        DS1, 
         subset( DS2 , select = c(KEYS, "..FLAG..")) , 
         by = KEYS, all.x = T,
         sort = TRUE
     )
-    dat <- dat[do.call("order", dat[KEYS]), ]
+    datout <- dat[do.call("order", dat[KEYS]), ]
     
-    dat[ is.na(dat[["..FLAG.."]]) , KEYS, drop=FALSE]
+    list(extra = datout[ is.na(datout[["..FLAG.."]]) , KEYS, drop=FALSE],
+         extra_remove = dat[!is.na(dat[["..FLAG.."]]),names(DS1) ,drop=FALSE])
 }
 
 
@@ -219,23 +220,22 @@ identify_att_differences <- function( BASE, COMP , exclude_cols = "" ){
 #' @param exclude_cols Columns to exclude from comparison
 #' @param tolerance Level of tolerance for numeric differences between two variables
 #' @param scale Scale that tolerance should be set on. If NULL assume absolute
+#' @import dplyr
 identify_differences <- function( BASE , COMP , KEYS, exclude_cols,  
                                   tolerance = sqrt(.Machine$double.eps),
-                                  scale = NULL ) {
+                                  scale = NULL) {
     
     matching_cols <- identify_matching_cols( BASE , COMP , c(KEYS, exclude_cols))
     
     if( length(matching_cols) == 0  ) return ( tibble() )
-  
-    DAT = merge( 
-        x = BASE , 
-        y = COMP , 
-        by = KEYS , 
+    DAT = merge(
+        x = BASE ,
+        y = COMP ,
+        by = KEYS ,
         suffix = c(".x", ".y"),
         sort = TRUE
     )
-    DAT <- DAT[do.call("order", DAT[KEYS]), ]
-    
+    DAT <- DAT[do.call("order", DAT[KEYS]),]
 
     matching_list <- mapply(
         is_variable_different , 

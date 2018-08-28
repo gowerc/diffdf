@@ -9,22 +9,22 @@
 #' @param ...  Additional arguments which might be passed through (numerical accuracy)
 #' @return A boolean vector which is T if target and current are different
 is_variable_different <- function (variablename, keynames, datain, ...) {
-    
+
     xvar <- paste0(variablename,'.x')
     yvar <- paste0(variablename,'.y')
-    
+
     if ( ! xvar %in% names(datain) | ! yvar %in% names(datain)){
         stop("Variable does not exist within input dataset")
     }
-    
+
     target  <- datain[[xvar]]
     current <- datain[[yvar]]
     outvect <- find_difference(target, current, ...)
-    
+
     datain[["VARIABLE"]] <- variablename
-    
+
     names(datain)[names(datain) %in% c(xvar, yvar)] <- c("BASE", "COMPARE")
-    
+
     x <- as.tibble(
         subset(
             datain,
@@ -32,7 +32,7 @@ is_variable_different <- function (variablename, keynames, datain, ...) {
             select = c("VARIABLE", keynames, "BASE", "COMPARE")
         )
     )
-    
+
     return(x)
 }
 
@@ -58,27 +58,27 @@ compare_vectors <- function (target, current, ...) {
 #' @param current a vector to compare target to
 #' @param ...  Additional arguments which might be passed through (numerical accuracy)
 find_difference <- function (target, current, ...) {
-    
+
     if( length(target) != length(current)){
         warning("Inputs are not of the same length")
         return(NULL)
     }
-    
+
     if( is.null(target) | is.null(current) ){
         return( is.null(target) != is.null(current) )
     }
-    
+
     ### Initalise output, assume problem unless evidence otherwise
-    
-    
+
+
     comparevect <- compare_vectors(
         target ,
         current,
         ...
     )
-    
-    
-    
+
+
+
     return(comparevect)
 }
 
@@ -96,11 +96,11 @@ find_difference <- function (target, current, ...) {
 #' @param current a vector to compare target to
 #' @param ...  Additional arguments which might be passed through (numerical accuracy)
 compare_vectors.default <- function(target, current, ...){
-    
+
     return_vector <- rep(TRUE, length(target))
     nas_t <- is.na(target)
     nas_c <- is.na(current)
-    
+
     ## compare missing values
     nacompare <- nas_t != nas_c
     naselect <- nas_t|nas_c
@@ -110,7 +110,7 @@ compare_vectors.default <- function(target, current, ...){
     cvect <- target[selectvector] != current[selectvector]
     return_vector[selectvector] <- cvect
     return_vector
-    
+
 }
 
 
@@ -133,8 +133,12 @@ compare_vectors.factor <- function(target, current, ...){
 #' @param target the base vector
 #' @param current a vector to compare target to
 #' @param ...  Additional arguments which might be passed through (numerical accuracy)
-compare_vectors.character<- function(target, current, ...){
+compare_vectors.character<- function(target, current,
+                                     useC = FALSE, ...){
+    if (useC){
         return(stringdiff(target, current))
+    }
+    compare_vectors.default(target, current)
 }
 
 
@@ -150,10 +154,33 @@ compare_vectors.numeric <- function(
     target,
     current,
     tolerance = sqrt(.Machine$double.eps),
-    scale = NULL
+    scale = NULL,
+    useC = FALSE
 ){
-   if(is.null(scale)) scale <- 0
-   return(doublediff(target, current, tolerance, scale))
+    if(useC){
+        if(is.null(scale)) scale <- 0
+        return(doublediff(target, current, tolerance, scale))
+    }
+
+    out <- target == current
+
+    if (all(out)) {
+        return(!out)
+    }
+
+    if (is.integer(target) || is.integer(current)){
+        target <- as.double(target)
+        current <- as.double(current)
+    }
+
+    xy <- abs(target - current)
+
+    if (!is.null(scale)) {
+        xy <- xy/scale
+    }
+
+    return(xy > tolerance)
+
 }
 
 

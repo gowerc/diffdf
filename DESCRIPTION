@@ -12,10 +12,11 @@ Description: Functions for comparing two data.frames against
     source of problems and differences.
 Encoding: UTF-8
 LazyData: true
+LinkingTo: Rcpp
 Depends:
     R (>= 3.1.2)
 Imports:
-    tibble
+    tibble, Rcpp
 Suggests:
     testthat,
     lubridate,
