@@ -7,17 +7,30 @@
 #' @param DS2 Comparator dataset (data frame)
 #' @param KEYS List of variables that define a unique row within the datasets (strings)
 identify_extra_rows <- function(DS1, DS2 , KEYS){
-    DS2[["..FLAG.."]] <- "Y"
+    DS1[["..FLAG1.."]] <- 'Y'
+    DS2[["..FLAG2.."]] <- "Y"
     dat <- merge(
-        DS1, 
-        subset( DS2 , select = c(KEYS, "..FLAG..")) , 
-        by = KEYS, all.x = T,
+        subset(DS1, select = c(KEYS, "..FLAG1..")), 
+        subset(DS2, select = c(KEYS, "..FLAG2..")), 
+        by = KEYS, all = T, all.Y = T,
         sort = TRUE
     )
+    DS1[["..FLAG1.."]] <- NULL
+    DS2[["..FLAG2.."]] <- NULL
+    
     datout <- dat[do.call("order", dat[KEYS]), ]
     
-    list(extra = datout[ is.na(datout[["..FLAG.."]]) , KEYS, drop=FALSE],
-         extra_remove = dat[!is.na(dat[["..FLAG.."]]),names(DS1) ,drop=FALSE])
+    inner <- subset(dat,!is.na(dat[["..FLAG2.."]]) & !is.na(dat[["..FLAG1.."]]), KEYS)
+    
+    baseout <- merge(DS1, inner, by = KEYS, all.Y = T)
+    
+    compout <-  merge(DS2, inner, by = KEYS, all.Y = T)
+
+    
+    list(baseextra = datout[ is.na(datout[["..FLAG2.."]]) , KEYS, drop=FALSE],
+         compextra = datout[ is.na(datout[["..FLAG1.."]]) , KEYS, drop=FALSE],
+         base_reduce = baseout,
+         comp_reduce = compout)
 }
 
 
@@ -228,21 +241,23 @@ identify_differences <- function( BASE , COMP , KEYS, exclude_cols,
     matching_cols <- identify_matching_cols( BASE , COMP , c(KEYS, exclude_cols))
     
     if( length(matching_cols) == 0  ) return ( tibble() )
-    DAT = merge(
-        x = BASE ,
-        y = COMP ,
-        by = KEYS ,
-        suffix = c(".x", ".y"),
-        sort = TRUE
-    )
-    DAT <- DAT[do.call("order", DAT[KEYS]),]
-
+    # DAT = merge(
+    #     x = BASE ,
+    #     y = COMP ,
+    #     by = KEYS ,
+    #     suffix = c(".x", ".y"),
+    #     sort = TRUE
+    # )
+    BASE <- BASE[do.call("order", BASE[KEYS]),]
+    COMP <- COMP[do.call("order", COMP[KEYS]),]
+    
     matching_list <- mapply(
         is_variable_different , 
         matching_cols,
         MoreArgs = list(
             keynames = KEYS, 
-            datain = DAT, 
+            BASE = BASE,
+            COMP = COMP,
             tolerance = tolerance ,
             scale = scale
         ),

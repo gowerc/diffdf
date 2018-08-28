@@ -4,16 +4,16 @@
 \alias{is_variable_different}
 \title{is_variable_different}
 \usage{
-is_variable_different(variablename, keynames, datain, ...)
+is_variable_different(variablename, keynames, BASE, COMP, ...)
 }
 \arguments{
 \item{variablename}{name of variable being compared}
 
 \item{keynames}{name of keys}
 
-\item{datain}{Inputted dataset with base and compare vectors}
-
 \item{...}{Additional arguments which might be passed through (numerical accuracy)}
+
+\item{datain}{Inputted dataset with base and compare vectors}
 }
 \value{
 A boolean vector which is T if target and current are different

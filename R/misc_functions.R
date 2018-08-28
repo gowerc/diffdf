@@ -46,3 +46,9 @@ convert_to_issue <- function(datin){
     datin_tibble[ datin_tibble[["No of Differences"]] > 0, , drop = FALSE]
 }
 
+
+quickdf <- quickdf <- function(l) {
+    class(l) <- "data.frame"
+    attr(l, "row.names") <- .set_row_names(length(l[[1]]))
+    l
+}

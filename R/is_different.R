@@ -8,30 +8,37 @@
 #' @param datain Inputted dataset with base and compare vectors
 #' @param ...  Additional arguments which might be passed through (numerical accuracy)
 #' @return A boolean vector which is T if target and current are different
-is_variable_different <- function (variablename, keynames, datain, ...) {
+is_variable_different <- function (variablename, keynames, BASE, COMP,  ...) {
     
-    xvar <- paste0(variablename,'.x')
-    yvar <- paste0(variablename,'.y')
     
-    if ( ! xvar %in% names(datain) | ! yvar %in% names(datain)){
+    if ( ! variablename %in% names(BASE) | ! variablename %in% names(COMP)){
         stop("Variable does not exist within input dataset")
     }
     
-    target  <- datain[[xvar]]
-    current <- datain[[yvar]]
+    target  <- BASE[[variablename]]
+    current <- COMP[[variablename]]
+    keys <- BASE[, keynames, drop = FALSE]
+    keyclass <- 
     outvect <- find_difference(target, current, ...)
-    
-    datain[["VARIABLE"]] <- variablename
-    
-    names(datain)[names(datain) %in% c(xvar, yvar)] <- c("BASE", "COMPARE")
-    
     x <- as.tibble(
-        subset(
-            datain,
-            outvect,
-            select = c("VARIABLE", keynames, "BASE", "COMPARE")
+        quickdf(
+            c(
+                list(VARIABLE = rep(variablename, sum(outvect))),
+                subset(BASE, outvect, keynames),
+                list(BASE = target[outvect],
+                COMPARE = current[outvect])
+            )
         )
     )
+        
+    
+    # x <- as.tibble(
+    #     subset(
+    #         datain,
+    #         outvect,
+    #         select = c("VARIABLE", keynames, "BASE", "COMPARE")
+    #     )
+    # )
     
     return(x)
 }
@@ -57,7 +64,7 @@ compare_vectors <- function (target, current, ...) {
 #' @param target the base vector
 #' @param current a vector to compare target to
 #' @param ...  Additional arguments which might be passed through (numerical accuracy)
-find_difference <- function (target, current, ...) {
+find_difference <- function (target, current,varname,  ...) {
     
     if( length(target) != length(current)){
         warning("Inputs are not of the same length")

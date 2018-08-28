@@ -11,19 +11,13 @@ benchmark <- function(nrow, ncol, seedin, same = T){
   start_time <- Sys.time()
   compob <- suppressMessages(suppressWarnings(diffdf(X,Y)))
   end_time <- Sys.time()
-  start_time2 <- Sys.time()
-  compob <- suppressMessages(suppressWarnings(all.equal(X,Y)))
-  end_time2 <- Sys.time()  
   }else{
     start_time <- Sys.time()
     compob <- suppressMessages(suppressWarnings(diffdf(X,X)))
     end_time <- Sys.time()
-    start_time2 <- Sys.time()
-    compob <- suppressMessages(suppressWarnings(all.equal(X,X)))
-    end_time2 <- Sys.time() 
+
   }
-  list(diffdf = end_time - start_time,
-       is.equal = end_time2 - start_time2)
+  list(diffdf = end_time - start_time)
 }
 
 
@@ -37,6 +31,12 @@ benchmark(1000000, 100, seedset, T)
 benchmark(100000, 100, seedset, F)
 
 benchmark(1000, 1000, seedset, F)
-benchmark(3e6, 100, seedset, F)
+benchmark(1e6, 100, seedset, F)
 
+
+X<- data.frame(a=c(1,2,3))
+
+Y <- data.frame(a = c(4,5,6,7))
+
+diffdf(X, Y)
 

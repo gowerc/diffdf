@@ -212,20 +212,19 @@ diffdf <- function (
     BASE <- factor_to_character(BASE , KEYS)
     COMP <- factor_to_character(COMP , KEYS)
     
-    BASER <- identify_extra_rows(  BASE, COMP,   KEYS )
-    COMPR <- identify_extra_rows(  COMP, BASE,   KEYS )
+    comparerows <- identify_extra_rows(  BASE, COMP,   KEYS )
     COMPARE[["ExtRowsBase"]] <- construct_issue(
-        value = BASER$extra   ,
+        value = comparerows$baseextra   ,
         message = "There are rows in BASE that are not in COMPARE !!"
     )
     
     
     COMPARE[["ExtRowsComp"]] <- construct_issue(
-        value = COMPR$extra   ,
+        value = comparerows$compextra   ,
         message = "There are rows in COMPARE that are not in BASE !!"
     )
-    BASE <- BASER$extra_remove
-    COMP <- COMPR$extra_remove
+    BASE <- comparerows$base_reduce
+    COMP <- comparerows$comp_reduce
     
     
     COMPARE[["ExtColsBase"]] <- construct_issue(
