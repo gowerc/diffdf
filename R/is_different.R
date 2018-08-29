@@ -5,7 +5,8 @@
 #' @importFrom tibble as.tibble
 #' @param variablename name of variable being compared
 #' @param keynames name of keys
-#' @param datain Inputted dataset with base and compare vectors
+#' @param BASE Base dataset for comparison (data.frame)
+#' @param COMP Comparator dataset to compare base against (data.frame)
 #' @param ...  Additional arguments which might be passed through (numerical accuracy)
 #' @return A boolean vector which is T if target and current are different
 is_variable_different <- function (variablename, keynames, BASE, COMP,  ...) {
@@ -18,7 +19,6 @@ is_variable_different <- function (variablename, keynames, BASE, COMP,  ...) {
     target  <- BASE[[variablename]]
     current <- COMP[[variablename]]
     keys <- BASE[, keynames, drop = FALSE]
-    keyclass <- 
     outvect <- find_difference(target, current, ...)
     x <- as.tibble(
         quickdf(
@@ -31,14 +31,6 @@ is_variable_different <- function (variablename, keynames, BASE, COMP,  ...) {
         )
     )
         
-    
-    # x <- as.tibble(
-    #     subset(
-    #         datain,
-    #         outvect,
-    #         select = c("VARIABLE", keynames, "BASE", "COMPARE")
-    #     )
-    # )
     
     return(x)
 }
@@ -64,7 +56,7 @@ compare_vectors <- function (target, current, ...) {
 #' @param target the base vector
 #' @param current a vector to compare target to
 #' @param ...  Additional arguments which might be passed through (numerical accuracy)
-find_difference <- function (target, current,varname,  ...) {
+find_difference <- function (target, current,  ...) {
     
     if( length(target) != length(current)){
         warning("Inputs are not of the same length")
@@ -130,7 +122,7 @@ compare_vectors.default <- function(target, current, ...){
 #' @param current a vector to compare target to
 #' @param ...  Additional arguments which might be passed through (numerical accuracy)
 compare_vectors.factor <- function(target, current, ...){
-    compare_vectors.character(target, current, ...)
+    compare_vectors.character(as.character(target), as.character(current), ...)
 }
 
 
