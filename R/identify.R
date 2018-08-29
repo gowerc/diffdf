@@ -7,30 +7,20 @@
 #' @param DS2 Comparator dataset (data frame)
 #' @param KEYS List of variables that define a unique row within the datasets (strings)
 identify_extra_rows <- function(DS1, DS2 , KEYS){
-    DS1[["..FLAG1.."]] <- 'Y'
-    DS2[["..FLAG2.."]] <- "Y"
-    dat <- merge(
-        subset(DS1, select = c(KEYS, "..FLAG1..")), 
-        subset(DS2, select = c(KEYS, "..FLAG2..")), 
-        by = KEYS, all = T, all.Y = T,
-        sort = TRUE
-    )
-    DS1[["..FLAG1.."]] <- NULL
-    DS2[["..FLAG2.."]] <- NULL
     
-    datout <- dat[do.call("order", dat[KEYS]), ]
     
-    inner <- subset(dat,!is.na(dat[["..FLAG2.."]]) & !is.na(dat[["..FLAG1.."]]), KEYS)
+    DS1   <- DS1[do.call("order", DS1[KEYS]), ]
+    DS2   <- DS2[do.call("order", DS2[KEYS]), ]
+    DSin  <- factor_to_character(DS1)
+    DS2in <- factor_to_character(DS2)
     
-    baseout <- merge(DS1, inner, by = KEYS, all.Y = T)
+    classtype <- as.character(lapply(DSin[,KEYS], mode))
     
-    compout <-  merge(DS2, inner, by = KEYS, all.Y = T)
-
-    
-    list(baseextra = datout[ is.na(datout[["..FLAG2.."]]) , KEYS, drop=FALSE],
-         compextra = datout[ is.na(datout[["..FLAG1.."]]) , KEYS, drop=FALSE],
-         base_reduce = baseout,
-         comp_reduce = compout)
+    index_select <- find_matches(DSin[,KEYS, drop = FALSE], DS2in[,KEYS, drop = FALSE], classtype, length(KEYS))
+    list(baseextra   = subset(DS1,!seq(1:nrow(DS1)) %in% index_select[[1]] , KEYS),
+         compextra   = subset(DS2,!seq(1:nrow(DS2)) %in% index_select[[2]] , KEYS),
+         base_reduce = subset(DS1,seq(1:nrow(DS1)) %in% index_select[[1]]),
+         comp_reduce = subset(DS2,seq(1:nrow(DS2)) %in% index_select[[2]]))
 }
 
 
@@ -233,7 +223,6 @@ identify_att_differences <- function( BASE, COMP , exclude_cols = "" ){
 #' @param exclude_cols Columns to exclude from comparison
 #' @param tolerance Level of tolerance for numeric differences between two variables
 #' @param scale Scale that tolerance should be set on. If NULL assume absolute
-#' @import dplyr
 identify_differences <- function( BASE , COMP , KEYS, exclude_cols,  
                                   tolerance = sqrt(.Machine$double.eps),
                                   scale = NULL) {
@@ -241,15 +230,6 @@ identify_differences <- function( BASE , COMP , KEYS, exclude_cols,
     matching_cols <- identify_matching_cols( BASE , COMP , c(KEYS, exclude_cols))
     
     if( length(matching_cols) == 0  ) return ( tibble() )
-    # DAT = merge(
-    #     x = BASE ,
-    #     y = COMP ,
-    #     by = KEYS ,
-    #     suffix = c(".x", ".y"),
-    #     sort = TRUE
-    # )
-    BASE <- BASE[do.call("order", BASE[KEYS]),]
-    COMP <- COMP[do.call("order", COMP[KEYS]),]
     
     matching_list <- mapply(
         is_variable_different , 
