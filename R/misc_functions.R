@@ -46,13 +46,22 @@ convert_to_issue <- function(datin){
     datin_tibble[ datin_tibble[["No of Differences"]] > 0, , drop = FALSE]
 }
 
-
+#' quickdf
+#' 
+#' Makes a data frame from a list very rapidly. Does not perform
+#' Usual data.frame checks to allow for brevity
+#' @param l a list wwhich follows data frame requirements exactly
 quickdf <- function(l) {
     class(l) <- "data.frame"
     attr(l, "row.names") <- .set_row_names(length(l[[1]]))
     l
 }
 
+#' first_class
+#' 
+#' Convenience function to grab the first class message from a class call
+#' 
+#' @param col Variable we want to get the class from
 first_class <- function(col){
     class(col)[1]
 }
