@@ -80,8 +80,7 @@ diffdf <- function (
     strict_factor = TRUE,
     file = NULL,
     tolerance = sqrt(.Machine$double.eps),
-    scale = NULL,
-    useC = FALSE
+    scale = NULL
 ){
     
     BASE = base
