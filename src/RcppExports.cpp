@@ -19,6 +19,20 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// find_matches
+List find_matches(DataFrame DS1, DataFrame DS2, CharacterVector classtype, int KN);
+RcppExport SEXP _diffdf_find_matches(SEXP DS1SEXP, SEXP DS2SEXP, SEXP classtypeSEXP, SEXP KNSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< DataFrame >::type DS1(DS1SEXP);
+    Rcpp::traits::input_parameter< DataFrame >::type DS2(DS2SEXP);
+    Rcpp::traits::input_parameter< CharacterVector >::type classtype(classtypeSEXP);
+    Rcpp::traits::input_parameter< int >::type KN(KNSEXP);
+    rcpp_result_gen = Rcpp::wrap(find_matches(DS1, DS2, classtype, KN));
+    return rcpp_result_gen;
+END_RCPP
+}
 // stringdiff
 std::vector<bool> stringdiff(CharacterVector x, CharacterVector y);
 RcppExport SEXP _diffdf_stringdiff(SEXP xSEXP, SEXP ySEXP) {
@@ -34,6 +48,7 @@ END_RCPP
 
 static const R_CallMethodDef CallEntries[] = {
     {"_diffdf_doublediff", (DL_FUNC) &_diffdf_doublediff, 4},
+    {"_diffdf_find_matches", (DL_FUNC) &_diffdf_find_matches, 4},
     {"_diffdf_stringdiff", (DL_FUNC) &_diffdf_stringdiff, 2},
     {NULL, NULL, 0}
 };
