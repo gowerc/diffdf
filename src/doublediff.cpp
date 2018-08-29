@@ -1,6 +1,9 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
+//This function takes two numeric vectors and returns a logical vector
+// indicating where they differ
+
 // [[Rcpp::export]]
 std::vector<bool> doublediff(NumericVector x, NumericVector y,
                           double tolerance, double scale = 0) {
@@ -8,13 +11,17 @@ std::vector<bool> doublediff(NumericVector x, NumericVector y,
     const bool initial_value = false;
     std::vector<bool> out(n, initial_value);
     double diff;
+
     
     for (int i =0; i < n; ++i){
+        // check for na values and return appropriate argument
         if (NumericVector::is_na(x[i]) & NumericVector::is_na(y[i]) ){
             out[i] = FALSE;
         } else if (NumericVector::is_na(x[i]) | NumericVector::is_na(y[i])){
             out[i] = TRUE;
         } else{ 
+            
+        //make use of tolerance and scale to check match    
         diff = std::abs(x[i] - y[i]);
         if (scale != 0){
             diff = diff/scale;
