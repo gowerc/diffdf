@@ -47,8 +47,12 @@ convert_to_issue <- function(datin){
 }
 
 
-quickdf <- quickdf <- function(l) {
+quickdf <- function(l) {
     class(l) <- "data.frame"
     attr(l, "row.names") <- .set_row_names(length(l[[1]]))
     l
+}
+
+first_class <- function(col){
+    class(col)[1]
 }
