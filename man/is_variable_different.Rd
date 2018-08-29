@@ -11,9 +11,11 @@ is_variable_different(variablename, keynames, BASE, COMP, ...)
 
 \item{keynames}{name of keys}
 
-\item{...}{Additional arguments which might be passed through (numerical accuracy)}
+\item{BASE}{Base dataset for comparison (data.frame)}
 
-\item{datain}{Inputted dataset with base and compare vectors}
+\item{COMP}{Comparator dataset to compare base against (data.frame)}
+
+\item{...}{Additional arguments which might be passed through (numerical accuracy)}
 }
 \value{
 A boolean vector which is T if target and current are different

@@ -4,7 +4,7 @@
 \alias{find_difference}
 \title{find_difference}
 \usage{
-find_difference(target, current, varname, ...)
+find_difference(target, current, ...)
 }
 \arguments{
 \item{target}{the base vector}

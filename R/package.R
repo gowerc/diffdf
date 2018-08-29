@@ -5,7 +5,7 @@
 #' between two data.frames as well as providing utility functions to help narrow down the 
 #' source of problems and differences.
 #' 
-#' @docType diffdf
+#' @docType package
 #' @author Craig Gower 
 #' @import Rcpp
 #' @importFrom Rcpp evalCpp

@@ -5,6 +5,10 @@ doublediff <- function(x, y, tolerance, scale = 0) {
     .Call('_diffdf_doublediff', PACKAGE = 'diffdf', x, y, tolerance, scale)
 }
 
+find_matches <- function(DS1, DS2, classtype, KN) {
+    .Call('_diffdf_find_matches', PACKAGE = 'diffdf', DS1, DS2, classtype, KN)
+}
+
 stringdiff <- function(x, y) {
     .Call('_diffdf_stringdiff', PACKAGE = 'diffdf', x, y)
 }
