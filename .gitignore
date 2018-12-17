@@ -3,3 +3,6 @@
 .RData
 .Ruserdata
 utils/print_output/*
+src/*.o
+src/*.so
+src/*.dll
