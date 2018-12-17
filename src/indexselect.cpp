@@ -141,8 +141,8 @@ List find_matches(DataFrame DS1, DataFrame DS2,
         }
     }
     
-    out[0] = index1;
-    out[1] = index2;
+    out[0] = index1[index1>0];
+    out[1] = index2[index2>0];
     
     
     
