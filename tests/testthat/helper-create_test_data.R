@@ -40,7 +40,12 @@ VALS <- list(
     lgl      = c(TRUE,FALSE,TRUE, T , F),
     lgl_na   = c(TRUE, FALSE, NA, T , F),
     null     = NULL,
-    na       = NA  
+    na       = NA,
+    dt = lubridate::ymd(c("20120202", "10230410","20990507", "20141231")),
+    dt_na = lubridate::ymd(c("20120202", "10230410",NA, "20141231")),
+    dtm = lubridate::ymd_hms(c("20120101T230140", "20130304T012345", "19950403T020359")),
+    dtm_na = lubridate::ymd_hms(c("20120101T230140", NA, "19950403T020359")),
+    dtm2 = lubridate::ymd_hms(c("20120101T230139", "20130304T010145", "19950403T020359"))
 )
 
 
