@@ -1,3 +1,6 @@
+# diffdf 1.1.0
+
+- Added rcpp dependency
 
 # diffdf 1.0.1
 
