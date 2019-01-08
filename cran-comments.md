@@ -1,16 +1,12 @@
-## Resubmission
-This is a resubmission. In this version I have:
-- Changed the CRAN urls in the README to the canonical form
-
 ## Release summary
 In this version I have:
-- Added missing test/ package dependencies (stringr and devtools) to the `suggests:` field in the DESCRIPTION file as requested by CRAN team
+- Updated the package to be compatible with tibble 2.0.0 to fix the related automated test errors
 
 ## Test environments
-- local Windows 10 R 3.5.0
-- Win-Builder R-release & R-devel
-- Debian Linux, R-release, GCC (via R-Hub)
-- macOS 10.11 El Capitan, R-release (experimental) (via R-Hub)
+- local Windows 10 R 3.5.1
+- local Ubuntu 18.04.1 LTS R 3.5.2
+- Win-Builder R-devel
+- Debian Linux R-release (via rhub)
 
 ## R CMD check results
 R CMD check results
