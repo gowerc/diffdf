@@ -29,7 +29,7 @@ Suggests:
     devtools,
     lubridate,
     covr
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
 VignetteBuilder: knitr
 License: MIT + file LICENSE
 URL: https://github.com/gowerc/diffdf
