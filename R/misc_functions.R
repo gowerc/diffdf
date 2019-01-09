@@ -39,10 +39,12 @@ has_unique_rows <- function(DAT , KEYS){
 #'@param datin data inputted
 #'@importFrom tibble rownames_to_column
 convert_to_issue <- function(datin){
-    datin_tibble <- rownames_to_column(as.tibble(datin)) 
+    datin_tibble <- tibble(
+        `Variable` = names(datin),
+        `No of Differences` = datin
+    )
     
-    names(datin_tibble) <- c('Variable', 'No of Differences')
-    
-    datin_tibble[ datin_tibble[["No of Differences"]] > 0, , drop = FALSE]
+    datin_tibble_reduced <- datin_tibble[ datin_tibble[["No of Differences"]] > 0, , drop = FALSE]
+    return(datin_tibble_reduced)
 }
 
