@@ -7,7 +7,7 @@ context("Testing entire function")
 #
 # Set up testing datasets
 #
-
+suppressWarnings(RNGversion("3.5.0"))
 set.seed(101010223)
 
 

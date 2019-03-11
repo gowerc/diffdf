@@ -1,11 +1,10 @@
 ## Release summary
 In this version I have:
-- Updated the package to be compatible with tibble 2.0.0 to fix the related automated test errors
+- Updated the package to use suppressWarnings(RNGversion("3.5.0")) wherever set.seed() has been used to make sure test results and vignette results are consistent after the planned changes to the random number generator 
 
 ## Test environments
-- local Windows 10 R 3.5.1
-- local Ubuntu 18.04.1 LTS R 3.5.2
-- Win-Builder R-devel
+- local Mac OS Mojave R 3.5.2
+- Win-Builder R-release
 - Debian Linux R-release (via rhub)
 
 ## R CMD check results
