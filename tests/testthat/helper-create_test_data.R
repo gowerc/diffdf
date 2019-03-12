@@ -4,6 +4,7 @@ library(diffdf)
 library(purrr)
 library(tibble)
 
+suppressWarnings(RNGversion("3.5.0"))
 set.seed(20202)
 
 LENGTH <- 20 
