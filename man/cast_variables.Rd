@@ -4,8 +4,8 @@
 \alias{cast_variables}
 \title{cast_variables}
 \usage{
-cast_variables(BASE, COMPARE, ignore_vars = NULL, cast_integers = FALSE,
-  cast_factors = FALSE)
+cast_variables(BASE, COMPARE, ignore_vars = NULL,
+  cast_integers = FALSE, cast_factors = FALSE)
 }
 \arguments{
 \item{BASE}{base dataset}
