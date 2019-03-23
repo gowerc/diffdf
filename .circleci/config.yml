@@ -7,6 +7,10 @@ jobs:
     steps:
       - checkout
 
+      - run: 
+          name: Fix Rcpp build settings
+          command: cp ./makevars ~/.R/Makevars
+          
       - run:
           name: Runs tests / checks
           command: Rscript -e "devtools::check()"
