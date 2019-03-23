@@ -4,6 +4,6 @@
 utils/*
 cran-comments.md
 docs/
-^\.travis\.yml$
 ^codecov\.yml$
 ^README\.Rmd$
+^.circleci/
