@@ -1,6 +1,8 @@
 library(dplyr)
 library(diffdf)
 
+suppressWarnings(RNGversion("3.5.0"))
+
 benchmark <- function(nrow, ncol, seedin, same = T){
   set.seed(seedin)
   data1 <- rnorm(nrow*ncol)
