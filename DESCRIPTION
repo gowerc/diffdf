@@ -27,7 +27,6 @@ Suggests:
     stringi,
     stringr,
     devtools,
-    lubridate,
     covr
 RoxygenNote: 6.1.1
 VignetteBuilder: knitr
