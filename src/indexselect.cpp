@@ -74,7 +74,7 @@ List find_matches(DataFrame DS1, DataFrame DS2,
     //This iterates through and finds all matching
     // note that this requires sorting to be succesful!!
     
-    while(d1 < n1 & d2 < n2){
+    while((d1 < n1) & (d2 < n2)){
         
         // flag records if a mismatch was found, inc1 and inc2
         //tells us how much we should increase d1 and d22
@@ -85,7 +85,7 @@ List find_matches(DataFrame DS1, DataFrame DS2,
         // we need to search through the keys columns, iterating over
         // 1:KN as before, looking for matches
         for (int i =0; i < (KN*2); i+=2){
-            if (mapchar.count(i)>0 & flag == 0){
+            if ((mapchar.count(i)>0) & (flag == 0)){
                 c1 = mapchar[i];
                 c2 = mapchar[i+1];
                 if (c1[d1] != c2[d2]){
@@ -98,7 +98,7 @@ List find_matches(DataFrame DS1, DataFrame DS2,
                     
                 }
             }
-            if (mapnum.count(i)>0 & flag == 0){
+            if ((mapnum.count(i)>0) & (flag == 0)){
                 N1 = mapnum[i];
                 N2 = mapnum[i+1];
                 
@@ -112,7 +112,7 @@ List find_matches(DataFrame DS1, DataFrame DS2,
                     
                 }
             }
-            if (maplog.count(i)>0 & flag == 0){
+            if ((maplog.count(i)>0) & (flag == 0)){
                 l1 = maplog[i];
                 l2 = maplog[i+1];
                 if (l1[d1] != l2[d2]){
