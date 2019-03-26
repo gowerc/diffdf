@@ -1,0 +1,16 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: rocker/verse:latest
+
+    steps:
+      - checkout
+
+      - run:
+          name: Runs tests / checks
+          command: Rscript -e "devtools::check()"
+          
+      - run:
+          name: Code Coverage
+          command: Rscript -e "covr::codecov()"
