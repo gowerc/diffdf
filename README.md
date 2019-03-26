@@ -1,8 +1,10 @@
 
 
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/diffdf)](https://CRAN.R-project.org/package=diffdf)
-[![Travis build status](https://travis-ci.org/gowerc/diffdf.svg?branch=master)](https://travis-ci.org/gowerc/diffdf)
+[![CircleCI](https://circleci.com/gh/gowerc/diffdf/tree/master.svg?style=svg)](https://circleci.com/gh/gowerc/diffdf/tree/master)
 [![Coverage status](https://codecov.io/gh/gowerc/diffdf/branch/master/graph/badge.svg)](https://codecov.io/github/gowerc/diffdf?branch=master)
+[![Dependencies](https://tinyverse.netlify.com/badge/diffdf)](https://cran.r-project.org/package=diffdf)
+[![Downloads](http://cranlogs.r-pkg.org/badges/diffdf?color=brightgreen)](http://www.r-pkg.org/pkg/diffdf)
 
 
 
