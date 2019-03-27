@@ -37,10 +37,19 @@ test_that("find_matches correctly identifies the index of matches",{
     ds2[6,2] <- "blue"
     ds2 <- ds2[do.call("order", ds2),]
     
-    matches <- find_matches(ds1, ds2, c("numeric", "character", "logical"), 3)
+    matches <-  find_matches(ds1, ds2, as.character(lapply(ds1, mode)), 3)
     
     expect_equal(matches[[1]],
                  c(2,3,4,5,7,9,10))
+    
+    expect_equal(
+        matches[[2]],
+        c(1, 2, 4, 5, 7, 9, 10)
+    )
+    
+    matches <-  find_matches(ds1, ds1, as.character(lapply(ds1, mode)), 3)
+    expect_equal(matches[[1]], seq(1,10))
+    expect_equal(matches[[2]], seq(1,10))
     
     bigds <- data_frame(
         a = seq(1, 1000),
@@ -53,11 +62,30 @@ test_that("find_matches correctly identifies the index of matches",{
         c = c(F, T, T)
     )
                  
-    expect_equal(find_matches( bigds, small_ds, c("numeric", "character", "logical"), 3),
+    expect_equal(find_matches( bigds, small_ds, as.character(lapply(bigds, mode)), 3),
                  list(
                      c(452),
                      c(2)
                  ))
+    
+    
+    w_date <- data_frame(
+        a = letters[1:10],
+        b = as.Date(seq(1, 1001, length = 10), origin = "1970-01-01")
+    )
+    
+    w_date2 <- w_date
+    w_date2[5,1] <- "diff"
+    w_date2[7,2] <- as.Date("1980-01-07")
+    w_date2[9,1] <- "new"
+    w_date2[9,2] <- as.Date("1980-01-03")
+    w_date2 <-  w_date2[do.call("order", w_date2),]
+    
+    matches <-  find_matches(w_date, w_date2, as.character(lapply(w_date, mode)), 2)
+    expect_equal(matches[[1]], c(1,2,3,4,6,8,10))
+    expect_equal(matches[[2]], c(1,2,3,4,6,8,9))
+    
+    
     
     
 })    
