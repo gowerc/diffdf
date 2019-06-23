@@ -8,33 +8,29 @@
 #' @param KEYS List of variables that define a unique row within the datasets (strings)
 identify_extra_rows <- function(DS1, DS2 , KEYS){
 
-    DS1   <- sort_df(DS1, KEYS)   
-    DS2   <- sort_df(DS2, KEYS)   
-    DSin  <- factor_to_character(DS1)
-    DS2in <- factor_to_character(DS2)
+    DS1in   <- sort_df(DS1, KEYS)   
+    DS2in   <- sort_df(DS2, KEYS)   
     
-    classtype <- as.character(lapply(
-        subset_se(DSin, cols = KEYS),
-        class
-    ))
-    classtype[ classtype == "integer"] <- "numeric"
+    classtype <- get_column_mode(DS1in, cols = KEYS)
     
     index_select <- find_matches(
-        subset_se( DSin, cols = KEYS), 
+        subset_se( DS1in, cols = KEYS), 
         subset_se( DS2in, cols = KEYS),
         classtype, 
         length(KEYS)
     )
     
     x <- list(
-        baseextra   = subset_se(DS1, -index_select[[1]], KEYS),
-        compextra   = subset_se(DS2, -index_select[[2]], KEYS),
-        base_reduce = subset_se(DS1,  index_select[[1]]),
-        comp_reduce = subset_se(DS2,  index_select[[2]])
+        baseextra   = subset_se(DS1in, -index_select[[1]], KEYS),
+        compextra   = subset_se(DS2in, -index_select[[2]], KEYS),
+        base_reduce = subset_se(DS1in,  index_select[[1]]),
+        comp_reduce = subset_se(DS2in,  index_select[[2]])
     )
     
     return(x)
 }
+
+
 
 
 

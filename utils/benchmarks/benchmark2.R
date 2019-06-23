@@ -1,112 +1,93 @@
-devtools::load_all()
-
-n <- 1000000
-test_dat <- data_frame( id = 1:n)
 
 
-vars <-letters[1:15]
 
-for ( i in vars){
-    test_dat[[paste0(i,"_num.x")]] <- rnorm(n)
-    test_dat[[paste0(i,"_num.y")]] <- rnorm(n)
-    test_dat[[paste0(i,"_chr.x")]] <- letters[ round(runif(n , 1,25))]
-    test_dat[[paste0(i,"_chr.y")]] <- letters[ round(runif(n , 1,25))]
-    test_dat[[paste0(i,"_fct.x")]] <- factor(test_dat[[paste0(i,"_chr.x")]])
-    test_dat[[paste0(i,"_fct.y")]] <- factor(test_dat[[paste0(i,"_chr.y")]])
+library(tibble)
+library(diffdf)
+library(purrr)
+library(stringi)
+
+
+
+get_test_data <- function(nrow, ncol, types = "num"){
+    
+    dat <- tibble( id = 1:nrow)
+    
+    for ( i in 1:ncol){
+        
+        if( "num" %in% types){
+            dat[[paste0("num_",i)]] <- rnorm(nrow)
+        }
+        if( "chr" %in% types){
+            chrs <- stri_rand_strings(500,50)
+            dat[[paste0("chr_",i)]] <- sample(chrs, size = nrow , replace = T)
+        }
+        if( "fct" %in% types){
+            fct <-  stri_rand_strings(10, 20)
+            dat[[paste0("fct_",i)]] <- factor(sample(fct, size = nrow , replace = T) , labels = fct)
+        }
+    }
+    return(dat)
 }
 
-vars2 <- c(
-    paste0(vars, "_num"),
-    paste0(vars, "_chr"),
-    paste0(vars, "_fct")
+
+
+### Generate test datasets
+nrow <- 2000000
+ncol <- 15
+
+d1_num <- get_test_data(nrow, ncol, "num")
+d1_chr <- get_test_data(nrow, ncol, "chr")
+d1_fct <- get_test_data(nrow, ncol, "fct")
+d1_all <- get_test_data(nrow, ncol, c("num", "chr", "fct"))
+
+d2_num <- get_test_data(nrow, ncol, "num")
+d2_chr <- get_test_data(nrow, ncol, "chr")
+d2_fct <- get_test_data(nrow, ncol, "fct")
+d2_all <- get_test_data(nrow, ncol, c("num", "chr", "fct"))
+
+
+get_time <- function(d1, d2, n){
+    rerun( n, system.time(diffdf(d1 , d1, suppress_warnings = T))[[3]]) %>% flatten_dbl() %>% mean
+}
+
+rerun_n <- 8
+
+c1 <- list(
+    num_same = get_time(d1_num , d1_num, rerun_n),
+    num_diff = get_time(d1_num , d2_num, rerun_n),
+    chr_same = get_time(d1_chr , d1_chr, rerun_n),
+    chr_diff = get_time(d1_chr , d2_chr, rerun_n),
+    fct_same = get_time(d1_fct , d1_fct, rerun_n),
+    fct_diff = get_time(d1_fct , d2_fct, rerun_n),
+    all_same = get_time(d1_all , d1_all, rerun_n),
+    all_diff = get_time(d1_all , d2_all, rerun_n)
 )
 
-matching_cols = vars2
-KEYS = "id"
-DAT = test_dat
-tolerance = sqrt(.Machine$double.eps)
-scale = NULL
 
-RES5 <- purrr::rerun( 10 , {
-    x <- system.time({
-        matching_list <- mapply(
-            is_variable_different , 
-            matching_cols,
-            MoreArgs = list(
-                keynames = KEYS, 
-                datain = DAT, 
-                tolerance = tolerance ,
-                scale = scale
-            ),
-            SIMPLIFY = FALSE
-        )
-    })
-    
-    
-    y <- system.time({
-        HOLD <- list() 
-        for ( v in vars2){
-            
-            xvar <- paste0(v,'.x')
-            yvar <- paste0(v,'.y')
-            
-            keep <- find_difference( test_dat[[xvar]] , test_dat[[yvar]] , tolerance = tolerance , scale = scale)
-            
-            HOLD[[v]] <- data_frame(
-                VARIABLE = v,
-                BASE = test_dat[[xvar]][keep],
-                COMPARE = test_dat[[yvar]][keep]
-            )
-            
-            for ( i in KEYS){
-                HOLD[[v]][[i]] <- test_dat[[i]][keep]
-            }
-            
-            #HOLD[[v]] <- HOLD[[v]][ , c("VARIABLE" , KEYS, "BASE" , "COMPARE")]
-        }
-    })
-    
-    data_frame(
-        x = x[[3]] ,
-        y = y[[3]] ,
-        diff = x - y,
-        pcent = y / x
-    )
-    
-})
-
-bind_rows(RES1)$pcent %>% mean  # nrow = 300000 , ncol = 60
-bind_rows(RES2)$pcent %>% mean  # nrow = 300000 , ncol = 15
-bind_rows(RES3)$pcent %>% mean  # nrow = 600000 , ncol = 15
-bind_rows(RES4)$pcent %>% mean
-bind_rows(RES5)$pcent %>% mean
+devtools::load_all()
 
 
-HOLD[["e_fct"]]
-matching_list[["e_fct"]]
+c2 <- list(
+    num_same = get_time(d1_num , d1_num, rerun_n),
+    num_diff = get_time(d1_num , d2_num, rerun_n),
+    chr_same = get_time(d1_chr , d1_chr, rerun_n),
+    chr_diff = get_time(d1_chr , d2_chr, rerun_n),
+    fct_same = get_time(d1_fct , d1_fct, rerun_n),
+    fct_diff = get_time(d1_fct , d2_fct, rerun_n),
+    all_same = get_time(d1_all , d1_all, rerun_n),
+    all_diff = get_time(d1_all , d2_all, rerun_n)
+)
 
 
 
 
-is_variable_different2 <- function (variablename, keynames, datain, ...) {
-    
 
-    
-    if ( ! xvar %in% names(datain) | ! yvar %in% names(datain)){
-        stop("Variable does not exist within input dataset")
-    }
-    
-    target  <- datain[[xvar]]
-    current <- datain[[yvar]]
-    outvect <- find_difference(target, current, ...)
-    
-    datain[["VARIABLE"]] <- variablename
-    
-    names(datain)[names(datain) %in% c(xvar, yvar)] <- c("BASE", "COMPARE")
-    
-    as.tibble(subset(datain, outvect, select = c("VARIABLE", keynames, "BASE", "COMPARE")))
-    
-}
+
+
+
+
+
+
 
 
 

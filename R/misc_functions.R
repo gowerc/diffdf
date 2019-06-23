@@ -126,4 +126,19 @@ subset_se <- function(df , rows = NULL, cols = NULL){
 }
 
 
+#' get_column_mode
+#' 
+#' Convenience function to get the mode types of a dataframe.  
+#'
+#' @param  df dataframe to get column modes from
+#' @param cols columns to subset. Column modes will be returned in the same order as specified by cols.  
+#' If left as NULL it will return the model of all columns
+get_column_mode <- function(df, cols = NULL){
+    if( is.null(cols)) cols <- colnames(df)
+    df2 <- subset_se(df, cols = cols)
+    classtype <- vapply(df2 , mode, character(1))
+    return(classtype)
+}
+
+
 

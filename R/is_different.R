@@ -11,26 +11,29 @@
 #' @return A boolean vector which is T if target and current are different
 is_variable_different <- function (variablename, keynames, BASE, COMP,  ...) {
     
-    
     if ( ! variablename %in% names(BASE) | ! variablename %in% names(COMP)){
         stop("Variable does not exist within input dataset")
     }
     
     target  <- BASE[[variablename]]
     current <- COMP[[variablename]]
-    keys <- subset_se(BASE, cols = keynames)
+    
     outvect <- find_difference(target, current, ...)
-    x <- as_tibble(
-        quickdf(
-            c(
-                list(VARIABLE = rep(variablename, sum(outvect))),
-                subset(BASE, outvect, keynames),
-                list(BASE = target[outvect],
-                COMPARE = current[outvect])
+    
+    x <- as_tibble(quickdf(
+        c(
+            list(
+                VARIABLE = rep(variablename, sum(outvect))
+            ),
+            
+            subset(BASE, outvect, keynames),
+            
+            list(
+                BASE = target[outvect],
+                COMPARE = current[outvect]
             )
         )
-    )
-        
+    ))
     
     return(x)
 }
@@ -66,9 +69,6 @@ find_difference <- function (target, current,  ...) {
     if( is.null(target) | is.null(current) ){
         return( is.null(target) != is.null(current) )
     }
-    
-    ### Initalise output, assume problem unless evidence otherwise
-    
     
     comparevect <- compare_vectors(
         target ,
