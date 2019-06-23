@@ -2,7 +2,7 @@
 #'
 #' This subsets the data set on the variable name, picks out differences and returns a tibble
 #' of differences for the given variable
-#' @importFrom tibble as.tibble
+#' @importFrom tibble as_tibble
 #' @param variablename name of variable being compared
 #' @param keynames name of keys
 #' @param BASE Base dataset for comparison (data.frame)
@@ -20,7 +20,7 @@ is_variable_different <- function (variablename, keynames, BASE, COMP,  ...) {
     current <- COMP[[variablename]]
     keys <- subset_se(BASE, cols = keynames)
     outvect <- find_difference(target, current, ...)
-    x <- as.tibble(
+    x <- as_tibble(
         quickdf(
             c(
                 list(VARIABLE = rep(variablename, sum(outvect))),
