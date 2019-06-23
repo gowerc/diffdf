@@ -7,20 +7,33 @@
 #' @param DS2 Comparator dataset (data frame)
 #' @param KEYS List of variables that define a unique row within the datasets (strings)
 identify_extra_rows <- function(DS1, DS2 , KEYS){
-    
-    
-    DS1   <- DS1[do.call("order", DS1[KEYS]), ]
-    DS2   <- DS2[do.call("order", DS2[KEYS]), ]
+
+    DS1   <- sort_df(DS1, KEYS)   
+    DS2   <- sort_df(DS2, KEYS)   
     DSin  <- factor_to_character(DS1)
     DS2in <- factor_to_character(DS2)
     
-    classtype <- as.character(lapply(DSin[,KEYS], mode))
+    classtype <- as.character(lapply(
+        subset_se(DSin, cols = KEYS),
+        class
+    ))
+    classtype[ classtype == "integer"] <- "numeric"
     
-    index_select <- find_matches(DSin[,KEYS, drop = FALSE], DS2in[,KEYS, drop = FALSE], classtype, length(KEYS))
-    list(baseextra   = subset(DS1,!seq(1:nrow(DS1)) %in% index_select[[1]] , KEYS),
-         compextra   = subset(DS2,!seq(1:nrow(DS2)) %in% index_select[[2]] , KEYS),
-         base_reduce = subset(DS1,seq(1:nrow(DS1)) %in% index_select[[1]]),
-         comp_reduce = subset(DS2,seq(1:nrow(DS2)) %in% index_select[[2]]))
+    index_select <- find_matches(
+        subset_se( DSin, cols = KEYS), 
+        subset_se( DS2in, cols = KEYS),
+        classtype, 
+        length(KEYS)
+    )
+    
+    x <- list(
+        baseextra   = subset_se(DS1, -index_select[[1]], KEYS),
+        compextra   = subset_se(DS2, -index_select[[2]], KEYS),
+        base_reduce = subset_se(DS1,  index_select[[1]]),
+        comp_reduce = subset_se(DS2,  index_select[[2]])
+    )
+    
+    return(x)
 }
 
 
@@ -40,6 +53,7 @@ identify_extra_cols <- function(DS1 , DS2){
         COLUMNS = names(DS1)[ !match.cols]
     )
 }
+
 
 
 

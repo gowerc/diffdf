@@ -67,3 +67,51 @@ quickdf <- function(l) {
 first_class <- function(col){
     class(col)[1]
 }
+
+
+#' sort_df
+#' 
+#' Convenience function to sort a dataset (and hide the ugly syntax required to do so)
+#' @param df dataframe to be sorted
+#' @param by variables to sort the dataframe by (character vector)
+sort_df <- function(df, by){
+    df[do.call("order", df[by]), ]
+}
+
+#' subset_se
+#' 
+#' A version of subset that works only on standard evaluation (to avoid un-expected issues)
+#' 
+#' @param df dataframe to subset
+#' @param rows row names / index / lgl vector to keep
+#' @param cols column names / lgl vector to keep
+subset_se <- function(df , rows = NULL, cols = NULL){
+    
+    if ( !(class(rows) %in% c("NULL", "logical", "numeric", "character")) | any(is.na(rows))){
+        stop("Invalid rows specification")
+    }
+    
+    if ( !(class(cols) %in% c("NULL", "logical", "character")) | any(is.na(cols))){
+        stop("Invalid cols specification")
+    }
+    
+    if( is.logical(rows)){
+        if( ! length(rows) == nrow(df)){
+            stop("If rows is logical it must be the same length as nrow(df)")
+        }
+    }
+    
+    if( is.logical(cols)){
+        if( ! length(cols) == ncol(df)){
+            stop("If cols is logical it must be the same length as ncol(df)")
+        }
+    }
+    
+    if( is.null(rows) & is.null(cols)) return(df)
+    if( is.null(rows) ) return( df[ , cols , drop = FALSE] )
+    if( is.null(cols) ) return( df[ rows , , drop = FALSE] )
+    return( df[ rows , cols , drop = FALSE] )
+}
+
+
+
