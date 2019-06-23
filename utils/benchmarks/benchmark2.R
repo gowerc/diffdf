@@ -32,25 +32,25 @@ get_test_data <- function(nrow, ncol, types = "num"){
 
 
 ### Generate test datasets
-nrow <- 2000000
-ncol <- 15
+nrow <- 1000000
+ncol <- 60
 
 d1_num <- get_test_data(nrow, ncol, "num")
 d1_chr <- get_test_data(nrow, ncol, "chr")
 d1_fct <- get_test_data(nrow, ncol, "fct")
-d1_all <- get_test_data(nrow, ncol, c("num", "chr", "fct"))
+d1_all <- get_test_data(nrow, 20, c("num", "chr", "fct"))
 
 d2_num <- get_test_data(nrow, ncol, "num")
 d2_chr <- get_test_data(nrow, ncol, "chr")
 d2_fct <- get_test_data(nrow, ncol, "fct")
-d2_all <- get_test_data(nrow, ncol, c("num", "chr", "fct"))
+d2_all <- get_test_data(nrow, 20, c("num", "chr", "fct"))
 
 
 get_time <- function(d1, d2, n){
     rerun( n, system.time(diffdf(d1 , d1, suppress_warnings = T))[[3]]) %>% flatten_dbl() %>% mean
 }
 
-rerun_n <- 8
+rerun_n <- 5
 
 c1 <- list(
     num_same = get_time(d1_num , d1_num, rerun_n),
@@ -81,9 +81,15 @@ c2 <- list(
 
 
 
+get_print <- function(x){
+    for( i in names(x)){
+        cat( paste0( i , " - ", round(x[[i]],3), "\n"))
+    }
+}
 
+get_print(c1)
 
-
+get_print(c2)
 
 
 
