@@ -91,7 +91,11 @@ cast_variables <- function(
         colname = names(BASE),
         stringsAsFactors = FALSE
     )
-    BASE_class <- BASE_class[!BASE_class[["colname"]] %in% ignore_vars,, drop=FALSE] 
+    
+    BASE_class <- subset_se(
+        df = BASE_class,
+        rows = !BASE_class[["colname"]] %in% ignore_vars
+    )
     
     
     COMPARE_class <- data.frame(
@@ -99,7 +103,11 @@ cast_variables <- function(
         colname = names(COMPARE),
         stringsAsFactors = FALSE
     )
-    COMPARE_class <- COMPARE_class[!COMPARE_class[["colname"]] %in% ignore_vars ,, drop=FALSE] 
+    
+    COMPARE_class <- subset_se(
+        df = COMPARE_class,
+        rows = !COMPARE_class[["colname"]] %in% ignore_vars 
+    )
     
     common_class <- merge(
         x = BASE_class, 
@@ -108,7 +116,10 @@ cast_variables <- function(
     )
     
     
-    diff_class <- common_class[ common_class[["class_BASE"]] != common_class[["class_COMPARE"]] ,,drop=FALSE]
+    diff_class <- subset_se(
+        df = common_class,
+        rows = common_class[["class_BASE"]] != common_class[["class_COMPARE"]]
+    )
 
     
     diff_class$classmerge <- mapply(
@@ -118,7 +129,10 @@ cast_variables <- function(
     )
     
     
-    cast_columns <- diff_class[  diff_class[["classmerge"]] %in% allowed_class_casts ,,drop=FALSE] 
+    cast_columns <- subset_se(
+        df = diff_class, 
+        rows = diff_class[["classmerge"]] %in% allowed_class_casts 
+    )
     
     
     DATASETS <- list(

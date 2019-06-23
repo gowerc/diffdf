@@ -81,7 +81,6 @@ diffdf <- function (
     tolerance = sqrt(.Machine$double.eps),
     scale = NULL
 ){
-    
     BASE = base
     COMP = compare
     KEYS = keys

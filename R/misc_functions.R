@@ -33,6 +33,7 @@ has_unique_rows <- function(DAT , KEYS){
     return( NDUPS == 0 )
 }
 
+
 #'convert_to_issue
 #'
 #'converts the count value into the correct issue format
@@ -44,9 +45,15 @@ convert_to_issue <- function(datin){
         `No of Differences` = datin
     )
     
-    datin_tibble_reduced <- datin_tibble[ datin_tibble[["No of Differences"]] > 0, , drop = FALSE]
+    datin_tibble_reduced <- subset_se(
+        df = datin_tibble, 
+        rows = datin_tibble[["No of Differences"]] > 0
+    )
+    
     return(datin_tibble_reduced)
 }
+
+
 
 #' quickdf
 #' 
@@ -59,6 +66,8 @@ quickdf <- function(l) {
     l
 }
 
+
+
 #' first_class
 #' 
 #' Convenience function to grab the first class message from a class call
@@ -69,6 +78,7 @@ first_class <- function(col){
 }
 
 
+
 #' sort_df
 #' 
 #' Convenience function to sort a dataset (and hide the ugly syntax required to do so)
@@ -77,6 +87,8 @@ first_class <- function(col){
 sort_df <- function(df, by){
     df[do.call("order", df[by]), ]
 }
+
+
 
 #' subset_se
 #' 

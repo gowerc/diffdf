@@ -83,7 +83,10 @@ diffdf_issuerows <- function( df , diff, vars = NULL){
     
     if ( KEYS_ATT$is_derived ){
         keep_vars <- !names(RET) %in% KEYS_ATT$value
-        RET <- RET[, keep_vars , drop = FALSE]
+        RET <- subset_se(
+            df = RET, 
+            cols = keep_vars
+        )
     }
     
     return(RET)
@@ -102,5 +105,5 @@ diffdf_issuerows <- function( df , diff, vars = NULL){
 get_issue_dataset <- function(issue, diff){
     issue_df <- diff[[issue]]
     keep <- names(issue_df)[ !(names(issue_df) %in% c("BASE", "COMPARE", "VARIABLE"))]
-    issue_df[,keep , drop=FALSE]
+    subset_se(issue_df, cols = keep)
 }

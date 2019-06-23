@@ -18,7 +18,7 @@ is_variable_different <- function (variablename, keynames, BASE, COMP,  ...) {
     
     target  <- BASE[[variablename]]
     current <- COMP[[variablename]]
-    keys <- BASE[, keynames, drop = FALSE]
+    keys <- subset_se(BASE, cols = keynames)
     outvect <- find_difference(target, current, ...)
     x <- as.tibble(
         quickdf(

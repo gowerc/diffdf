@@ -87,8 +87,7 @@ identify_unsupported_cols <- function(dsin){
         select = c("VARIABLE", "MODE")
     ) 
     
-    dat[ !dat[["MODE"]] %in% c('numeric', 'character', 'logical') ,, drop=FALSE]
-
+    subset_se(dat, rows = !dat[["MODE"]] %in% c('numeric', 'character', 'logical'))
 }
 
 
@@ -115,7 +114,7 @@ identify_mode_differences <- function( BASE, COMP ){
     KEEP1 <- dat[["VARIABLE"]] %in% matching_cols
     KEEP2 <- dat[["MODE.BASE"]] != dat[["MODE.COMP"]]
     
-    dat[ KEEP1 & KEEP2 ,, drop=FALSE]
+    subset_se( dat , rows = KEEP1 & KEEP2)
 
 }
 
@@ -148,7 +147,8 @@ identify_class_differences <- function( BASE, COMP ){
         dat[["CLASS.COMP"]] 
     )
     
-    dat[ KEEP1 & KEEP2 ,, drop=FALSE] 
+    subset_se( dat , rows = KEEP1 & KEEP2)
+
 
 }
 
@@ -174,9 +174,11 @@ identify_att_differences <- function( BASE, COMP , exclude_cols = "" ){
         suffixes = c(".BASE", ".COMP")
     )
     
-    PROPS <- subset( PROPS , select =  c("VARIABLE", "ATTRIBS.BASE" , "ATTRIBS.COMP")) 
-    
-    PROPS <- PROPS[ PROPS[["VARIABLE"]] %in% matching_cols,, drop = FALSE]
+    PROPS <- subset_se( 
+        PROPS , 
+        rows = PROPS[["VARIABLE"]] %in% matching_cols,
+        cols =  c("VARIABLE", "ATTRIBS.BASE" , "ATTRIBS.COMP")
+    ) 
  
     
     ### Setup dummy return value
@@ -189,7 +191,7 @@ identify_att_differences <- function( BASE, COMP , exclude_cols = "" ){
     
     for ( i in  PROPS[["VARIABLE"]] ){
         
-        PROPS_filt <- PROPS[ PROPS[["VARIABLE"]] == i ,, drop=FALSE]
+        PROPS_filt <- subset_se(PROPS, rows= PROPS[["VARIABLE"]] == i)
 
         ### Get a vector of all available attributes across both variables
         ATTRIB_NAMES = unique(c( 
