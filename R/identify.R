@@ -19,6 +19,11 @@ identify_extra_rows <- function(DS1, DS2 , KEYS){
         classtype, 
         length(KEYS)
     )
+    #browser()
+    index_select <- find_matches_3(
+        subset_se( DS1in, cols = KEYS), 
+        subset_se( DS2in, cols = KEYS)
+    )
     
     x <- list(
         baseextra   = subset_se(DS1in, -index_select[[1]], KEYS),
@@ -29,6 +34,19 @@ identify_extra_rows <- function(DS1, DS2 , KEYS){
     
     return(x)
 }
+
+
+
+# ds1 <- iris %>% sample_n(50)
+# ds2 <- iris %>% sample_n(50)
+# find_matches_3 <- function(ds1, ds2){
+#     ds1$..ROWNUMBER1.. <- 1:nrow(ds1)
+#     ds2$..ROWNUMBER2.. <- 1:nrow(ds2)
+#     ds1 <- as.data.table(ds1)
+#     ds2 <- as.data.table(ds2)
+#     x <- merge(ds1 , ds2, sort= FALSE)
+#     return(list(x$..ROWNUMBER1.. , x$..ROWNUMBER2..))
+# }
 
 
 
@@ -78,10 +96,7 @@ identify_matching_cols <- function(DS1, DS2 , EXCLUDE = ""){
 #' Identifies any columns for which the package is not setup to handle
 #' @param dsin input dataset
 identify_unsupported_cols <- function(dsin){
-    dat <- subset(
-        identify_properties(dsin) ,
-        select = c("VARIABLE", "MODE")
-    ) 
+    dat <- subset_se( identify_properties(dsin) , cols = c("VARIABLE", "MODE") ) 
     
     subset_se(dat, rows = !dat[["MODE"]] %in% c('numeric', 'character', 'logical'))
 }
@@ -105,7 +120,7 @@ identify_mode_differences <- function( BASE, COMP ){
         suffixes = c(".BASE", ".COMP"),
         sort = TRUE
     ) 
-    dat <-  subset( dat, select = c("VARIABLE" , "MODE.BASE" , "MODE.COMP"))
+    dat <-  subset_se( dat, cols =c("VARIABLE" , "MODE.BASE" , "MODE.COMP"))
     
     KEEP1 <- dat[["VARIABLE"]] %in% matching_cols
     KEEP2 <- dat[["MODE.BASE"]] != dat[["MODE.COMP"]]
@@ -134,7 +149,7 @@ identify_class_differences <- function( BASE, COMP ){
         suffixes =  c(".BASE", ".COMP")
     ) 
     
-    dat <- subset( dat , select = c("VARIABLE" , "CLASS.BASE" , "CLASS.COMP")) 
+    dat <- subset_se( dat , cols = c("VARIABLE" , "CLASS.BASE" , "CLASS.COMP")) 
     
     KEEP1 <- dat[["VARIABLE"]] %in% matching_cols
     KEEP2 <- !mapply( 
@@ -235,7 +250,7 @@ identify_att_differences <- function( BASE, COMP , exclude_cols = "" ){
 #' @param exclude_cols Columns to exclude from comparison
 #' @param tolerance Level of tolerance for numeric differences between two variables
 #' @param scale Scale that tolerance should be set on. If NULL assume absolute
-identify_differences <- function( BASE , COMP , KEYS, exclude_cols,  
+identify_differences <- function( BASE, COMP, KEYS, exclude_cols,  
                                   tolerance = sqrt(.Machine$double.eps),
                                   scale = NULL) {
     
@@ -249,7 +264,7 @@ identify_differences <- function( BASE , COMP , KEYS, exclude_cols,
         MoreArgs = list(
             keynames = KEYS, 
             BASE = BASE,
-            COMP = COMP,
+            COMP = COMP, 
             tolerance = tolerance ,
             scale = scale
         ),

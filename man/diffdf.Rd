@@ -3,7 +3,6 @@
 \docType{package}
 \name{diffdf}
 \alias{diffdf}
-\alias{diffdf}
 \alias{diffdf-package}
 \title{diffdf}
 \usage{

@@ -28,7 +28,7 @@ factor_to_character <- function( dsin , vars = NULL){
 #' @param DAT input data set (data frame)
 #' @param KEYS Set of keys which should be unique
 has_unique_rows <- function(DAT , KEYS){
-    DUPS <- duplicated( subset(DAT , select= KEYS) ) 
+    DUPS <- duplicated( subset_se(DAT ,, KEYS) ) 
     NDUPS <- sum( DUPS)
     return( NDUPS == 0 )
 }
@@ -99,7 +99,7 @@ sort_df <- function(df, by){
 #' @param cols column names / lgl vector to keep
 subset_se <- function(df , rows = NULL, cols = NULL){
     
-    if ( !(class(rows) %in% c("NULL", "logical", "numeric", "character")) | any(is.na(rows))){
+    if ( !(class(rows) %in% c("NULL", "logical", "numeric", "character", "integer")) | any(is.na(rows))){
         stop("Invalid rows specification")
     }
     

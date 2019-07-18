@@ -1,19 +1,11 @@
-
-
-
 library(tibble)
-library(diffdf)
 library(purrr)
 library(stringi)
-
-
+devtools::load_all()
 
 get_test_data <- function(nrow, ncol, types = "num"){
-    
     dat <- tibble( id = 1:nrow)
-    
     for ( i in 1:ncol){
-        
         if( "num" %in% types){
             dat[[paste0("num_",i)]] <- rnorm(nrow)
         }
@@ -29,75 +21,62 @@ get_test_data <- function(nrow, ncol, types = "num"){
     return(dat)
 }
 
-
-
-### Generate test datasets
-nrow <- 1000000
-ncol <- 60
-
-d1_num <- get_test_data(nrow, ncol, "num")
-d1_chr <- get_test_data(nrow, ncol, "chr")
-d1_fct <- get_test_data(nrow, ncol, "fct")
-d1_all <- get_test_data(nrow, 20, c("num", "chr", "fct"))
-
-d2_num <- get_test_data(nrow, ncol, "num")
-d2_chr <- get_test_data(nrow, ncol, "chr")
-d2_fct <- get_test_data(nrow, ncol, "fct")
-d2_all <- get_test_data(nrow, 20, c("num", "chr", "fct"))
-
-
-get_time <- function(d1, d2, n){
-    rerun( n, system.time(diffdf(d1 , d1, suppress_warnings = T))[[3]]) %>% flatten_dbl() %>% mean
-}
-
-rerun_n <- 5
-
-c1 <- list(
-    num_same = get_time(d1_num , d1_num, rerun_n),
-    num_diff = get_time(d1_num , d2_num, rerun_n),
-    chr_same = get_time(d1_chr , d1_chr, rerun_n),
-    chr_diff = get_time(d1_chr , d2_chr, rerun_n),
-    fct_same = get_time(d1_fct , d1_fct, rerun_n),
-    fct_diff = get_time(d1_fct , d2_fct, rerun_n),
-    all_same = get_time(d1_all , d1_all, rerun_n),
-    all_diff = get_time(d1_all , d2_all, rerun_n)
-)
-
-
-devtools::load_all()
-
-
-c2 <- list(
-    num_same = get_time(d1_num , d1_num, rerun_n),
-    num_diff = get_time(d1_num , d2_num, rerun_n),
-    chr_same = get_time(d1_chr , d1_chr, rerun_n),
-    chr_diff = get_time(d1_chr , d2_chr, rerun_n),
-    fct_same = get_time(d1_fct , d1_fct, rerun_n),
-    fct_diff = get_time(d1_fct , d2_fct, rerun_n),
-    all_same = get_time(d1_all , d1_all, rerun_n),
-    all_diff = get_time(d1_all , d2_all, rerun_n)
-)
-
-
-
-
 get_print <- function(x){
     for( i in names(x)){
         cat( paste0( i , " - ", round(x[[i]],3), "\n"))
     }
 }
 
-get_print(c1)
+get_times <- function(nrow, ncol, nrep){
+    get_time <- function(d1, d2, n) rerun( n, system.time(diffdf(d1 , d1, suppress_warnings = T))[[3]]) %>% flatten_dbl() %>% mean
+    dat <- list(
+        d1_num = get_test_data(nrow, ncol, "num"),
+        d1_chr = get_test_data(nrow, ncol, "chr"),
+        nrep = nrep
+    )
+    list(
+        num_same = get_time(dat$d1_num , dat$d1_num, dat$nrep),
+        chr_same = get_time(dat$d1_chr , dat$d1_chr, dat$nrep)
+    )
+}
 
-get_print(c2)
+t1 <- get_times(10000000, 30, 1)
+t2 <- get_times(10000000, 50, 1)
+t3 <- get_times(10000000, 70, 1)
+
+get_print(t1)
+get_print(t2)
+get_print(t3)
+
+
+library(data.table)
+
+
+c1 <- get_test_data(400000, 25, "chr")
+profvis::profvis(diffdf( c1, c1), interval = 0.005)
+
+
+t1 <- get_test_data(500, 10, "chr")
+t2 <- get_test_data(500, 10, "chr")
+
+diffdf( t1, t1, keys = "id")
+diffdf( t1, t2, keys = "id")
 
 
 
 
+chrs <- stri_rand_strings(500,50)
+ch <- sample(chrs, size = 10000000 , replace = T)
+system.time({
+    x <- stringdiff(  ch, ch)
+})
 
 
 
-
+nums <- rnorm(10000000)
+system.time({
+    x <- doublediff(  nums,nums, tolerance = 1)
+})
 
 
 

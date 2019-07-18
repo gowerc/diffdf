@@ -14,6 +14,5 @@
 \item{...}{Additional arguments which might be passed through (numerical accuracy)}
 }
 \description{
-Default method, if the vector is not numeric, factor or character
-Should not be called in practice, but there to handle exceptions
+Default method, if the vector is not numeric or factor. Basic comparison
 }

@@ -6,8 +6,7 @@ using namespace Rcpp;
 //saying where the matches are in both DFs
 
 // [[Rcpp::export]]
-List find_matches(DataFrame DS1, DataFrame DS2,
-                  CharacterVector classtype, int KN) {
+List find_matches(DataFrame DS1,  DataFrame DS2, CharacterVector classtype, int KN) {
     int n1;
     int n2;
     std::map<int, CharacterVector> mapchar;

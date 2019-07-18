@@ -104,7 +104,6 @@ diffdf <- function (
     attr(COMPARE, 'keys') <- list(value = KEYS, is_derived = is_derived)
     
     
-    
     if (!is.numeric(tolerance)) {
         stop("'tolerance' should be numeric")
     }
@@ -220,6 +219,7 @@ diffdf <- function (
         value = comparerows$compextra   ,
         message = "There are rows in COMPARE that are not in BASE !!"
     )
+    
     BASE <- comparerows$base_reduce
     COMP <- comparerows$comp_reduce
     
@@ -243,11 +243,10 @@ diffdf <- function (
     )
 
     
-    
     ## Summarise the number of mismatching rows per variable
 
     if ( length(VALUE_DIFFERENCES) ){
-        NDIFF  <- sapply( VALUE_DIFFERENCES , nrow )
+        NDIFF  <- sapply( VALUE_DIFFERENCES , nrow)
         COMPARE[["NumDiff"]] <- construct_issue(
             value = convert_to_issue(NDIFF),
             message = "Not all Values Compared Equal"

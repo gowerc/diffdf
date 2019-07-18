@@ -162,7 +162,7 @@ get_table <- function(dsin , row_limit = 10){
         return("")
     }
     
-    display_table <- subset(dsin ,  1:nrow(dsin) < (row_limit + 1) )
+    display_table <- subset_se(dsin ,  1:nrow(dsin) < (row_limit + 1) )
     
     if ( nrow(dsin) > row_limit ){
         

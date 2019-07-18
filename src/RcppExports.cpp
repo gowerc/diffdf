@@ -5,20 +5,6 @@
 
 using namespace Rcpp;
 
-// doublediff
-std::vector<bool> doublediff(NumericVector x, NumericVector y, double tolerance, double scale);
-RcppExport SEXP _diffdf_doublediff(SEXP xSEXP, SEXP ySEXP, SEXP toleranceSEXP, SEXP scaleSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type y(ySEXP);
-    Rcpp::traits::input_parameter< double >::type tolerance(toleranceSEXP);
-    Rcpp::traits::input_parameter< double >::type scale(scaleSEXP);
-    rcpp_result_gen = Rcpp::wrap(doublediff(x, y, tolerance, scale));
-    return rcpp_result_gen;
-END_RCPP
-}
 // find_matches
 List find_matches(DataFrame DS1, DataFrame DS2, CharacterVector classtype, int KN);
 RcppExport SEXP _diffdf_find_matches(SEXP DS1SEXP, SEXP DS2SEXP, SEXP classtypeSEXP, SEXP KNSEXP) {
@@ -33,23 +19,9 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// stringdiff
-std::vector<bool> stringdiff(CharacterVector x, CharacterVector y);
-RcppExport SEXP _diffdf_stringdiff(SEXP xSEXP, SEXP ySEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP);
-    Rcpp::traits::input_parameter< CharacterVector >::type y(ySEXP);
-    rcpp_result_gen = Rcpp::wrap(stringdiff(x, y));
-    return rcpp_result_gen;
-END_RCPP
-}
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_diffdf_doublediff", (DL_FUNC) &_diffdf_doublediff, 4},
     {"_diffdf_find_matches", (DL_FUNC) &_diffdf_find_matches, 4},
-    {"_diffdf_stringdiff", (DL_FUNC) &_diffdf_stringdiff, 2},
     {NULL, NULL, 0}
 };
 

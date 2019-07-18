@@ -17,6 +17,18 @@ construct_issue <- function(value, message, add_class = NULL){
 }
 
 
+construct_value_issue <- function(value, message, add_class = NULL){
+    x <- value
+    
+    ### If nothing has been provided return nothing !
+    if ( length(x$diff_index) == 0 ) return(NULL)
+    
+    class(x) <- c(add_class, "issue", class(x))
+    attributes(x)[["message"]] <- message
+    return(x)
+}
+
+
 #' get_issue_message
 #' 
 #' Simple function to grab the issue message
