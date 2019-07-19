@@ -83,31 +83,25 @@ cast_variables <- function(
     cast_integers = FALSE , 
     cast_factors = FALSE 
 ){
+    ### Dummy variable assignment to remove CRAN notes of no visible variable assignment
+    colname <- NULL
+    class_BASE <- NULL
+    class_COMPARE <- NULL
+    classmerge <- NULL
 
     allowed_class_casts <- c( "integernumeric" , "characterfactor")[c(cast_integers, cast_factors)]
     
-    BASE_class <- data.frame(
+    BASE_class <- data.table(
         class_BASE = sapply(BASE, class_merge), 
-        colname = names(BASE),
-        stringsAsFactors = FALSE
+        colname = names(BASE)
     )
+    BASE_class <- BASE_class[ !colname %in% ignore_vars]
     
-    BASE_class <- subset_se(
-        df = BASE_class,
-        rows = !BASE_class[["colname"]] %in% ignore_vars
-    )
-    
-    
-    COMPARE_class <- data.frame(
+    COMPARE_class <- data.table(
         class_COMPARE = sapply(COMPARE, class_merge), 
-        colname = names(COMPARE),
-        stringsAsFactors = FALSE
+        colname = names(COMPARE)
     )
-    
-    COMPARE_class <- subset_se(
-        df = COMPARE_class,
-        rows = !COMPARE_class[["colname"]] %in% ignore_vars 
-    )
+    COMPARE_class <- COMPARE_class[ !colname %in% ignore_vars]
     
     common_class <- merge(
         x = BASE_class, 
@@ -116,10 +110,7 @@ cast_variables <- function(
     )
     
     
-    diff_class <- subset_se(
-        df = common_class,
-        rows = common_class[["class_BASE"]] != common_class[["class_COMPARE"]]
-    )
+    diff_class <- common_class[ class_BASE != class_COMPARE]
 
     
     diff_class$classmerge <- mapply(
@@ -129,11 +120,7 @@ cast_variables <- function(
     )
     
     
-    cast_columns <- subset_se(
-        df = diff_class, 
-        rows = diff_class[["classmerge"]] %in% allowed_class_casts 
-    )
-    
+    cast_columns <- diff_class[ classmerge %in% allowed_class_casts]
     
     DATASETS <- list(
         "BASE" = BASE,

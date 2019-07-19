@@ -30,7 +30,9 @@
 #' nonsense rows being returned. It is always recommended to supply keys to diffdf.
 #' @export
 diffdf_issuerows <- function( df , diff, vars = NULL){    
-
+    
+    df <- as.data.table(df)
+    
     if ( class(diff)[[1]] != "diffdf") {
         stop("diff should be an diffdf object")
     }
@@ -72,21 +74,19 @@ diffdf_issuerows <- function( df , diff, vars = NULL){
     if ( any( ! keys %in% names(df))){
         stop("df does not contain all variables specified as keys in diff")
     }
-    
+
     RET <- merge( 
         x = df,
         y = KEEP,
-        sort = TRUE
+        sort = TRUE,
+        by = keys
     )  
     
-    RET <- RET[do.call("order", RET[keys]), ]
+    setorderv(RET, keys)
     
     if ( KEYS_ATT$is_derived ){
         keep_vars <- !names(RET) %in% KEYS_ATT$value
-        RET <- subset_se(
-            df = RET, 
-            cols = keep_vars
-        )
+        RET <- RET[ , keep_vars, with = FALSE]
     }
     
     return(RET)
@@ -103,7 +103,7 @@ diffdf_issuerows <- function( df , diff, vars = NULL){
 #' @param issue name of issue to extract the dataset from diff 
 #' @param diff diffdf object which contains issues
 get_issue_dataset <- function(issue, diff){
-    issue_df <- diff[[issue]]
+    issue_df <- as.data.table(diff[[issue]])
     keep <- names(issue_df)[ !(names(issue_df) %in% c("BASE", "COMPARE", "VARIABLE"))]
-    subset_se(issue_df, cols = keep)
+    issue_df[,  keep, with = FALSE]
 }

@@ -4,12 +4,12 @@
 \alias{identify_extra_rows}
 \title{identify_extra_rows}
 \usage{
-identify_extra_rows(DS1, DS2, KEYS)
+identify_extra_rows(BASE, COMP, KEYS)
 }
 \arguments{
-\item{DS1}{Baseline dataset (data frame)}
+\item{BASE}{Baseline dataset (data frame)}
 
-\item{DS2}{Comparator dataset (data frame)}
+\item{COMP}{Comparator dataset (data frame)}
 
 \item{KEYS}{List of variables that define a unique row within the datasets (strings)}
 }

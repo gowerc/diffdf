@@ -7,8 +7,7 @@
 #' 
 #' @docType package
 #' @author Craig Gower 
-#' @import Rcpp
-#' @importFrom Rcpp evalCpp
-#' @useDynLib diffdf
 #' @name diffdf
+#' @import data.table 
+#' @import tibble
 NULL  

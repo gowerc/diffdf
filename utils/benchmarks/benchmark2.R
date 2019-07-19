@@ -40,13 +40,13 @@ get_times <- function(nrow, ncol, nrep){
     )
 }
 
-t1 <- get_times(10000000, 30, 1)
-t2 <- get_times(10000000, 50, 1)
-t3 <- get_times(10000000, 70, 1)
-
+t1 <- get_times(500000, 30, 3)
 get_print(t1)
+t2 <- get_times(500000, 50, 3)
 get_print(t2)
+t3 <- get_times(500000, 70, 3)
 get_print(t3)
+
 
 
 library(data.table)

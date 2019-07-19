@@ -5,36 +5,26 @@
 #' @importFrom tibble as.tibble
 #' @param variablename name of variable being compared
 #' @param keynames name of keys
-#' @param datain Inputted dataset with base and compare vectors
+#' @param DAT Inputted dataset with base and compare vectors
 #' @param ...  Additional arguments which might be passed through (numerical accuracy)
 #' @return A boolean vector which is T if target and current are different
-is_variable_different <- function (variablename, keynames, BASE, COMP,  ...) {
+is_variable_different <- function (variablename, keynames, DAT,  ...) {
     
-    if ( ! variablename %in% names(BASE) | ! variablename %in% names(COMP)){
-        stop("Variable does not exist within input dataset")
-    }
+    ### Dummy variable assignment to remove CRAN notes of no visible variable assignment
+    VARIABLE <- NULL
     
-    target  <- BASE[[variablename]]
-    current <- COMP[[variablename]]
+    cols <- paste0(variablename , c(".BASE", ".COMPARE"))
+    vars <- c("VARIABLE", keynames, cols[[1]] , cols[[2]])
     
-    outvect <- find_difference(target, current, ...)
+    target <- DAT[[cols[[1]]]]
+    current <- DAT[[cols[[2]]]]
+    outvect <- find_difference( target , current , ...)
+
+    DAT[, VARIABLE := variablename]
+    x <- DAT[ outvect, vars , with=FALSE]
+    x2 <- setnames(x, c(cols[[1]], cols[[2]]) , c("BASE", "COMPARE"))
     
-    x <- as_tibble(quickdf(
-        c(
-            list(
-                VARIABLE = rep(variablename, sum(outvect))
-            ),
-            
-            subset_se(BASE, outvect, keynames),
-            
-            list(
-                BASE = target[outvect],
-                COMPARE = current[outvect]
-            )
-        )
-    ))
-    
-    return(x)
+    return(x2)
 }
 
 

@@ -3,50 +3,15 @@
 #' identify_extra_rows
 #' 
 #' Identifies rows that are in a baseline dataset but not in a comparator dataset
-#' @param DS1 Baseline dataset (data frame)
-#' @param DS2 Comparator dataset (data frame)
+#' @param BASE Baseline dataset (data frame)
+#' @param COMP Comparator dataset (data frame)
 #' @param KEYS List of variables that define a unique row within the datasets (strings)
-identify_extra_rows <- function(DS1, DS2 , KEYS){
-
-    DS1in   <- sort_df(DS1, KEYS)   
-    DS2in   <- sort_df(DS2, KEYS)   
-    
-    classtype <- get_column_mode(DS1in, cols = KEYS)
-    
-    index_select <- find_matches(
-        subset_se( DS1in, cols = KEYS), 
-        subset_se( DS2in, cols = KEYS),
-        classtype, 
-        length(KEYS)
-    )
-    #browser()
-    index_select <- find_matches_3(
-        subset_se( DS1in, cols = KEYS), 
-        subset_se( DS2in, cols = KEYS)
-    )
-    
-    x <- list(
-        baseextra   = subset_se(DS1in, -index_select[[1]], KEYS),
-        compextra   = subset_se(DS2in, -index_select[[2]], KEYS),
-        base_reduce = subset_se(DS1in,  index_select[[1]]),
-        comp_reduce = subset_se(DS2in,  index_select[[2]])
-    )
-    
+identify_extra_rows <- function(BASE, COMP , KEYS){
+    BASE <- BASE[, KEYS, with = FALSE]
+    COMP <- COMP[, KEYS, with = FALSE]
+    x <- fsetdiff(  BASE , COMP  , all = TRUE)
     return(x)
 }
-
-
-
-# ds1 <- iris %>% sample_n(50)
-# ds2 <- iris %>% sample_n(50)
-# find_matches_3 <- function(ds1, ds2){
-#     ds1$..ROWNUMBER1.. <- 1:nrow(ds1)
-#     ds2$..ROWNUMBER2.. <- 1:nrow(ds2)
-#     ds1 <- as.data.table(ds1)
-#     ds2 <- as.data.table(ds2)
-#     x <- merge(ds1 , ds2, sort= FALSE)
-#     return(list(x$..ROWNUMBER1.. , x$..ROWNUMBER2..))
-# }
 
 
 
@@ -96,9 +61,13 @@ identify_matching_cols <- function(DS1, DS2 , EXCLUDE = ""){
 #' Identifies any columns for which the package is not setup to handle
 #' @param dsin input dataset
 identify_unsupported_cols <- function(dsin){
-    dat <- subset_se( identify_properties(dsin) , cols = c("VARIABLE", "MODE") ) 
     
-    subset_se(dat, rows = !dat[["MODE"]] %in% c('numeric', 'character', 'logical'))
+    ### Dummy variable assignment to remove CRAN notes of no visible variable assignment
+    VARIABLE <- NULL
+    MODE <- NULL
+    
+    dat <- identify_properties(dsin)[, list(VARIABLE, MODE)]
+    dat[ !MODE %in% c('numeric', 'character', 'logical')]
 }
 
 
@@ -110,6 +79,11 @@ identify_unsupported_cols <- function(dsin){
 #' @param COMP Comparator dataset to compare base against (data.frame)
 identify_mode_differences <- function( BASE, COMP ){
 
+    ### Dummy variable assignment to remove CRAN notes of no visible variable assignment
+    VARIABLE <- NULL
+    MODE.BASE <- NULL
+    MODE.COMP <- NULL
+    
     matching_cols <- identify_matching_cols( BASE , COMP  )
     
     dat <- merge(
@@ -120,13 +94,9 @@ identify_mode_differences <- function( BASE, COMP ){
         suffixes = c(".BASE", ".COMP"),
         sort = TRUE
     ) 
-    dat <-  subset_se( dat, cols =c("VARIABLE" , "MODE.BASE" , "MODE.COMP"))
+    dat <-  dat[, list(VARIABLE, MODE.BASE, MODE.COMP)]
     
-    KEEP1 <- dat[["VARIABLE"]] %in% matching_cols
-    KEEP2 <- dat[["MODE.BASE"]] != dat[["MODE.COMP"]]
-    
-    subset_se( dat , rows = KEEP1 & KEEP2)
-
+    dat[ VARIABLE %in% matching_cols & MODE.BASE != MODE.COMP ]
 }
 
 
@@ -137,6 +107,11 @@ identify_mode_differences <- function( BASE, COMP ){
 #' @param BASE Base dataset for comparison (data.frame)
 #' @param COMP Comparator dataset to compare base against (data.frame)
 identify_class_differences <- function( BASE, COMP ){
+    
+    ### Dummy variable assignment to remove CRAN notes of no visible variable assignment
+    VARIABLE <- NULL
+    CLASS.BASE <- NULL
+    CLASS.COMP <- NULL
     
     matching_cols <- identify_matching_cols( BASE , COMP )
     
@@ -149,7 +124,7 @@ identify_class_differences <- function( BASE, COMP ){
         suffixes =  c(".BASE", ".COMP")
     ) 
     
-    dat <- subset_se( dat , cols = c("VARIABLE" , "CLASS.BASE" , "CLASS.COMP")) 
+    dat <- dat[ , list(VARIABLE , CLASS.BASE , CLASS.COMP)] 
     
     KEEP1 <- dat[["VARIABLE"]] %in% matching_cols
     KEEP2 <- !mapply( 
@@ -157,9 +132,8 @@ identify_class_differences <- function( BASE, COMP ){
         dat[["CLASS.BASE"]] , 
         dat[["CLASS.COMP"]] 
     )
+    dat[ KEEP1 & KEEP2]
     
-    subset_se( dat , rows = KEEP1 & KEEP2)
-
 
 }
 
@@ -170,11 +144,15 @@ identify_class_differences <- function( BASE, COMP ){
 #' Identifies any attribute differences between two data frames
 #' @param BASE Base dataset for comparison (data.frame)
 #' @param COMP Comparator dataset to compare base against (data.frame)
-#' @param exclude_cols Columns to exclude from comparison
 #' @importFrom tibble tibble
-identify_att_differences <- function( BASE, COMP , exclude_cols = "" ){
+identify_att_differences <- function( BASE, COMP){
     
-    matching_cols <- identify_matching_cols( BASE , COMP , exclude_cols )
+    ### Dummy variable assignment to remove CRAN notes of no visible variable assignment
+    VARIABLE <- NULL
+    ATTRIBS.BASE <- NULL
+    ATTRIBS.COMP <- NULL
+    
+    matching_cols <- identify_matching_cols( BASE , COMP  )
     
     PROPS <- merge(
         x = identify_properties(BASE) ,
@@ -185,12 +163,8 @@ identify_att_differences <- function( BASE, COMP , exclude_cols = "" ){
         suffixes = c(".BASE", ".COMP")
     )
     
-    PROPS <- subset_se( 
-        PROPS , 
-        rows = PROPS[["VARIABLE"]] %in% matching_cols,
-        cols =  c("VARIABLE", "ATTRIBS.BASE" , "ATTRIBS.COMP")
-    ) 
- 
+    PROPS <- PROPS[ VARIABLE %in% matching_cols , list(VARIABLE, ATTRIBS.BASE, ATTRIBS.COMP)]
+    
     
     ### Setup dummy return value
     RETURN <- tibble(
@@ -202,7 +176,7 @@ identify_att_differences <- function( BASE, COMP , exclude_cols = "" ){
     
     for ( i in  PROPS[["VARIABLE"]] ){
         
-        PROPS_filt <- subset_se(PROPS, rows= PROPS[["VARIABLE"]] == i)
+        PROPS_filt <- PROPS[VARIABLE == i]
 
         ### Get a vector of all available attributes across both variables
         ATTRIB_NAMES = unique(c( 
@@ -253,25 +227,31 @@ identify_att_differences <- function( BASE, COMP , exclude_cols = "" ){
 identify_differences <- function( BASE, COMP, KEYS, exclude_cols,  
                                   tolerance = sqrt(.Machine$double.eps),
                                   scale = NULL) {
+   
+    compare_cols <- identify_matching_cols(BASE, COMP, EXCLUDE = KEYS)
     
-    matching_cols <- identify_matching_cols( BASE , COMP , c(KEYS, exclude_cols))
+    DAT <- merge(
+        BASE, 
+        COMP, 
+        by = KEYS, 
+        suffixes = c(".BASE", ".COMPARE")
+    )   
     
-    if( length(matching_cols) == 0  ) return ( tibble() )
+    if( length(compare_cols) == 0  ) return ( tibble() )
     
     matching_list <- mapply(
         is_variable_different , 
-        matching_cols,
+        compare_cols,
         MoreArgs = list(
             keynames = KEYS, 
-            BASE = BASE,
-            COMP = COMP, 
+            DAT = DAT,
             tolerance = tolerance ,
             scale = scale
         ),
         SIMPLIFY = FALSE
     )
     
-    matching_list
+    return(matching_list)
 }
 
 
@@ -292,7 +272,7 @@ identify_properties <- function(dsin){
     
     ### If missing or null return empty dataset
     if( is.null(dsin) ) {
-        x <- tibble(
+        x <- data.table(
             VARIABLE = character(),
             CLASS     = list(),
             MODE      = character(),
@@ -302,7 +282,7 @@ identify_properties <- function(dsin){
         return(x)
     }
     
-    tibble(
+    data.table(
         VARIABLE = names(dsin),
         CLASS     = lapply(dsin, class),
         MODE      = sapply(dsin , mode),

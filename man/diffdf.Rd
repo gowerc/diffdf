@@ -95,7 +95,6 @@ DF2 <- data.frame(
 
 diffdf(DF1 , DF2 , keys = "id", strict_factor = TRUE)
 diffdf(DF1 , DF2 , keys = "id", strict_factor = FALSE)
- 
 }
 \author{
 Craig Gower

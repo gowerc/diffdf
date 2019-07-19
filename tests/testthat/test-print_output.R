@@ -18,8 +18,11 @@ runme <- function(x){
 
 RES <- map( list_of_comparisons , runme)
 
+i <- 7
+x <- diffdf(list_of_comparisons[[i]][[1]] , list_of_comparisons[[i]][[2]] , suppress_warnings = T)
 
-### Add additional examples that make use of keys
+
+## Add additional examples that make use of keys
 
 x <- diffdf(
     list_of_comparisons[["everything"]][[1]] ,
@@ -45,7 +48,7 @@ SET_GOLD <- FALSE
 
 if ( SET_GOLD ){
     TESTING_print_msg <- RES
-    devtools::use_data( TESTING_print_msg , internal = TRUE , overwrite = TRUE)
+    usethis::use_data( TESTING_print_msg , internal = TRUE , overwrite = TRUE)
 } else {
     for ( i in seq_along(RES) ){
         expect_equal( 
