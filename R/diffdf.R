@@ -6,7 +6,7 @@
 #' @param keys vector of variables (as strings) that defines a unique row in the base and compare dataframes
 #' @param strict_numeric Flag for strict numeric to numeric comparisons (default = TRUE). If False diffdf will cast integer to double where required for comparisons. Note that variables specified in the keys will never be casted.
 #' @param strict_factor Flag for strict factor to character comparisons (default = TRUE). If False diffdf will cast factors to characters where required for comparisons. Note that variables specified in the keys will never be casted.
-#' @param suppress_warnings Do you want to suppress warnings? (logical)
+#' @param warnings Do you want to display warnings? (logical) (default = TRUE)
 #' @param file Location and name of a text file to output the results to. Setting to NULL will cause no file to be produced.
 #' @param tolerance Set tolerance for numeric comparisons. Note that comparisons fail if (x-y)/scale > tolerance.
 #' @param scale Set scale for numeric comparisons. Note that comparisons fail if (x-y)/scale > tolerance. Setting as NULL is a slightly more efficient version of scale = 1. 
@@ -73,7 +73,7 @@ diffdf <- function (
     base , 
     compare , 
     keys = NULL, 
-    suppress_warnings = FALSE, 
+    warnings = TRUE, 
     strict_numeric = TRUE,
     strict_factor = TRUE,
     file = NULL,
@@ -84,7 +84,7 @@ diffdf <- function (
     BASE = as.data.table(base)
     COMP = as.data.table(compare)
     KEYS = keys
-    SUPWARN = suppress_warnings
+    WARN = warnings
     
     
     ### Initatiate output object
@@ -272,7 +272,7 @@ diffdf <- function (
     ISSUE_MSGS <- ISSUE_MSGS[ ISSUE_MSGS != ""]
     
     if( length(ISSUE_MSGS) != 0 ){
-        if(!SUPWARN) {
+        if(WARN) {
             ISSUE_MSGS <- paste(ISSUE_MSGS, collapse ='\n' )
             warning( c("\n" , ISSUE_MSGS))
         }
@@ -321,7 +321,7 @@ diffdf <- function (
 #' # Example with issues
 #' iris2 <- iris
 #' iris2[2,2] <- NA
-#' x <- diffdf( iris , iris2 , suppress_warnings = TRUE)
+#' x <- diffdf( iris , iris2 , warnings = FALSE)
 #' diffdf_has_issues(x)
 #' @export
 diffdf_has_issues <- function(x){

@@ -6,7 +6,7 @@
 \alias{diffdf-package}
 \title{diffdf}
 \usage{
-diffdf(base, compare, keys = NULL, suppress_warnings = FALSE,
+diffdf(base, compare, keys = NULL, warnings = TRUE,
   strict_numeric = TRUE, strict_factor = TRUE, file = NULL,
   tolerance = sqrt(.Machine$double.eps), scale = NULL)
 }
@@ -17,7 +17,7 @@ diffdf(base, compare, keys = NULL, suppress_warnings = FALSE,
 
 \item{keys}{vector of variables (as strings) that defines a unique row in the base and compare dataframes}
 
-\item{suppress_warnings}{Do you want to suppress warnings? (logical)}
+\item{warnings}{Do you want to display warnings? (logical) (default = TRUE)}
 
 \item{strict_numeric}{Flag for strict numeric to numeric comparisons (default = TRUE). If False diffdf will cast integer to double where required for comparisons. Note that variables specified in the keys will never be casted.}
 
