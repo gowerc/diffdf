@@ -25,6 +25,7 @@ Suggests:
     dplyr,
     stringi,
     stringr,
+    usethis,
     devtools,
     covr
 RoxygenNote: 6.1.1

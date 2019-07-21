@@ -128,13 +128,15 @@ diffdf <- function (
     
     COMPARE[["UnsupportedColsBase"]] <- construct_issue(
         value = identify_unsupported_cols(BASE) , 
-        message  = "There are columns in BASE with unsupported modes !!" 
+        message  = "There are columns in BASE with unsupported modes !!" ,
+        dmess = "Checking for unsupported columns in BASE" 
     )
     
     
     COMPARE[["UnsupportedColsComp"]] <- construct_issue(
         value = identify_unsupported_cols(COMP) , 
-        message  = "There are columns in COMPARE with unsupported modes !!" 
+        message  = "There are columns in COMPARE with unsupported modes !!" ,
+        dmess = "Checking for unsupported columns in COMPARE" 
     )
 
     
@@ -157,13 +159,15 @@ diffdf <- function (
     
     COMPARE[["VarModeDiffs"]] <- construct_issue(
         value = identify_mode_differences( BASE, COMP ) ,
-        message = "There are columns in BASE and COMPARE with different modes !!"
+        message = "There are columns in BASE and COMPARE with different modes !!",
+        dmess = "Checking for matching modes"
     )
     
     
     COMPARE[["VarClassDiffs"]] <- construct_issue(
         value = identify_class_differences(BASE, COMP) ,
-        message = "There are columns in BASE and COMPARE with different classes !!"
+        message = "There are columns in BASE and COMPARE with different classes !!",
+        dmess = "Checking for matching classes"
     )
     
 
@@ -203,7 +207,8 @@ diffdf <- function (
     
     COMPARE[["AttribDiffs"]] <- construct_issue(
         value = identify_att_differences(BASE,  COMP)  ,
-        message = "There are columns in BASE and COMPARE with differing attributes !!"
+        message = "There are columns in BASE and COMPARE with differing attributes !!",
+        dmess = "Checking for matching attributes"
     )
     
     
@@ -214,26 +219,30 @@ diffdf <- function (
     
     COMPARE[["ExtRowsBase"]] <- construct_issue(
         value = identify_extra_rows(  BASE, COMP,   KEYS )   ,
-        message = "There are rows in BASE that are not in COMPARE !!"
+        message = "There are rows in BASE that are not in COMPARE !!",
+        dmess = "Checking for extra rows in BASE"
     )
     
     
     COMPARE[["ExtRowsComp"]] <- construct_issue(
         value = identify_extra_rows(  COMP, BASE,   KEYS )   ,
-        message = "There are rows in COMPARE that are not in BASE !!"
+        message = "There are rows in COMPARE that are not in BASE !!",
+        dmess = "Checking for extra rows in COMPARE"
     )
 
     
     
     COMPARE[["ExtColsBase"]] <- construct_issue(
         value =  identify_extra_cols(BASE,  COMP)   ,
-        message = "There are columns in BASE that are not in COMPARE !!"
+        message = "There are columns in BASE that are not in COMPARE !!",
+        dmess = "Checking for extra columns in BASE"
     )
     
     
     COMPARE[["ExtColsComp"]] <- construct_issue(
         value =  identify_extra_cols(COMP,  BASE)   ,
-        message = "There are columns in COMPARE that are not in BASE !!"
+        message = "There are columns in COMPARE that are not in BASE !!",
+        dmess = "Checking for extra columns in COMPARE"
     )
    
     ## Remove extra columns
@@ -253,11 +262,14 @@ diffdf <- function (
     ## Summarise the number of mismatching rows per variable
     if ( length(VALUE_DIFFERENCES) ){
         NDIFF  <- sapply( VALUE_DIFFERENCES , nrow)
-        COMPARE[["NumDiff"]] <- construct_issue(
-            value = convert_to_issue(NDIFF),
-            message = "Not all Values Compared Equal"
-        )
+    } else {
+        NDIFF <- tibble()
     }
+    COMPARE[["NumDiff"]] <- construct_issue(
+        value = convert_to_issue(NDIFF),
+        message = "Not all Values Compared Equal",
+        dmess = "Checking for value differences"
+    )
 
 
     for ( i in names(VALUE_DIFFERENCES) ){

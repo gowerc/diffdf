@@ -5,8 +5,21 @@
 #' @param value the value of the object
 #' @param message the value of the message attribute
 #' @param add_class additional class to add
-construct_issue <- function(value, message, add_class = NULL){
+construct_issue <- function(value, message, add_class = NULL, dmess = NULL){
+    
+    if( !is.null(dmess)){
+        dot_length <-  55 - nchar(dmess)
+        dots  <- paste0( rep(".", dot_length), collapse = "") 
+        cat( dmess, dots, sep = "")
+    }
+    
     x <- as_tibble(value)
+    
+    if( !is.null(dmess)){
+        result <- ifelse( nrow(x) == 0 , "Pass", "Fail")
+        cat(result, "\n", sep = "")
+    }
+    
     ### If nothing has been provided return nothing !
     if ( nrow(x) == 0 ) return(NULL)
     
