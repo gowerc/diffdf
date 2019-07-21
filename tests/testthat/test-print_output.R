@@ -42,6 +42,11 @@ x <- diffdf(
 RES[["With 2 keys"]] <- print(x , as_string = TRUE)
 
 
+RES[["5 Row Limit"]] <- print(x, as_string = TRUE, row_limit = 5)
+RES[["2 Row Limit"]] <- print(x, as_string = TRUE, row_limit = 2)
+
+
+
 
 
 SET_GOLD <- FALSE
