@@ -4,7 +4,7 @@
 \alias{print.diffdf}
 \title{Print diffdf objects}
 \usage{
-\method{print}{diffdf}(x, ..., as_string = FALSE)
+\method{print}{diffdf}(x, ..., as_string = FALSE, row_limit = 10)
 }
 \arguments{
 \item{x}{comparison object created by diffdf().}
@@ -12,6 +12,8 @@
 \item{...}{Additional arguments (not used)}
 
 \item{as_string}{Return printed message as an R character vector?}
+
+\item{row_limit}{Maximium number of rows to display per table (default = 10)}
 }
 \description{
 Print nicely formatted version of an diffdf object

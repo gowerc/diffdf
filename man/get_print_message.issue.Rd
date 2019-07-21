@@ -4,10 +4,12 @@
 \alias{get_print_message.issue}
 \title{get_print_message.issue}
 \usage{
-\method{get_print_message}{issue}(object)
+\method{get_print_message}{issue}(object, row_limit)
 }
 \arguments{
 \item{object}{an object of class issue_basic}
+
+\item{row_limit}{the number of rows to print}
 }
 \description{
 Get text from a basic issue, based on the class of the value of the issue

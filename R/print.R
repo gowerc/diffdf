@@ -12,7 +12,7 @@
 #' print( COMPARE )
 #' print( COMPARE , "Sepal.Length" )
 #' @export 
-print.diffdf <- function(x, row_limit = 10, ..., as_string = FALSE){
+print.diffdf <- function(x, ..., as_string = FALSE, row_limit = 10){
     COMPARE <- x
 
     if ( length(COMPARE) == 0 ){

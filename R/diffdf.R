@@ -15,7 +15,6 @@
 #' x[1,2] <- 5
 #' COMPARE <- diffdf( iris, x)
 #' print( COMPARE )
-#' print( COMPARE , "Sepal.Length" )
 #' 
 #' #### Sample data frames
 #' 
@@ -68,6 +67,7 @@
 #' 
 #' diffdf(DF1 , DF2 , keys = "id", strict_factor = TRUE)
 #' diffdf(DF1 , DF2 , keys = "id", strict_factor = FALSE)
+#'  
 #' @export
 diffdf <- function (
     base , 

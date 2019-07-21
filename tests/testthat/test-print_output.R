@@ -47,19 +47,16 @@ RES[["2 Row Limit"]] <- print(x, as_string = TRUE, row_limit = 2)
 
 
 
-
-
-SET_GOLD <- FALSE
-
-if ( SET_GOLD ){
+if ( FALSE ){
+    ### Run this code to update "gold standard" to be the current RES object
     TESTING_print_msg <- RES
     usethis::use_data( TESTING_print_msg , internal = TRUE , overwrite = TRUE)
 } else {
-    for ( i in seq_along(RES) ){
+    for ( i in names(RES) ){
         expect_equal( 
             RES[[i]] , 
             TESTING_print_msg[[i]] , 
-            info = paste0( "Reference = " , i , " - " , names(RES)[i])
+            info = paste0( "Reference = ", i)
         )
     }
 }

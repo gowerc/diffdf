@@ -42,7 +42,6 @@ x <- subset( iris,  -Species)
 x[1,2] <- 5
 COMPARE <- diffdf( iris, x)
 print( COMPARE )
-print( COMPARE , "Sepal.Length" )
 
 #### Sample data frames
 
@@ -95,6 +94,7 @@ DF2 <- data.frame(
 
 diffdf(DF1 , DF2 , keys = "id", strict_factor = TRUE)
 diffdf(DF1 , DF2 , keys = "id", strict_factor = FALSE)
+ 
 }
 \author{
 Craig Gower
