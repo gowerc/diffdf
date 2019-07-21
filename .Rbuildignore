@@ -9,3 +9,4 @@ docs/
 ^.circleci/
 ^makevars$
 ^data-raw$
+^\.circleci/config\.yml$

@@ -1,9 +1,10 @@
 
-
+<!-- badges: start -->
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/diffdf)](https://CRAN.R-project.org/package=diffdf)
-[![Travis build status](https://travis-ci.org/gowerc/diffdf.svg?branch=master)](https://travis-ci.org/gowerc/diffdf)
 [![Coverage status](https://codecov.io/gh/gowerc/diffdf/branch/master/graph/badge.svg)](https://codecov.io/github/gowerc/diffdf?branch=master)
 
+[![CircleCI build status](https://circleci.com/gh/gowerc/diffdf.svg?style=svg)](https://circleci.com/gh/gowerc/diffdf)
+<!-- badges: end -->
 
 
 # diffdf
