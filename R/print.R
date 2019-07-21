@@ -39,4 +39,40 @@ print.diffdf <- function(x, ..., as_string = FALSE){
 }
 
 
-
+#' get_table
+#' 
+#' Generate nice looking table from a data frame
+#' @param dsin dataset 
+#' @param row_limit Maximum number of rows displayed in dataset
+get_table <- function(dsin , row_limit = 10){
+    
+    if( nrow(dsin) == 0 ) {
+        return("")
+    }
+    display_table <- dsin[ 1:nrow(dsin) < (row_limit + 1), ]
+    
+    if ( nrow(dsin) > row_limit ){
+        
+        add_message <- paste0(
+            'First ',
+            row_limit, 
+            " of " ,
+            nrow(dsin),
+            ' rows are shown in table below'
+        )
+        
+    } else {
+        add_message <- 'All rows are shown in table below'
+    } 
+    
+    msg <- paste(
+        c(
+            add_message,
+            render_ascii(display_table),
+            '\n'
+        ),
+        collapse = '\n'
+    )
+    
+    return(msg)
+}
