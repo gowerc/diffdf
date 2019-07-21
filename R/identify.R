@@ -67,7 +67,7 @@ identify_unsupported_cols <- function(dsin){
     MODE <- NULL
     
     dat <- identify_properties(dsin)[, list(VARIABLE, MODE)]
-    dat[ !MODE %in% c('numeric', 'character', 'logical')]
+    dat[ !MODE %in% c('numeric', 'character', 'logical', 'list')]
 }
 
 

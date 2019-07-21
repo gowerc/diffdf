@@ -157,5 +157,9 @@ compare_vectors.numeric <- function(
 }
 
 
+compare_vectors.list <- function(target,current, ...){
+    !mapply( identical, target, current, SIMPLIFY = TRUE)
+}
+
 
 

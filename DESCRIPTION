@@ -22,7 +22,6 @@ Suggests:
     knitr,
     rmarkdown,
     purrr,
-    dplyr,
     stringi,
     stringr,
     devtools,

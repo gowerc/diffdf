@@ -9,7 +9,7 @@ set.seed(20202)
 
 LENGTH <- 20 
 
-TDAT <- dplyr::data_frame( 
+TDAT <- tibble( 
     ID          = 1:LENGTH,
     GROUP1      = rep( c(1,2) , each = LENGTH/2),
     GROUP2      = rep( c(1:(LENGTH/2)), 2 ),
