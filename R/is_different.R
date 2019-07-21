@@ -157,6 +157,13 @@ compare_vectors.numeric <- function(
 }
 
 
+#' compare_vectors.list
+#'
+#' This method of compare vectors aims to compare and find differences
+#' between list objects. 
+#' @param target the base list
+#' @param current a list to compare base to 
+#' @param ... Current unused
 compare_vectors.list <- function(target,current, ...){
     !mapply( identical, target, current, SIMPLIFY = TRUE)
 }
