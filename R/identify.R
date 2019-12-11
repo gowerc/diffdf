@@ -62,11 +62,9 @@ identify_matching_cols <- function(DS1, DS2 , EXCLUDE = ""){
 #' @param dsin input dataset
 identify_unsupported_cols <- function(dsin){
     
-    ### Dummy variable assignment to remove CRAN notes of no visible variable assignment
-    MODE <- NULL
-    
+ 
     dat <- identify_properties(dsin)[, c("VARIABLE", "MODE")]
-    dat[ !MODE %in% c('numeric', 'character', 'logical')]
+    dat[ !get("MODE") %in% c('numeric', 'character', 'logical')]
 }
 
 
