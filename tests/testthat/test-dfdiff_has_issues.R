@@ -16,7 +16,7 @@ test_that( "diffdf_has_issues works as expected",{
         x <- diffdf(
             list_of_comparisons[[i]][[1]] , 
             list_of_comparisons[[i]][[2]] , 
-            suppress_warnings = T
+            warnings = F
         ) 
         if ( i %in% c(1,2)) {
             expect_false(diffdf_has_issues(x))
@@ -30,13 +30,13 @@ test_that( "diffdf_has_issues works as expected",{
     comp <- list_of_comparisons[["everything"]]
     expect_true(
         diffdf_has_issues(
-            diffdf( comp[[1]] ,  comp[[2]] , keys = c("ID" , "GROUP1"), suppress_warnings = T)  
+            diffdf( comp[[1]] ,  comp[[2]] , keys = c("ID" , "GROUP1"), warnings = F)  
         )
     )
     
     expect_false(
         diffdf_has_issues(
-            diffdf( TDAT ,  TDAT , keys = c("ID" , "GROUP1"), suppress_warnings = T)  
+            diffdf( TDAT ,  TDAT , keys = c("ID" , "GROUP1"), warnings = F)  
         )
     )
     
