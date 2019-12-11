@@ -9,7 +9,7 @@
 identify_extra_rows <- function(BASE, COMP , KEYS){
     BASE <- BASE[, KEYS, with = FALSE]
     COMP <- COMP[, KEYS, with = FALSE]
-    x <- fsetdiff(  BASE , COMP  , all = TRUE)
+    x <- fsetdiff(BASE, COMP, all = TRUE)
     return(x)
 }
 
@@ -63,10 +63,9 @@ identify_matching_cols <- function(DS1, DS2 , EXCLUDE = ""){
 identify_unsupported_cols <- function(dsin){
     
     ### Dummy variable assignment to remove CRAN notes of no visible variable assignment
-    VARIABLE <- NULL
     MODE <- NULL
     
-    dat <- identify_properties(dsin)[, list(VARIABLE, MODE)]
+    dat <- identify_properties(dsin)[, c("VARIABLE", "MODE")]
     dat[ !MODE %in% c('numeric', 'character', 'logical')]
 }
 
