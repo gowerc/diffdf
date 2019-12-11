@@ -28,7 +28,7 @@ get_print <- function(x){
 }
 
 get_times <- function(nrow, ncol, nrep){
-    get_time <- function(d1, d2, n) rerun( n, system.time(diffdf(d1 , d1, suppress_warnings = T))[[3]]) %>% flatten_dbl() %>% mean
+    get_time <- function(d1, d2, n) rerun( n, system.time(diffdf(d1 , d1, warnings = F))[[3]]) %>% flatten_dbl() %>% mean
     dat <- list(
         d1_num = get_test_data(nrow, ncol, "num"),
         d1_chr = get_test_data(nrow, ncol, "chr"),
