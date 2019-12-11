@@ -202,37 +202,37 @@ diffdf <- function (
     ##### Check Attributes
     
     COMPARE[["AttribDiffs"]] <- construct_issue(
-        value = identify_att_differences(BASE,  COMP)  ,
+        value = identify_att_differences(BASE, COMP)  ,
         message = "There are columns in BASE and COMPARE with differing attributes !!"
     )
     
     
     ##### Check data
     
-    BASE <- factor_to_character(BASE , KEYS)
-    COMP <- factor_to_character(COMP , KEYS)
+    BASE <- factor_to_character(BASE, KEYS)
+    COMP <- factor_to_character(COMP, KEYS)
     
     COMPARE[["ExtRowsBase"]] <- construct_issue(
-        value = identify_extra_rows(  BASE, COMP,   KEYS )   ,
+        value = identify_extra_rows(BASE, COMP, KEYS ),
         message = "There are rows in BASE that are not in COMPARE !!"
     )
     
     
     COMPARE[["ExtRowsComp"]] <- construct_issue(
-        value = identify_extra_rows(  COMP, BASE,   KEYS )   ,
+        value = identify_extra_rows(COMP, BASE, KEYS ),
         message = "There are rows in COMPARE that are not in BASE !!"
     )
 
     
     
     COMPARE[["ExtColsBase"]] <- construct_issue(
-        value =  identify_extra_cols(BASE,  COMP)   ,
+        value =  identify_extra_cols(BASE, COMP),
         message = "There are columns in BASE that are not in COMPARE !!"
     )
     
     
     COMPARE[["ExtColsComp"]] <- construct_issue(
-        value =  identify_extra_cols(COMP,  BASE)   ,
+        value =  identify_extra_cols(COMP, BASE),
         message = "There are columns in COMPARE that are not in BASE !!"
     )
    

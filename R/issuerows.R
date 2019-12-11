@@ -86,7 +86,7 @@ diffdf_issuerows <- function( df , diff, vars = NULL){
     
     if ( KEYS_ATT$is_derived ){
         keep_vars <- !names(RET) %in% KEYS_ATT$value
-        RET <- RET[ , keep_vars, with = FALSE]
+        RET <- RET[, keep_vars, with = FALSE]
     }
     
     return(RET)
