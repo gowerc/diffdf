@@ -9,17 +9,17 @@ context("Testing print functionality")
 # library(devtools)
 # library(testthat)
 # source( "./tests/testthat/helper-create_test_data.R")
-
+diffdf_set_options(warnings = FALSE)
 
 runme <- function(x){
-    x2 <- diffdf(x[[1]] , x[[2]] , warnings = F)
+    x2 <- diffdf(x[[1]] , x[[2]])
     print(x2 , as_string = TRUE)
 }
 
 RES <- map( list_of_comparisons , runme)
 
 i <- 7
-x <- diffdf(list_of_comparisons[[i]][[1]] , list_of_comparisons[[i]][[2]] , warnings = F)
+x <- diffdf(list_of_comparisons[[i]][[1]] , list_of_comparisons[[i]][[2]])
 
 
 ## Add additional examples that make use of keys
@@ -27,8 +27,7 @@ x <- diffdf(list_of_comparisons[[i]][[1]] , list_of_comparisons[[i]][[2]] , warn
 x <- diffdf(
     list_of_comparisons[["everything"]][[1]] ,
     list_of_comparisons[["everything"]][[2]] ,
-    keys = "ID",
-    warnings = F
+    keys = "ID"
 )
 RES[[ "With 1 key"]] <- print(x , as_string = TRUE)
 
@@ -36,12 +35,11 @@ RES[[ "With 1 key"]] <- print(x , as_string = TRUE)
 x <- diffdf(
     list_of_comparisons[["everything"]][[1]] ,
     list_of_comparisons[["everything"]][[2]] ,
-    keys = c("ID" , "GROUP1"),
-    warnings = F
+    keys = c("ID" , "GROUP1")
 )
 RES[["With 2 keys"]] <- print(x , as_string = TRUE)
 
-
+diffdf_set_options()
 
 
 SET_GOLD <- FALSE

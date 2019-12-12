@@ -2,8 +2,10 @@
 
 S3method(print,diffdf)
 export(diffdf)
+export(diffdf_get_options)
 export(diffdf_has_issues)
 export(diffdf_issuerows)
+export(diffdf_set_options)
 import(data.table)
 import(tibble)
 importFrom(tibble,as.tibble)

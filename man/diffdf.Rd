@@ -3,12 +3,11 @@
 \docType{package}
 \name{diffdf}
 \alias{diffdf}
+\alias{diffdf}
 \alias{diffdf-package}
 \title{diffdf}
 \usage{
-diffdf(base, compare, keys = NULL, warnings = TRUE,
-  strict_numeric = TRUE, strict_factor = TRUE, file = NULL,
-  tolerance = sqrt(.Machine$double.eps), scale = NULL)
+diffdf(base, compare, keys = NULL, config = diffdf_get_options())
 }
 \arguments{
 \item{base}{input dataframe}
@@ -17,17 +16,8 @@ diffdf(base, compare, keys = NULL, warnings = TRUE,
 
 \item{keys}{vector of variables (as strings) that defines a unique row in the base and compare dataframes}
 
-\item{warnings}{Do you want to display warnings? (logical) (default = TRUE)}
-
-\item{strict_numeric}{Flag for strict numeric to numeric comparisons (default = TRUE). If False diffdf will cast integer to double where required for comparisons. Note that variables specified in the keys will never be casted.}
-
-\item{strict_factor}{Flag for strict factor to character comparisons (default = TRUE). If False diffdf will cast factors to characters where required for comparisons. Note that variables specified in the keys will never be casted.}
-
-\item{file}{Location and name of a text file to output the results to. Setting to NULL will cause no file to be produced.}
-
-\item{tolerance}{Set tolerance for numeric comparisons. Note that comparisons fail if (x-y)/scale > tolerance.}
-
-\item{scale}{Set scale for numeric comparisons. Note that comparisons fail if (x-y)/scale > tolerance. Setting as NULL is a slightly more efficient version of scale = 1.}
+\item{config}{A list containing options for diffdf. Will call \code{\link{diffdf_get_options}}. This can
+be updated using \code{\link{diffdf_set_options}}}
 }
 \description{
 Compares 2 dataframes and outputs any differences.
@@ -75,8 +65,10 @@ DF2 <- data.frame(
 )
 
 diffdf(DF1 , DF2 , keys = "id")
-diffdf(DF1 , DF2 , keys = "id", tolerance = 0.2)
-diffdf(DF1 , DF2 , keys = "id", scale = 10, tolerance = 0.2)
+diffdf_set_options(tolerance = 0.2)
+diffdf(DF1 , DF2 , keys = "id")
+diffdf_set_options(tolerance = 0.2, scale = 10)
+diffdf(DF1 , DF2 , keys = "id")
  
 # We can use strict_factor to compare factors with characters for example:
 
@@ -92,8 +84,9 @@ DF2 <- data.frame(
     v1 = letters[1:6],
     v2 = c(NA , NA , 1 , 2 , 3 , NA)
 )
-
+diffdf_set_options(strict_factor = TRUE)
 diffdf(DF1 , DF2 , keys = "id", strict_factor = TRUE)
+diffdf_set_options(strict_factor = FALSE)
 diffdf(DF1 , DF2 , keys = "id", strict_factor = FALSE)
 }
 \author{
