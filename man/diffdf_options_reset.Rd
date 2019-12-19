@@ -15,7 +15,7 @@ resets all diffdf options to default
 \examples{
 diffdf_options(warnings = FALSE)
 diffdf_options_reset()
-#' x <- subset(iris,  -Species)
+x <- subset(iris,  -Species)
 x[1,2] <- 5
 COMPARE <- diffdf(iris, x)
 

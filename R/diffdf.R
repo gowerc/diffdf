@@ -4,8 +4,7 @@
 #' @param base input dataframe
 #' @param compare comparison dataframe
 #' @param keys vector of variables (as strings) that defines a unique row in the base and compare dataframes
-#' @param config A list containing options for diffdf. Will call \code{\link{diffdf_get_options}}. This can
-#'  be updated using \code{\link{diffdf_set_options}}
+#' @param config A list containing options for diffdf. Will call \code{\link{diffdf_options}}. 
 #' @examples
 #' x <- subset( iris,  -Species)
 #' x[1,2] <- 5
@@ -64,9 +63,9 @@
 #'     v2 = c(NA , NA , 1 , 2 , 3 , NA)
 #' )
 #' diffdf_options(strict_factor = TRUE)
-#' diffdf(DF1 , DF2 , keys = "id", strict_factor = TRUE)
+#' diffdf(DF1 , DF2 , keys = "id")
 #' diffdf_options(strict_factor = FALSE)
-#' diffdf(DF1 , DF2 , keys = "id", strict_factor = FALSE)
+#' diffdf(DF1 , DF2 , keys = "id")
 #' @export
 diffdf <- function (
     base , 
@@ -317,7 +316,7 @@ diffdf <- function (
 #' # Example with issues
 #' iris2 <- iris
 #' iris2[2,2] <- NA
-#' x <- diffdf( iris , iris2 , warnings = FALSE)
+#' x <- diffdf( iris, iris2)
 #' diffdf_has_issues(x)
 #' @export
 diffdf_has_issues <- function(x){

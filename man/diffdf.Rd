@@ -16,8 +16,7 @@ diffdf(base, compare, keys = NULL, config = diffdf_options())
 
 \item{keys}{vector of variables (as strings) that defines a unique row in the base and compare dataframes}
 
-\item{config}{A list containing options for diffdf. Will call \code{\link{diffdf_get_options}}. This can
-be updated using \code{\link{diffdf_set_options}}}
+\item{config}{A list containing options for diffdf. Will call \code{\link{diffdf_options}}.}
 }
 \description{
 Compares 2 dataframes and outputs any differences.
@@ -85,9 +84,9 @@ DF2 <- data.frame(
     v2 = c(NA , NA , 1 , 2 , 3 , NA)
 )
 diffdf_options(strict_factor = TRUE)
-diffdf(DF1 , DF2 , keys = "id", strict_factor = TRUE)
+diffdf(DF1 , DF2 , keys = "id")
 diffdf_options(strict_factor = FALSE)
-diffdf(DF1 , DF2 , keys = "id", strict_factor = FALSE)
+diffdf(DF1 , DF2 , keys = "id")
 }
 \author{
 Craig Gower
