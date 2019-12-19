@@ -15,9 +15,19 @@ options_list <-
         warnings = function(value) {stopifnot(is.logical(value), length(value) == 1)},
         strict_numeric = function(value) {stopifnot(is.logical(value), length(value) == 1)},
         strict_factor = function(value) {stopifnot(is.logical(value), length(value) == 1)},
-        file  = function(value) {stopifnot(is.null(value)| is.numeric(value) & length(value) == 1)},
+        file  = function(value) {stopifnot(is.null(value)| is.character(value) & length(value) == 1)},
         tolerance = function(value) {stopifnot(is.numeric(value), length(value) == 1)},
         scale = function(value) {stopifnot(is.null(value)| is.numeric(value) & length(value) == 1)}
+    )
+
+options_default <-
+    list(
+        warnings = TRUE, 
+        strict_numeric = TRUE,
+        strict_factor = TRUE,
+        file = NULL,
+        tolerance = sqrt(.Machine$double.eps),
+        scale = NULL
     )
 
 
