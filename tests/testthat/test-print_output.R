@@ -9,7 +9,7 @@ context("Testing print functionality")
 # library(devtools)
 # library(testthat)
 # source( "./tests/testthat/helper-create_test_data.R")
-diffdf_set_options(warnings = FALSE)
+diffdf_options(warnings = FALSE)
 
 runme <- function(x){
     x2 <- diffdf(x[[1]] , x[[2]])
@@ -39,7 +39,7 @@ x <- diffdf(
 )
 RES[["With 2 keys"]] <- print(x , as_string = TRUE)
 
-diffdf_set_options()
+diffdf_options_reset()
 
 
 SET_GOLD <- FALSE

@@ -11,7 +11,7 @@ test_that( "diffdf_has_issues works as expected",{
     
     ### Note that the first 2 comparisons in list_of_datasets are identical so we expect true
     ### all others are different so we expect false
-    diffdf_set_options(warnings = FALSE)
+    diffdf_options(warnings = FALSE)
     for ( i in 1:length(list_of_comparisons)){
         x <- diffdf(
             list_of_comparisons[[i]][[1]] , 
@@ -40,7 +40,7 @@ test_that( "diffdf_has_issues works as expected",{
         )
     )
     
-    diffdf_set_options()
+    diffdf_options_reset()
 })
 
 
