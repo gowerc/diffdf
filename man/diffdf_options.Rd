@@ -37,7 +37,7 @@ Set options for diffdf. Will return the options, so can be called directly by di
  
 
 diffdf_options(warnings = FALSE)
-#' x <- subset(iris,  -Species)
+x <- subset(iris,  -Species)
 x[1,2] <- 5
 COMPARE <- diffdf(iris, x)
 

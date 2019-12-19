@@ -71,7 +71,7 @@ options_checks <- function(options){
 #' @examples  
 #' 
 #' diffdf_options(warnings = FALSE)
-#' #' x <- subset(iris,  -Species)
+#' x <- subset(iris,  -Species)
 #' x[1,2] <- 5
 #' COMPARE <- diffdf(iris, x)
 #' 
@@ -113,9 +113,8 @@ diffdf_options <- function(...){
 #' 
 #' resets all diffdf options to default
 #' @return invisibly returns default options
-#' @examples
 #' @export  
-#' 
+#' @examples
 #' diffdf_options(warnings = FALSE)
 #' diffdf_options_reset()
 #' #' x <- subset(iris,  -Species)

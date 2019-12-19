@@ -7,7 +7,7 @@
 \alias{diffdf-package}
 \title{diffdf}
 \usage{
-diffdf(base, compare, keys = NULL, config = diffdf_get_options())
+diffdf(base, compare, keys = NULL, config = diffdf_options())
 }
 \arguments{
 \item{base}{input dataframe}
@@ -65,9 +65,9 @@ DF2 <- data.frame(
 )
 
 diffdf(DF1 , DF2 , keys = "id")
-diffdf_set_options(tolerance = 0.2)
+diffdf_options(tolerance = 0.2)
 diffdf(DF1 , DF2 , keys = "id")
-diffdf_set_options(tolerance = 0.2, scale = 10)
+diffdf_options(tolerance = 0.2, scale = 10)
 diffdf(DF1 , DF2 , keys = "id")
  
 # We can use strict_factor to compare factors with characters for example:
@@ -84,9 +84,9 @@ DF2 <- data.frame(
     v1 = letters[1:6],
     v2 = c(NA , NA , 1 , 2 , 3 , NA)
 )
-diffdf_set_options(strict_factor = TRUE)
+diffdf_options(strict_factor = TRUE)
 diffdf(DF1 , DF2 , keys = "id", strict_factor = TRUE)
-diffdf_set_options(strict_factor = FALSE)
+diffdf_options(strict_factor = FALSE)
 diffdf(DF1 , DF2 , keys = "id", strict_factor = FALSE)
 }
 \author{
