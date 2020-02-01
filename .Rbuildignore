@@ -10,3 +10,4 @@ docs/
 ^makevars$
 ^data-raw$
 ^\.circleci/config\.yml$
+^\.github/workflows/R-CMD-check\.yaml$
