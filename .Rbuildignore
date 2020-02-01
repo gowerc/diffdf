@@ -7,3 +7,5 @@ docs/
 ^codecov\.yml$
 ^README\.Rmd$
 ^.circleci/
+^\.github/workflows/R-CMD-check\.yaml$
+^\.github/workflows/pr-commands\.yaml$
