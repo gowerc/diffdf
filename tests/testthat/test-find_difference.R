@@ -20,6 +20,23 @@ test_that( "find_difference correctly flags differences", {
     expect_equal( find_difference( VALS$chr, VALS$chr_na) , c(F,F,F,T,T))
     expect_equal( find_difference( VALS$fct, VALS$fct_na) , c(F,F,T,F,F))
     expect_equal( find_difference( VALS$lgl, VALS$lgl_na) , c(F,F,T,F,F))
+
+})
+
+test_that( "find_difference correctly handles date variables", {
+    
+    expect_equal( find_difference( VALS$dt, VALS$dt) , c(F, F, F, F))
+    expect_equal( find_difference( VALS$dt, VALS$dt_na) , c(F, F, T, F))
+    expect_equal( find_difference( VALS$dt_na, VALS$dt_na) , c(F, F, F, F))
+    
+    expect_equal( find_difference( VALS$dtm, VALS$dtm) , c(F,F,F))
+    expect_equal( find_difference( VALS$dtm, VALS$dtm_na) , c(F,T,F))
+    expect_equal( find_difference( VALS$dtm_na, VALS$dtm_na) , c(F,F,F))
+    expect_equal( find_difference( VALS$dtm, VALS$dtm2) , c(T,T,F))
+    expect_equal( find_difference( VALS$dtm_na, VALS$dtm2) , c(T,T,F))
+    expect_equal( find_difference( VALS$dtm2, VALS$dtm2) , c(F,F,F))
+    
+    
 })
 
 test_that("find_difference correctly uses tolerances/scale arguments",{

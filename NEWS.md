@@ -1,3 +1,9 @@
+# diffdf 1.1.0
+
+- Added rcpp dependency
+- Updated comparison code to use CPP to improve runtime 
+
+
 # diffdf 1.0.3
 
 - No new functionality
@@ -7,6 +13,7 @@
 
 - No new functionality
 - Update to make package compatible with tibble 2.0.0
+
 
 # diffdf 1.0.1
 

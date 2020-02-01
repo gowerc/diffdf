@@ -5,36 +5,28 @@
 #' @importFrom tibble as.tibble
 #' @param variablename name of variable being compared
 #' @param keynames name of keys
-#' @param datain Inputted dataset with base and compare vectors
+#' @param DAT Inputted dataset with base and compare vectors
 #' @param ...  Additional arguments which might be passed through (numerical accuracy)
 #' @return A boolean vector which is T if target and current are different
-is_variable_different <- function (variablename, keynames, datain, ...) {
-
-    xvar <- paste0(variablename,'.x')
-    yvar <- paste0(variablename,'.y')
+is_variable_different <- function (variablename, keynames, DAT,  ...) {
     
-    if ( ! xvar %in% names(datain) | ! yvar %in% names(datain)){
-        stop("Variable does not exist within input dataset")
-    }
+    ### Dummy variable assignment to remove CRAN notes of no visible variable assignment
     
-    target  <- datain[[xvar]]
-    current <- datain[[yvar]]
+    cols <- paste0(variablename , c(".BASE", ".COMPARE"))
+    vars <- c("VARIABLE", keynames, cols[[1]] , cols[[2]])
+    
+    target <- DAT[[cols[[1]]]]
+    current <- DAT[[cols[[2]]]]
     outvect <- find_difference(target, current, ...)
+
+    DAT[, ("VARIABLE") := variablename]
+    x <- DAT[outvect, vars, with=FALSE]
+    x2 <- setnames(x, c(cols[[1]], cols[[2]]) , c("BASE", "COMPARE"))
     
-    datain[["VARIABLE"]] <- variablename
-    
-    names(datain)[names(datain) %in% c(xvar, yvar)] <- c("BASE", "COMPARE")
-    
-    x <- as.tibble(
-        subset(
-            datain, 
-            outvect, 
-            select = c("VARIABLE", keynames, "BASE", "COMPARE")
-        )
-    )
-    
-    return(x)
+    return(x2)
 }
+
+
 
 #' compare_vectors
 #' 
@@ -141,7 +133,7 @@ compare_vectors.numeric <- function(
     tolerance = sqrt(.Machine$double.eps),
     scale = NULL
 ){
-
+    
     out <- target == current
     
     if (all(out)) {
@@ -160,7 +152,7 @@ compare_vectors.numeric <- function(
     }
     
     return(xy > tolerance)
-
+    
 }
 
 

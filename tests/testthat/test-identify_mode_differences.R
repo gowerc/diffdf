@@ -28,103 +28,103 @@ run_mode_test_with_N_obs <-function(N){
     #
     #
     
-    X_1col_int <- data_frame(
+    X_1col_int <- tibble(
         x = seq(1, N)
     )
     
-    X_1col_num <- data_frame(
+    X_1col_num <- tibble(
         x = rnorm(N)
     )
     
-    X_1col_num2 <- data_frame(
+    X_1col_num2 <- tibble(
         x = round(rnorm(N))
     )
     
-    X_1col_char <- data_frame(
+    X_1col_char <- tibble(
         x = letters[1:N]
     )
     
-    X_1col_char2 <- data_frame(
+    X_1col_char2 <- tibble(
         x = rep('cat', N)
     )
     
-    X_1col_fact <- data_frame(
+    X_1col_fact <- tibble(
         x = factor(letters[1:N])
     )
     
-    X_1col_fact2 <- data_frame(
+    X_1col_fact2 <- tibble(
         x = factor(rep(c('cat', 'dog'), c(floor(N/2), ceiling(N/2))))
     )
     
-    X_1col_lgl <- data_frame(
+    X_1col_lgl <- tibble(
         x = rep(T, N)
     )
     
-    X_1col_lgl2 <- data_frame(
+    X_1col_lgl2 <- tibble(
         x = rep(c(T,F), c(floor(N/2), ceiling(N/2)))
     )
     
-    X_2col_numint <- data_frame(
+    X_2col_numint <- tibble(
         x = X_1col_num$x,
         y = X_1col_int$x
     )
     
-    X_2col_charint <- data_frame(
+    X_2col_charint <- tibble(
         x = X_1col_char$x,
         y = X_1col_int$x
     )
     
-    X_2col_intchar <- data_frame(
+    X_2col_intchar <- tibble(
         x = X_1col_int$x,
         y = X_1col_char$x
     )
     
-    X_2col_numchar <- data_frame(
+    X_2col_numchar <- tibble(
         x = X_1col_num$x,
         y = X_1col_char$x
     )
     
-    X_2col_numnum <- data_frame(
+    X_2col_numnum <- tibble(
         x = X_1col_num$x, 
         y = X_1col_num2$x
     )
     
-    X_2col_numlgl <- data_frame(
+    X_2col_numlgl <- tibble(
         x = X_1col_num$x, 
         y = X_1col_lgl$x
     )
     
-    X_2col_numfact <- data_frame(
+    X_2col_numfact <- tibble(
         x = X_1col_num$x, 
         y = X_1col_fact$x
     )
     
-    X_2col_charlgl <- data_frame(
+    X_2col_charlgl <- tibble(
         x = X_1col_char$x, 
         y = X_1col_lgl$x
     )
     
-    X_2col_charfact <- data_frame(
+    X_2col_charfact <- tibble(
         x = X_1col_char$x, 
         y = X_1col_fact$x
     )
     
-    X_2col_charchar <- data_frame(
+    X_2col_charchar <- tibble(
         x = X_1col_char$x, 
         y = X_1col_char2$x
     )
     
-    X_2col_lglfact <- data_frame(
+    X_2col_lglfact <- tibble(
         x = X_1col_lgl$x, 
         y = X_1col_fact$x
     )
     
-    X_2col_lgllgl <- data_frame(
+    X_2col_lgllgl <- tibble(
         x = X_1col_lgl$x, 
         y = X_1col_lgl$x
     )
     
-    X_2col_factfact <- data_frame(
+    X_2col_factfact <- tibble(
         x = X_1col_fact$x, 
         y = X_1col_fact2$x
     )

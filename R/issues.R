@@ -6,8 +6,7 @@
 #' @param message the value of the message attribute
 #' @param add_class additional class to add
 construct_issue <- function(value, message, add_class = NULL){
-    x <- value
-    
+    x <- as_tibble(value)
     ### If nothing has been provided return nothing !
     if ( nrow(x) == 0 ) return(NULL)
     
@@ -15,6 +14,8 @@ construct_issue <- function(value, message, add_class = NULL){
     attributes(x)[["message"]] <- message
     return(x)
 }
+
+
 
 
 #' get_issue_message

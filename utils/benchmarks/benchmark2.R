@@ -1,116 +1,82 @@
+library(tibble)
+library(purrr)
+library(stringi)
 devtools::load_all()
 
-n <- 1000000
-test_dat <- data_frame( id = 1:n)
-
-
-vars <-letters[1:15]
-
-for ( i in vars){
-    test_dat[[paste0(i,"_num.x")]] <- rnorm(n)
-    test_dat[[paste0(i,"_num.y")]] <- rnorm(n)
-    test_dat[[paste0(i,"_chr.x")]] <- letters[ round(runif(n , 1,25))]
-    test_dat[[paste0(i,"_chr.y")]] <- letters[ round(runif(n , 1,25))]
-    test_dat[[paste0(i,"_fct.x")]] <- factor(test_dat[[paste0(i,"_chr.x")]])
-    test_dat[[paste0(i,"_fct.y")]] <- factor(test_dat[[paste0(i,"_chr.y")]])
+get_test_data <- function(nrow, ncol, types = "num"){
+    dat <- tibble( id = 1:nrow)
+    for ( i in 1:ncol){
+        if( "num" %in% types){
+            dat[[paste0("num_",i)]] <- rnorm(nrow)
+        }
+        if( "chr" %in% types){
+            chrs <- stri_rand_strings(500,50)
+            dat[[paste0("chr_",i)]] <- sample(chrs, size = nrow , replace = T)
+        }
+        if( "fct" %in% types){
+            fct <-  stri_rand_strings(10, 20)
+            dat[[paste0("fct_",i)]] <- factor(sample(fct, size = nrow , replace = T) , labels = fct)
+        }
+    }
+    return(dat)
 }
 
-vars2 <- c(
-    paste0(vars, "_num"),
-    paste0(vars, "_chr"),
-    paste0(vars, "_fct")
-)
+get_print <- function(x){
+    for( i in names(x)){
+        cat( paste0( i , " - ", round(x[[i]],3), "\n"))
+    }
+}
 
-matching_cols = vars2
-KEYS = "id"
-DAT = test_dat
-tolerance = sqrt(.Machine$double.eps)
-scale = NULL
-
-RES5 <- purrr::rerun( 10 , {
-    x <- system.time({
-        matching_list <- mapply(
-            is_variable_different , 
-            matching_cols,
-            MoreArgs = list(
-                keynames = KEYS, 
-                datain = DAT, 
-                tolerance = tolerance ,
-                scale = scale
-            ),
-            SIMPLIFY = FALSE
-        )
-    })
-    
-    
-    y <- system.time({
-        HOLD <- list() 
-        for ( v in vars2){
-            
-            xvar <- paste0(v,'.x')
-            yvar <- paste0(v,'.y')
-            
-            keep <- find_difference( test_dat[[xvar]] , test_dat[[yvar]] , tolerance = tolerance , scale = scale)
-            
-            HOLD[[v]] <- data_frame(
-                VARIABLE = v,
-                BASE = test_dat[[xvar]][keep],
-                COMPARE = test_dat[[yvar]][keep]
-            )
-            
-            for ( i in KEYS){
-                HOLD[[v]][[i]] <- test_dat[[i]][keep]
-            }
-            
-            #HOLD[[v]] <- HOLD[[v]][ , c("VARIABLE" , KEYS, "BASE" , "COMPARE")]
-        }
-    })
-    
-    data_frame(
-        x = x[[3]] ,
-        y = y[[3]] ,
-        diff = x - y,
-        pcent = y / x
+get_times <- function(nrow, ncol, nrep){
+    get_time <- function(d1, d2, n) rerun( n, system.time(diffdf(d1 , d1, warnings = F))[[3]]) %>% flatten_dbl() %>% mean
+    dat <- list(
+        d1_num = get_test_data(nrow, ncol, "num"),
+        d1_chr = get_test_data(nrow, ncol, "chr"),
+        nrep = nrep
     )
-    
+    list(
+        num_same = get_time(dat$d1_num , dat$d1_num, dat$nrep),
+        chr_same = get_time(dat$d1_chr , dat$d1_chr, dat$nrep)
+    )
+}
+
+t1 <- get_times(500000, 30, 3)
+get_print(t1)
+t2 <- get_times(500000, 50, 3)
+get_print(t2)
+t3 <- get_times(500000, 70, 3)
+get_print(t3)
+
+
+
+library(data.table)
+
+
+c1 <- get_test_data(400000, 25, "chr")
+profvis::profvis(diffdf( c1, c1), interval = 0.005)
+
+
+t1 <- get_test_data(500, 10, "chr")
+t2 <- get_test_data(500, 10, "chr")
+
+diffdf( t1, t1, keys = "id")
+diffdf( t1, t2, keys = "id")
+
+
+
+
+chrs <- stri_rand_strings(500,50)
+ch <- sample(chrs, size = 10000000 , replace = T)
+system.time({
+    x <- stringdiff(  ch, ch)
 })
 
-bind_rows(RES1)$pcent %>% mean  # nrow = 300000 , ncol = 60
-bind_rows(RES2)$pcent %>% mean  # nrow = 300000 , ncol = 15
-bind_rows(RES3)$pcent %>% mean  # nrow = 600000 , ncol = 15
-bind_rows(RES4)$pcent %>% mean
-bind_rows(RES5)$pcent %>% mean
 
 
-HOLD[["e_fct"]]
-matching_list[["e_fct"]]
-
-
-
-
-is_variable_different2 <- function (variablename, keynames, datain, ...) {
-    
-
-    
-    if ( ! xvar %in% names(datain) | ! yvar %in% names(datain)){
-        stop("Variable does not exist within input dataset")
-    }
-    
-    target  <- datain[[xvar]]
-    current <- datain[[yvar]]
-    outvect <- find_difference(target, current, ...)
-    
-    datain[["VARIABLE"]] <- variablename
-    
-    names(datain)[names(datain) %in% c(xvar, yvar)] <- c("BASE", "COMPARE")
-    
-    as.tibble(subset(datain, outvect, select = c("VARIABLE", keynames, "BASE", "COMPARE")))
-    
-}
-
-
-
-
+nums <- rnorm(10000000)
+system.time({
+    x <- doublediff(  nums,nums, tolerance = 1)
+})
 
 
 

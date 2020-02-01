@@ -1,4 +1,3 @@
-
 #' Print diffdf objects
 #' 
 #' Print nicely formatted version of an diffdf object

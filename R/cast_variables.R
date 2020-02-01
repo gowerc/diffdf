@@ -84,22 +84,20 @@ cast_variables <- function(
     cast_factors = FALSE 
 ){
 
+
     allowed_class_casts <- c( "integernumeric" , "characterfactor")[c(cast_integers, cast_factors)]
     
-    BASE_class <- data.frame(
+    BASE_class <- data.table(
         class_BASE = sapply(BASE, class_merge), 
-        colname = names(BASE),
-        stringsAsFactors = FALSE
+        colname = names(BASE)
     )
-    BASE_class <- BASE_class[!BASE_class[["colname"]] %in% ignore_vars,, drop=FALSE] 
+    BASE_class <- BASE_class[ !get("colname") %in% ignore_vars]
     
-    
-    COMPARE_class <- data.frame(
+    COMPARE_class <- data.table(
         class_COMPARE = sapply(COMPARE, class_merge), 
-        colname = names(COMPARE),
-        stringsAsFactors = FALSE
+        colname = names(COMPARE)
     )
-    COMPARE_class <- COMPARE_class[!COMPARE_class[["colname"]] %in% ignore_vars ,, drop=FALSE] 
+    COMPARE_class <- COMPARE_class[ !get("colname") %in% ignore_vars]
     
     common_class <- merge(
         x = BASE_class, 
@@ -108,7 +106,7 @@ cast_variables <- function(
     )
     
     
-    diff_class <- common_class[ common_class[["class_BASE"]] != common_class[["class_COMPARE"]] ,,drop=FALSE]
+    diff_class <- common_class[ get("class_BASE") != get("class_COMPARE")]
 
     
     diff_class$classmerge <- mapply(
@@ -118,8 +116,7 @@ cast_variables <- function(
     )
     
     
-    cast_columns <- diff_class[  diff_class[["classmerge"]] %in% allowed_class_casts ,,drop=FALSE] 
-    
+    cast_columns <- diff_class[ get("classmerge") %in% allowed_class_casts]
     
     DATASETS <- list(
         "BASE" = BASE,

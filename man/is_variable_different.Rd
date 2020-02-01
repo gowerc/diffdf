@@ -4,14 +4,14 @@
 \alias{is_variable_different}
 \title{is_variable_different}
 \usage{
-is_variable_different(variablename, keynames, datain, ...)
+is_variable_different(variablename, keynames, DAT, ...)
 }
 \arguments{
 \item{variablename}{name of variable being compared}
 
 \item{keynames}{name of keys}
 
-\item{datain}{Inputted dataset with base and compare vectors}
+\item{DAT}{Inputted dataset with base and compare vectors}
 
 \item{...}{Additional arguments which might be passed through (numerical accuracy)}
 }

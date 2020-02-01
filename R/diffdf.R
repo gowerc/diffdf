@@ -6,7 +6,7 @@
 #' @param keys vector of variables (as strings) that defines a unique row in the base and compare dataframes
 #' @param strict_numeric Flag for strict numeric to numeric comparisons (default = TRUE). If False diffdf will cast integer to double where required for comparisons. Note that variables specified in the keys will never be casted.
 #' @param strict_factor Flag for strict factor to character comparisons (default = TRUE). If False diffdf will cast factors to characters where required for comparisons. Note that variables specified in the keys will never be casted.
-#' @param suppress_warnings Do you want to suppress warnings? (logical)
+#' @param warnings Do you want to display warnings? (logical) (default = TRUE)
 #' @param file Location and name of a text file to output the results to. Setting to NULL will cause no file to be produced.
 #' @param tolerance Set tolerance for numeric comparisons. Note that comparisons fail if (x-y)/scale > tolerance.
 #' @param scale Set scale for numeric comparisons. Note that comparisons fail if (x-y)/scale > tolerance. Setting as NULL is a slightly more efficient version of scale = 1. 
@@ -68,24 +68,23 @@
 #' 
 #' diffdf(DF1 , DF2 , keys = "id", strict_factor = TRUE)
 #' diffdf(DF1 , DF2 , keys = "id", strict_factor = FALSE)
-#'  
 #' @export
 diffdf <- function (
     base , 
     compare , 
     keys = NULL, 
-    suppress_warnings = FALSE, 
+    warnings = TRUE, 
     strict_numeric = TRUE,
     strict_factor = TRUE,
     file = NULL,
     tolerance = sqrt(.Machine$double.eps),
     scale = NULL
 ){
-    
-    BASE = base
-    COMP = compare
+    setDTthreads(1)
+    BASE = as.data.table(base)
+    COMP = as.data.table(compare)
     KEYS = keys
-    SUPWARN = suppress_warnings
+    WARN = warnings
     
     
     ### Initatiate output object
@@ -105,7 +104,6 @@ diffdf <- function (
     attr(COMPARE, 'keys') <- list(value = KEYS, is_derived = is_derived)
     
     
-    
     if (!is.numeric(tolerance)) {
         stop("'tolerance' should be numeric")
     }
@@ -114,7 +112,7 @@ diffdf <- function (
         stop("'scale' should be numeric or NULL")
     }
     
-
+    
     
     if ( !has_unique_rows(BASE , KEYS) ){
         stop( "BY variables in BASE do not result in unique observations")
@@ -175,7 +173,6 @@ diffdf <- function (
         COMPARE[["VarClassDiffs"]]$VARIABLE,
         COMPARE[["VarModeDiffs"]]$VARIABLE
     )
-    
 
     ##### Check Validity of Keys
     
@@ -195,59 +192,67 @@ diffdf <- function (
         stop("KEYS are either an invalid or contain different modes between BASE and COMP")
     }
     
+    ## Remove any excluded columns
+    if( !is.null(exclude_cols)){
+        BASE <- BASE[, !exclude_cols, with = FALSE]
+        COMP <- COMP[, !exclude_cols, with = FALSE]
+    }
+    
 
     ##### Check Attributes
-
     
     COMPARE[["AttribDiffs"]] <- construct_issue(
-        value = identify_att_differences(BASE,  COMP ,  exclude_cols)  ,
+        value = identify_att_differences(BASE, COMP)  ,
         message = "There are columns in BASE and COMPARE with differing attributes !!"
     )
     
     
     ##### Check data
     
-    BASE <- factor_to_character(BASE , KEYS)
-    COMP <- factor_to_character(COMP , KEYS)
-    
+    BASE <- factor_to_character(BASE, KEYS)
+    COMP <- factor_to_character(COMP, KEYS)
     
     COMPARE[["ExtRowsBase"]] <- construct_issue(
-        value = identify_extra_rows(  BASE, COMP,   KEYS )   ,
+        value = identify_extra_rows(BASE, COMP, KEYS ),
         message = "There are rows in BASE that are not in COMPARE !!"
     )
     
     
     COMPARE[["ExtRowsComp"]] <- construct_issue(
-        value = identify_extra_rows(  COMP, BASE,   KEYS )   ,
+        value = identify_extra_rows(COMP, BASE, KEYS ),
         message = "There are rows in COMPARE that are not in BASE !!"
     )
-    
+
     
     
     COMPARE[["ExtColsBase"]] <- construct_issue(
-        value =  identify_extra_cols(BASE,  COMP)   ,
+        value =  identify_extra_cols(BASE, COMP),
         message = "There are columns in BASE that are not in COMPARE !!"
     )
     
     
     COMPARE[["ExtColsComp"]] <- construct_issue(
-        value =  identify_extra_cols(COMP,  BASE)   ,
+        value =  identify_extra_cols(COMP, BASE),
         message = "There are columns in COMPARE that are not in BASE !!"
     )
+   
+    ## Remove extra columns
+    base_remove <- COMPARE[["ExtColsBase"]][["COLUMNS"]]
+    comp_remove <- COMPARE[["ExtColsComp"]][["COLUMNS"]]
     
+    if( !is.null(base_remove)) BASE <- BASE[,!base_remove, with = FALSE]
+    if( !is.null(comp_remove)) COMP <- COMP[,!comp_remove, with = FALSE]
+    
+     
     
     VALUE_DIFFERENCES <- identify_differences(
-        BASE, COMP , KEYS, exclude_cols,
-        tolerance = tolerance,
-        scale = scale
+        BASE, COMP , KEYS, tolerance = tolerance, scale = scale
     )
 
     
-    
     ## Summarise the number of mismatching rows per variable
-
     if ( length(VALUE_DIFFERENCES) ){
-        NDIFF  <- sapply( VALUE_DIFFERENCES , nrow )
+        NDIFF  <- sapply( VALUE_DIFFERENCES , nrow)
         COMPARE[["NumDiff"]] <- construct_issue(
             value = convert_to_issue(NDIFF),
             message = "Not all Values Compared Equal"
@@ -267,7 +272,7 @@ diffdf <- function (
     ISSUE_MSGS <- ISSUE_MSGS[ ISSUE_MSGS != ""]
     
     if( length(ISSUE_MSGS) != 0 ){
-        if(!SUPWARN) {
+        if(WARN) {
             ISSUE_MSGS <- paste(ISSUE_MSGS, collapse ='\n' )
             warning( c("\n" , ISSUE_MSGS))
         }
@@ -316,7 +321,7 @@ diffdf <- function (
 #' # Example with issues
 #' iris2 <- iris
 #' iris2[2,2] <- NA
-#' x <- diffdf( iris , iris2 , suppress_warnings = TRUE)
+#' x <- diffdf( iris , iris2 , warnings = FALSE)
 #' diffdf_has_issues(x)
 #' @export
 diffdf_has_issues <- function(x){

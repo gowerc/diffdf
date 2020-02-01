@@ -28,10 +28,13 @@ factor_to_character <- function( dsin , vars = NULL){
 #' @param DAT input data set (data frame)
 #' @param KEYS Set of keys which should be unique
 has_unique_rows <- function(DAT , KEYS){
-    DUPS <- duplicated( subset(DAT , select= KEYS) ) 
+    DUPS <- duplicated(DAT[, KEYS, with = FALSE])  
     NDUPS <- sum( DUPS)
     return( NDUPS == 0 )
 }
+
+
+
 
 #'convert_to_issue
 #'
@@ -39,12 +42,30 @@ has_unique_rows <- function(DAT , KEYS){
 #'@param datin data inputted
 #'@importFrom tibble rownames_to_column
 convert_to_issue <- function(datin){
-    datin_tibble <- tibble(
+    
+    ### Dummy variable assignment to remove CRAN notes of no visible variable assignment
+    `No of Differences` <- NULL
+    
+    datin_tibble <- data.table(
         `Variable` = names(datin),
         `No of Differences` = datin
     )
-    
-    datin_tibble_reduced <- datin_tibble[ datin_tibble[["No of Differences"]] > 0, , drop = FALSE]
+    datin_tibble_reduced <- datin_tibble[ `No of Differences` >0 ]
     return(datin_tibble_reduced)
 }
+
+
+
+
+
+#' first_class
+#' 
+#' Convenience function to grab the first class message from a class call
+#' 
+#' @param col Variable we want to get the class from
+first_class <- function(col){
+    class(col)[1]
+}
+
+
 

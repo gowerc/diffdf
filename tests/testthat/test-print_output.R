@@ -12,20 +12,23 @@ context("Testing print functionality")
 
 
 runme <- function(x){
-    x2 <- diffdf(x[[1]] , x[[2]] , suppress_warnings = T)
+    x2 <- diffdf(x[[1]] , x[[2]] , warnings = F)
     print(x2 , as_string = TRUE)
 }
 
 RES <- map( list_of_comparisons , runme)
 
+i <- 7
+x <- diffdf(list_of_comparisons[[i]][[1]] , list_of_comparisons[[i]][[2]] , warnings = F)
 
-### Add additional examples that make use of keys
+
+## Add additional examples that make use of keys
 
 x <- diffdf(
     list_of_comparisons[["everything"]][[1]] ,
     list_of_comparisons[["everything"]][[2]] ,
     keys = "ID",
-    suppress_warnings = T
+    warnings = F
 )
 RES[[ "With 1 key"]] <- print(x , as_string = TRUE)
 
@@ -34,7 +37,7 @@ x <- diffdf(
     list_of_comparisons[["everything"]][[1]] ,
     list_of_comparisons[["everything"]][[2]] ,
     keys = c("ID" , "GROUP1"),
-    suppress_warnings = T
+    warnings = F
 )
 RES[["With 2 keys"]] <- print(x , as_string = TRUE)
 
@@ -45,7 +48,7 @@ SET_GOLD <- FALSE
 
 if ( SET_GOLD ){
     TESTING_print_msg <- RES
-    devtools::use_data( TESTING_print_msg , internal = TRUE , overwrite = TRUE)
+    usethis::use_data( TESTING_print_msg , internal = TRUE , overwrite = TRUE)
 } else {
     for ( i in seq_along(RES) ){
         expect_equal( 
