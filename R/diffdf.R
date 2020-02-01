@@ -80,6 +80,7 @@ diffdf <- function (
     tolerance = sqrt(.Machine$double.eps),
     scale = NULL
 ){
+    #browser()
     setDTthreads(1)
     BASE = as.data.table(base)
     COMP = as.data.table(compare)
@@ -97,8 +98,8 @@ diffdf <- function (
     if (is.null(KEYS)){
         is_derived <- TRUE
         keyname <- generate_keyname(BASE, COMP)
-        BASE[[keyname]] <-  1:nrow(BASE) 
-        COMP[[keyname]] <-  1:nrow(COMP) 
+        BASE[[keyname]] <-  seq_len(nrow(BASE))
+        COMP[[keyname]] <-  seq_len(nrow(COMP))
         KEYS  <- keyname
     }
     attr(COMPARE, 'keys') <- list(value = KEYS, is_derived = is_derived)
