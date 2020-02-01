@@ -165,7 +165,7 @@ numdiffcheck <-function(compdat, target, value){
     ### Only expected 1 variable to be different thus we expect 
     ### the overall # of differences to equal the # of differences
     ### in the target variable
-    diffdf_ob   <- diffdf(TDAT , compdat , suppress_warnings = T )$NumDiff
+    diffdf_ob   <- diffdf(TDAT , compdat , warnings = F )$NumDiff
 
     expect_true(
         nrow(diffdf_ob) == 1,
@@ -332,37 +332,37 @@ test_that('Objets with differing attributes produce the correct warning', {
 
 test_that('Attribute differnce size is correct!', {
     expect_equal(
-        diffdf(TDAT, TDAT_FACTCHANGE , suppress_warnings = T)$AttribDiffs %>% nrow, 
+        diffdf(TDAT, TDAT_FACTCHANGE , warnings = F)$AttribDiffs %>% nrow, 
         1
     )
     
     expect_equal(
-        diffdf(TDAT, TDAT_ATTEXT , suppress_warnings = T)$AttribDiffs %>% nrow, 
+        diffdf(TDAT, TDAT_ATTEXT , warnings = F)$AttribDiffs %>% nrow, 
         1
     )
     
     expect_equal(
-        diffdf(TDAT, TDAT_ATTEXT2 , suppress_warnings = T)$AttribDiffs %>% nrow, 
+        diffdf(TDAT, TDAT_ATTEXT2 , warnings = F)$AttribDiffs %>% nrow, 
         2
     )
     
     expect_equal(
-        diffdf(TDAT_ATTEXT, TDAT_ATTEXT2 , suppress_warnings = T)$AttribDiffs %>% nrow, 
+        diffdf(TDAT_ATTEXT, TDAT_ATTEXT2 , warnings = F)$AttribDiffs %>% nrow, 
         2
     )
     
     expect_equal(
-        diffdf(TDAT, TDAT_LABEXT , suppress_warnings = T)$AttribDiffs %>% nrow, 
+        diffdf(TDAT, TDAT_LABEXT , warnings = F)$AttribDiffs %>% nrow, 
         2
     )
     
     expect_equal(
-        diffdf(TDAT, TDAT_LABEXT2 , suppress_warnings = T)$AttribDiffs %>% nrow, 
+        diffdf(TDAT, TDAT_LABEXT2 , warnings = F)$AttribDiffs %>% nrow, 
         1
     )
     
     expect_equal(
-        diffdf(TDAT_LABEXT, TDAT_LABEXT2 , suppress_warnings = T)$AttribDiffs%>% nrow, 
+        diffdf(TDAT_LABEXT, TDAT_LABEXT2 , warnings = F)$AttribDiffs%>% nrow, 
         2
     )
     

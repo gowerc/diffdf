@@ -28,7 +28,7 @@ factor_to_character <- function( dsin , vars = NULL){
 #' @param DAT input data set (data frame)
 #' @param KEYS Set of keys which should be unique
 has_unique_rows <- function(DAT , KEYS){
-    DUPS <- duplicated(DAT[ , KEYS, with = FALSE])  
+    DUPS <- duplicated(DAT[, KEYS, with = FALSE])  
     NDUPS <- sum( DUPS)
     return( NDUPS == 0 )
 }

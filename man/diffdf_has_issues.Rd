@@ -22,6 +22,6 @@ diffdf_has_issues(x)
 # Example with issues
 iris2 <- iris
 iris2[2,2] <- NA
-x <- diffdf( iris , iris2 , suppress_warnings = TRUE)
+x <- diffdf( iris , iris2 , warnings = FALSE)
 diffdf_has_issues(x)
 }
