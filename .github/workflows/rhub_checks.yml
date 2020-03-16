@@ -3,16 +3,21 @@ on:
     branches:    
       - github_actions_release
 
+
+name: check_for_cran - Rhub
+
 jobs:
   my_first_job:
     runs-on: [ubuntu-latest]
     strategy:
       matrix:
-        rhub: [a, b , c]
+        rhub: [macos-elcapitan-release, ubuntu-gcc-devel, windows-x86_64-release]
     container:
       image: rocker/verse:latest
     steps:
-      - name: My first step
+      - name: checkout
+        uses: actions/checkout@v1
+      - name: rhub checks
         run: |
-          echo Hello world
-          echo rhub= ${{ matrix.rhub }}
+          Rscript -e "rhub::validate_email(email = '${{ secrets.RHUB_EMAIL }}', token = '${{ RHUB_TOKEN }}')"
+          Rscrupt -e "rhub::check(platform = '${{ matrix.rhub }}')"
