@@ -86,7 +86,7 @@ diffdf(test_data , test_data2 , suppress_warnings = T)
 
 ```{r}
 test_data2 <- test_data
-test_data2[5,2] <- "blah"
+test_data2[,2] <- as.character(test_data2[,2])
 diffdf(test_data , test_data2 , suppress_warnings = T)
 ```
 
@@ -116,21 +116,6 @@ A key feature of `diffdf` that enables easier diagnostics is the ability to spec
 test_data2 <- test_data
 test_data2$INTEGER[c(5,2,15)] <- 99L 
 diffdf( test_data , test_data2 , keys = c("GROUP1" , "GROUP2") , suppress_warnings = T)
-```
-
-## Printing and Saving the Compare Log
-
-When there are lots of mismatches the log can become unwieldly. In order to deal with this you can either use the `print` function to display a particular variable or the `outfile` option to save the log to a file. 
-
-
-```{r, eval=FALSE}
-result <- diffdf( 
-    test_data , 
-    test_data2 , 
-    keys = c("GROUP1" , "GROUP2") , 
-    outfile =  "reports/diffdf.log"
-)
-
 ```
 
 ## Misc

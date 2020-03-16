@@ -1,9 +1,9 @@
 Package: diffdf
 Type: Package
 Title: Dataframe Difference Tool
-Version: 1.0.3
+Version: 1.0.4
 Authors@R: c( 
-    person("Craig" ,"Gower" , email = "craig.gower@roche.com" , role = c("cre","aut")),
+    person("Craig" ,"Gower-Page" , email = "craig.gower-page@roche.com" , role = c("cre","aut")),
     person("Kieran", "Martin" , email = "kieran.martin@roche.com" , role = "aut")
     )
 Description: Functions for comparing two data.frames against 
@@ -27,7 +27,7 @@ Suggests:
     stringr,
     devtools,
     covr
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
 VignetteBuilder: knitr
 License: MIT + file LICENSE
 URL: https://github.com/gowerc/diffdf

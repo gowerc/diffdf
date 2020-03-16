@@ -4,8 +4,11 @@
 \alias{generate_keyname}
 \title{generate_keyname}
 \usage{
-generate_keyname(BASE, COMP, replace_names = c("..ROWNUMBER..", "..RN..",
-  "..ROWN..", "..N.."))
+generate_keyname(
+  BASE,
+  COMP,
+  replace_names = c("..ROWNUMBER..", "..RN..", "..ROWN..", "..N..")
+)
 }
 \arguments{
 \item{BASE}{base dataset}

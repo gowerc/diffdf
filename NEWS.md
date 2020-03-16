@@ -1,3 +1,8 @@
+# diffdf 1.0.4
+
+- No new functionality
+- Update to make package compatible with tibble 3.0.0
+
 # diffdf 1.0.3
 
 - No new functionality

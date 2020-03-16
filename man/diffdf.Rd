@@ -4,9 +4,17 @@
 \alias{diffdf}
 \title{diffdf}
 \usage{
-diffdf(base, compare, keys = NULL, suppress_warnings = FALSE,
-  strict_numeric = TRUE, strict_factor = TRUE, file = NULL,
-  tolerance = sqrt(.Machine$double.eps), scale = NULL)
+diffdf(
+  base,
+  compare,
+  keys = NULL,
+  suppress_warnings = FALSE,
+  strict_numeric = TRUE,
+  strict_factor = TRUE,
+  file = NULL,
+  tolerance = sqrt(.Machine$double.eps),
+  scale = NULL
+)
 }
 \arguments{
 \item{base}{input dataframe}
