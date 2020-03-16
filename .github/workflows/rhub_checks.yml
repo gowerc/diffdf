@@ -1,15 +1,14 @@
 on:
-  push:
-    branches:    
-      - github_actions_release
+  pull_request_review_comment:
+    types: [edited]
 
 
 name: CRAN Checks 
 
 jobs:
   rhub:
+    if: github.event.comment == '[cran-checks]'
     runs-on: [ubuntu-latest]
-    if:  contains(github.event.head_commit.message, '[cran-checks]')
     strategy:
       matrix:
         rhub: [macos-elcapitan-release, ubuntu-gcc-devel, windows-x86_64-release]
@@ -22,4 +21,16 @@ jobs:
         run: |
           Rscript -e "rhub::validate_email(email = '${{ secrets.RHUB_EMAIL }}', token = '${{ secrets.RHUB_TOKEN }}')"
           #Rscript -e "rhub::check(platform = '${{ matrix.rhub }}')"
+          
+  version:
+    if: github.event.comment == '[cran-checks]'
+    runs-on: [ubuntu-latest]
+    container:
+      image: rocker/verse:latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v1
+      - name: version checks
+        run: |
+          Rscript -e 'stopifnot( packageVersion("diffdf") != available.packages(contrib.url("https://cran.rstudio.com"))["diffdf",]["Version"] )'
         
