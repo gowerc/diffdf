@@ -1,7 +1,7 @@
 on:
   pull_request:
     branches: 
-      - master
+      - devel
 
 
 name: CRAN Checks 
@@ -21,7 +21,7 @@ jobs:
       - name: rhub checks
         run: |
           Rscript -e "rhub::validate_email(email = '${{ secrets.RHUB_EMAIL }}', token = '${{ secrets.RHUB_TOKEN }}')"
-          #Rscript -e "rhub::check(platform = '${{ matrix.rhub }}')"
+          Rscript -e "rhub::check(platform = '${{ matrix.rhub }}')"
           
   version:
     if: contains( github.event.pull_request.body,  '[cran-checks]')
