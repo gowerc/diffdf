@@ -1,0 +1,16 @@
+on:
+  push:
+    branches:    
+      - github_actions_release
+
+jobs:
+  my_first_job:
+    strategy:
+      matrix:
+        rhub: [a, b , c]
+    steps:
+      - name: My first step
+        uses: docker://rocker/verse:latest
+        run: |
+          echo Hello world
+          echo rhub= ${{ matrix.rhub }}
