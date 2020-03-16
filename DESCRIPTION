@@ -27,7 +27,7 @@ Suggests:
     stringr,
     devtools,
     covr
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
 VignetteBuilder: knitr
 License: MIT + file LICENSE
 URL: https://github.com/gowerc/diffdf
