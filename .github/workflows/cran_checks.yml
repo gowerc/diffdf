@@ -33,7 +33,6 @@ jobs:
         uses: actions/checkout@v1
       - name: version checks
         run: |
-          echo ${{ github.event.pull_request.body }}
           Rscript -e 'devtools::install()'
           Rscript -e 'stopifnot( packageVersion("diffdf") != available.packages(contrib.url("https://cran.rstudio.com"))["diffdf",]["Version"] )'
         
