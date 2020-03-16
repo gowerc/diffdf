@@ -4,11 +4,12 @@ on:
       - github_actions_release
 
 
-name: check_for_cran - Rhub
+name: CRAN Checks
 
 jobs:
-  my_first_job:
+  rhub:
     runs-on: [ubuntu-latest]
+    if:  contains(github.event.head_commit.message, '[cran-checks]')
     strategy:
       matrix:
         rhub: [macos-elcapitan-release, ubuntu-gcc-devel, windows-x86_64-release]
@@ -20,4 +21,5 @@ jobs:
       - name: rhub checks
         run: |
           Rscript -e "rhub::validate_email(email = '${{ secrets.RHUB_EMAIL }}', token = '${{ secrets.RHUB_TOKEN }}')"
-          Rscrupt -e "rhub::check(platform = '${{ matrix.rhub }}')"
+          #Rscript -e "rhub::check(platform = '${{ matrix.rhub }}')"
+        
