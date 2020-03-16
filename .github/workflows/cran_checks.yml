@@ -10,9 +10,6 @@ jobs:
   rhub:
     if: contains( github.event.pull_request.body,  '[cran-checks]')
     runs-on: [ubuntu-latest]
-    strategy:
-      matrix:
-        rhub: [macos-elcapitan-release, ubuntu-gcc-devel, windows-x86_64-release]
     container:
       image: rocker/verse:latest
     steps:
@@ -21,7 +18,7 @@ jobs:
       - name: rhub checks
         run: |
           Rscript -e "rhub::validate_email(email = '${{ secrets.RHUB_EMAIL }}', token = '${{ secrets.RHUB_TOKEN }}')"
-          Rscript -e "rhub::check(platform = '${{ matrix.rhub }}', email = '${{ secrets.RHUB_EMAIL }}')"
+          Rscript -e "rhub::check_for_cran(email = '${{ secrets.RHUB_EMAIL }}', show_status=FALSE)"
           
   version:
     if: contains( github.event.pull_request.body,  '[cran-checks]')
