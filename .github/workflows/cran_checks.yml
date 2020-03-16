@@ -8,7 +8,7 @@ name: CRAN Checks
 
 jobs:
   rhub:
-    if: github.event.pull_request.body == '[cran-checks]'
+    if: contains( github.event.pull_request.body,  '[cran-checks]')
     runs-on: [ubuntu-latest]
     strategy:
       matrix:
