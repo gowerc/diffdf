@@ -5,12 +5,14 @@ on:
 
 jobs:
   my_first_job:
+    runs-on: [ubuntu-latest]
     strategy:
       matrix:
         rhub: [a, b , c]
+    container:
+      image: rocker/verse:latest
     steps:
       - name: My first step
-        uses: docker://rocker/verse:latest
         run: |
           echo Hello world
           echo rhub= ${{ matrix.rhub }}
