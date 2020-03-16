@@ -4,8 +4,14 @@
 \alias{identify_differences}
 \title{identify_differences}
 \usage{
-identify_differences(BASE, COMP, KEYS, exclude_cols,
-  tolerance = sqrt(.Machine$double.eps), scale = NULL)
+identify_differences(
+  BASE,
+  COMP,
+  KEYS,
+  exclude_cols,
+  tolerance = sqrt(.Machine$double.eps),
+  scale = NULL
+)
 }
 \arguments{
 \item{BASE}{Base dataset for comparison (data.frame)}

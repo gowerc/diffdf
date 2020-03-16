@@ -4,8 +4,12 @@
 \alias{compare_vectors.numeric}
 \title{compare_vectors.numeric}
 \usage{
-\method{compare_vectors}{numeric}(target, current,
-  tolerance = sqrt(.Machine$double.eps), scale = NULL)
+\method{compare_vectors}{numeric}(
+  target,
+  current,
+  tolerance = sqrt(.Machine$double.eps),
+  scale = NULL
+)
 }
 \arguments{
 \item{target}{the base vector}

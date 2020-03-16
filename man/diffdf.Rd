@@ -3,12 +3,19 @@
 \docType{package}
 \name{diffdf}
 \alias{diffdf}
-\alias{diffdf-package}
 \title{diffdf}
 \usage{
-diffdf(base, compare, keys = NULL, warnings = TRUE,
-  strict_numeric = TRUE, strict_factor = TRUE, file = NULL,
-  tolerance = sqrt(.Machine$double.eps), scale = NULL)
+diffdf(
+  base,
+  compare,
+  keys = NULL,
+  warnings = TRUE,
+  strict_numeric = TRUE,
+  strict_factor = TRUE,
+  file = NULL,
+  tolerance = sqrt(.Machine$double.eps),
+  scale = NULL
+)
 }
 \arguments{
 \item{base}{input dataframe}
