@@ -1,7 +1,7 @@
 on:
   pull_request:
     branches: 
-      - devel
+      - master
 
 
 name: CRAN Checks 
@@ -24,7 +24,7 @@ jobs:
           #Rscript -e "rhub::check(platform = '${{ matrix.rhub }}')"
           
   version:
-    if: github.event.pull_request.body == '[cran-checks]'
+    if: contains( github.event.pull_request.body,  '[cran-checks]')
     runs-on: [ubuntu-latest]
     container:
       image: rocker/verse:latest
