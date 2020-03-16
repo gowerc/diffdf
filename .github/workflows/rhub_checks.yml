@@ -1,6 +1,6 @@
 on:
   pull_request_review_comment:
-    types: [edited]
+    types: [edited] 
 
 
 name: CRAN Checks 
