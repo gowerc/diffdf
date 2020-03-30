@@ -24,9 +24,9 @@ Suggests:
     purrr,
     stringi,
     stringr,
-    devtools,
     covr,
-    usethis
+    usethis,
+    ggplot2
 RoxygenNote: 7.0.2
 VignetteBuilder: knitr
 License: MIT + file LICENSE
