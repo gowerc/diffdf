@@ -176,7 +176,7 @@ numdiffcheck <-function(compdat, target, value){
     )
     
     expect_equal(
-        diffdf_ob$`No of Differences`[1] , value,
+        diffdf_ob$`No of Differences`[[1]] , value,
         info = 'Number of differences incorrect'
     )
 }
