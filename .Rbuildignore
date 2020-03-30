@@ -6,7 +6,6 @@ cran-comments.md
 docs/
 ^codecov\.yml$
 ^README\.Rmd$
-^.circleci/
 ^makevars$
 ^data-raw$
-^\.circleci/config\.yml$
+^\.github/

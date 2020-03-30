@@ -2,7 +2,7 @@
 #' 
 #' This subsets the data set on the variable name, picks out differences and returns a tibble
 #' of differences for the given variable
-#' @importFrom tibble as.tibble
+#' @importFrom tibble as_tibble
 #' @param variablename name of variable being compared
 #' @param keynames name of keys
 #' @param DAT Inputted dataset with base and compare vectors

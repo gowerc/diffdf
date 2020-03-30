@@ -1,0 +1,35 @@
+on:
+  pull_request:
+    branches: 
+      - master
+
+
+name: CRAN Checks 
+
+jobs:
+  rhub:
+    if: contains( github.event.pull_request.body,  '[cran-checks]')
+    runs-on: [ubuntu-latest]
+    container:
+      image: rocker/verse:latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v1
+      - name: rhub checks
+        run: |
+          Rscript -e "rhub::validate_email(email = '${{ secrets.RHUB_EMAIL }}', token = '${{ secrets.RHUB_TOKEN }}')"
+          Rscript -e "rhub::check_for_cran(email = '${{ secrets.RHUB_EMAIL }}', show_status=FALSE)"
+          
+  version:
+    if: contains( github.event.pull_request.body,  '[cran-checks]')
+    runs-on: [ubuntu-latest]
+    container:
+      image: rocker/verse:latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v1
+      - name: version checks
+        run: |
+          Rscript -e 'devtools::install()'
+          Rscript -e 'stopifnot( packageVersion("diffdf") != available.packages(contrib.url("https://cran.rstudio.com"))["diffdf",]["Version"] )'
+        
