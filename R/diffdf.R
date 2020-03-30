@@ -80,7 +80,6 @@ diffdf <- function (
     tolerance = sqrt(.Machine$double.eps),
     scale = NULL
 ){
-    #browser()
     setDTthreads(1)
     BASE = as.data.table(base)
     COMP = as.data.table(compare)
