@@ -64,7 +64,7 @@ identify_matching_cols <- function(DS1, DS2, EXCLUDE = ""){
 identify_unsupported_cols <- function(dsin){
  
     dat <- identify_properties(dsin)[, c("VARIABLE", "MODE")]
-    dat[ !(get("MODE") %in% c('numeric', 'character', 'logical'))]
+    dat[ !(get("MODE") %in% c('numeric', 'character', 'logical', 'list'))]
 
 }
 

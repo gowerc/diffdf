@@ -43,7 +43,6 @@ RES[["With 2 keys"]] <- print(x , as_string = TRUE)
 
 
 
-
 SET_GOLD <- FALSE
 
 if ( SET_GOLD ){
@@ -58,15 +57,6 @@ if ( SET_GOLD ){
         )
     }
 }
-
-
-
-
-
-
-
-
-
 
 
 

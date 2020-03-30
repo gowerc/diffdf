@@ -188,6 +188,20 @@ list_of_comparisons <- list(
             M_TDAT2$CHARACTER[1] <- ""
             M_TDAT2
         }
+    ),
+    
+    "List columns" = list(
+        {
+            TDAT_PLUSLIST <- TDAT 
+            TDAT_PLUSLIST$LIST <- rep(list(TDAT$CATEGORICAL[1:5]) , nrow(TDAT))
+            TDAT_PLUSLIST
+        },
+        {
+            TDAT_PLUSLIST2 <- TDAT
+            TDAT_PLUSLIST2$LIST <- rep(list(TDAT$CONTINUOUS[1:5]) , nrow(TDAT))
+            TDAT_PLUSLIST2
+        }
+
     )
 )
 

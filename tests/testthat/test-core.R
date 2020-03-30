@@ -43,13 +43,6 @@ TDAT_FACTVALCHANGENA <- TDAT
 TDAT_FACTVALCHANGENA$CATEGORICAL[TDAT_FACTVALCHANGENA$CATEGORICAL == "C"] <- NA
 
 
-
-#### add a unsupported column
-TDAT_PLUSLIST <- TDAT 
-TDAT_PLUSLIST$LIST <- rep(list(TDAT$CATEGORICAL) , nrow(TDAT))
-TDAT_PLUSLIST2 <- TDAT
-TDAT_PLUSLIST2$LIST <- rep(list(TDAT$CONTINUOUS) , nrow(TDAT))
-
 #### add change in mode
 TDAT_MODECHANGE <- TDAT 
 TDAT_MODECHANGE$INTEGER = as.character(TDAT$INTEGER)
@@ -240,31 +233,7 @@ test_that("Non-Unique rows error", {
 
 
 
-test_that("List columns are supported", {
-    
-    expect_length_0( diffdf(TDAT_PLUSLIST, TDAT_PLUSLIST))
-    
-    
-    expect_warning(
-        diffdf(TDAT_PLUSLIST, TDAT),
-        'There are columns in BASE that are not in COMPARE'
-    )
-    
-    expect_warning(
-        diffdf(TDAT, TDAT_PLUSLIST),
-        'There are columns in COMPARE that are not in BASE'
-    )
-    
 
-    expect_warning(
-        diffdf(TDAT_PLUSLIST, TDAT_PLUSLIST2),
-        "Not all Values Compared Equal"
-    )
-    
-    x <- diffdf(TDAT_PLUSLIST, TDAT_PLUSLIST2, suppress_warnings = T)
-    expect_equal(nrow(x$VarDiff_LIST),20)
-    
-})
 
 
 
