@@ -16,7 +16,7 @@
 #' @examples 
 #' iris2 <- iris
 #' for ( i in 1:3) iris2[i,i] <- 99
-#' x <- diffdf( iris , iris2, suppress_warnings = TRUE)
+#' x <- diffdf( iris , iris2, warnings = FALSE)
 #' diffdf_issuerows( iris , x)
 #' diffdf_issuerows( iris2 , x)
 #' diffdf_issuerows( iris2 , x , vars = "Sepal.Length")
@@ -86,7 +86,7 @@ diffdf_issuerows <- function( df , diff, vars = NULL){
     
     if ( KEYS_ATT$is_derived ){
         keep_vars <- !names(RET) %in% KEYS_ATT$value
-        RET <- RET[ , keep_vars, with = FALSE]
+        RET <- RET[, keep_vars, with = FALSE]
     }
     
     return(RET)

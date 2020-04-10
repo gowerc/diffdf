@@ -52,7 +52,7 @@ test_data
 diffdf( test_data , test_data)
 ```
 
-As you would expect no differences are found. We now look to introduce various types differences into the data in order to show how `diffdf` highlights them.  Note that for the purposes of this vignette we have used the `suppress_warnings` argument to stop errors being raised; it is recommended however that this option is not used in production code as it may mask problems. 
+As you would expect no differences are found. We now look to introduce various types differences into the data in order to show how `diffdf` highlights them.  Note that for the purposes of this vignette we have used the `warnings=FALSE` argument to warnings from being raised; it is recommended however that this option is not used in production code as it may mask problems. 
 
 
 ### Missing Columns
@@ -60,7 +60,7 @@ As you would expect no differences are found. We now look to introduce various t
 ```{r}
 test_data2 <- test_data 
 test_data2 <- test_data2[,-6]
-diffdf(test_data , test_data2 , suppress_warnings = T)
+diffdf(test_data , test_data2 , warnings = F)
 ```
 
 
@@ -69,7 +69,7 @@ diffdf(test_data , test_data2 , suppress_warnings = T)
 ```{r}
 test_data2 <- test_data
 test_data2 <- test_data2[1:(nrow(test_data2) - 2),]
-diffdf(test_data, test_data2 , suppress_warnings = T)
+diffdf(test_data, test_data2 , warnings = F)
 ```
 
 
@@ -78,7 +78,7 @@ diffdf(test_data, test_data2 , suppress_warnings = T)
 ```{r}
 test_data2 <- test_data
 test_data2[5,2] <- 6
-diffdf(test_data , test_data2 , suppress_warnings = T)
+diffdf(test_data , test_data2 , warnings = F)
 ```
 
 
@@ -86,8 +86,8 @@ diffdf(test_data , test_data2 , suppress_warnings = T)
 
 ```{r}
 test_data2 <- test_data
-test_data2[5,2] <- "blah"
-diffdf(test_data , test_data2 , suppress_warnings = T)
+test_data2[,2] <- as.character(test_data2[,2])
+diffdf(test_data , test_data2 , warnings = T)
 ```
 
 
@@ -97,7 +97,7 @@ diffdf(test_data , test_data2 , suppress_warnings = T)
 test_data2 <- test_data
 attr(test_data$ID , "label") <- "This is a interesting label"
 attr(test_data2$ID , "label") <- "what do I type here?"
-diffdf(test_data , test_data2 , suppress_warnings = T)
+diffdf(test_data , test_data2 , warnings = F)
 ```
 
 ### Different Factor Levels 
@@ -105,7 +105,7 @@ diffdf(test_data , test_data2 , suppress_warnings = T)
 ```{r}
 test_data2 <- test_data
 levels(test_data2$CATEGORICAL) <- c(1,2,3)
-diffdf(test_data , test_data2 , suppress_warnings = T)
+diffdf(test_data , test_data2 , warnings = F)
 ```
 
 ## Grouping Variables
@@ -115,22 +115,7 @@ A key feature of `diffdf` that enables easier diagnostics is the ability to spec
 ```{r}
 test_data2 <- test_data
 test_data2$INTEGER[c(5,2,15)] <- 99L 
-diffdf( test_data , test_data2 , keys = c("GROUP1" , "GROUP2") , suppress_warnings = T)
-```
-
-## Printing and Saving the Compare Log
-
-When there are lots of mismatches the log can become unwieldly. In order to deal with this you can either use the `print` function to display a particular variable or the `outfile` option to save the log to a file. 
-
-
-```{r, eval=FALSE}
-result <- diffdf( 
-    test_data , 
-    test_data2 , 
-    keys = c("GROUP1" , "GROUP2") , 
-    outfile =  "reports/diffdf.log"
-)
-
+diffdf( test_data , test_data2 , keys = c("GROUP1" , "GROUP2") , warnings = F)
 ```
 
 ## Misc
@@ -142,7 +127,7 @@ As an additional utility `diffdf` comes with the function `diffdf_issuerows()` w
 ```{r}
 iris2 <- iris
 for (i in 1:3) iris2[i,i] <- 99
-diff <- diffdf( iris , iris2, suppress_warnings = TRUE)
+diff <- diffdf( iris , iris2, warnings = F)
 diffdf_issuerows( iris , diff)
 diffdf_issuerows( iris2 , diff)
 ```
@@ -157,12 +142,12 @@ diffdf_issuerows( iris2 , diff , vars = c("Sepal.Length" , "Sepal.Width"))
 
 ### Are there issues ?
 
-Sometimes it can be useful to use the comparison result to fuel further checks or programming logic. To assist with this `diffdf` offers two pieces of functionality namely the `suppress_warnings` argument (which has already been shown) and the `diffdf_has_issues()` helper function which simply returns TRUE if differences have been found else FALSE. 
+Sometimes it can be useful to use the comparison result to fuel further checks or programming logic. To assist with this `diffdf` offers two pieces of functionality namely the `warnings` argument (which has already been shown) and the `diffdf_has_issues()` helper function which simply returns TRUE if differences have been found else FALSE. 
 
 ```{r}
 iris2 <- iris
 for (i in 1:3) iris2[i,i] <- 99
-diff <- diffdf( iris , iris2, suppress_warnings = TRUE)
+diff <- diffdf( iris , iris2, warnings = F)
 
 diffdf_has_issues(diff)
 ```
@@ -182,9 +167,9 @@ You can use the `tolerance` argument of `diffdf` to define how sensitive the com
 dsin1 <- data.frame(x = 1.1e-06)
 dsin2 <- data.frame(x = 1.1e-07)
 
-diffdf(dsin1  , dsin2 , suppress_warnings = T)
+diffdf(dsin1  , dsin2 , warnings = F)
 
-diffdf(dsin1  , dsin2 , tolerance = 0.001 , suppress_warnings = T)
+diffdf(dsin1  , dsin2 , tolerance = 0.001 , warnings = F)
 ```
 
 
@@ -196,14 +181,14 @@ By default, the function will note a difference between integer and double colum
 dsin1 <- data.frame(x = as.integer(c(1,2,3)))
 dsin2 <- data.frame(x = as.numeric(c(1,2,3)))
 
-diffdf(dsin1  , dsin2 , suppress_warnings = T)
-diffdf(dsin1  , dsin2 , suppress_warnings = T, strict_numeric = FALSE)
+diffdf(dsin1  , dsin2 , warnings = F)
+diffdf(dsin1  , dsin2 , warnings = F, strict_numeric = FALSE)
 
 dsin1 <- data.frame(x = as.character(c(1,2,3)), stringsAsFactors = FALSE)
 dsin2 <- data.frame(x = as.factor(c(1,2,3)))
 
-diffdf(dsin1  , dsin2 , suppress_warnings = T)
-diffdf(dsin1  , dsin2 , suppress_warnings = T, strict_factor = FALSE)
+diffdf(dsin1  , dsin2 , warnings = F)
+diffdf(dsin1  , dsin2 , warnings = F, strict_factor = FALSE)
 ```
 
 

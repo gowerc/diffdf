@@ -2,7 +2,7 @@
 #' 
 #' This subsets the data set on the variable name, picks out differences and returns a tibble
 #' of differences for the given variable
-#' @importFrom tibble as.tibble
+#' @importFrom tibble as_tibble
 #' @param variablename name of variable being compared
 #' @param keynames name of keys
 #' @param DAT Inputted dataset with base and compare vectors
@@ -11,17 +11,16 @@
 is_variable_different <- function (variablename, keynames, DAT,  ...) {
     
     ### Dummy variable assignment to remove CRAN notes of no visible variable assignment
-    VARIABLE <- NULL
     
     cols <- paste0(variablename , c(".BASE", ".COMPARE"))
     vars <- c("VARIABLE", keynames, cols[[1]] , cols[[2]])
     
     target <- DAT[[cols[[1]]]]
     current <- DAT[[cols[[2]]]]
-    outvect <- find_difference( target , current , ...)
+    outvect <- find_difference(target, current, ...)
 
-    DAT[, VARIABLE := variablename]
-    x <- DAT[ outvect, vars , with=FALSE]
+    DAT[, ("VARIABLE") := variablename]
+    x <- DAT[outvect, vars, with=FALSE]
     x2 <- setnames(x, c(cols[[1]], cols[[2]]) , c("BASE", "COMPARE"))
     
     return(x2)

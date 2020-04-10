@@ -17,7 +17,7 @@ test_that( "sort order is as expected (sorted by keys)", {
     dsin2 <- dsin1
     dsin2$var[c(1,2,3)] <- c(97, 98,99)
     
-    x <- diffdf(dsin1,dsin2, keys = c("G1"  , "G2") , suppress_warnings = T)
+    x <- diffdf(dsin1,dsin2, keys = c("G1"  , "G2") , warnings = F)
     x2 <- diffdf_issuerows(dsin2, x)
     
     expect_true( all( x$VarDiff_var$G1 == c(1,2,10)))
