@@ -168,10 +168,10 @@ diffdf <- function (
     
 
     exclude_cols <- c(
-        COMPARE[["UnsupportedColsBase"]]$VARIABLE , 
-        COMPARE[["UnsupportedColsComp"]]$VARIABLE,
-        COMPARE[["VarClassDiffs"]]$VARIABLE,
-        COMPARE[["VarModeDiffs"]]$VARIABLE
+        get_issue_value(COMPARE[["UnsupportedColsBase"]])$VARIABLE , 
+        get_issue_value(COMPARE[["UnsupportedColsComp"]])$VARIABLE,
+        get_issue_value(COMPARE[["VarClassDiffs"]])$VARIABLE,
+        get_issue_value(COMPARE[["VarModeDiffs"]])$VARIABLE
     )
 
     ##### Check Validity of Keys
@@ -237,8 +237,8 @@ diffdf <- function (
     )
    
     ## Remove extra columns
-    base_remove <- COMPARE[["ExtColsBase"]][["COLUMNS"]]
-    comp_remove <- COMPARE[["ExtColsComp"]][["COLUMNS"]]
+    base_remove <- get_issue_value(COMPARE[["ExtColsBase"]])[["COLUMNS"]]
+    comp_remove <- get_issue_value(COMPARE[["ExtColsComp"]])[["COLUMNS"]]
     
     if( !is.null(base_remove)) BASE <- BASE[,!base_remove, with = FALSE]
     if( !is.null(comp_remove)) COMP <- COMP[,!comp_remove, with = FALSE]

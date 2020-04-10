@@ -2,6 +2,25 @@
 
 
 
+
+render_ascii <- function (object, ...) {
+    UseMethod("render_ascii", object)
+}
+
+
+
+render_ascii.issue <- function(object){
+    top <- "All rows are shown in table below\n"
+    tab <- render_ascii(  get_issue_value(object) )
+    paste0(
+        top,
+        tab,
+        "\n\n"
+    )
+}
+
+
+
 #' render_ascii
 #' 
 #' This function takes a data.frame and attempts to convert it into
@@ -10,10 +29,9 @@
 #' in order to cast them to character. 
 #' @param dat Input dataset to convert into a ascii table
 #' @param line_prefix Symbols to prefix infront of every line of the table
-render_ascii <- function(dat, line_prefix = "  "){
- 
+render_ascii.data.frame <- function(dat, line_prefix = "  "){
     ## Convert every value to character and crop to a suitable length
-    dat[]  <- apply(dat, c(1, 2), as_cropped_char)
+    dat_chr  <- apply(dat, c(1, 2), as_cropped_char)
     hold <- list()
     COLS <- colnames(dat)
     
@@ -53,12 +71,6 @@ render_ascii <- function(dat, line_prefix = "  "){
         line_prefix, LINE
     )     
 }
-
-
-
-
-
-
 
 
 

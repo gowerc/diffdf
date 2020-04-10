@@ -5,13 +5,20 @@
 #' @param value the value of the object
 #' @param message the value of the message attribute
 #' @param add_class additional class to add
-construct_issue <- function(value, message, add_class = NULL){
-    x <- as_tibble(value)
-    ### If nothing has been provided return nothing !
-    if ( nrow(x) == 0 ) return(NULL)
+construct_issue <- function(value, message = "", order = 999, add_class = NULL){
     
-    class(x) <- c(add_class, "issue", class(x))
-    attributes(x)[["message"]] <- message
+    if( ! any( class(value) %in%  c("data.frame", "tbl", "data.frame"))){
+        stop("Issue value is not a dataframe object")
+    }
+    
+    if(nrow(value) == 0 ) return(NULL)
+    
+    x <- list(
+        value = value,
+        message = message,
+        ord = order
+    )
+    class(x) <- c(add_class, "issue")
     return(x)
 }
 
@@ -23,8 +30,12 @@ construct_issue <- function(value, message, add_class = NULL){
 #' Simple function to grab the issue message
 #' @param object inputted object of class issue
 #' @param ... other arguments
-get_issue_message <- function (object, ...) {
-    return( attr(object,"message"))
+get_issue_message <- function(object, ...) {
+    return( object$message )  
+}
+
+get_issue_value <- function(object, ...){
+    return( object$value)
 }
 
 
@@ -54,7 +65,7 @@ get_print_message.default <- function(object) {
 #' @param object an object of class issue_basic
 get_print_message.issue <- function(object){
     paste(
-        c(attr(object, "message"),  get_table(object) ),
+        c( get_issue_message(object),  get_table( get_issue_value(object))),
         collapse = '\n'
     )
 }

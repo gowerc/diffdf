@@ -11,32 +11,41 @@
 #' print( COMPARE )
 #' print( COMPARE , "Sepal.Length" )
 #' @export 
-print.diffdf <- function(x, ..., as_string = FALSE){
-    COMPARE <- x
-
-    if ( length(COMPARE) == 0 ){
-        outtext <- "No issues were found!\n"
-        
-    } else {
-        
-        start_text <- paste0(
-            'Differences found between the objects!\n\n',
-            'A summary is given below.\n\n'
-        )
-
-        end_text <- lapply(COMPARE, function(x) get_print_message(x) ) 
-        end_text <- paste0(unlist(end_text), collapse = "")
-
-        outtext <- paste0(start_text, end_text)
-    }
+print.diffdf <- function(x, ..., type = "html", raw = FALSE){
+    outtext <- paste0(
+        lapply(x, as.character, type = type ),
+        collapse = ""
+    )
     
-    if ( as_string){
-        return(strsplit(outtext, '\n')[[1]])
+    if(raw){
+        return(outtext)
     } else {
-        cat(outtext)
-        return(invisible(COMPARE))
+        viewer(outtext, type = type)
+        return(invisible(x))
     }
 }
+
+
+
+
+
+### TODO - Header "No issues were found!\n"
+### TODO - Header 'Differences found between the objects!\n\n', 'A summary is given below.\n\n'
+### TODO - As string for comparisons in unit tests
+
+as.character.issue <- function(x, type = "html", ...){
+    if(type == "html") return(render_html(x))
+    if(type == "ascii") return(render_ascii(x))
+}
+
+viewer <- function(string, type){
+    if(type == "html") return(html_viewer(string))
+    if(type == "ascii") return(cat(string))
+}
+
+
+
+
 
 
 #' get_table
