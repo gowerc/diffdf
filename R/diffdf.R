@@ -80,6 +80,7 @@ diffdf <- function (
     tolerance = sqrt(.Machine$double.eps),
     scale = NULL
 ){
+    
     setDTthreads(1)
     BASE = as.data.table(base)
     COMP = as.data.table(compare)
@@ -128,13 +129,13 @@ diffdf <- function (
     
     COMPARE[["UnsupportedColsBase"]] <- construct_issue(
         value = identify_unsupported_cols(BASE) , 
-        message  = "There are columns in BASE with unsupported modes !!" 
+        message  = "There are columns in BASE with unsupported modes !" 
     )
     
     
     COMPARE[["UnsupportedColsComp"]] <- construct_issue(
         value = identify_unsupported_cols(COMP) , 
-        message  = "There are columns in COMPARE with unsupported modes !!" 
+        message  = "There are columns in COMPARE with unsupported modes !" 
     )
 
     
@@ -154,16 +155,15 @@ diffdf <- function (
         
     }
     
-    
     COMPARE[["VarModeDiffs"]] <- construct_issue(
         value = identify_mode_differences( BASE, COMP ) ,
-        message = "There are columns in BASE and COMPARE with different modes !!"
+        message = "There are columns in BASE and COMPARE with different modes !"
     )
     
     
     COMPARE[["VarClassDiffs"]] <- construct_issue(
         value = identify_class_differences(BASE, COMP) ,
-        message = "There are columns in BASE and COMPARE with different classes !!"
+        message = "There are columns in BASE and COMPARE with different classes !"
     )
     
 
@@ -203,7 +203,7 @@ diffdf <- function (
     
     COMPARE[["AttribDiffs"]] <- construct_issue(
         value = identify_att_differences(BASE, COMP)  ,
-        message = "There are columns in BASE and COMPARE with differing attributes !!"
+        message = "There are columns in BASE and COMPARE with differing attributes !"
     )
     
     
@@ -214,28 +214,28 @@ diffdf <- function (
     
     COMPARE[["ExtRowsBase"]] <- construct_issue(
         value = identify_extra_rows(BASE, COMP, KEYS ),
-        message = "There are rows in BASE that are not in COMPARE !!"
+        message = "There are rows in BASE that are not in COMPARE !"
     )
     
     
     COMPARE[["ExtRowsComp"]] <- construct_issue(
         value = identify_extra_rows(COMP, BASE, KEYS ),
-        message = "There are rows in COMPARE that are not in BASE !!"
+        message = "There are rows in COMPARE that are not in BASE !"
     )
 
     
     
     COMPARE[["ExtColsBase"]] <- construct_issue(
         value =  identify_extra_cols(BASE, COMP),
-        message = "There are columns in BASE that are not in COMPARE !!"
+        message = "There are columns in BASE that are not in COMPARE !"
     )
     
     
     COMPARE[["ExtColsComp"]] <- construct_issue(
         value =  identify_extra_cols(COMP, BASE),
-        message = "There are columns in COMPARE that are not in BASE !!"
+        message = "There are columns in COMPARE that are not in BASE !"
     )
-   
+    
     ## Remove extra columns
     base_remove <- get_issue_value(COMPARE[["ExtColsBase"]])[["COLUMNS"]]
     comp_remove <- get_issue_value(COMPARE[["ExtColsComp"]])[["COLUMNS"]]
@@ -243,29 +243,24 @@ diffdf <- function (
     if( !is.null(base_remove)) BASE <- BASE[,!base_remove, with = FALSE]
     if( !is.null(comp_remove)) COMP <- COMP[,!comp_remove, with = FALSE]
     
-     
     
     VALUE_DIFFERENCES <- identify_differences(
         BASE, COMP , KEYS, tolerance = tolerance, scale = scale
     )
-
     
-    ## Summarise the number of mismatching rows per variable
-    if ( length(VALUE_DIFFERENCES) ){
-        NDIFF  <- sapply( VALUE_DIFFERENCES , nrow)
-        COMPARE[["NumDiff"]] <- construct_issue(
-            value = convert_to_issue(NDIFF),
-            message = "Not all Values Compared Equal"
+    VALUE_DIFFERENCES_ISSUES <- list()
+    for( i in names(VALUE_DIFFERENCES)){
+        VALUE_DIFFERENCES_ISSUES[[i]] <- construct_issue(
+            VALUE_DIFFERENCES[[i]], 
+            paste0("Variable: ", i)
         )
     }
+    
+    COMPARE[["Variables"]] <- construct_issue_collection(
+        VALUE_DIFFERENCES_ISSUES,
+        message = "Not all Values Compared Equal"
+    )
 
-
-    for ( i in names(VALUE_DIFFERENCES) ){
-        COMPARE[[ paste0( "VarDiff_", i)]] <- construct_issue(
-            value = VALUE_DIFFERENCES[[i]] ,
-            message = ""
-        )
-    }
     
     ## Get all issue messages, remove blank message, and collapse into single string
     ISSUE_MSGS <- sapply(COMPARE, function(x) get_issue_message(x))

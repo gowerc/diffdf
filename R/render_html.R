@@ -9,8 +9,8 @@ add_tag <- function(x, tag, args = ""){
 
 
 html_viewer <- function(x){
-    #bootstrap_link <- '<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">' 
-     bootstrap_link <- ""
+    bootstrap_link <- '<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">' 
+    #bootstrap_link <- ""
     #css_file <- system.file("extdata", "bootstrap.css", package = "diffdf")
     #css <- readLines(css_file, warn = FALSE)
     #css <- add_tag( css, "style")
@@ -50,16 +50,27 @@ render_html.issue <- function(object){
 }
 
 
-render_html.data.frame <- function(dat){
+render_html.data.frame <- function(dat, rowlimit = 10){
     
-    dat_char  <- apply(dat, c(1, 2), as_cropped_char)
+    if( nrow(dat) > rowlimit){
+        dat2 <- dat[seq_len(rowlimit),]
+        caption <- add_tag( 
+            paste0( "Showing " , rowlimit, " of ", nrow(dat), " observations"),
+            "caption"
+        )
+    } else {
+        dat2 <- dat
+        caption <- ""
+    }
+    
+    dat_char  <- apply(dat2, c(1, 2), as_cropped_char)
     dat_tag  <- apply(dat_char, c(1, 2), add_tag, tag = "td", args = "style='text-align: center;' class='df-cell'")
     dat_rows  <- apply(dat_tag, c(1), add_tag, tag = "tr class='df_row'")
     
-    header <- sapply( names(dat), add_tag , "th", args = "style='text-align: center;' class='df-header'")
+    header <- sapply( names(dat2), add_tag , "th", args = "style='text-align: center;' class='df-header'")
     header_row <- add_tag( header , "tr", args = "class='df-row df_header-row'")
     
-    add_tag( c( header_row, dat_rows), "table", " class='table df-table'")
+    add_tag( c( header_row, dat_rows, caption), "table", " class='table df-table'")
 }
 
 

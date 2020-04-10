@@ -14,6 +14,7 @@ string_pad <- function(x , width){
 }
 
 
+
 #' recursive_reduce
 #'  
 #' Utility function used to replicated purrr::reduce. Recursively applies a 
@@ -29,6 +30,8 @@ recursive_reduce <- function(.l , .f){
         return(.l[[1]])
     }
 }
+
+
 
 #' invert
 #'

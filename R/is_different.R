@@ -13,13 +13,12 @@ is_variable_different <- function (variablename, keynames, DAT,  ...) {
     ### Dummy variable assignment to remove CRAN notes of no visible variable assignment
     
     cols <- paste0(variablename , c(".BASE", ".COMPARE"))
-    vars <- c("VARIABLE", keynames, cols[[1]] , cols[[2]])
+    vars <- c(keynames, cols[[1]] , cols[[2]])
     
     target <- DAT[[cols[[1]]]]
     current <- DAT[[cols[[2]]]]
     outvect <- find_difference(target, current, ...)
 
-    DAT[, ("VARIABLE") := variablename]
     x <- DAT[outvect, vars, with=FALSE]
     x2 <- setnames(x, c(cols[[1]], cols[[2]]) , c("BASE", "COMPARE"))
     

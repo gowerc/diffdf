@@ -38,6 +38,36 @@ as.character.issue <- function(x, type = "html", ...){
     if(type == "ascii") return(render_ascii(x))
 }
 
+
+
+as.character.issue_collection <- function(x, type = "html"){
+
+    issues <-  get_issue_value(x)
+    ndiff <-  vapply( issues, function(x) nrow(get_issue_value(x)) , numeric(1))
+    
+    dat <- data.frame(
+        Variable = names(issues),
+        `Number of Differences` = ndiff, 
+        stringsAsFactors = FALSE
+    )
+    
+    collection_summary <- construct_issue(
+        value = dat, 
+        message = "Not all Values Compared Equal"
+    )
+    
+    string <- paste0(
+        sapply( issues, as.character, type = type),
+        collapse = ""
+    )
+    
+    paste0(
+        as.character(collection_summary, type = type),
+        string,
+        collapse = ""
+    )
+}
+
 viewer <- function(string, type){
     if(type == "html") return(html_viewer(string))
     if(type == "ascii") return(cat(string))

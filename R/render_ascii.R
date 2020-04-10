@@ -9,12 +9,24 @@ render_ascii <- function (object, ...) {
 
 
 
-render_ascii.issue <- function(object){
-    top <- "All rows are shown in table below\n"
-    tab <- render_ascii(  get_issue_value(object) )
+render_ascii.issue <- function(object, rowlimit = 10){
+    top <- get_issue_message(object)
+    
+    dat <- get_issue_value(object)
+    
+    if( nrow(dat) > rowlimit){
+        dat2 <- dat[seq_len(rowlimit),]
+        caption <- paste0( "\nShowing " , rowlimit, " of ", nrow(dat), " observations")
+    } else {
+        dat2 <- dat
+        caption <- ""
+    }
+    
+    tab <- render_ascii(dat2)
     paste0(
         top,
         tab,
+        caption,
         "\n\n"
     )
 }
