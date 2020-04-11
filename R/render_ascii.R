@@ -1,18 +1,15 @@
 
 
 
-
-
-render_ascii <- function (object, ...) {
-    UseMethod("render_ascii", object)
+display_ascii <- function(x){
+    cat(x, sep = "\n")
 }
 
 
-
-render_ascii.issue <- function(object, rowlimit = 10){
-    top <- get_issue_message(object)
+render_check_ascii <- function(x, rowlimit = 10){
+    top <- get_error_message(x)
     
-    dat <- get_issue_value(object)
+    dat <- get_value(x)
     
     if( nrow(dat) > rowlimit){
         dat2 <- dat[seq_len(rowlimit),]
@@ -22,7 +19,7 @@ render_ascii.issue <- function(object, rowlimit = 10){
         caption <- ""
     }
     
-    tab <- render_ascii(dat2)
+    tab <- render_df_ascii(dat2)
     paste0(
         top,
         tab,
@@ -39,19 +36,22 @@ render_ascii.issue <- function(object, rowlimit = 10){
 #' a simple ascii format suitable for printing to the screen
 #' It is assumed all variable values have a as.character() method
 #' in order to cast them to character. 
-#' @param dat Input dataset to convert into a ascii table
+#' @param df Input dataset to convert into a ascii table
 #' @param line_prefix Symbols to prefix infront of every line of the table
-render_ascii.data.frame <- function(dat, line_prefix = "  "){
+render_df_ascii <- function(df, line_prefix = "  "){
+    
+    if( nrow(df) == 0) return("")
+    
     ## Convert every value to character and crop to a suitable length
-    dat_chr  <- apply(dat, c(1, 2), as_cropped_char)
+    dat_chr  <- apply(df, c(1, 2), as_cropped_char)
     hold <- list()
-    COLS <- colnames(dat)
+    COLS <- colnames(df)
     
     ### For each column extract core elements (width, values , title) and pad out
     ### each string to be a suitable length
-    for ( i in 1:ncol(dat)){
+    for ( i in 1:ncol(df)){
         COL <- COLS[i]
-        VALUES <- dat[[i]]
+        VALUES <- df[[i]]
         
         JOINT <- c(COL , VALUES)
         WIDTH <- max( sapply(JOINT, nchar)) + 2

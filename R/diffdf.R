@@ -7,7 +7,6 @@
 #' @param strict_numeric Flag for strict numeric to numeric comparisons (default = TRUE). If False diffdf will cast integer to double where required for comparisons. Note that variables specified in the keys will never be casted.
 #' @param strict_factor Flag for strict factor to character comparisons (default = TRUE). If False diffdf will cast factors to characters where required for comparisons. Note that variables specified in the keys will never be casted.
 #' @param warnings Do you want to display warnings? (logical) (default = TRUE)
-#' @param file Location and name of a text file to output the results to. Setting to NULL will cause no file to be produced.
 #' @param tolerance Set tolerance for numeric comparisons. Note that comparisons fail if (x-y)/scale > tolerance.
 #' @param scale Set scale for numeric comparisons. Note that comparisons fail if (x-y)/scale > tolerance. Setting as NULL is a slightly more efficient version of scale = 1. 
 #' @examples
@@ -81,6 +80,8 @@ diffdf <- function (
     scale = NULL
 ){
     
+    call <- match.call()
+    
     setDTthreads(1)
     BASE = as.data.table(base)
     COMP = as.data.table(compare)
@@ -126,18 +127,20 @@ diffdf <- function (
     
 
     #### Check essential variable properties (class & mode)
-    
-    COMPARE[["UnsupportedColsBase"]] <- construct_issue(
-        value = identify_unsupported_cols(BASE) , 
-        message  = "There are columns in BASE with unsupported modes !" 
-    )
-    
-    
-    COMPARE[["UnsupportedColsComp"]] <- construct_issue(
-        value = identify_unsupported_cols(COMP) , 
-        message  = "There are columns in COMPARE with unsupported modes !" 
-    )
 
+    COMPARE[["UnsupportedColsBase"]] <- construct_check(
+        name = "Do all columns in BASE have supported modes?",
+        error_message = "There are columns in BASE with unsupported modes!" , 
+        value =  identify_unsupported_cols(BASE), 
+        ord = 10
+    )
+    
+    COMPARE[["UnsupportedColsComp"]] <- construct_check(
+        name = "Do all columns in COMPARE have supported modes?",
+        error_message = "There are columns in COMPARE with unsupported modes!" , 
+        value =  identify_unsupported_cols(COMP), 
+        ord = 20 
+    )
     
     # cast variables if strict is off
     if ( !strict_factor | !strict_numeric ){
@@ -155,23 +158,27 @@ diffdf <- function (
         
     }
     
-    COMPARE[["VarModeDiffs"]] <- construct_issue(
+    COMPARE[["VarModeDiffs"]] <- construct_check(
+        name = "Do columns in BASE and COMPARE have the same mode?",
         value = identify_mode_differences( BASE, COMP ) ,
-        message = "There are columns in BASE and COMPARE with different modes !"
+        error_message = "There are columns in BASE and COMPARE with different modes !", 
+        ord = 30
     )
     
     
-    COMPARE[["VarClassDiffs"]] <- construct_issue(
+    COMPARE[["VarClassDiffs"]] <- construct_check(
+        name = "Do columns in BASE and COMPARE have the same class?",
         value = identify_class_differences(BASE, COMP) ,
-        message = "There are columns in BASE and COMPARE with different classes !"
+        error_message = "There are columns in BASE and COMPARE with different classes !", 
+        ord = 40
     )
     
 
     exclude_cols <- c(
-        get_issue_value(COMPARE[["UnsupportedColsBase"]])$VARIABLE , 
-        get_issue_value(COMPARE[["UnsupportedColsComp"]])$VARIABLE,
-        get_issue_value(COMPARE[["VarClassDiffs"]])$VARIABLE,
-        get_issue_value(COMPARE[["VarModeDiffs"]])$VARIABLE
+        get_value(COMPARE[["UnsupportedColsBase"]])$VARIABLE , 
+        get_value(COMPARE[["UnsupportedColsComp"]])$VARIABLE,
+        get_value(COMPARE[["VarClassDiffs"]])$VARIABLE,
+        get_value(COMPARE[["VarModeDiffs"]])$VARIABLE
     )
 
     ##### Check Validity of Keys
@@ -201,9 +208,11 @@ diffdf <- function (
 
     ##### Check Attributes
     
-    COMPARE[["AttribDiffs"]] <- construct_issue(
+    COMPARE[["AttribDiffs"]] <- construct_check(
+        name = "Do columns in BASE and COMPARE have the same attributes?",
         value = identify_att_differences(BASE, COMP)  ,
-        message = "There are columns in BASE and COMPARE with differing attributes !"
+        error_message = "There are columns in BASE and COMPARE with differing attributes !", 
+        ord = 50
     )
     
     
@@ -212,33 +221,41 @@ diffdf <- function (
     BASE <- factor_to_character(BASE, KEYS)
     COMP <- factor_to_character(COMP, KEYS)
     
-    COMPARE[["ExtRowsBase"]] <- construct_issue(
+    COMPARE[["ExtRowsBase"]] <- construct_check(
+        name = "Do all rows in BASE exist in COMPARE?",
         value = identify_extra_rows(BASE, COMP, KEYS ),
-        message = "There are rows in BASE that are not in COMPARE !"
+        error_message = "There are rows in BASE that are not in COMPARE !", 
+        ord = 60
     )
     
     
-    COMPARE[["ExtRowsComp"]] <- construct_issue(
+    COMPARE[["ExtRowsComp"]] <- construct_check(
+        name = "Do all rows in COMPARE exist in BASE?",
         value = identify_extra_rows(COMP, BASE, KEYS ),
-        message = "There are rows in COMPARE that are not in BASE !"
+        error_message = "There are rows in COMPARE that are not in BASE !", 
+        ord = 70
     )
 
     
     
-    COMPARE[["ExtColsBase"]] <- construct_issue(
+    COMPARE[["ExtColsBase"]] <- construct_check(
+        name = "Do all columns in BASE exist in COMPARE?",
         value =  identify_extra_cols(BASE, COMP),
-        message = "There are columns in BASE that are not in COMPARE !"
+        error_message = "There are columns in BASE that are not in COMPARE !", 
+        ord = 80
     )
     
     
-    COMPARE[["ExtColsComp"]] <- construct_issue(
+    COMPARE[["ExtColsComp"]] <- construct_check(
+        name = "Do all columns in COMPARE exist in BASE?",
         value =  identify_extra_cols(COMP, BASE),
-        message = "There are columns in COMPARE that are not in BASE !"
+        error_message = "There are columns in COMPARE that are not in BASE !", 
+        ord = 90
     )
     
     ## Remove extra columns
-    base_remove <- get_issue_value(COMPARE[["ExtColsBase"]])[["COLUMNS"]]
-    comp_remove <- get_issue_value(COMPARE[["ExtColsComp"]])[["COLUMNS"]]
+    base_remove <- get_value(COMPARE[["ExtColsBase"]])[["COLUMNS"]]
+    comp_remove <- get_value(COMPARE[["ExtColsComp"]])[["COLUMNS"]]
     
     if( !is.null(base_remove)) BASE <- BASE[,!base_remove, with = FALSE]
     if( !is.null(comp_remove)) COMP <- COMP[,!comp_remove, with = FALSE]
@@ -248,52 +265,55 @@ diffdf <- function (
         BASE, COMP , KEYS, tolerance = tolerance, scale = scale
     )
     
-    VALUE_DIFFERENCES_ISSUES <- list()
+    VALUE_DIFFERENCES_CHECKS <- list()
     for( i in names(VALUE_DIFFERENCES)){
-        VALUE_DIFFERENCES_ISSUES[[i]] <- construct_issue(
-            VALUE_DIFFERENCES[[i]], 
-            paste0("Variable: ", i)
+        VALUE_DIFFERENCES_CHECKS[[i]] <- construct_check(
+            name = paste0("Do all values in ", i, " compare the same?"),
+            value = VALUE_DIFFERENCES[[i]], 
+            error_message = paste0("Differences found in ", i)
         )
     }
     
-    COMPARE[["Variables"]] <- construct_issue_collection(
-        VALUE_DIFFERENCES_ISSUES,
-        message = "Not all Values Compared Equal"
+    NUMBER_OF_DIFFERENCES <-  vapply( 
+        VALUE_DIFFERENCES_CHECKS, 
+        function(x) nrow(get_value(x)) , 
+        numeric(1)
     )
-
+    
+    VALUE_DIFFERENCES_SUMMARY <- data.frame(
+        Variable = names(VALUE_DIFFERENCES_CHECKS),
+        `Number of Differences` = NUMBER_OF_DIFFERENCES, 
+        stringsAsFactors = FALSE
+    )
+    VALUE_DIFFERENCES_SUMMARY <- VALUE_DIFFERENCES_SUMMARY[VALUE_DIFFERENCES_SUMMARY[, 2] != 0,]
+    
+    COMPARE[["Variables"]] <- construct_check_collection(
+        name = "Do all values compare equal?",
+        value = VALUE_DIFFERENCES_SUMMARY,
+        collection = VALUE_DIFFERENCES_CHECKS,
+        error_message = "Not all Values Compared Equal", 
+        ord = 100
+    )
+   
+    
+    COMPARE[["Summary"]] <- get_diffdf_summary(
+        base = base,
+        comp = compare,
+        keys = KEYS,
+        base_name = call$base,
+        comp_name = call$comp,
+        COMPARE = COMPARE
+        
+    )
+    
+    df_ord <- get_ord(COMPARE)
+    COMPARE <- COMPARE[order(df_ord)]
+    class(COMPARE) <- "diffdf"
     
     ## Get all issue messages, remove blank message, and collapse into single string
-    ISSUE_MSGS <- sapply(COMPARE, function(x) get_issue_message(x))
-    ISSUE_MSGS <- ISSUE_MSGS[ ISSUE_MSGS != ""]
-    
-    if( length(ISSUE_MSGS) != 0 ){
-        if(WARN) {
-            ISSUE_MSGS <- paste(ISSUE_MSGS, collapse ='\n' )
-            warning( c("\n" , ISSUE_MSGS))
-        }
-    } 
-    
-    
-    if (!is.null(file)){
-        x <- print(COMPARE , as_string = TRUE)
-        
-        tryCatch(
-            {
-                sink(file)
-                cat(x, sep = "\n")
-                sink()
-            },
-            warning = function(w){
-                sink() 
-                warning(w)
-            },
-            error = function(e){
-                sink()
-                stop(e)
-            }
-        )
-        return(invisible(COMPARE))
-        
+    warning_message <- get_error_message(COMPARE)
+    if( warning_message != "" & WARN){
+        warning( paste0(warning_message, sep = "\n"))
     }
     
     return(COMPARE)
@@ -321,6 +341,34 @@ diffdf <- function (
 #' @export
 diffdf_has_issues <- function(x){
     if (  class(x)[[1]] != "diffdf" )  stop( "x is not an diffdf object")
-    return( length(x) != 0 ) 
+    return( get_error_message(x) != "" ) 
 }
+
+
+
+
+
+get_error_message.diffdf <- function(x, ...){
+    get_required_errors <- function(x){
+        if( get_was_performed(x) & get_is_test(x)){
+            if( !get_is_pass(x)){
+                return( get_error_message(x))
+            }
+        }
+        return("")
+    }
+    message <- vapply(x, get_required_errors, character(1))
+    message <- message[message != ""]
+    paste0(message, collapse = "\n")
+}
+
+get_ord.diffdf <- function(x, ...){
+    vapply( x , get_ord, numeric(1))
+}
+
+
+
+
+
+
 
