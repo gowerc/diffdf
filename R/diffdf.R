@@ -200,7 +200,7 @@ diffdf <- function (
     }
     
     ## Remove any excluded columns
-    if( !is.null(exclude_cols)){
+    if( length(exclude_cols) > 0){
         BASE <- BASE[, !exclude_cols, with = FALSE]
         COMP <- COMP[, !exclude_cols, with = FALSE]
     }
@@ -257,8 +257,8 @@ diffdf <- function (
     base_remove <- get_value(COMPARE[["ExtColsBase"]])[["COLUMNS"]]
     comp_remove <- get_value(COMPARE[["ExtColsComp"]])[["COLUMNS"]]
     
-    if( !is.null(base_remove)) BASE <- BASE[,!base_remove, with = FALSE]
-    if( !is.null(comp_remove)) COMP <- COMP[,!comp_remove, with = FALSE]
+    if( length(base_remove) > 0) BASE <- BASE[,!base_remove, with = FALSE]
+    if( length(comp_remove) > 0) COMP <- COMP[,!comp_remove, with = FALSE]
     
     
     VALUE_DIFFERENCES <- identify_differences(
@@ -295,7 +295,6 @@ diffdf <- function (
         ord = 100
     )
    
-    
     COMPARE[["Summary"]] <- get_diffdf_summary(
         base = base,
         comp = compare,
