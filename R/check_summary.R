@@ -19,7 +19,7 @@ get_diffdf_summary <- function(base, comp, keys, base_name, comp_name, COMPARE){
     
     key_list <- construct_check(
         value = data.frame(
-            "Variable" = KEYS,
+            "Variable" = keys,
             stringsAsFactors = FALSE
         ),
         error_message = "Listing of Keys",
