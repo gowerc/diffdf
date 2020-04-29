@@ -9,15 +9,54 @@ error_check_options <- function(funin, value){
     invisible()
 }
 
+error_generate <- function(conditions, message){
+    if(!conditions){
+        stop(
+            message,
+            .call = FALSE
+        )
+    }
+}
+
 
 options_list <-
     list(
-        warnings = function(value) {stopifnot(is.logical(value), length(value) == 1)},
-        strict_numeric = function(value) {stopifnot(is.logical(value), length(value) == 1)},
-        strict_factor = function(value) {stopifnot(is.logical(value), length(value) == 1)},
-        file  = function(value) {stopifnot(is.null(value)| is.character(value) & length(value) == 1)},
-        tolerance = function(value) {stopifnot(is.numeric(value), length(value) == 1)},
-        scale = function(value) {stopifnot(is.null(value)| is.numeric(value) & length(value) == 1)}
+        warnings = function(value) {
+            error_generate(
+                is.logical(value) & length(value) == 1,
+                "Option warnings is not a logical or is not of length 1"
+            )
+            },
+        strict_numeric = function(value) { 
+            error_generate(
+                is.logical(value) & length(value) == 1,
+                "Option strict_numeric is not a logical or is not of length 1"
+        )
+        },
+        strict_factor = function(value) { 
+            error_generate(
+                is.logical(value) * length(value) == 1,
+                "Option strict_factor is not a logical or is not of length 1"
+            )
+        },
+        file  = function(value) { 
+            error_generate(
+                is.null(value)| is.character(value) & length(value) == 1,
+                "Option file is not NULL or a string of length 1"
+            )
+        },
+        tolerance = function(value) { 
+            error_generate(
+                is.numeric(value) & length(value) == 1,
+                "Option tolerance is not a numeric of length 1"
+            )
+        },
+        scale = function(value) { 
+            error_generate(
+                is.null(value)| is.numeric(value) & length(value) == 1,
+                "Option scale is not NULL or a numeric of length 1"
+            )
+        }
     )
 
 

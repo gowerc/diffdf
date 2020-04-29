@@ -5,7 +5,7 @@
 #' @param compare comparison dataframe
 #' @param keys vector of variables (as strings) that defines a unique row 
 #'  in the base and compare dataframes
-#' @param options A list containing options for diffdf. 
+#' @param .options A list containing options for diffdf. 
 #'  Will call \code{\link{diffdf_options}}. 
 #' @param ... Options can be passed explicitly to the function.
 #'  These will overwrite the values in options, see examples,
@@ -77,21 +77,23 @@ diffdf <- function (
     base , 
     compare , 
     keys = NULL, 
-    options = diffdf_options(),
+    .options = diffdf_options(),
     ...
 
 ){
     
     overwrite_args <- list(...)
-    matching_names <- names(options)[names(options) %in% names(overwrite_args)]
-    options[matching_names] <- overwrite_args[matching_names] 
+    matching_names <- names(.options)[names(.options) %in% names(overwrite_args)]
+    .options[matching_names] <- overwrite_args[matching_names] 
     
-    warnings <- options$warnings
-    strict_numeric <- options$strict_numeric
-    strict_factor <- options$strict_factor
-    file <- options$file 
-    tolerance <- options$tolerance
-    scale <- options$scale
+    options_checks(.options)
+    
+    warnings <- .options$warnings
+    strict_numeric <- .options$strict_numeric
+    strict_factor <- .options$strict_factor
+    file <- .options$file 
+    tolerance <- .options$tolerance
+    scale <- .options$scale
     
     setDTthreads(1)
     BASE = as.data.table(base)

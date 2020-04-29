@@ -439,7 +439,7 @@ test_that(
         
         expect_length_0(
             suppressMessages(
-                diffdf(TDAT_MODECHR, TDAT,options = diffdf_options(strict_factor = FALSE ))
+                diffdf(TDAT_MODECHR, TDAT, .options = diffdf_options(strict_factor = FALSE ))
             )
         ) 
         expect_length_0(
@@ -448,14 +448,13 @@ test_that(
             )
         ) 
         
-        expect_true(
-            length(
+        expect_warning(
                 suppressMessages(
                     diffdf(TDAT_MODECHR, TDAT, strict_factor = TRUE)
                 )
-            ) > 0
-           
-        ) 
+            )
+          
+        
         
         expect_length_0(
             suppressMessages(
@@ -466,7 +465,34 @@ test_that(
 })
 
 
-
+test_that(
+    "diffdf errors when given bad options", {
+        expect_error(diffdf(TDAT, TDAT, warnings = "badvalue"),
+                     regexp = "Option warnings is not a logical or is not of length 1")
+        expect_error(diffdf(TDAT, TDAT, warnings = c(T, T)),
+                     regexp = "Option warnings is not a logical or is not of length 1")
+        expect_error(diffdf(TDAT, TDAT, strict_numeric = "badvalue"),
+                     regexp = "Option strict_numeric is not a logical or is not of length 1")
+        expect_error(diffdf(TDAT, TDAT, strict_numeric = c(F, T)),
+                     regexp = "Option strict_numeric is not a logical or is not of length 1")
+        expect_error(diffdf(TDAT, TDAT, strict_factor = "badvalue"),
+                     regexp = "Option strict_factor is not a logical or is not of length 1")
+        expect_error(diffdf(TDAT, TDAT, strict_factor = c(T, T)),
+                     regexp = "Option strict_factor is not a logical or is not of length 1")
+        expect_error(diffdf(TDAT, TDAT, file = 3),
+                     regexp = "Option file is not NULL or a string of length 1")
+        expect_error(diffdf(TDAT, TDAT, file = c("one", "two")),
+                     regexp = "Option file is not NULL or a string of length 1")
+        expect_error(diffdf(TDAT, TDAT, tolerance = "badvalue"),
+                     regexp = "Option tolerance is not a numeric of length 1")
+        expect_error(diffdf(TDAT, TDAT, tolerance = c(1, 2)),
+                     regexp = "Option tolerance is not a numeric of length 1")
+        expect_error(diffdf(TDAT, TDAT, scale = "badvalue"),
+                     regexp =  "Option scale is not NULL or a numeric of length 1")
+        expect_error(diffdf(TDAT, TDAT, scale = c(1,2)),
+                     regexp =  "Option scale is not NULL or a numeric of length 1")
+    }
+)
 
 
 

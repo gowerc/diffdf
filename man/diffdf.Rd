@@ -6,7 +6,7 @@
 \alias{diffdf-package}
 \title{diffdf}
 \usage{
-diffdf(base, compare, keys = NULL, options = diffdf_options(), ...)
+diffdf(base, compare, keys = NULL, .options = diffdf_options(), ...)
 }
 \arguments{
 \item{base}{input dataframe}
@@ -16,7 +16,7 @@ diffdf(base, compare, keys = NULL, options = diffdf_options(), ...)
 \item{keys}{vector of variables (as strings) that defines a unique row 
 in the base and compare dataframes}
 
-\item{options}{A list containing options for diffdf. 
+\item{.options}{A list containing options for diffdf. 
 Will call \code{\link{diffdf_options}}.}
 
 \item{...}{Options can be passed explicitly to the function.
