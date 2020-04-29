@@ -3,8 +3,14 @@
 #' Compares 2 dataframes and outputs any differences.
 #' @param base input dataframe
 #' @param compare comparison dataframe
-#' @param keys vector of variables (as strings) that defines a unique row in the base and compare dataframes
-#' @param config A list containing options for diffdf. Will call \code{\link{diffdf_options}}. 
+#' @param keys vector of variables (as strings) that defines a unique row 
+#'  in the base and compare dataframes
+#' @param options A list containing options for diffdf. 
+#'  Will call \code{\link{diffdf_options}}. 
+#' @param ... Options can be passed explicitly to the function.
+#'  These will overwrite the values in options, see examples,
+#'  to see which options are available see
+#'  \code{\link{diffdf_options}}
 #' @examples
 #' x <- subset( iris,  -Species)
 #' x[1,2] <- 5
@@ -71,16 +77,21 @@ diffdf <- function (
     base , 
     compare , 
     keys = NULL, 
-    config = diffdf_options()
+    options = diffdf_options(),
+    ...
 
 ){
     
-    warnings <- config$warnings
-    strict_numeric <- config$strict_numeric
-    strict_factor <- config$strict_factor
-    file <- config$file 
-    tolerance <- config$tolerance
-    scale <- config$scale
+    overwrite_args <- list(...)
+    matching_names <- names(options)[names(options) %in% names(overwrite_args)]
+    options[matching_names] <- overwrite_args[matching_names] 
+    
+    warnings <- options$warnings
+    strict_numeric <- options$strict_numeric
+    strict_factor <- options$strict_factor
+    file <- options$file 
+    tolerance <- options$tolerance
+    scale <- options$scale
     
     setDTthreads(1)
     BASE = as.data.table(base)

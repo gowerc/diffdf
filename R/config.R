@@ -20,15 +20,7 @@ options_list <-
         scale = function(value) {stopifnot(is.null(value)| is.numeric(value) & length(value) == 1)}
     )
 
-options_default <-
-    list(
-        warnings = TRUE, 
-        strict_numeric = TRUE,
-        strict_factor = TRUE,
-        file = NULL,
-        tolerance = sqrt(.Machine$double.eps),
-        scale = NULL
-    )
+
 
 
 options_checks <- function(options){
@@ -54,19 +46,17 @@ options_checks <- function(options){
 #' 
 #' Set options for diffdf. Will return the options, so can be called directly by diffdf. 
 #' @export
-#' @param warnings \code{(logical)} Should diffdf display warnings when it finds issues? (default = TRUE)
-#' @param strict_numeric Flag for strict numeric to numeric comparisons (default = TRUE). 
+#' @param warnings  Should diffdf display warnings when it finds issues? (default = getOption("diffdf_options")$warnings)
+#' @param strict_numeric  Flag for strict numeric to numeric comparisons (default = getOption("diffdf_options")$strict_numeric). 
 #'  If False diffdf will cast integer to double where required for comparisons. 
 #'  Note that variables specified in the keys will never be casted.
-#' @param strict_factor Flag for strict factor to character comparisons (default = TRUE). 
+#' @param strict_factor  Flag for strict factor to character comparisons (default = getOption("diffdf_options")$strict_factor). 
 #'  If False diffdf will cast factors to characters where required for comparisons. 
-#'  Note that variables specified in the keys will never be casted.
-#' @param warnings Do you want to display warnings? (logical) (default = TRUE)
-#' @param file Location and name of a text file to output the results to. 
-#'  Setting to NULL will cause no file to be produced. (Default = NULL)
-#' @param tolerance Set tolerance for numeric comparisons. Note that comparisons fail if (x-y)/scale > tolerance. (default = sqrt(.Machine$double.eps))
+#' @param file  Location and name of a text file to output the results to. 
+#'  Setting to NULL will cause no file to be produced. (Default = getOption("diffdf_options")$file)
+#' @param tolerance  Set tolerance for numeric comparisons. Note that comparisons fail if (x-y)/scale > tolerance. (default = getOption("diffdf_options")$tolerance)
 #' @param scale Set scale for numeric comparisons. Note that comparisons fail if (x-y)/scale > tolerance.
-#'   Setting as NULL is a slightly more efficient version of scale = 1. (default = NULL)
+#'   Setting as NULL is a slightly more efficient version of scale = 1. (default = getOption("diffdf_options")$scale)
 #' @return invisibly returns options
 #' @examples  
 #' 
@@ -75,38 +65,28 @@ options_checks <- function(options){
 #' x[1,2] <- 5
 #' COMPARE <- diffdf(iris, x)
 #' 
-diffdf_options <- function(...){
+diffdf_options <- function(warnings = getOption("diffdf_options")$warnings,
+                           strict_numeric = getOption("diffdf_options")$strict_numeric,
+                           strict_factor = getOption("diffdf_options")$strict_factor,
+                           file = getOption("diffdf_options")$file,
+                           tolerance = getOption("diffdf_options")$tolerance,
+                           scale = getOption("diffdf_options")$scale
+                           ){
     
-    current_options <- options("diffdf_options")[[1]]
+    new_options <- list(
+        warnings = warnings,
+        strict_numeric = strict_numeric,
+        strict_factor = strict_factor,
+        file = file,
+        tolerance = tolerance,
+        scale = scale
+    )
     
-    args <- list(...)
+    options_checks(new_options)
     
-    if(length(args) == 0){
-        options_checks(current_options)
-        return(current_options)
-    }
+    options("diffdf_options" =  new_options)
     
-    namecheck <- names(args) %in% names(options_list)
-    if(!all(namecheck )){
-        warning(
-        paste0("The following provided options are not included in diffdf, and will be ignored ",
-               paste(names(args)[!namecheck], collapse = " "))
-        )
-    }
-    reduced_names <- names(args)[namecheck]
-    
-    if(length(reduced_names) == 0){
-        options_checks(current_options)
-        return(current_options)
-    }
-    
-    current_options[reduced_names] <- args[reduced_names]
-    
-    options_checks( current_options)
-    
-    options("diffdf_options" =  current_options)
-    
-    invisible(current_options)
+    invisible(new_options)
 }
 
 #' diffdf_options_reset

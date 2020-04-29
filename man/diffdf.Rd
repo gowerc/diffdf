@@ -3,20 +3,26 @@
 \docType{package}
 \name{diffdf}
 \alias{diffdf}
-\alias{diffdf}
 \alias{diffdf-package}
 \title{diffdf}
 \usage{
-diffdf(base, compare, keys = NULL, config = diffdf_options())
+diffdf(base, compare, keys = NULL, options = diffdf_options(), ...)
 }
 \arguments{
 \item{base}{input dataframe}
 
 \item{compare}{comparison dataframe}
 
-\item{keys}{vector of variables (as strings) that defines a unique row in the base and compare dataframes}
+\item{keys}{vector of variables (as strings) that defines a unique row 
+in the base and compare dataframes}
 
-\item{config}{A list containing options for diffdf. Will call \code{\link{diffdf_options}}.}
+\item{options}{A list containing options for diffdf. 
+Will call \code{\link{diffdf_options}}.}
+
+\item{...}{Options can be passed explicitly to the function.
+These will overwrite the values in options, see examples,
+to see which options are available see
+\code{\link{diffdf_options}}}
 }
 \description{
 Compares 2 dataframes and outputs any differences.

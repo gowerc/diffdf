@@ -218,6 +218,25 @@ diffdf(dsin1  , dsin2)
 ```
 
 
+### diffdf options
+
+As we have seen, the options controlling how `diffdf` behaves can be determined via the function `diffdf_options()`. However, at the point of use, we can also specifiy options, either by passing them directly as a named argument, or via the `options` argument.
 
 
+```{r}
+diffdf_options_reset()
+diffdf_options(warnings = FALSE)
+
+dsin1 <- data.frame(x = as.integer(c(1,2,3)))
+dsin2 <- data.frame(x = as.numeric(c(1,2,3)))
+
+diffdf(dsin1  , dsin2 )
+diffdf_options(strict_numeric = FALSE)
+diffdf(dsin1  , dsin2 )
+diffdf(dsin1  , dsin2, strict_numeric = TRUE )
+diffdf(dsin1  , dsin2, options = diffdf_options(strict_numeric = TRUE) )
+diffdf(dsin1  , dsin2 )
+```
+
+Note that `diffdf_options` will globally update an option, as can be seen in the final example.
 

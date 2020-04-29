@@ -4,28 +4,30 @@
 \alias{diffdf_options}
 \title{diffdf_options}
 \usage{
-diffdf_options(...)
+diffdf_options(warnings = getOption("diffdf_options")$warnings,
+  strict_numeric = getOption("diffdf_options")$strict_numeric,
+  strict_factor = getOption("diffdf_options")$strict_factor,
+  file = getOption("diffdf_options")$file,
+  tolerance = getOption("diffdf_options")$tolerance,
+  scale = getOption("diffdf_options")$scale)
 }
 \arguments{
-\item{warnings}{\code{(logical)} Should diffdf display warnings when it finds issues? (default = TRUE)}
+\item{warnings}{Should diffdf display warnings when it finds issues? (default = getOption("diffdf_options")$warnings)}
 
-\item{strict_numeric}{Flag for strict numeric to numeric comparisons (default = TRUE). 
+\item{strict_numeric}{Flag for strict numeric to numeric comparisons (default = getOption("diffdf_options")$strict_numeric). 
 If False diffdf will cast integer to double where required for comparisons. 
 Note that variables specified in the keys will never be casted.}
 
-\item{strict_factor}{Flag for strict factor to character comparisons (default = TRUE). 
-If False diffdf will cast factors to characters where required for comparisons. 
-Note that variables specified in the keys will never be casted.}
-
-\item{warnings}{Do you want to display warnings? (logical) (default = TRUE)}
+\item{strict_factor}{Flag for strict factor to character comparisons (default = getOption("diffdf_options")$strict_factor). 
+If False diffdf will cast factors to characters where required for comparisons.}
 
 \item{file}{Location and name of a text file to output the results to. 
-Setting to NULL will cause no file to be produced. (Default = NULL)}
+Setting to NULL will cause no file to be produced. (Default = getOption("diffdf_options")$file)}
 
-\item{tolerance}{Set tolerance for numeric comparisons. Note that comparisons fail if (x-y)/scale > tolerance. (default = sqrt(.Machine$double.eps))}
+\item{tolerance}{Set tolerance for numeric comparisons. Note that comparisons fail if (x-y)/scale > tolerance. (default = getOption("diffdf_options")$tolerance)}
 
 \item{scale}{Set scale for numeric comparisons. Note that comparisons fail if (x-y)/scale > tolerance.
-Setting as NULL is a slightly more efficient version of scale = 1. (default = NULL)}
+Setting as NULL is a slightly more efficient version of scale = 1. (default = getOption("diffdf_options")$scale)}
 }
 \value{
 invisibly returns options

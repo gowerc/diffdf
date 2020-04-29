@@ -1,5 +1,3 @@
 .onLoad <- function(libname, pkgname) {
-    options("diffdf_options" =  options_default)
-
-
+    diffdf_options_reset()
 }

@@ -122,7 +122,7 @@ test_that( "Check comparision of equal objects",{
     expect_length_0( diffdf(TDAT_LABEXT , TDAT_LABEXT ) )
     expect_length_0( diffdf(TDAT_ATTEXT , TDAT_ATTEXT ) )
     expect_length_0( diffdf(TDAT_FACTCHANGE, TDAT_FACTCHANGE) )
-    diffdf_options(tolerance =0.2, scale=0.1 )
+    diffdf_options(tolerance = 0.2, scale=0.1 )
     expect_length_0( diffdf(iris, iris))
     expect_length_0( diffdf(TDAT, TDAT))
     expect_length_0( diffdf(TDAT, TDAT, "ID" ))
@@ -420,7 +420,50 @@ test_that( "strict_numeric and strict_factor was as intended", {
 })
 
 
-
+test_that(
+    "Check options in diffdf work correctly", {
+        
+        diffdf_options(strict_factor = TRUE )
+        expect_length_0(
+            suppressMessages(
+                diffdf(TDAT_MODECHR, TDAT, strict_factor = FALSE)
+            )
+        ) 
+        
+        expect_length_0(
+            suppressMessages(
+                diffdf(TDAT_MODECHR, TDAT, strict_factor = FALSE, 
+                       options = diffdf_options(strict_factor = TRUE ))
+            )
+        ) 
+        
+        expect_length_0(
+            suppressMessages(
+                diffdf(TDAT_MODECHR, TDAT,options = diffdf_options(strict_factor = FALSE ))
+            )
+        ) 
+        expect_length_0(
+            suppressMessages(
+                diffdf(TDAT_MODECHR, TDAT)
+            )
+        ) 
+        
+        expect_true(
+            length(
+                suppressMessages(
+                    diffdf(TDAT_MODECHR, TDAT, strict_factor = TRUE)
+                )
+            ) > 0
+           
+        ) 
+        
+        expect_length_0(
+            suppressMessages(
+                diffdf(TDAT_MODECHR, TDAT)
+            )
+        ) 
+    
+})
 
 
 

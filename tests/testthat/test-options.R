@@ -1,12 +1,17 @@
 context("Check option checking works correctly")
 
-default <- diffdf:::options_default
-
 test_that("Setting options works correctly and can be reset",{
     expect_equal(diffdf_options(),
-                 default)
+                 diffdf_options(warnings = TRUE, 
+                                strict_numeric = TRUE,
+                                strict_factor = TRUE,
+                                file = NULL,
+                                tolerance = sqrt(.Machine$double.eps),
+                                scale = NULL))
     
-    new <- default
+    
+    
+    new <- diffdf_options_reset()
     new$warnings <- TRUE
     new$file <- "apath"
     expect_equal(diffdf_options(warnings = TRUE, file = "apath"),
@@ -28,13 +33,18 @@ test_that("Setting options works correctly and can be reset",{
     diffdf_options_reset()
     
     expect_equal(diffdf_options(),
-                 default)
+                 list(warnings = TRUE, 
+                      strict_numeric = TRUE,
+                      strict_factor = TRUE,
+                      file = NULL,
+                      tolerance = sqrt(.Machine$double.eps),
+                      scale = NULL))
               
 })
 
-test_that("Giving misnamed options provides a warning",{
+test_that("Giving misnamed options provides an error",{
     
-    expect_warning(diffdf_options(badarg = TRUE))
+    expect_error(diffdf_options(badarg = TRUE))
     
 })
 
@@ -53,5 +63,13 @@ test_that("Giving bad options provides an error",{
     expect_error(diffdf_options(tolerance = c(1,2)))
     expect_error(diffdf_options(scale = "test"))
     expect_error(diffdf_options(scale = c(1,2)))
+    
+    expect_equal(diffdf_options(),
+                 list(warnings = TRUE, 
+                      strict_numeric = TRUE,
+                      strict_factor = TRUE,
+                      file = NULL,
+                      tolerance = sqrt(.Machine$double.eps),
+                      scale = NULL))
     
 })
