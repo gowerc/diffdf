@@ -3,13 +3,14 @@
 #' Compares 2 dataframes and outputs any differences.
 #' @param base input dataframe
 #' @param compare comparison dataframe
-#' @param keys vector of variables (as strings) that defines a unique row in the base and compare dataframes
-#' @param strict_numeric Flag for strict numeric to numeric comparisons (default = TRUE). If False diffdf will cast integer to double where required for comparisons. Note that variables specified in the keys will never be casted.
-#' @param strict_factor Flag for strict factor to character comparisons (default = TRUE). If False diffdf will cast factors to characters where required for comparisons. Note that variables specified in the keys will never be casted.
-#' @param warnings Do you want to display warnings? (logical) (default = TRUE)
-#' @param file Location and name of a text file to output the results to. Setting to NULL will cause no file to be produced.
-#' @param tolerance Set tolerance for numeric comparisons. Note that comparisons fail if (x-y)/scale > tolerance.
-#' @param scale Set scale for numeric comparisons. Note that comparisons fail if (x-y)/scale > tolerance. Setting as NULL is a slightly more efficient version of scale = 1. 
+#' @param keys vector of variables (as strings) that defines a unique row 
+#'  in the base and compare dataframes
+#' @param .options A list containing options for diffdf. 
+#'  Will call \code{\link{diffdf_options}}. 
+#' @param ... Options can be passed explicitly to the function.
+#'  These will overwrite the values in options, see examples,
+#'  to see which options are available see
+#'  \code{\link{diffdf_options}}
 #' @examples
 #' x <- subset( iris,  -Species)
 #' x[1,2] <- 5
@@ -48,8 +49,10 @@
 #' )
 #' 
 #' diffdf(DF1 , DF2 , keys = "id")
-#' diffdf(DF1 , DF2 , keys = "id", tolerance = 0.2)
-#' diffdf(DF1 , DF2 , keys = "id", scale = 10, tolerance = 0.2)
+#' diffdf_options(tolerance = 0.2)
+#' diffdf(DF1 , DF2 , keys = "id")
+#' diffdf_options(tolerance = 0.2, scale = 10)
+#' diffdf(DF1 , DF2 , keys = "id")
 #'  
 #' # We can use strict_factor to compare factors with characters for example:
 #' 
@@ -65,21 +68,33 @@
 #'     v1 = letters[1:6],
 #'     v2 = c(NA , NA , 1 , 2 , 3 , NA)
 #' )
-#' 
-#' diffdf(DF1 , DF2 , keys = "id", strict_factor = TRUE)
-#' diffdf(DF1 , DF2 , keys = "id", strict_factor = FALSE)
+#' diffdf_options(strict_factor = TRUE)
+#' diffdf(DF1 , DF2 , keys = "id")
+#' diffdf_options(strict_factor = FALSE)
+#' diffdf(DF1 , DF2 , keys = "id")
 #' @export
 diffdf <- function (
     base , 
     compare , 
     keys = NULL, 
-    warnings = TRUE, 
-    strict_numeric = TRUE,
-    strict_factor = TRUE,
-    file = NULL,
-    tolerance = sqrt(.Machine$double.eps),
-    scale = NULL
+    .options = diffdf_options(),
+    ...
+
 ){
+    
+    overwrite_args <- list(...)
+    matching_names <- names(.options)[names(.options) %in% names(overwrite_args)]
+    .options[matching_names] <- overwrite_args[matching_names] 
+    
+    options_checks(.options)
+    
+    warnings <- .options$warnings
+    strict_numeric <- .options$strict_numeric
+    strict_factor <- .options$strict_factor
+    file <- .options$file 
+    tolerance <- .options$tolerance
+    scale <- .options$scale
+    
     setDTthreads(1)
     BASE = as.data.table(base)
     COMP = as.data.table(compare)
@@ -104,14 +119,7 @@ diffdf <- function (
     attr(COMPARE, 'keys') <- list(value = KEYS, is_derived = is_derived)
     
     
-    if (!is.numeric(tolerance)) {
-        stop("'tolerance' should be numeric")
-    }
-    
-    if (!is.numeric(scale) && !is.null(scale)) {
-        stop("'scale' should be numeric or NULL")
-    }
-    
+   
     
     
     if ( !has_unique_rows(BASE , KEYS) ){
@@ -321,7 +329,7 @@ diffdf <- function (
 #' # Example with issues
 #' iris2 <- iris
 #' iris2[2,2] <- NA
-#' x <- diffdf( iris , iris2 , warnings = FALSE)
+#' x <- diffdf( iris, iris2)
 #' diffdf_has_issues(x)
 #' @export
 diffdf_has_issues <- function(x){

@@ -122,15 +122,16 @@ test_that( "Check comparision of equal objects",{
     expect_length_0( diffdf(TDAT_LABEXT , TDAT_LABEXT ) )
     expect_length_0( diffdf(TDAT_ATTEXT , TDAT_ATTEXT ) )
     expect_length_0( diffdf(TDAT_FACTCHANGE, TDAT_FACTCHANGE) )
-    
-    expect_length_0( diffdf(iris, iris, tolerance =0.2, scale=0.1 ))
-    expect_length_0( diffdf(TDAT, TDAT, tolerance =0.2, scale=0.1 ))
-    expect_length_0( diffdf(TDAT, TDAT, "ID", tolerance =0.2, scale=0.1 ))
-    expect_length_0( diffdf(TDAT, TDAT, c("GROUP1" , "GROUP2"), tolerance =0.2, scale=0.1 ) )
-    expect_length_0( diffdf(TDAT_CHARCHANGENA , TDAT_CHARCHANGENA , tolerance =0.2, scale=0.1 ) )
-    expect_length_0( diffdf(TDAT_DATECHANGENA , TDAT_DATECHANGENA , tolerance =0.2, scale=0.1 )  )
-    expect_length_0( diffdf(TDAT_LOGCHANGENA , TDAT_LOGCHANGENA , tolerance =0.2, scale=0.1 ) )
-    expect_length_0( diffdf(TDAT_FACTVALCHANGENA, TDAT_FACTVALCHANGENA, tolerance =0.2, scale=0.1 )  )
+    diffdf_options(tolerance = 0.2, scale=0.1 )
+    expect_length_0( diffdf(iris, iris))
+    expect_length_0( diffdf(TDAT, TDAT))
+    expect_length_0( diffdf(TDAT, TDAT, "ID" ))
+    expect_length_0( diffdf(TDAT, TDAT, c("GROUP1" , "GROUP2")) )
+    expect_length_0( diffdf(TDAT_CHARCHANGENA , TDAT_CHARCHANGENA ) )
+    expect_length_0( diffdf(TDAT_DATECHANGENA , TDAT_DATECHANGENA )  )
+    expect_length_0( diffdf(TDAT_LOGCHANGENA , TDAT_LOGCHANGENA  ) )
+    expect_length_0( diffdf(TDAT_FACTVALCHANGENA, TDAT_FACTVALCHANGENA )  )
+    diffdf_options_reset()
     
 })
 
@@ -147,15 +148,17 @@ test_that( "Unequal objects raise warnings" , {
     expect_warning( diffdf(TDAT , TDAT_DATECHANGENA )   , msg )
     expect_warning( diffdf(TDAT , TDAT_LOGCHANGENA )    , msg )
     expect_warning( diffdf(TDAT , TDAT_FACTVALCHANGENA ), msg )
-    expect_warning( diffdf(TDAT , TDAT_INTCHANGE, tolerance =0.2, scale=0.1 )       , msg )
-    expect_warning( diffdf(TDAT , TDAT_CHARCHANGE, tolerance =0.2, scale=0.1  )     , msg )
-    expect_warning( diffdf(TDAT , TDAT_DATECHANGE, tolerance =0.2, scale=0.1  )     , msg )
-    expect_warning( diffdf(TDAT , TDAT_LOGCHANGE, tolerance =0.2, scale=0.1  )      , msg )
-    expect_warning( diffdf(TDAT , TDAT_FACTVALCHANGE, tolerance =0.2, scale=0.1  )  , msg )
-    expect_warning( diffdf(TDAT , TDAT_CHARCHANGENA , tolerance =0.2, scale=0.1 )   , msg )
-    expect_warning( diffdf(TDAT , TDAT_DATECHANGENA, tolerance =0.2, scale=0.1  )   , msg )
-    expect_warning( diffdf(TDAT , TDAT_LOGCHANGENA , tolerance =0.2, scale=0.1 )    , msg )
-    expect_warning( diffdf(TDAT , TDAT_FACTVALCHANGENA, tolerance =0.2, scale=0.1  ), msg )
+    diffdf_options(tolerance =0.2, scale=0.1 )
+    expect_warning( diffdf(TDAT , TDAT_INTCHANGE)       , msg )
+    expect_warning( diffdf(TDAT , TDAT_CHARCHANGE  )     , msg )
+    expect_warning( diffdf(TDAT , TDAT_DATECHANGE )     , msg )
+    expect_warning( diffdf(TDAT , TDAT_LOGCHANGE)      , msg )
+    expect_warning( diffdf(TDAT , TDAT_FACTVALCHANGE )  , msg )
+    expect_warning( diffdf(TDAT , TDAT_CHARCHANGENA)   , msg )
+    expect_warning( diffdf(TDAT , TDAT_DATECHANGENA )   , msg )
+    expect_warning( diffdf(TDAT , TDAT_LOGCHANGENA)    , msg )
+    expect_warning( diffdf(TDAT , TDAT_FACTVALCHANGENA  ), msg )
+    diffdf_options_reset()
 })
 
 
@@ -163,7 +166,7 @@ numdiffcheck <-function(compdat, target, value){
     ### Only expected 1 variable to be different thus we expect 
     ### the overall # of differences to equal the # of differences
     ### in the target variable
-    diffdf_ob   <- diffdf(TDAT , compdat , warnings = F )$NumDiff
+    diffdf_ob   <- diffdf(TDAT, compdat )$NumDiff
 
     expect_true(
         nrow(diffdf_ob) == 1,
@@ -183,6 +186,7 @@ numdiffcheck <-function(compdat, target, value){
 
 
 test_that( "Unequal object, checking numbers correct" , {
+    diffdf_options(warnings = FALSE )
     numdiffcheck( TDAT_CHARCHANGE,      'CHARACTER'  , 1)
     numdiffcheck( TDAT_DATECHANGE,      'DATE'       , 1)
     numdiffcheck( TDAT_LOGCHANGE,       'LOGICAL'    , 1)
@@ -191,6 +195,7 @@ test_that( "Unequal object, checking numbers correct" , {
     numdiffcheck( TDAT_DATECHANGENA,    'DATE'       , sum(is.na(TDAT_DATECHANGENA$DATE)))
     numdiffcheck( TDAT_LOGCHANGENA,     'LOGICAL'    , sum(is.na(TDAT_LOGCHANGENA$LOGICAL)))
     numdiffcheck( TDAT_FACTVALCHANGENA, 'CATEGORICAL', sum(is.na(TDAT_FACTVALCHANGENA$CATEGORICAL)))
+    diffdf_options_reset()
 })
 
 
@@ -287,25 +292,6 @@ test_that("Additional rows error", {
     
 })
 
-test_that("Bad values for scale or tolerance error", {
-    expect_error(
-        diffdf(TDAT, TDAT, tolerance = 'bad value'),
-        "tolerance' should be numeric"
-    )
-    expect_error(
-        diffdf(TDAT, TDAT, scale = 'bad value'),
-        "'scale' should be numeric or NULL"
-    )
-    expect_error(
-        diffdf(TDAT, TDAT_EXTROWS, scale = 'bad value'),
-        "'scale' should be numeric or NULL"
-    )
-    expect_error(
-        diffdf(TDAT, TDAT_CHARCHANGE, tolerance = 'bad value'),
-        "tolerance' should be numeric"
-    )
-    
-})
 
 test_that('Objets with differing attributes produce the correct warning', {
     warning_msg <- "There are columns in BASE and COMPARE with differing attributes"
@@ -320,41 +306,42 @@ test_that('Objets with differing attributes produce the correct warning', {
 
 
 test_that('Attribute differnce size is correct!', {
+    diffdf_options(warnings = FALSE )
     expect_equal(
-        diffdf(TDAT, TDAT_FACTCHANGE , warnings = F)$AttribDiffs %>% nrow, 
+        diffdf(TDAT, TDAT_FACTCHANGE)$AttribDiffs %>% nrow, 
         1
     )
     
     expect_equal(
-        diffdf(TDAT, TDAT_ATTEXT , warnings = F)$AttribDiffs %>% nrow, 
+        diffdf(TDAT, TDAT_ATTEXT)$AttribDiffs %>% nrow, 
         1
     )
     
     expect_equal(
-        diffdf(TDAT, TDAT_ATTEXT2 , warnings = F)$AttribDiffs %>% nrow, 
+        diffdf(TDAT, TDAT_ATTEXT2 )$AttribDiffs %>% nrow, 
         2
     )
     
     expect_equal(
-        diffdf(TDAT_ATTEXT, TDAT_ATTEXT2 , warnings = F)$AttribDiffs %>% nrow, 
+        diffdf(TDAT_ATTEXT, TDAT_ATTEXT2 )$AttribDiffs %>% nrow, 
         2
     )
     
     expect_equal(
-        diffdf(TDAT, TDAT_LABEXT , warnings = F)$AttribDiffs %>% nrow, 
+        diffdf(TDAT, TDAT_LABEXT )$AttribDiffs %>% nrow, 
         2
     )
     
     expect_equal(
-        diffdf(TDAT, TDAT_LABEXT2 , warnings = F)$AttribDiffs %>% nrow, 
+        diffdf(TDAT, TDAT_LABEXT2 )$AttribDiffs %>% nrow, 
         1
     )
     
     expect_equal(
-        diffdf(TDAT_LABEXT, TDAT_LABEXT2 , warnings = F)$AttribDiffs%>% nrow, 
+        diffdf(TDAT_LABEXT, TDAT_LABEXT2 )$AttribDiffs%>% nrow, 
         2
     )
-    
+    diffdf_options_reset()
 })
 
 
@@ -363,79 +350,149 @@ test_that('Attribute differnce size is correct!', {
 test_that( "strict_numeric and strict_factor was as intended", {
 
     ####  Test - Integer and Numeric compare succesfully with strict_numeric = FALSE
-    
+    diffdf_options(strict_numeric = FALSE )
     expect_length_0(
         suppressMessages(
-            diffdf(TDAT_MODEDBL, TDAT, strict_numeric = FALSE)    
+            diffdf(TDAT_MODEDBL, TDAT)    
         )
     ) 
     
     expect_message(
-        diffdf(TDAT_MODEDBL, TDAT, strict_numeric = FALSE),
+        diffdf(TDAT_MODEDBL, TDAT),
         "NOTE: Variable INTEGER in compare was casted to numeric", 
         all = TRUE, 
         fixed = TRUE
     )
     
     expect_message(
-        diffdf(TDAT, TDAT_MODEDBL, strict_numeric = FALSE),
+        diffdf(TDAT, TDAT_MODEDBL),
         "NOTE: Variable INTEGER in base was casted to numeric", 
         all = TRUE, 
         fixed = TRUE
     )
-    
+    diffdf_options_reset()
 
     ### Test - Character and Factor compare succesfully with strict_factor = FALSE
-    
+    diffdf_options(strict_factor = FALSE )
     expect_length_0(
         suppressMessages(
-            diffdf(TDAT_MODECHR, TDAT, strict_factor = FALSE)
+            diffdf(TDAT_MODECHR, TDAT)
         )
     ) 
     
     expect_message(
-        diffdf(TDAT_MODECHR, TDAT, strict_factor = FALSE),
+        diffdf(TDAT_MODECHR, TDAT),
         "NOTE: Variable CATEGORICAL in compare was casted to character", 
         all = TRUE, 
         fixed = TRUE
     )
     
     expect_message(
-        diffdf(TDAT, TDAT_MODECHR, strict_factor = FALSE),
+        diffdf(TDAT, TDAT_MODECHR),
         "NOTE: Variable CATEGORICAL in base was casted to character", 
         all = TRUE, 
         fixed = TRUE
     )
     
     #### Test - interaction of both options
-    
+    diffdf_options(strict_factor = FALSE, strict_numeric = FALSE )
     expect_message(
-        diffdf(TDAT, TDAT_MODEDBL, strict_numeric = FALSE, strict_factor = FALSE),
+        diffdf(TDAT, TDAT_MODEDBL),
         "NOTE: Variable INTEGER in base was casted to numeric", 
         all = TRUE, 
         fixed = TRUE
     )
     
     expect_message(
-        diffdf(TDAT, TDAT_MODECHR, strict_factor = FALSE, strict_numeric = FALSE),
+        diffdf(TDAT, TDAT_MODECHR),
         "NOTE: Variable CATEGORICAL in base was casted to character", 
         all = TRUE, 
         fixed = TRUE
     )
     
     expect_message(
-        diffdf(TDAT_MODEDBL, TDAT_MODECHR, strict_factor = FALSE, strict_numeric = FALSE),
+        diffdf(TDAT_MODEDBL, TDAT_MODECHR),
         "NOTE: Variable CATEGORICAL in base was casted to character|NOTE: Variable INTEGER in compare was casted to numeric", 
         all = TRUE
     )
+    diffdf_options_reset()
     
 })
 
 
+test_that(
+    "Check options in diffdf work correctly", {
+        
+        diffdf_options(strict_factor = TRUE )
+        expect_length_0(
+            suppressMessages(
+                diffdf(TDAT_MODECHR, TDAT, strict_factor = FALSE)
+            )
+        ) 
+        
+        expect_length_0(
+            suppressMessages(
+                diffdf(TDAT_MODECHR, TDAT, strict_factor = FALSE, 
+                       options = diffdf_options(strict_factor = TRUE ))
+            )
+        ) 
+        
+        expect_length_0(
+            suppressMessages(
+                diffdf(TDAT_MODECHR, TDAT, .options = diffdf_options(strict_factor = FALSE ))
+            )
+        ) 
+        expect_length_0(
+            suppressMessages(
+                diffdf(TDAT_MODECHR, TDAT)
+            )
+        ) 
+        
+        expect_warning(
+                suppressMessages(
+                    diffdf(TDAT_MODECHR, TDAT, strict_factor = TRUE)
+                )
+            )
+          
+        
+        
+        expect_length_0(
+            suppressMessages(
+                diffdf(TDAT_MODECHR, TDAT)
+            )
+        ) 
+    
+})
 
 
-
-
+test_that(
+    "diffdf errors when given bad options", {
+        expect_error(diffdf(TDAT, TDAT, warnings = "badvalue"),
+                     regexp = "Option warnings is not a logical or is not of length 1")
+        expect_error(diffdf(TDAT, TDAT, warnings = c(T, T)),
+                     regexp = "Option warnings is not a logical or is not of length 1")
+        expect_error(diffdf(TDAT, TDAT, strict_numeric = "badvalue"),
+                     regexp = "Option strict_numeric is not a logical or is not of length 1")
+        expect_error(diffdf(TDAT, TDAT, strict_numeric = c(F, T)),
+                     regexp = "Option strict_numeric is not a logical or is not of length 1")
+        expect_error(diffdf(TDAT, TDAT, strict_factor = "badvalue"),
+                     regexp = "Option strict_factor is not a logical or is not of length 1")
+        expect_error(diffdf(TDAT, TDAT, strict_factor = c(T, T)),
+                     regexp = "Option strict_factor is not a logical or is not of length 1")
+        expect_error(diffdf(TDAT, TDAT, file = 3),
+                     regexp = "Option file is not NULL or a string of length 1")
+        expect_error(diffdf(TDAT, TDAT, file = c("one", "two")),
+                     regexp = "Option file is not NULL or a string of length 1")
+        expect_error(diffdf(TDAT, TDAT, tolerance = "badvalue"),
+                     regexp = "Option tolerance is not a numeric of length 1")
+        expect_error(diffdf(TDAT, TDAT, tolerance = c(1, 2)),
+                     regexp = "Option tolerance is not a numeric of length 1")
+        expect_error(diffdf(TDAT, TDAT, scale = "badvalue"),
+                     regexp =  "Option scale is not NULL or a numeric of length 1")
+        expect_error(diffdf(TDAT, TDAT, scale = c(1,2)),
+                     regexp =  "Option scale is not NULL or a numeric of length 1")
+    }
+)
 
 
 

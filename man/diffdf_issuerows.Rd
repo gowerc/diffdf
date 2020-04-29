@@ -31,7 +31,7 @@ nonsense rows being returned. It is always recommended to supply keys to diffdf.
 \examples{
 iris2 <- iris
 for ( i in 1:3) iris2[i,i] <- 99
-x <- diffdf( iris , iris2, warnings = FALSE)
+x <- diffdf( iris , iris2)
 diffdf_issuerows( iris , x)
 diffdf_issuerows( iris2 , x)
 diffdf_issuerows( iris2 , x , vars = "Sepal.Length")
