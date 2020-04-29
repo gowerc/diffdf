@@ -62,8 +62,10 @@ invert <- function(x){
 #' @param line_prefix Symbols to prefix infront of every line of the table
 as_ascii_table <- function(dat, line_prefix = "  "){
  
+    
     ## Convert every value to character and crop to a suitable length
-    dat[]  <- apply(dat, c(1, 2), as_cropped_char)
+    dat  <- as_tibble(apply(dat, c(1, 2), as_cropped_char))
+    
     hold <- list()
     COLS <- colnames(dat)
     
