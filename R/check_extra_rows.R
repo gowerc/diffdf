@@ -1,0 +1,50 @@
+
+
+check_extra_rows <- function(dfa, dfb, keys, name, message, type){
+    
+    dat_a <- copy(dfa)[,keys, with = FALSE]
+    dat_b <- copy(dfb)[,keys, with = FALSE]
+    
+    index <- generate_keys(dat_a, dat_b)
+    
+    extra <- setDT(dat_a)[!dat_b, on = keys]
+
+    ER <- list()
+    ER[[type]] <- extra[[index]]
+    
+    CR <- checkResult$new(
+        name = name,
+        result = ifelse(nrow(extra) == 0, "Passed", "Failed"), 
+        message = message, 
+        data = extra[, keys, with = FALSE],
+        exclude_rows = ER
+    )
+    
+    return(CR)
+}
+
+check_extra_rows_base <- function(base, comp, keys, opts){
+    check_extra_rows(
+        base,
+        comp,
+        keys,
+        "ExtraRowsBase",
+        "There are rows in BASE that are not in COMPARE",
+        "base"
+    )
+}
+
+check_extra_rows_comp <- function(base, comp, keys, opts){
+    check_extra_rows(
+        base,
+        comp,
+        keys,
+        "ExtraRowsComp",
+        "There are rows in COMPARE that are not in BASE",
+        "comp"
+    )
+}
+
+
+
+
