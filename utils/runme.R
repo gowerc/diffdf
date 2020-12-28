@@ -20,8 +20,8 @@ print(x, type = "html")
 print(x, type = "ascii")
 
 
-print( diffdf(iris,iris), type = "html")
 
+diffdf( data.frame(), data.frame())
 
 as.character(x, type = "html")
 
