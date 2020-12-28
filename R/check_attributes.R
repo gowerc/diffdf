@@ -51,7 +51,7 @@ check_attributes <- function(base, comp, keys, opts){
         }
     }
     
-    RETURN <- stats::setNames(RETURN, c("Variable", "Attribute", "Base", "Compare"))
+    RETURN <- setNames(RETURN, c("Variable", "Attribute", "Base", "Compare"))
     
     disp <- display$new(
         title = "Attribute Mismatches",

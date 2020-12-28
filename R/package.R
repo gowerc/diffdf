@@ -10,5 +10,6 @@
 #' @name diffdf
 #' @import data.table 
 #' @import tibble
+#' @importFrom stats setNames
 #' 
 NULL  

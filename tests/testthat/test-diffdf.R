@@ -1,8 +1,4 @@
 
-
-context("Testing entire function")
-
-
 ##############################
 #
 # Set up testing datasets
@@ -109,27 +105,26 @@ expect_passed <- function(x) expect_equal( x$result , "Passed")
 expect_failed <- function(x) expect_equal( x$result , "Failed")
 
 test_that( "Check comparision of equal objects",{
-    expect_length_0( diffdf(iris, iris) )
-    expect_length_0( diffdf(TDAT, TDAT))
-    expect_length_0( diffdf(TDAT, TDAT, "ID"))
-    expect_length_0( diffdf(TDAT, TDAT, c("GROUP1" , "GROUP2")))
-    expect_length_0( diffdf(TDAT_CHARCHANGENA , TDAT_CHARCHANGENA ))
-    expect_length_0( diffdf(TDAT_DATECHANGENA , TDAT_DATECHANGENA ))
-    expect_length_0( diffdf(TDAT_LOGCHANGENA , TDAT_LOGCHANGENA ))
-    expect_length_0( diffdf(TDAT_FACTVALCHANGENA, TDAT_FACTVALCHANGENA))
+    expect_passed( diffdf(TDAT, TDAT))
+    expect_passed( diffdf(TDAT, TDAT, "ID"))
+    expect_passed( diffdf(TDAT, TDAT, c("GROUP1" , "GROUP2")))
+    expect_passed( diffdf(TDAT_CHARCHANGENA , TDAT_CHARCHANGENA ))
+    expect_passed( diffdf(TDAT_DATECHANGENA , TDAT_DATECHANGENA ))
+    expect_passed( diffdf(TDAT_LOGCHANGENA , TDAT_LOGCHANGENA ))
+    expect_passed( diffdf(TDAT_FACTVALCHANGENA, TDAT_FACTVALCHANGENA))
     
-    expect_length_0( diffdf(TDAT_LABEXT , TDAT_LABEXT ) )
-    expect_length_0( diffdf(TDAT_ATTEXT , TDAT_ATTEXT ) )
-    expect_length_0( diffdf(TDAT_FACTCHANGE, TDAT_FACTCHANGE) )
+    expect_passed( diffdf(TDAT_LABEXT , TDAT_LABEXT ) )
+    expect_passed( diffdf(TDAT_ATTEXT , TDAT_ATTEXT ) )
+    expect_passed( diffdf(TDAT_FACTCHANGE, TDAT_FACTCHANGE) )
     
-    expect_length_0( diffdf(iris, iris, tolerance =0.2, scale=0.1 ))
-    expect_length_0( diffdf(TDAT, TDAT, tolerance =0.2, scale=0.1 ))
-    expect_length_0( diffdf(TDAT, TDAT, "ID", tolerance =0.2, scale=0.1 ))
-    expect_length_0( diffdf(TDAT, TDAT, c("GROUP1" , "GROUP2"), tolerance =0.2, scale=0.1 ) )
-    expect_length_0( diffdf(TDAT_CHARCHANGENA , TDAT_CHARCHANGENA , tolerance =0.2, scale=0.1 ) )
-    expect_length_0( diffdf(TDAT_DATECHANGENA , TDAT_DATECHANGENA , tolerance =0.2, scale=0.1 )  )
-    expect_length_0( diffdf(TDAT_LOGCHANGENA , TDAT_LOGCHANGENA , tolerance =0.2, scale=0.1 ) )
-    expect_length_0( diffdf(TDAT_FACTVALCHANGENA, TDAT_FACTVALCHANGENA, tolerance =0.2, scale=0.1 )  )
+    expect_passed( diffdf(iris, iris, tolerance =0.2, scale=0.1 ))
+    expect_passed( diffdf(TDAT, TDAT, tolerance =0.2, scale=0.1 ))
+    expect_passed( diffdf(TDAT, TDAT, "ID", tolerance =0.2, scale=0.1 ))
+    expect_passed( diffdf(TDAT, TDAT, c("GROUP1" , "GROUP2"), tolerance =0.2, scale=0.1 ) )
+    expect_passed( diffdf(TDAT_CHARCHANGENA , TDAT_CHARCHANGENA , tolerance =0.2, scale=0.1 ) )
+    expect_passed( diffdf(TDAT_DATECHANGENA , TDAT_DATECHANGENA , tolerance =0.2, scale=0.1 )  )
+    expect_passed( diffdf(TDAT_LOGCHANGENA , TDAT_LOGCHANGENA , tolerance =0.2, scale=0.1 ) )
+    expect_passed( diffdf(TDAT_FACTVALCHANGENA, TDAT_FACTVALCHANGENA, tolerance =0.2, scale=0.1 )  )
     
 })
 
@@ -163,7 +158,7 @@ numdiffcheck <-function(compdat, target, value){
     ### the overall # of differences to equal the # of differences
     ### in the target variable
     diffdf_ob   <- diffdf(TDAT , compdat , warnings = F )$NumDiff
-
+    
     expect_true(
         nrow(diffdf_ob) == 1,
         info = 'Too many columns detected as different'
@@ -360,7 +355,7 @@ test_that('Attribute differnce size is correct!', {
 
 
 test_that( "strict_numeric and strict_factor was as intended", {
-
+    
     ####  Test - Integer and Numeric compare succesfully with strict_numeric = FALSE
     
     expect_length_0(
@@ -383,7 +378,7 @@ test_that( "strict_numeric and strict_factor was as intended", {
         fixed = TRUE
     )
     
-
+    
     ### Test - Character and Factor compare succesfully with strict_factor = FALSE
     
     expect_length_0(

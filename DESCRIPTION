@@ -23,6 +23,8 @@ Suggests:
     lubridate,
     knitr,
     covr,
+    purrr,
+    stringr,
     usethis
 RoxygenNote: 7.1.1
 VignetteBuilder: knitr
