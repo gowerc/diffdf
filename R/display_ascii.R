@@ -57,6 +57,7 @@ invert <- function(x){
 #' It is assumed all variable values have a as.character() method
 #' in order to cast them to character. 
 #' @param dat Input dataset to convert into a ascii table
+#' @param limitstring TODO
 #' @param line_prefix Symbols to prefix infront of every line of the table
 as_ascii_table <- function(dat, limitstring, line_prefix = "  "){
     

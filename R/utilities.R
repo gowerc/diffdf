@@ -1,9 +1,17 @@
+#' remove_columns
+#' 
+#' @param df TODO
+#' @param cols TODO
 remove_columns <- function(df, cols){
     keep_cols <- names(df)[!names(df) %in% cols]
     df2 <- df[, keep_cols, with = FALSE] 
     return(df2)
 }
 
+#' remove_columns
+#' 
+#' @param df TODO
+#' @param rows TODO
 remove_rows <- function(df, rows){
     if(length(rows) == 0) return(df)
     df2 <- df[-rows,]
@@ -79,6 +87,9 @@ as_cropped_char <- function(inval, crop_at = 30 ){
 }
 
 
+#' totitle
+#' 
+#' @param x TODO
 totitle <- function(x){
     firstup <- function(x) {
         substr(x, 1, 1) <- toupper(substr(x, 1, 1))

@@ -1,5 +1,13 @@
-#' @import tibble
-#' @import data.table
+#' diffdf
+#' 
+#' Description - TODO
+#' @param base TODO
+#' @param comp TODO
+#' @param keys TODO
+#' @param opts TODO
+#' @param ... TODO
+#' 
+#' @export
 diffdf <- function(base, comp, keys = NULL, opts = NULL, ...){
     setDTthreads(1)
     main <- diffMain$new(base, comp, keys, opts, ...)

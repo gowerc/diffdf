@@ -22,7 +22,7 @@ check_class <- function(base, comp, keys, opts){
 
     dat2 <- dat[KEEP]
     
-    dat2 <- setNames(dat2, c("Variable", "Base", "Compare"))
+    dat2 <- stats::setNames(dat2, c("Variable", "Base", "Compare"))
    
     disp <- display$new(
         title = "Class Mismatches",

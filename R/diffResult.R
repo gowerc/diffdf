@@ -24,10 +24,13 @@ diffResult <- R6::R6Class(
                 stringsAsFactors = FALSE
             )
             
+            class_base <- as_cropped_char(class(base))
+            class_comp <- as_cropped_char(class(comp))
+            
             dfsum <-  data.frame(
                 "Summary" = c("Number of rows", "Number of columns", "Class"),
-                "BASE" = c( nrow(base), ncol(base), as_cropped_char(class(base))),
-                "COMPARE" = c( nrow(comp), ncol(comp), as_cropped_char(class(comp))),
+                "Base" = c( nrow(base), ncol(base), class_base),
+                "Compare" = c( nrow(comp), ncol(comp), class_comp),
                 stringsAsFactors = FALSE
             )
             
@@ -56,7 +59,16 @@ diffResult <- R6::R6Class(
 
 
 
-
+#' print.diffResult
+#' 
+#' Description - TODO
+#' @param x TODO
+#' @param type TODO
+#' @param rowlimit TODO
+#' @param file TODO
+#' @param display TODO
+#' @param ... TODO
+#' 
 #' @export
 print.diffResult <- function(
     x, 
@@ -138,17 +150,29 @@ print.diffResult <- function(
 
 
 
+#' as.character.diffResult
+#' 
+#' Description - TODO
+#' @param x TODO
+#' @param ... TODO
+#' 
 #' @export
 as.character.diffResult <- function(x, ...){
-    x <- print(x, display = FALSE)
+    x <- print(x, display = FALSE, ...)
     return(x)
 }
 
 
 
 
+#' summary.diffResult
+#' 
+#' Description - TODO
+#' @param object TODO
+#' @param ... TODO
+#' 
 #' @export
-summary.diffResult <- function(obj){
+summary.diffResult <- function(object, ...){
 
     x <- list()
     
@@ -157,7 +181,7 @@ summary.diffResult <- function(obj){
         Result = character(0)
     )
     
-    for( i in obj$checks){
+    for( i in object$checks){
         
         if( i[["result"]] == "Failed"){
             x[[i[["name"]]]] <- i$data
@@ -176,8 +200,15 @@ summary.diffResult <- function(obj){
 }
 
 
+
+#' print.diffSummary
+#' 
+#' Description - TODO
+#' @param x TODO
+#' @param ... TODO
+#' 
 #' @export
-print.diffSummary <- function(x){
+print.diffSummary <- function(x, ...){
     print(x$Results)
 }
 

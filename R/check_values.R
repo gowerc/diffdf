@@ -94,7 +94,7 @@ is_variable_different <- function (variablename, keynames, DAT,  ...) {
     outvect <- find_difference(target, current, ...)
     
     x <- DAT[outvect, vars, with=FALSE]
-    x2 <- setnames(x, c(cols[[1]], cols[[2]]) , c("Base", "Compare"))
+    x2 <- stats::setnames(x, c(cols[[1]], cols[[2]]) , c("Base", "Compare"))
     
     return(x2)
 }

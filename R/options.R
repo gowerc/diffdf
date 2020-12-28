@@ -1,5 +1,11 @@
 
-
+#' diffopts
+#'
+#' Description - TODO 
+#' @param scale TODO 
+#' @param tolerance TODO 
+#' @param onfailure TODO
+#'  
 #' @export
 diffopts <- function(
     scale = 1,
