@@ -19,16 +19,23 @@ check_class <- function(base, comp, keys, opts){
         dat[["CLASS.BASE"]], 
         dat[["CLASS.COMP"]] 
     )
-    
+
     dat2 <- dat[KEEP]
     
+    dat2 <- setNames(dat2, c("Variable", "Base", "Compare"))
+   
+    disp <- display$new(
+        title = "Class Mismatches",
+        body = list(dat2)
+    )
     
     CR <- checkResult$new(
         name = "Class",
-        result = ifelse(length(KEEP) == 0, "Passed", "Failed"), 
-        message = "There are columns in BASE and COMPARE with different classes", 
+        display = disp,
+        result = ifelse(all(!KEEP), "Passed", "Failed"), 
+        message = "There are columns in Base and Compare with different classes", 
         data = dat2, 
-        exclude_cols = dat2[["VARIABLE"]]
+        exclude_cols = dat2[["Variable"]]
     )
     
     return(CR)

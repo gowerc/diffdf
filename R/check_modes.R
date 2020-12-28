@@ -19,10 +19,16 @@ check_modes <- function(base, comp, keys, opts){
     
     dat2 <- dat[KEEP]
     
+    disp <- display$new(
+        title = "Mode Mismatches",
+        body = list(dat2)
+    )
+    
     CR <- checkResult$new(
         name = "Mode",
+        display = disp,
         result = ifelse(length(KEEP) == 0, "Passed", "Failed"), 
-        message = "There are columns in BASE and COMPARE with different modes", 
+        message = "There are columns in Base and Compare with different modes", 
         data = dat2, 
         exclude_cols = dat2[["VARIABLE"]]
     )

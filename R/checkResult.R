@@ -1,12 +1,6 @@
 
 
 
-# checkResult
-#     displayObj
-#     has_passed
-#     failure_msg
-#     failure_data
-
 checkResult <- R6::R6Class(
     classname = "checkResult",
     public = list(
@@ -27,6 +21,10 @@ checkResult <- R6::R6Class(
             exclude_rows = NULL, 
             exclude_cols = NULL
         ){
+            stopifnot(
+                any(result %in% c("Passed", "Failed", "Not-Done"))
+            )
+            
             self$name <- name
             self$result <- result
             self$message <- message

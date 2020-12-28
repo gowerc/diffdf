@@ -1,5 +1,3 @@
-
-
 #' string_pad
 #'  
 #' Utility function used to replicate str_pad. Adds white space to either end 
@@ -60,8 +58,8 @@ invert <- function(x){
 #' in order to cast them to character. 
 #' @param dat Input dataset to convert into a ascii table
 #' @param line_prefix Symbols to prefix infront of every line of the table
-as_ascii_table <- function(dat, line_prefix = "  "){
- 
+as_ascii_table <- function(dat, limitstring, line_prefix = "  "){
+    
     
     ## Convert every value to character and crop to a suitable length
     dat  <- as_tibble(apply(dat, c(1, 2), as_cropped_char))
@@ -95,104 +93,44 @@ as_ascii_table <- function(dat, line_prefix = "  "){
     LINE  <- paste0(rep("-" , twidth), collapse = "")
     FVALS <- paste0(line_prefix, tvals , collapse = "\n")
     
+    if( !is.na(limitstring)){
+        caption <- paste0("\n",line_prefix, limitstring)
+    } else {
+        caption <- NULL
+    }
+    
     ### Output table
     paste0( 
-        "\n",
         line_prefix, TLINE, "\n",
         line_prefix, thead, "\n",
         line_prefix, LINE,  "\n",
         FVALS, "\n",
-        line_prefix, LINE
+        line_prefix, LINE,
+        caption
     )     
 }
 
 
+as_ascii_string <- function(x){
+    return(x)
+}
 
+as_ascii_title <- function(x){
+    return(x)
+}
 
-
-
-
-
-#' as_cropped_char
-#'
-#' Makes any character string above x chars
-#' Reduce down to a x char string with ...
-#' @param inval a single element value
-#' @param crop_at character limit
-as_cropped_char <- function(inval, crop_at = 30 ){
-    
-    if ( is.null(inval) ){
-        
-        inval <- "<NULL>" 
-        
-    } else if ( is.na(inval)){
-        
-        inval <- "<NA>"
-        
-    } else {
-        
-        inval <- as.character(inval)
-        
-    }
-    
-    charlength <- sapply(inval, nchar)
-    
-    if (charlength > crop_at ){
-        
-        outval <- substr(inval, 1, crop_at )
-        outval <- paste0(outval, '...')
-        
-    } else {
-        
-        outval <- inval
-        
-    }
-    
-    outval
+render_ascii <- function(x){
+    cat(x, sep = "\n")
 }
 
 
 
-#' get_table
-#' 
-#' Generate nice looking table from a data frame
-#' @param dsin dataset 
-#' @param row_limit Maximum number of rows displayed in dataset
-get_table <- function(dsin , row_limit = 10){
-    
-    if( nrow(dsin) == 0 ) {
-        return("")
-    }
-    display_table <- dsin[ 1:nrow(dsin) < (row_limit + 1), ]
-    
-    if ( nrow(dsin) > row_limit ){
-        
-        add_message <- paste0(
-            'First ',
-            row_limit, 
-            " of " ,
-            nrow(dsin),
-            ' rows are shown in table below'
-        )
-        
-    } else {
-        add_message <- 'All rows are shown in table below'
-    } 
-    
-    msg <- paste(
-        c(
-            add_message,
-            as_ascii_table(display_table),
-            '\n'
-        ),
-        collapse = '\n'
-    )
-    
-    return(msg)
-}
 
 
-print_ascii <- function(x){
-    cat(x)
-}
+
+
+
+
+
+
 

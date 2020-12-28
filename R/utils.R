@@ -38,3 +38,42 @@ get_properties <- function(dsin){
         ATTRIBS   = lapply(dsin, attributes)
     )
 }
+
+
+#' as_cropped_char
+#'
+#' Makes any character string above x chars
+#' Reduce down to a x char string with ...
+#' @param inval a single element value
+#' @param crop_at character limit
+as_cropped_char <- function(inval, crop_at = 30 ){
+    
+    if ( is.null(inval) ){
+        
+        inval <- "<NULL>" 
+        
+    } else if ( is.na(inval)){
+        
+        inval <- "<NA>"
+        
+    } else {
+        
+        inval <- as.character(inval)
+        
+    }
+    
+    charlength <- sapply(inval, nchar)
+    
+    if (charlength > crop_at ){
+        
+        outval <- substr(inval, 1, crop_at )
+        outval <- paste0(outval, '...')
+        
+    } else {
+        
+        outval <- inval
+        
+    }
+    
+    outval
+}

@@ -51,12 +51,19 @@ check_attributes <- function(base, comp, keys, opts){
         }
     }
     
+    RETURN <- setNames(RETURN, c("Variable", "Attribute", "Base", "Compare"))
+    
+    disp <- display$new(
+        title = "Attribute Mismatches",
+        body = list(RETURN)
+    )
+    
     CR <- checkResult$new(
         name = "Attributes",
+        display = disp,
         result = ifelse(nrow(RETURN) == 0, "Passed", "Failed"), 
-        message = "There are columns in BASE and COMPARE with different attributes", 
-        data = RETURN, 
-        exclude_cols = RETURN[["VARIABLE"]]
+        message = "There are columns in Base and Compare with different attributes", 
+        data = RETURN
     )
     
     return(CR)

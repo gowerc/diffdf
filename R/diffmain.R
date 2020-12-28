@@ -9,16 +9,24 @@ diffMain <- R6::R6Class(
         opts = NULL,
         diff_result = NULL,
         
-        initialize = function(base, comp, keys, opts){
-            stopifnot(
-                is.data.table(base), 
-                is.data.table(comp)
-            )
+        initialize = function(base, comp, keys, opts, ...){
+            
+            xopts <- diffopts(...)
+            for( i in names(opts)) xopts[[i]] <- opts[[i]]
+            
+            self$diff_result <- diffResult$new(base, comp, keys)
+            
+            base <- copy(as.data.table(base))
+            comp <- copy(as.data.table(comp))
+            
+            if (is.null(keys)) keys <- generate_keys(base, comp)
+            
+            assert_valid_keys(base, comp, keys)
+            
             self$base <- base
             self$comp <- comp
             self$keys <- keys
-            self$opts <- opts
-            self$diff_result <- diffResult$new()
+            self$opts <- xopts
         },
         
         perform_check = function(check_fun){
@@ -45,6 +53,30 @@ diffMain <- R6::R6Class(
             self$diff_result$add_checkResult(check_result)
         
             return(invisible())
+        },
+        
+        get_result = function(){
+            
+            onfailure <- self$opts$onfailure
+            failurefun <- switch(onfailure,
+                "error" = function(x) stop(x, call. = FALSE),
+                "warning" = function(x) warning(x, call. = FALSE),
+                "message" = message,
+                "nothing" = function(x){invisible()}
+            )
+            
+            x <- Filter(
+                function(x) x$result == "Failed",
+                self$diff_result$checks
+            )
+            
+            xmsg <- lapply(x, function(x) c(x$message, "\n"))
+   
+            if(length(xmsg) > 0){
+                failurefun(unlist(list("diffdf comparison has failed:\n",xmsg)))
+            }
+            
+            return(self$diff_result)
         }
     )
 )

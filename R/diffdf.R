@@ -1,20 +1,8 @@
 #' @import tibble
 #' @import data.table
-diffdf <- function(base, comp, keys = NULL, opts = NULL){
-    
+diffdf <- function(base, comp, keys = NULL, opts = NULL, ...){
     setDTthreads(1)
-    base <- as.data.table(base)
-    comp <- as.data.table(comp)
-    base <- data.table::copy(base)
-    comp <- data.table::copy(comp)
-    
-    if (is.null(keys)){
-        keys <- generate_keys(base, comp)
-    }
-    
-    assert_valid_keys(base, comp, keys)
-    
-    main <- diffMain$new(base, comp, keys, opts)
+    main <- diffMain$new(base, comp, keys, opts, ...)
     
     #main$perform_check(check_df_class)
     #main$perform_check(check_df_attrib)
@@ -33,7 +21,7 @@ diffdf <- function(base, comp, keys = NULL, opts = NULL){
      
     main$perform_check(check_values)    
     
-    return(main$diff_result)
+    return(main$get_result())
 }
 
 
