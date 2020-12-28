@@ -8,7 +8,7 @@ display <- R6::R6Class(
         title = NULL,
         body = NULL,
         
-        initialize = function(title, body){
+        initialize = function(title = NULL, body = NULL){
             self$title = title
             self$body = body
         },

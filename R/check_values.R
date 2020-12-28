@@ -2,7 +2,17 @@ check_values <- function(base, comp, keys, opts) {
     
     compare_cols <- names(base)[!names(base) %in% keys]
     
-    if( length(compare_cols) == 0  ) return ( tibble() )
+    if( length(compare_cols) == 0  ) {
+        x <- checkResult$new(
+            name = "Values",
+            display = display$new(), 
+            result = "Passed", 
+            message = "Not all Values Compared Equal", 
+            data = tibble()
+        )
+        
+        return(x)
+    }
     
     DAT <- merge(
         base, 
@@ -48,7 +58,7 @@ check_values <- function(base, comp, keys, opts) {
         body = body
     )
     
-    
+    browser()
     CR <- checkResult$new(
         name = "Values",
         display = disp, 

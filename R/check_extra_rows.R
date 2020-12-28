@@ -13,7 +13,7 @@ check_extra_rows <- function(dfa, dfb, keys, name, message, type){
     ER[[type]] <- extra[[index]]
     
     disp <- display$new(
-        title = paste0("Extra Rows in ", toupper(type)),
+        title = paste0("Extra Rows in ", totitle(type)),
         body = list(extra[, keys, with = FALSE])
     )
     

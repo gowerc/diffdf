@@ -17,7 +17,7 @@ Depends:
 Imports:
     tibble, data.table
 Suggests:
-    testthat,
+    testthat (>= 2.0.0),
     lubridate,
     knitr,
     rmarkdown,
@@ -30,6 +30,7 @@ Suggests:
     usethis
 RoxygenNote: 7.1.1
 VignetteBuilder: knitr
-License: MIT + file LICENSE
 URL: https://github.com/gowerc/diffdf
 BugReports: https://github.com/gowerc/diffdf/issues
+License: MIT + file LICENSE
+Config/testthat/edition: 2

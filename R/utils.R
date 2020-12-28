@@ -77,3 +77,19 @@ as_cropped_char <- function(inval, crop_at = 30 ){
     
     outval
 }
+
+
+totitle <- function(x){
+    firstup <- function(x) {
+        substr(x, 1, 1) <- toupper(substr(x, 1, 1))
+        x
+    }
+    x2 <- unlist(strsplit(x, " "))
+    x3 <- firstup(x2)
+    paste0(x3, collapse = " ")
+}
+
+
+
+
+

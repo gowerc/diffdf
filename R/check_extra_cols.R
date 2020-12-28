@@ -30,7 +30,7 @@ check_extra_cols_base <- function(base, comp, keys, opts){
         comp,
         "ExtraColsBase",
         "There are columns in Base that do not appear in Compare",
-        "BASE"
+        "Base"
     )
 }
 
@@ -40,7 +40,7 @@ check_extra_cols_comp <- function(base, comp, keys, opts){
         base,
         "ExtraColsComp",
         "There are columns in Compare that do not appear in Base",
-        "COMP"
+        "Compare"
     )
 }
 

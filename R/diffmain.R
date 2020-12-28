@@ -74,6 +74,9 @@ diffMain <- R6::R6Class(
    
             if(length(xmsg) > 0){
                 failurefun(unlist(list("diffdf comparison has failed:\n",xmsg)))
+                self$diff_result$result <- "Failed"
+            } else {
+                self$diff_result$result <- "Passed"
             }
             
             return(self$diff_result)
