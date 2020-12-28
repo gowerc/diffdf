@@ -58,7 +58,7 @@ check_values <- function(base, comp, keys, opts) {
         body = body
     )
     
-    browser()
+    
     CR <- checkResult$new(
         name = "Values",
         display = disp, 
