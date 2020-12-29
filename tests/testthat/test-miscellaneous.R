@@ -35,6 +35,22 @@ test_that("Null datasets work as expected", {
     y <- summary(x)
     expect_equal(nrow(y$ExtraRowsBase), 5)
     expect_equal(nrow(y$ExtraColsBase), 2)
+    
+    dat1 <- data.frame()
+    dat2 <- data.frame()
+    
+    
+    expect_passed( diffdf( dat1, dat2))
+    expect_failed( diffdf(dat1, TDAT, onfailure = "nothing"))
+ 
+    y <- summary(diffdf(dat1, TDAT, onfailure = "nothing"))
+    expect_length(y$ExtraColsComp$Columns, ncol(TDAT))
+    expect_length(y$ExtraRowsComp$..ROWNUMBER.., nrow(TDAT))
+    
+    y <- summary(diffdf ( TDAT[0,c(1,2,3)], TDAT, keys =  c("GROUP1", "GROUP2"), onfailure = "nothing"))
+    expect_length(y$ExtraRowsComp$GROUP1,  nrow(TDAT) )
+    expect_length(y$ExtraColsComp$Columns,  ncol(TDAT) - 3 )
+    
 })
 
 
