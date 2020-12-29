@@ -57,3 +57,77 @@ test_that( "find_difference throws a warning if vectors are of a different lengt
     expect_warning(find_difference( c(1,2,3) , c(1,2,NULL)), regexp =  msg)
     expect_warning(find_difference( c(1,2,3) , c(1,2)), regexp =  msg)
 })
+
+
+
+
+test_that( "compare_vectors works for lists", {
+    
+    as_class <- function( x , cls){
+        x2 <- list(x)
+        class(x2) <- cls
+        return(x2)
+    }
+    
+    obj_attr1 <- TDAT
+    obj_attr2 <- TDAT
+    obj_attr3 <- TDAT
+    
+    attr(obj_attr1, "x") <- "word"
+    attr(obj_attr2, "y") <- "word1"
+    attr(obj_attr3, "y") <- "word2"
+    
+    p1 <- ggplot2::ggplot(TDAT, ggplot2::aes(x=CONTINUOUS, y = INTEGER, col = CATEGORICAL)) +
+        ggplot2::geom_point()
+    
+    p2 <- ggplot2::ggplot(TDAT, ggplot2::aes(x=CONTINUOUS, y = INTEGER, col = CATEGORICAL)) +
+        ggplot2::geom_point() +
+        ggplot2::theme_bw()
+    
+    mod1 <- lm( data = TDAT, CONTINUOUS ~ CATEGORICAL)
+    mod2 <- lm( data = TDAT, CONTINUOUS ~ CATEGORICAL + INTEGER)
+    mod3 <- lm( data = TDAT, CONTINUOUS ~ CATEGORICAL)
+    
+    
+    obj1 <- list(
+        as_class(c(1,2,3), "a"),
+        as_class(c("a", "b"), "a"),
+        as_class(c("a", "b"), "a"),
+        as_class(c("a", "b"), "a"),
+        obj_attr1,
+        obj_attr2,
+        p1,
+        p1,
+        mod1,
+        mod1,
+        mod1
+    )
+    
+    obj2 <- list(
+        as_class(c(1,2,3), "a"),
+        as_class(c("a", "b"), "a"),  ## Same Values, Same Class
+        as_class(c("a", "b"), "b"),  ## Same Values, Different Class
+        as_class(c("a", "c"), "a"),  ## Different Values, Same Class
+        obj_attr1,   ## Same values, same attributes
+        obj_attr3,   ## Same values, different attributes
+        p1,  ## Same plot
+        p2,  ## Different plot
+        mod1, ## Same model
+        mod2, ## Different model
+        mod3  ## same model stored in a different variable
+    )
+    
+    ### Baseline testing
+    expect_equal(
+        find_difference( c(1,2,3), c(1,2,4)),
+        c( FALSE , FALSE, TRUE)
+    )
+    
+    expect_equal(
+        find_difference(obj1,obj2),
+        #  1       2     3     4      5     6      7     8      9     10     11
+        c(FALSE, FALSE, TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, FALSE, TRUE, FALSE)
+    )
+    
+})
+
