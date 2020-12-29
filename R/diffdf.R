@@ -10,7 +10,10 @@
 #' @export
 diffdf <- function(base, comp, keys = NULL, opts = NULL, ...){
     setDTthreads(1)
-    main <- diffMain$new(base, comp, keys, opts, ...)
+    
+    opts <- merge_options(opts, ...)
+    
+    main <- diffMain$new(base, comp, keys, opts)
     
     #main$perform_check(check_df_class)
     #main$perform_check(check_df_attrib)

@@ -9,10 +9,7 @@ diffMain <- R6::R6Class(
         opts = NULL,
         diff_result = NULL,
         
-        initialize = function(base, comp, keys, opts, ...){
-            
-            xopts <- diffopts(...)
-            for( i in names(opts)) xopts[[i]] <- opts[[i]]
+        initialize = function(base, comp, keys, opts){
             
             self$diff_result <- diffResult$new(base, comp, keys)
             
@@ -26,7 +23,7 @@ diffMain <- R6::R6Class(
             self$base <- base
             self$comp <- comp
             self$keys <- keys
-            self$opts <- xopts
+            self$opts <- opts
         },
         
         perform_check = function(check_fun){
@@ -70,10 +67,10 @@ diffMain <- R6::R6Class(
                 self$diff_result$checks
             )
             
-            xmsg <- lapply(x, function(x) c(x$message, "\n"))
+            xmsg <- unlist(lapply(x, function(x) c(" - ", x$message, "\n")))
    
             if(length(xmsg) > 0){
-                failurefun(unlist(list("diffdf comparison has failed:\n",xmsg)))
+                failurefun(c("diffdf comparison has failed\n",xmsg))
                 self$diff_result$result <- "Failed"
             } else {
                 self$diff_result$result <- "Passed"

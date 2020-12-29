@@ -24,8 +24,8 @@ diffResult <- R6::R6Class(
                 stringsAsFactors = FALSE
             )
             
-            class_base <- as_cropped_char(class(base))
-            class_comp <- as_cropped_char(class(comp))
+            class_base <- as_cropped_char( paste0(class(base), collapse = ", "))
+            class_comp <- as_cropped_char( paste0(class(comp), collapse = ", "))
             
             dfsum <-  data.frame(
                 "Summary" = c("Number of rows", "Number of columns", "Class"),

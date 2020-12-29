@@ -13,8 +13,8 @@ check_modes <- function(base, comp, keys, opts){
     
     KEEP <- !mapply( 
         identical,
-        dat[["CLASS.BASE"]], 
-        dat[["CLASS.COMP"]] 
+        dat[["MODE.BASE"]], 
+        dat[["MODE.COMP"]] 
     )
     
     dat2 <- dat[KEEP]
@@ -27,7 +27,7 @@ check_modes <- function(base, comp, keys, opts){
     CR <- checkResult$new(
         name = "Mode",
         display = disp,
-        result = ifelse(length(KEEP) == 0, "Passed", "Failed"), 
+        result = ifelse( any(KEEP), "Failed", "Passed"), 
         message = "There are columns in Base and Compare with different modes", 
         data = dat2, 
         exclude_cols = dat2[["VARIABLE"]]

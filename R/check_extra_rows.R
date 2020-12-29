@@ -42,8 +42,8 @@ check_extra_rows_base <- function(base, comp, keys, opts){
 
 check_extra_rows_comp <- function(base, comp, keys, opts){
     check_extra_rows(
-        base,
         comp,
+        base,
         keys,
         "ExtraRowsComp",
         "There are rows in Compare that are not in Base",
