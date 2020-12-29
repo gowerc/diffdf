@@ -1,21 +1,26 @@
 library(tibble)
 library(purrr)
 library(stringi)
+library(data.table)
 devtools::load_all()
 
-get_test_data <- function(nrow, ncol, types = "num"){
+get_test_data <- function(nrow, ncol, types){
     dat <- tibble( id = 1:nrow)
-    for ( i in 1:ncol){
+    i <- 1
+    while (i <= ncol) {
         if( "num" %in% types){
             dat[[paste0("num_",i)]] <- rnorm(nrow)
+            i <- i + 1
         }
         if( "chr" %in% types){
             chrs <- stri_rand_strings(500,50)
             dat[[paste0("chr_",i)]] <- sample(chrs, size = nrow , replace = T)
+            i <- i + 1
         }
         if( "fct" %in% types){
             fct <-  stri_rand_strings(10, 20)
             dat[[paste0("fct_",i)]] <- factor(sample(fct, size = nrow , replace = T) , labels = fct)
+            i <- i + 1
         }
     }
     return(dat)
@@ -27,32 +32,50 @@ get_print <- function(x){
     }
 }
 
+timeit <- function(expr){
+    start_time <- Sys.time()
+    suppressWarnings(expr)
+    stop_time <- Sys.time()
+    return(difftime(stop_time, start_time, units = "secs"))
+}
+
+mean_rerun <- function(d1, d2, nrep){
+    rerun( 
+        nrep, 
+        timeit(suppressWarnings({diffdf(d1 , d2)}))
+    ) %>% 
+        flatten_dbl() %>% 
+        mean
+}
+
 get_times <- function(nrow, ncol, nrep){
-    get_time <- function(d1, d2, n) rerun( n, system.time(diffdf(d1 , d1, warnings = F))[[3]]) %>% flatten_dbl() %>% mean
-    dat <- list(
-        d1_num = get_test_data(nrow, ncol, "num"),
-        d1_chr = get_test_data(nrow, ncol, "chr"),
-        nrep = nrep
-    )
+    d1 = get_test_data(nrow, ncol, c("num", "chr", "fct"))
+    d2 = get_test_data(nrow, ncol, c("num", "chr", "fct"))
+    
     list(
-        num_same = get_time(dat$d1_num , dat$d1_num, dat$nrep),
-        chr_same = get_time(dat$d1_chr , dat$d1_chr, dat$nrep)
+        same = mean_rerun(d1, d2, nrep),
+        diff = mean_rerun(d1 , d2, nrep)
     )
 }
 
-t1 <- get_times(500000, 30, 3)
+#### Compare run times
+t1 <- get_times( 100000,  30, 4)
 get_print(t1)
-t2 <- get_times(500000, 50, 3)
+
+t2 <- get_times( 250000, 250, 4)
 get_print(t2)
-t3 <- get_times(500000, 70, 3)
+
+t3 <- get_times(5000000,  20, 4)
 get_print(t3)
 
 
 
-library(data.table)
+
+timeit(diffdf( c1, c1))
 
 
-c1 <- get_test_data(400000, 25, "chr")
+#### Manual inspection
+c1 <- get_test_data(1000000, 50, c("chr", "num"))
 profvis::profvis(diffdf( c1, c1), interval = 0.005)
 
 
