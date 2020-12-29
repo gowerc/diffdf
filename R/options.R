@@ -5,6 +5,7 @@
 #' @param scale TODO 
 #' @param tolerance TODO 
 #' @param onfailure TODO
+#' @param ... TODO
 #'  
 #' @export
 diffopts <- function(

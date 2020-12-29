@@ -17,6 +17,8 @@ diffopts(
 \item{tolerance}{TODO}
 
 \item{onfailure}{TODO}
+
+\item{...}{TODO}
 }
 \description{
 Description - TODO

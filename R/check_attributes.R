@@ -5,7 +5,7 @@ check_attributes <- function(base, comp, keys, opts){
         x = get_properties(base),
         y = get_properties(comp), 
         by = "VARIABLE",  
-        all = TRUE,
+        all = FALSE,
         sort = TRUE,
         suffixes = c(".BASE", ".COMP")
     )
