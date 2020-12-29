@@ -25,7 +25,8 @@ Suggests:
     covr,
     purrr,
     stringr,
-    usethis
+    usethis,
+    ggplot2
 RoxygenNote: 7.1.1
 VignetteBuilder: knitr
 URL: https://github.com/gowerc/diffdf
