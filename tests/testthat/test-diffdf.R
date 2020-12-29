@@ -42,7 +42,13 @@ TDAT_FACTVALCHANGENA$CATEGORICAL[TDAT_FACTVALCHANGENA$CATEGORICAL == "C"] <- NA
 
 #### add a unsupported column
 TDAT_PLUSLIST <- TDAT 
-TDAT_PLUSLIST$LIST <- rep(list(TDAT$CATEGORICAL) , nrow(TDAT))
+TDAT_PLUSLIST$LIST <- rep(list(TDAT$CHARACTER) , nrow(TDAT))
+
+TDAT_PLUSLIST2 <- TDAT 
+TDAT_PLUSLIST2$LIST <- rep(list("a") , nrow(TDAT))
+
+TDAT_PLUSLIST3 <- TDAT 
+TDAT_PLUSLIST3$LIST <- rep(list(TDAT$INTEGER) , nrow(TDAT))
 
 #### add change in mode
 TDAT_MODECHANGE <- TDAT 
@@ -214,12 +220,12 @@ test_that("Non-Unique rows error", {
 })
 
 
-# TODO
-# test_that("Illegal columns error", {
-#     expect_warning(diffdf(TDAT_PLUSLIST, TDAT_PLUSLIST), messages$mode)
-#     expect_warning(diffdf(TDAT_PLUSLIST, TDAT_PLUSLIST), messages$mode)
-#     expect_warning(diffdf(TDAT, TDAT_PLUSLIST), messages$mode)
-# })
+
+test_that("Can handle basic list comparisons", {
+    expect_passed(diffdf(TDAT_PLUSLIST, TDAT_PLUSLIST))
+    expect_warning(diffdf(TDAT_PLUSLIST, TDAT_PLUSLIST2), messages$values)
+    expect_warning(diffdf(TDAT_PLUSLIST, TDAT_PLUSLIST3), messages$values)
+})
 
 
 

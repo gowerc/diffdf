@@ -228,3 +228,22 @@ compare_vectors.numeric <- function(
 }
 
 
+#' compare_vectors.list
+#' 
+#' This version compares the differences between lists relying on the identical function
+#' @param target base list
+#' @param current a list to compare the target against
+#' @param ... Ignored
+compare_vectors.list <- function(target, current, ...){
+    !mapply(identical, target, current)
+}
+
+
+
+
+
+
+
+
+
+

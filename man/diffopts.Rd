@@ -7,7 +7,8 @@
 diffopts(
   scale = 1,
   tolerance = sqrt(.Machine$double.eps),
-  onfailure = "warning"
+  onfailure = "warning",
+  ...
 )
 }
 \arguments{
