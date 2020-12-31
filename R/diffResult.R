@@ -176,7 +176,7 @@ summary.diffResult <- function(object, ...){
 
     x <- list()
     
-    results <- tibble(
+    results <- data.table(
         Name = character(0),
         Result = character(0)
     )
@@ -187,7 +187,7 @@ summary.diffResult <- function(object, ...){
             x[[i[["name"]]]] <- i$data
         }
         
-        results <- rbind(results, tibble(
+        results <- rbind(results, data.table(
             Name = i$name,
             Result = i$result
         ))

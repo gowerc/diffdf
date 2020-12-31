@@ -10,7 +10,6 @@
 #' @export
 diffdf <- function(base, comp, keys = NULL, opts = NULL, ...){
     setDTthreads(1)
-    
     opts <- merge_options(opts, ...)
     
     main <- diffMain$new(base, comp, keys, opts)
@@ -28,6 +27,7 @@ diffdf <- function(base, comp, keys = NULL, opts = NULL, ...){
     main$perform_check(check_attributes)
      
     main$perform_check(check_values)    
+    
     
     return(main$get_result())
 }

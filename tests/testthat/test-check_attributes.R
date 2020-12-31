@@ -20,7 +20,7 @@ run_att_test <- function( dsin1, dsin2 , diff ){
     }
 
     expect_s3_class( x , c("checkResult", "R6"), exact = TRUE)
-    expect_equal( x$data %>% nrow, expected_value, info =  info)
+    expect_equal( nrow(x$data), expected_value, info =  info)
     expect_equal( x$result, expected_result, info =  info)
     
     expect_null(x$exclude_cols)
@@ -41,7 +41,7 @@ test_that( "Check comparision of attributes objects",{
     attr(TDAT_twovars_twoatts$INTEGER, 'attone') <- 'character'
     attr(TDAT_twovars_twoatts$INTEGER, 'atttwo') <- list(data.frame(x = rnorm(21),y = rnorm(21)),c(1,2,3))
     attr(TDAT_twovars_twoatts$BINARY,  'attone') <- rnorm(100)
-    attr(TDAT_twovars_twoatts$BINARY,  'atttwo') <- tibble(list(data.frame(x = rnorm(11),y = rnorm(11))),c(1))
+    attr(TDAT_twovars_twoatts$BINARY,  'atttwo') <- data.table(list(data.frame(x = rnorm(11),y = rnorm(11))),c(1))
     
     
     TDAT_twovars_twoatts2 <- TDAT

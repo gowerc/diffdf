@@ -3,12 +3,12 @@
 test_that( "find_difference correctly doesn't flag identical objects", {
     
     expect_self <- function(x , name)  {
-        expect_true( !find_difference( x , x) %>%  all, label = name ) 
+        expect_true( all(!find_difference( x , x)) , label = name ) 
     }
     
-    purrr::walk2( VALS , names(VALS) , expect_self)
+    devnull <- mapply(expect_self,  VALS , names(VALS))
     
-    expect_true( !find_difference( VALS$flt , VALS$flt_calc) %>%  all )
+    expect_true( all(!find_difference( VALS$flt , VALS$flt_calc)))
 })
 
 
@@ -77,13 +77,6 @@ test_that( "compare_vectors works for lists", {
     attr(obj_attr2, "y") <- "word1"
     attr(obj_attr3, "y") <- "word2"
     
-    p1 <- ggplot2::ggplot(TDAT, ggplot2::aes(x=CONTINUOUS, y = INTEGER, col = CATEGORICAL)) +
-        ggplot2::geom_point()
-    
-    p2 <- ggplot2::ggplot(TDAT, ggplot2::aes(x=CONTINUOUS, y = INTEGER, col = CATEGORICAL)) +
-        ggplot2::geom_point() +
-        ggplot2::theme_bw()
-    
     mod1 <- lm( data = TDAT, CONTINUOUS ~ CATEGORICAL)
     mod2 <- lm( data = TDAT, CONTINUOUS ~ CATEGORICAL + INTEGER)
     mod3 <- lm( data = TDAT, CONTINUOUS ~ CATEGORICAL)
@@ -96,8 +89,6 @@ test_that( "compare_vectors works for lists", {
         as_class(c("a", "b"), "a"),
         obj_attr1,
         obj_attr2,
-        p1,
-        p1,
         mod1,
         mod1,
         mod1
@@ -110,8 +101,6 @@ test_that( "compare_vectors works for lists", {
         as_class(c("a", "c"), "a"),  ## Different Values, Same Class
         obj_attr1,   ## Same values, same attributes
         obj_attr3,   ## Same values, different attributes
-        p1,  ## Same plot
-        p2,  ## Different plot
         mod1, ## Same model
         mod2, ## Different model
         mod3  ## same model stored in a different variable
@@ -125,8 +114,8 @@ test_that( "compare_vectors works for lists", {
     
     expect_equal(
         find_difference(obj1,obj2),
-        #  1       2     3     4      5     6      7     8      9     10     11
-        c(FALSE, FALSE, TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, FALSE, TRUE, FALSE)
+        #  1       2     3     4      5     6      7     8      9  
+        c(FALSE, FALSE, TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, FALSE)
     )
     
 })

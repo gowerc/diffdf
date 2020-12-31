@@ -15,18 +15,11 @@ LazyData: true
 Depends:
     R (>= 3.5.0)
 Imports:
-    tibble (>= 3.0.0), 
     data.table (>= 1.10.0), 
     R6 (>= 2.0.0)
 Suggests:
     testthat (>= 3.0.1),
-    lubridate,
-    knitr,
-    covr,
-    purrr,
-    stringr,
-    usethis,
-    ggplot2
+    knitr
 RoxygenNote: 7.1.1
 VignetteBuilder: knitr
 URL: https://github.com/gowerc/diffdf

@@ -1,13 +1,9 @@
 
 library(testthat)
 library(diffdf)
-library(purrr)
-library(tibble)
 
 suppressWarnings(RNGversion("3.5.0"))
 set.seed(20202)
-
-LENGTH <- 20 
 
 TDAT <- structure(
     list(
@@ -73,33 +69,41 @@ TDAT <- structure(
         )
     ), 
     row.names = c(NA, -20L), 
-    class = c("tbl_df", "tbl", "data.frame")
+    class = c("data.table", "data.frame")
 )
 
 
 VALS <- list(
-    int      = 1:5 , 
-    int_na   = c( 1:5 , NA) ,
-    num      = c(1,2,3,4,5),
-    num_na   = c(1,2,3,4,NA), 
-    flt      = c(0, 0.1, 0.2 , 0.3, 0.4) ,
-    flt2     = c(0, 0.1, 0.2 , 0.3, 0.4) - 0.000000000001,
-    flt3    = c(0 + 1e-12, 0.1, 0.2 , 0.3, 0.4),
-    flt_calc = c(0.08, 0.18, 0.28 , 0.38, 0.48) - 0.08,
-    chr      = c('antelope', 'bear', 'cake', 'gpro/', "^admw"),
-    chr_na   = c('antelope', 'bear', 'cake', NA , "@awd"),
-    chr_one  = 'duck',
-    fct      = factor(c('apple', 'ball','2' , T , "pears")),
-    fct_na   = factor(c('apple', 'ball',NA, T , "pears")),
-    lgl      = c(TRUE,FALSE,TRUE, T , F),
-    lgl_na   = c(TRUE, FALSE, NA, T , F),
-    null     = NULL,
-    na       = NA,
-    dt = lubridate::ymd(c("20120202", "10230410","20990507", "20141231")),
-    dt_na = lubridate::ymd(c("20120202", "10230410",NA, "20141231")),
-    dtm = lubridate::ymd_hms(c("20120101T230140", "20130304T012345", "19950403T020359")),
-    dtm_na = lubridate::ymd_hms(c("20120101T230140", NA, "19950403T020359")),
-    dtm2 = lubridate::ymd_hms(c("20120101T230139", "20130304T010145", "19950403T020359"))
+    int = 1:5, 
+    int_na = c(1L, 2L, 3L, 4L, 5L, NA), 
+    num = c(1, 2, 3, 4, 5), 
+    num_na = c(1, 2, 3, 4, NA), 
+    flt = c(0, 0.1, 0.2, 0.3, 0.4), 
+    flt2 = c(-1e-12, 0.099999999999, 0.199999999999, 0.299999999999, 0.399999999999), 
+    flt3 = c(1e-12, 0.1, 0.2, 0.3, 0.4), 
+    flt_calc = c(0, 0.1, 0.2, 0.3, 0.4), 
+    chr = c("antelope", "bear", "cake", "gpro/", "^admw"), 
+    chr_na = c("antelope", "bear", "cake", NA, "@awd"), 
+    chr_one = "duck", 
+    fct = structure(
+        c(2L, 3L, 1L, 5L, 4L), 
+        .Label = c("2", "apple", "ball", "pears", "TRUE"), 
+        class = "factor"
+    ), 
+    fct_na = structure(
+        c(1L, 2L, NA, 4L, 3L), 
+        .Label = c("apple", "ball", "pears", "TRUE"),
+        class = "factor"
+    ), 
+    lgl = c(TRUE, FALSE, TRUE, TRUE, FALSE), 
+    lgl_na = c(TRUE, FALSE, NA, TRUE, FALSE), 
+    null = NULL, 
+    na = NA, 
+    dt = structure(c(15372, -345786, 47243, 16435), class = "Date"), 
+    dt_na = structure(c(15372, -345786, NA, 16435), class = "Date"), 
+    dtm = structure(c(1325458900, 1362360225, 796874639), class = c("POSIXct", "POSIXt"), tzone = "UTC"), 
+    dtm_na = structure(c(1325458900,NA, 796874639), class = c("POSIXct", "POSIXt"), tzone = "UTC"), 
+    dtm2 = structure(c(1325458899, 1362358905, 796874639), class = c("POSIXct", "POSIXt"), tzone = "UTC")
 )
 
 
@@ -134,13 +138,13 @@ attr(TDAT2$DATETIME , "label") <- "This is the label for my amazing variable"
 ### Create large list of comparisons
 list_of_comparisons <- list(
     "Identical" = list(
-        TDAT[ ,"ID", drop=FALSE], 
-        TDAT2[ , "ID" , drop=FALSE]
+        TDAT[ ,"ID"], 
+        TDAT2[ , "ID"]
     ), 
     
     "Identical 2" = list(  
-        TDAT2[,"ID", drop=FALSE], 
-        TDAT[, "ID" , drop =FALSE]
+        TDAT2[,"ID"], 
+        TDAT[, "ID"]
     ),
     
     
@@ -151,8 +155,8 @@ list_of_comparisons <- list(
     ), 
     
     "Different Values 2" = list(
-        TDAT2[c("ID","CONTINUOUS")], 
-        TDAT[c("ID","CONTINUOUS")]
+        TDAT2[,c("ID","CONTINUOUS")], 
+        TDAT[,c("ID","CONTINUOUS")]
     ),
     
     

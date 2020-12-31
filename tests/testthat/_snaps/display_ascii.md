@@ -15,13 +15,13 @@
     Comparison of Base vs Compare
     
     Dataset Summary
-      =====================================================================
-            Summary                Base                    Compare         
-      ---------------------------------------------------------------------
-        Number of rows              20                       20            
-       Number of columns             2                        2            
-             Class        tbl_df, tbl, data.frame  tbl_df, tbl, data.frame 
-      ---------------------------------------------------------------------
+      ===================================================================
+            Summary                Base                  Compare         
+      -------------------------------------------------------------------
+        Number of rows              20                      20           
+       Number of columns            2                       2            
+             Class        data.table, data.frame  data.table, data.frame 
+      -------------------------------------------------------------------
     
     Listing of Keys
       =====================
@@ -51,13 +51,13 @@
     Comparison of Base vs Compare
     
     Dataset Summary
-      =====================================================================
-            Summary                Base                    Compare         
-      ---------------------------------------------------------------------
-        Number of rows              20                       20            
-       Number of columns             2                        2            
-             Class        tbl_df, tbl, data.frame  tbl_df, tbl, data.frame 
-      ---------------------------------------------------------------------
+      ===================================================================
+            Summary                Base                  Compare         
+      -------------------------------------------------------------------
+        Number of rows              20                      20           
+       Number of columns            2                       2            
+             Class        data.table, data.frame  data.table, data.frame 
+      -------------------------------------------------------------------
     
     Listing of Keys
       =====================
@@ -87,13 +87,13 @@
     Comparison of Base vs Compare
     
     Dataset Summary
-      =====================================================================
-            Summary                Base                    Compare         
-      ---------------------------------------------------------------------
-        Number of rows              20                       20            
-       Number of columns             2                        2            
-             Class        tbl_df, tbl, data.frame  tbl_df, tbl, data.frame 
-      ---------------------------------------------------------------------
+      ===================================================================
+            Summary                Base                  Compare         
+      -------------------------------------------------------------------
+        Number of rows              20                      20           
+       Number of columns            2                       2            
+             Class        data.table, data.frame  data.table, data.frame 
+      -------------------------------------------------------------------
     
     Listing of Keys
       =====================
@@ -119,13 +119,13 @@
     Comparison of Base vs Compare
     
     Dataset Summary
-      =====================================================================
-            Summary                Base                    Compare         
-      ---------------------------------------------------------------------
-        Number of rows              20                       20            
-       Number of columns             2                        2            
-             Class        tbl_df, tbl, data.frame  tbl_df, tbl, data.frame 
-      ---------------------------------------------------------------------
+      ===================================================================
+            Summary                Base                  Compare         
+      -------------------------------------------------------------------
+        Number of rows              20                      20           
+       Number of columns            2                       2            
+             Class        data.table, data.frame  data.table, data.frame 
+      -------------------------------------------------------------------
     
     Listing of Keys
       =====================
@@ -151,13 +151,13 @@
     Comparison of Base vs Compare
     
     Dataset Summary
-      =====================================================================
-            Summary                Base                    Compare         
-      ---------------------------------------------------------------------
-        Number of rows              20                       20            
-       Number of columns             2                        2            
-             Class        tbl_df, tbl, data.frame  tbl_df, tbl, data.frame 
-      ---------------------------------------------------------------------
+      ===================================================================
+            Summary                Base                  Compare         
+      -------------------------------------------------------------------
+        Number of rows              20                      20           
+       Number of columns            2                       2            
+             Class        data.table, data.frame  data.table, data.frame 
+      -------------------------------------------------------------------
     
     Listing of Keys
       =====================
@@ -200,13 +200,13 @@
     Comparison of Base vs Compare
     
     Dataset Summary
-      =====================================================================
-            Summary                Base                    Compare         
-      ---------------------------------------------------------------------
-        Number of rows              20                       20            
-       Number of columns             2                        2            
-             Class        tbl_df, tbl, data.frame  tbl_df, tbl, data.frame 
-      ---------------------------------------------------------------------
+      ===================================================================
+            Summary                Base                  Compare         
+      -------------------------------------------------------------------
+        Number of rows              20                      20           
+       Number of columns            2                       2            
+             Class        data.table, data.frame  data.table, data.frame 
+      -------------------------------------------------------------------
     
     Listing of Keys
       =====================
@@ -249,13 +249,13 @@
     Comparison of Base vs Compare
     
     Dataset Summary
-      =====================================================================
-            Summary                Base                    Compare         
-      ---------------------------------------------------------------------
-        Number of rows              20                       20            
-       Number of columns             2                        2            
-             Class        tbl_df, tbl, data.frame  tbl_df, tbl, data.frame 
-      ---------------------------------------------------------------------
+      ===================================================================
+            Summary                Base                  Compare         
+      -------------------------------------------------------------------
+        Number of rows              20                      20           
+       Number of columns            2                       2            
+             Class        data.table, data.frame  data.table, data.frame 
+      -------------------------------------------------------------------
     
     Listing of Keys
       =====================
@@ -281,13 +281,13 @@
     Comparison of Base vs Compare
     
     Dataset Summary
-      =====================================================================
-            Summary                Base                    Compare         
-      ---------------------------------------------------------------------
-        Number of rows              20                       20            
-       Number of columns             2                        2            
-             Class        tbl_df, tbl, data.frame  tbl_df, tbl, data.frame 
-      ---------------------------------------------------------------------
+      ===================================================================
+            Summary                Base                  Compare         
+      -------------------------------------------------------------------
+        Number of rows              20                      20           
+       Number of columns            2                       2            
+             Class        data.table, data.frame  data.table, data.frame 
+      -------------------------------------------------------------------
     
     Listing of Keys
       =====================
@@ -313,13 +313,13 @@
     Comparison of Base vs Compare
     
     Dataset Summary
-      =====================================================================
-            Summary                Base                    Compare         
-      ---------------------------------------------------------------------
-        Number of rows              20                       20            
-       Number of columns             2                        2            
-             Class        tbl_df, tbl, data.frame  tbl_df, tbl, data.frame 
-      ---------------------------------------------------------------------
+      ===================================================================
+            Summary                Base                  Compare         
+      -------------------------------------------------------------------
+        Number of rows              20                      20           
+       Number of columns            2                       2            
+             Class        data.table, data.frame  data.table, data.frame 
+      -------------------------------------------------------------------
     
     Listing of Keys
       =====================
@@ -345,13 +345,13 @@
     Comparison of Base vs Compare
     
     Dataset Summary
-      =====================================================================
-            Summary                Base                    Compare         
-      ---------------------------------------------------------------------
-        Number of rows              20                       20            
-       Number of columns             2                        2            
-             Class        tbl_df, tbl, data.frame  tbl_df, tbl, data.frame 
-      ---------------------------------------------------------------------
+      ===================================================================
+            Summary                Base                  Compare         
+      -------------------------------------------------------------------
+        Number of rows              20                      20           
+       Number of columns            2                       2            
+             Class        data.table, data.frame  data.table, data.frame 
+      -------------------------------------------------------------------
     
     Listing of Keys
       =====================
@@ -377,13 +377,13 @@
     Comparison of Base vs Compare
     
     Dataset Summary
-      =====================================================================
-            Summary                Base                    Compare         
-      ---------------------------------------------------------------------
-        Number of rows              20                       20            
-       Number of columns             3                        2            
-             Class        tbl_df, tbl, data.frame  tbl_df, tbl, data.frame 
-      ---------------------------------------------------------------------
+      ===================================================================
+            Summary                Base                  Compare         
+      -------------------------------------------------------------------
+        Number of rows              20                      20           
+       Number of columns            3                       2            
+             Class        data.table, data.frame  data.table, data.frame 
+      -------------------------------------------------------------------
     
     Listing of Keys
       =====================
@@ -417,13 +417,13 @@
     Comparison of Base vs Compare
     
     Dataset Summary
-      =====================================================================
-            Summary                Base                    Compare         
-      ---------------------------------------------------------------------
-        Number of rows              20                       20            
-       Number of columns             3                        2            
-             Class        tbl_df, tbl, data.frame  tbl_df, tbl, data.frame 
-      ---------------------------------------------------------------------
+      ===================================================================
+            Summary                Base                  Compare         
+      -------------------------------------------------------------------
+        Number of rows              20                      20           
+       Number of columns            3                       2            
+             Class        data.table, data.frame  data.table, data.frame 
+      -------------------------------------------------------------------
     
     Listing of Keys
       =====================
@@ -457,13 +457,13 @@
     Comparison of Base vs Compare
     
     Dataset Summary
-      =====================================================================
-            Summary                Base                    Compare         
-      ---------------------------------------------------------------------
-        Number of rows              20                       10            
-       Number of columns             2                        2            
-             Class        tbl_df, tbl, data.frame  tbl_df, tbl, data.frame 
-      ---------------------------------------------------------------------
+      ===================================================================
+            Summary                Base                  Compare         
+      -------------------------------------------------------------------
+        Number of rows              20                      10           
+       Number of columns            2                       2            
+             Class        data.table, data.frame  data.table, data.frame 
+      -------------------------------------------------------------------
     
     Listing of Keys
       =====================
@@ -498,13 +498,13 @@
     Comparison of Base vs Compare
     
     Dataset Summary
-      =====================================================================
-            Summary                Base                    Compare         
-      ---------------------------------------------------------------------
-        Number of rows              20                       10            
-       Number of columns             2                        2            
-             Class        tbl_df, tbl, data.frame  tbl_df, tbl, data.frame 
-      ---------------------------------------------------------------------
+      ===================================================================
+            Summary                Base                  Compare         
+      -------------------------------------------------------------------
+        Number of rows              20                      10           
+       Number of columns            2                       2            
+             Class        data.table, data.frame  data.table, data.frame 
+      -------------------------------------------------------------------
     
     Listing of Keys
       =====================
@@ -539,13 +539,13 @@
     Comparison of Base vs Compare
     
     Dataset Summary
-      =====================================================================
-            Summary                Base                    Compare         
-      ---------------------------------------------------------------------
-        Number of rows              20                       20            
-       Number of columns            11                       11            
-             Class        tbl_df, tbl, data.frame  tbl_df, tbl, data.frame 
-      ---------------------------------------------------------------------
+      ===================================================================
+            Summary                Base                  Compare         
+      -------------------------------------------------------------------
+        Number of rows              20                      20           
+       Number of columns            11                      11           
+             Class        data.table, data.frame  data.table, data.frame 
+      -------------------------------------------------------------------
     
     Listing of Keys
       =====================
@@ -632,13 +632,13 @@
     Comparison of Base vs Compare
     
     Dataset Summary
-      =====================================================================
-            Summary                Base                    Compare         
-      ---------------------------------------------------------------------
-        Number of rows              20                       20            
-       Number of columns            11                       11            
-             Class        tbl_df, tbl, data.frame  tbl_df, tbl, data.frame 
-      ---------------------------------------------------------------------
+      ===================================================================
+            Summary                Base                  Compare         
+      -------------------------------------------------------------------
+        Number of rows              20                      20           
+       Number of columns            11                      11           
+             Class        data.table, data.frame  data.table, data.frame 
+      -------------------------------------------------------------------
     
     Listing of Keys
       =====================
@@ -725,13 +725,13 @@
     Comparison of Base vs Compare
     
     Dataset Summary
-      =====================================================================
-            Summary                Base                    Compare         
-      ---------------------------------------------------------------------
-        Number of rows              20                       20            
-       Number of columns            11                       11            
-             Class        tbl_df, tbl, data.frame  tbl_df, tbl, data.frame 
-      ---------------------------------------------------------------------
+      ===================================================================
+            Summary                Base                  Compare         
+      -------------------------------------------------------------------
+        Number of rows              20                      20           
+       Number of columns            11                      11           
+             Class        data.table, data.frame  data.table, data.frame 
+      -------------------------------------------------------------------
     
     Listing of Keys
       =====================

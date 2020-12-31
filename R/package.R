@@ -9,7 +9,6 @@
 #' @author Craig Gower-Page 
 #' @name diffdf
 #' @import data.table 
-#' @import tibble
 #' @importFrom stats setNames
 #' 
 NULL  
