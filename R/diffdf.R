@@ -15,9 +15,6 @@ diffdf <- function(base, comp, keys = NULL, opts = NULL, ...){
     
     main <- diffMain$new(base, comp, keys, opts)
     
-    #main$perform_check(check_df_class)
-    #main$perform_check(check_df_attrib)
-    
     main$perform_check(check_extra_rows_base)
     main$perform_check(check_extra_rows_comp)
     main$perform_check(check_extra_cols_base)

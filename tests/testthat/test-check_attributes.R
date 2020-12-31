@@ -10,17 +10,27 @@ run_att_test <- function( dsin1, dsin2 , diff ){
     
     x <- check_attributes(dsin1, dsin2, "ID")
     
-    expected_result <- ifelse(diff == 0 , "Passed" , "Failed")
     
+    if( diff == 0){
+        expected_result <- "Passed"
+        expected_value <- NULL
+    } else {
+        expected_result <- "Failed"
+        expected_value <- diff
+    }
+
     expect_s3_class( x , c("checkResult", "R6"), exact = TRUE)
-    expect_equal( x$data %>% nrow, diff, info =  info)
+    expect_equal( x$data %>% nrow, expected_value, info =  info)
     expect_equal( x$result, expected_result, info =  info)
     
     expect_null(x$exclude_cols)
     expect_null(x$exclude_rows)
 
     expect_s3_class( x$display , c("display", "R6"), exact = TRUE)
-    expect_equal( tracemem(x$display$body[[1]]) , tracemem(x$data), info =  info)
+    if( expected_result == "Failed"){
+        expect_equal( tracemem(x$display$body[[1]]) , tracemem(x$data), info =  info)
+    }
+    
 }
 
 

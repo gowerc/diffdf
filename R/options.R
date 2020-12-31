@@ -1,4 +1,14 @@
 
+
+depreciated <- function(version, old, new){
+    stop( 
+        "`",old, "`", 
+        " is depreciated as of diffdf v", version, 
+        "\nPlease use ", "`",new, "`", " instead",
+        call. = FALSE
+    )
+}
+
 #' diffopts
 #'
 #' Description - TODO 
@@ -16,6 +26,11 @@ diffopts <- function(
 ){
     
     dots <- list(...)
+    
+    if( !is.null(dots$suppress_warnings)){
+        depreciated("2.0.0", "suppress_warnings = TRUE", "onfailure = 'nothing'")
+    }
+    
     if( length(dots) != 0){
         stop("The following options are invalid: ", paste0(names(dots), collapse = " "), call. = FALSE)
     }

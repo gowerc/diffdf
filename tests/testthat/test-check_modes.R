@@ -1,17 +1,30 @@
 
 
-run_mode_test <- function( dsin1, dsin2 , expect_diff ){
+run_mode_test <- function( dsin1, dsin2 , diff ){
     CALL  <- match.call()
     info <- stringr::str_c("dsin1 = " , as.character(CALL[2]) , "\ndsin2 = " , as.character(CALL[3]))
     x <- check_modes(dsin1, dsin2, NULL, diffopts())
     
-    expect_equal(nrow(x$data), expect_diff, info = info)
     
-    expect_equal( x$result, ifelse(expect_diff == 0, "Passed", "Failed"), info = info)
+    if( diff == 0){
+        expected_result <- "Passed"
+        expected_value <- NULL
+    } else {
+        expected_result <- "Failed"
+        expected_value <- diff
+    }
+    
+    expect_equal(nrow(x$data), expected_value, info = info)
+    
+    expect_equal( x$result, expected_result, info = info)
     expect_s3_class(x , c("checkResult", "R6"), exact = TRUE)
     
     expect_s3_class( x$display , c("display", "R6"), exact = TRUE)
-    expect_equal( tracemem(x$display$body[[1]]) , tracemem(x$data), info =  info)
+    
+    if( expected_result == "Failed"){
+        expect_equal( tracemem(x$display$body[[1]]) , tracemem(x$data), info =  info)
+    }
+    
 }
 
 
@@ -30,110 +43,30 @@ run_mode_test_with_N_obs <-function(N){
     #
     #
     
-    X_1col_int <- tibble(
-        x = seq(1, N)
-    )
-    
-    X_1col_num <- tibble(
-        x = rnorm(N)
-    )
-    
-    X_1col_num2 <- tibble(
-        x = round(rnorm(N))
-    )
-    
-    X_1col_char <- tibble(
-        x = letters[1:N]
-    )
-    
-    X_1col_char2 <- tibble(
-        x = rep('cat', N)
-    )
-    
-    X_1col_fact <- tibble(
-        x = factor(letters[1:N])
-    )
-    
-    X_1col_fact2 <- tibble(
-        x = factor(rep(c('cat', 'dog'), c(floor(N/2), ceiling(N/2))))
-    )
-    
-    X_1col_lgl <- tibble(
-        x = rep(T, N)
-    )
-    
-    X_1col_lgl2 <- tibble(
-        x = rep(c(T,F), c(floor(N/2), ceiling(N/2)))
-    )
-    
-    X_2col_numint <- tibble(
-        x = X_1col_num$x,
-        y = X_1col_int$x
-    )
-    
-    X_2col_charint <- tibble(
-        x = X_1col_char$x,
-        y = X_1col_int$x
-    )
-    
-    X_2col_intchar <- tibble(
-        x = X_1col_int$x,
-        y = X_1col_char$x
-    )
-    
-    X_2col_numchar <- tibble(
-        x = X_1col_num$x,
-        y = X_1col_char$x
-    )
-    
-    X_2col_numnum <- tibble(
-        x = X_1col_num$x, 
-        y = X_1col_num2$x
-    )
-    
-    X_2col_numlgl <- tibble(
-        x = X_1col_num$x, 
-        y = X_1col_lgl$x
-    )
-    
-    X_2col_numfact <- tibble(
-        x = X_1col_num$x, 
-        y = X_1col_fact$x
-    )
-    
-    X_2col_charlgl <- tibble(
-        x = X_1col_char$x, 
-        y = X_1col_lgl$x
-    )
-    
-    X_2col_charfact <- tibble(
-        x = X_1col_char$x, 
-        y = X_1col_fact$x
-    )
-    
-    X_2col_charchar <- tibble(
-        x = X_1col_char$x, 
-        y = X_1col_char2$x
-    )
-    
-    X_2col_lglfact <- tibble(
-        x = X_1col_lgl$x, 
-        y = X_1col_fact$x
-    )
-    
-    X_2col_lgllgl <- tibble(
-        x = X_1col_lgl$x, 
-        y = X_1col_lgl$x
-    )
-    
-    X_2col_factfact <- tibble(
-        x = X_1col_fact$x, 
-        y = X_1col_fact2$x
-    )
-    
+    X_1col_int <- tibble( x = seq(1, N) ) 
+    X_1col_num <- tibble( x = rnorm(N) ) 
+    X_1col_num2 <- tibble( x = round(rnorm(N)) ) 
+    X_1col_char <- tibble( x = letters[1:N] ) 
+    X_1col_char2 <- tibble( x = rep('cat', N) ) 
+    X_1col_fact <- tibble( x = factor(letters[1:N]) ) 
+    X_1col_fact2 <- tibble( x = factor(rep(c('cat', 'dog'), c(floor(N/2), ceiling(N/2)))) ) 
+    X_1col_lgl <- tibble( x = rep(T, N) ) 
+    X_1col_lgl2 <- tibble( x = rep(c(T,F), c(floor(N/2), ceiling(N/2))) ) 
+    X_2col_numint <- tibble( x = X_1col_num$x, y = X_1col_int$x )
+    X_2col_charint <- tibble( x = X_1col_char$x, y = X_1col_int$x ) 
+    X_2col_intchar <- tibble( x = X_1col_int$x, y = X_1col_char$x ) 
+    X_2col_numchar <- tibble( x = X_1col_num$x, y = X_1col_char$x ) 
+    X_2col_numnum <- tibble( x = X_1col_num$x,  y = X_1col_num2$x ) 
+    X_2col_numlgl <- tibble( x = X_1col_num$x,  y = X_1col_lgl$x ) 
+    X_2col_numfact <- tibble( x = X_1col_num$x,  y = X_1col_fact$x ) 
+    X_2col_charlgl <- tibble( x = X_1col_char$x,  y = X_1col_lgl$x ) 
+    X_2col_charfact <- tibble( x = X_1col_char$x,  y = X_1col_fact$x ) 
+    X_2col_charchar <- tibble( x = X_1col_char$x,  y = X_1col_char2$x ) 
+    X_2col_lglfact <- tibble( x = X_1col_lgl$x,  y = X_1col_fact$x ) 
+    X_2col_lgllgl <- tibble( x = X_1col_lgl$x,  y = X_1col_lgl$x ) 
+    X_2col_factfact <- tibble( x = X_1col_fact$x,  y = X_1col_fact2$x )
     
     test_that( "Check comparision of equal objects",{
-        
         
         run_mode_test( X_1col_int      , X_1col_int      , 0 )
         run_mode_test( X_1col_int      , X_1col_fact     , 0 )
