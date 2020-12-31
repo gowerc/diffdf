@@ -19,7 +19,7 @@ Imports:
     data.table (>= 1.10.0), 
     R6 (>= 2.0.0)
 Suggests:
-    testthat (>= 2.0.0),
+    testthat (>= 3.0.1),
     lubridate,
     knitr,
     covr,
@@ -32,4 +32,4 @@ VignetteBuilder: knitr
 URL: https://github.com/gowerc/diffdf
 BugReports: https://github.com/gowerc/diffdf/issues
 License: MIT + file LICENSE
-Config/testthat/edition: 2
+Config/testthat/edition: 3

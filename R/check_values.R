@@ -14,25 +14,36 @@ check_values <- function(base, comp, keys, opts) {
         return(x)
     }
     
+    base_index_df <- copy(base[,keys, with = FALSE])
+    comp_index_df <- copy(comp[,keys, with = FALSE])
+    
+    index_var <- generate_keys(base_index_df, comp_index_df)
+    
     DAT <- merge(
-        base, 
-        comp, 
+        base_index_df, 
+        comp_index_df, 
         by = keys, 
         suffixes = c(".BASE", ".COMPARE")
     )   
-
-    matching_list <- mapply(
-        is_variable_different , 
-        compare_cols,
-        MoreArgs = list(
-            keynames = keys, 
-            DAT = DAT,
-            tolerance = opts$tolerance,
-            scale = opts$scale
-        ),
-        SIMPLIFY = FALSE
-    )
     
+    base_index <- DAT[[paste0(index_var, ".BASE")]]
+    comp_index <- DAT[[paste0(index_var, ".COMPARE")]]
+    
+    keydat <- DAT[,keys, with = FALSE]
+
+    matching_list <- list()
+
+    for(col in compare_cols){
+        base_var <- base[[col]][base_index]
+        comp_var <- comp[[col]][comp_index]
+        outvect <- find_difference(base_var, comp_var)
+        matching_list[[col]] <- data.table(
+            keydat[outvect, keys, with = FALSE],
+            Base = base_var[outvect], 
+            Compare = comp_var[outvect]
+        )
+    }
+
     have_passed <- vapply(
         matching_list,
         function(x) nrow(x) == 0,

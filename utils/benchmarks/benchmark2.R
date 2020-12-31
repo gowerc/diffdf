@@ -59,12 +59,16 @@ get_times <- function(nrow, ncol, nrep){
 }
 
 #### Compare run times
-t1 <- get_times( 100000,  30, 4)
+
+# Standard dataset
+t1 <- get_times( 100000,  30, 30)
 get_print(t1)
 
+# Super wide dataset
 t2 <- get_times( 250000, 250, 4)
 get_print(t2)
 
+# Super Long dataset
 t3 <- get_times(5000000,  20, 4)
 get_print(t3)
 
@@ -79,8 +83,8 @@ c1 <- get_test_data(1000000, 50, c("chr", "num"))
 profvis::profvis(diffdf( c1, c1), interval = 0.005)
 
 
-t1 <- get_test_data(500, 10, "chr")
-t2 <- get_test_data(500, 10, "chr")
+t1 <- get_test_data(500000, 40, "chr")
+t2 <- get_test_data(500000, 40, "chr")
 
 diffdf( t1, t1, keys = "id")
 diffdf( t1, t2, keys = "id")
@@ -104,6 +108,6 @@ system.time({
 
 
 
-
-
+timeit(diffdf(t1, t2))
+timeit(waldo::compare(t1, t2))
 
