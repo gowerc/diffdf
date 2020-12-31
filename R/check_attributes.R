@@ -11,7 +11,7 @@ check_attributes <- function(base, comp, keys, opts){
     )
     
     ### Setup dummy return value
-    RETURN <- tibble(
+    RETURN <- data.table(
         VARIABLE = character(),
         ATTR_NAME = character(),
         VALUES.BASE = list(),
@@ -39,7 +39,7 @@ check_attributes <- function(base, comp, keys, opts){
             
             if (!identical(ATTRIB_BASE, ATTRIB_COMP)){
                 
-                ATT_DIFFS <- tibble(
+                ATT_DIFFS <- data.table(
                     VARIABLE = i, 
                     ATTR_NAME = j, 
                     VALUES.BASE = ifelse( is.null(ATTRIB_BASE) , list() , ATTRIB_BASE),  

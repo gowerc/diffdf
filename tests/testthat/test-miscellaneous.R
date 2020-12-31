@@ -54,5 +54,36 @@ test_that("Null datasets work as expected", {
 })
 
 
+test_that("Data.Table doesn't modify input dataset",{
+    
+    dat1 <- data.table(
+        id = c(1,2),
+        v1 = c("a", "b"),
+        v2 = c(1L , 2L),
+        v3 = list("ab", 1),
+        v4 = c(123, 123)
+    )
+    
+    dat2 <- data.table(
+        id = c(1,3),
+        v1 = c("c", "b"),
+        v2 = c(3L , 2L),
+        v3 = list("fe", 1),
+        v4 = c(124, 123)
+    )
+    
+    init_dat1 <- copy(dat1)
+    init_dat2 <- copy(dat2)  
+    
+    x <- diffdf(dat1, dat2, "id", onfailure = "nothing")
+    expect_failed(x)
+    expect_false( tracemem(dat1) == tracemem(init_dat1))
+    expect_false( tracemem(dat2) == tracemem(init_dat2))
+    expect_true( identical(dat1, init_dat1))
+    expect_true( identical(dat1, init_dat1))
+    
+    
+})
+
 
 

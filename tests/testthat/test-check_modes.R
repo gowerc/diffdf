@@ -4,10 +4,14 @@ run_mode_test <- function( dsin1, dsin2 , expect_diff ){
     CALL  <- match.call()
     info <- stringr::str_c("dsin1 = " , as.character(CALL[2]) , "\ndsin2 = " , as.character(CALL[3]))
     x <- check_modes(dsin1, dsin2, NULL, diffopts())
+    
     expect_equal(nrow(x$data), expect_diff, info = info)
+    
     expect_equal( x$result, ifelse(expect_diff == 0, "Passed", "Failed"), info = info)
     expect_s3_class(x , c("checkResult", "R6"), exact = TRUE)
-    expect_s3_class(x$display , c("display", "R6"), exact = TRUE)
+    
+    expect_s3_class( x$display , c("display", "R6"), exact = TRUE)
+    expect_equal( tracemem(x$display$body[[1]]) , tracemem(x$data), info =  info)
 }
 
 

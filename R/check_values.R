@@ -8,7 +8,7 @@ check_values <- function(base, comp, keys, opts) {
             display = display$new(), 
             result = "Passed", 
             message = "Not all Values Compared Equal", 
-            data = tibble()
+            data = data.table()
         )
         
         return(x)
@@ -83,45 +83,8 @@ check_values <- function(base, comp, keys, opts) {
 
 
 
-#' is_variable_different 
-#' 
-#' This subsets the data set on the variable name, picks out differences and returns a tibble
-#' of differences for the given variable
-#' @importFrom tibble as_tibble
-#' @param variablename name of variable being compared
-#' @param keynames name of keys
-#' @param DAT Inputted dataset with base and compare vectors
-#' @param ...  Additional arguments which might be passed through (numerical accuracy)
-#' @return A boolean vector which is T if target and current are different
-is_variable_different <- function (variablename, keynames, DAT,  ...) {
-    
-    ### Dummy variable assignment to remove CRAN notes of no visible variable assignment
-    
-    cols <- paste0(variablename , c(".BASE", ".COMPARE"))
-    vars <- c(keynames, cols[[1]] , cols[[2]])
-    
-    target <- DAT[[cols[[1]]]]
-    current <- DAT[[cols[[2]]]]
-    outvect <- find_difference(target, current, ...)
-    
-    x <- DAT[outvect, vars, with=FALSE]
-    x2 <- setnames(x, c(cols[[1]], cols[[2]]) , c("Base", "Compare"))
-    
-    return(x2)
-}
 
 
-
-#' compare_vectors
-#' 
-#' Compare two vectors looking for differences
-#' 
-#' @param target the base vector
-#' @param current a vector to compare target to
-#' @param ...  Additional arguments which might be passed through (numerical accuracy)
-compare_vectors <- function (target, current, ...) {
-    UseMethod("compare_vectors")
-}
 
 
 #' find_difference
@@ -173,6 +136,18 @@ find_difference <- function (target, current, ...) {
 
 
 
+
+
+#' compare_vectors
+#' 
+#' Compare two vectors looking for differences
+#' 
+#' @param target the base vector
+#' @param current a vector to compare target to
+#' @param ...  Additional arguments which might be passed through (numerical accuracy)
+compare_vectors <- function (target, current, ...) {
+    UseMethod("compare_vectors")
+}
 
 
 

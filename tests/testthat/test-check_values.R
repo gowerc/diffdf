@@ -131,3 +131,43 @@ test_that( "compare_vectors works for lists", {
     
 })
 
+
+
+
+
+
+test_that("check_values gets order correct", {
+    
+    dat1 <- data.table(
+        id = c(1,2,3),
+        x = c(1,2,3),
+        y = c("a", "b", "c")
+    )
+    
+    dat2 <- data.table(
+        id = c(3,2,1),
+        x = c(3,2,1),
+        y = c("c", "b", "a")
+    )
+    
+    dat3 <- data.table(
+        id = c(3,2,1),
+        x = c(1,2,3),
+        y = c("a", "b", "c")
+    )
+    
+    x <- check_values(dat1, dat2, "id")
+    expect_passed(x)
+    expect_null(x$data)
+    
+    x <- check_values(dat1, dat3, "id")
+    expect_failed(x)
+    expect_equal(x$data$x$id , c(1,3))
+    expect_equal(x$data$x$Base , c(1,3))
+    expect_equal(x$data$x$Compare , c(3,1))
+})
+
+
+
+
+
