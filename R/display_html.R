@@ -21,8 +21,8 @@ add_tag <- function(x, tag, args = ""){
 #' Returns the CSS used by diffdf when rendering html output
 #' 
 #' @export
-difdf_css <- function(){
-    cssbootfile <- system.file("css", "bootstrap.min.css", package = "diffdf")
+diffdf_css <- function(){
+    cssbootfile <- system.file("css", "bootstrap.css", package = "diffdf")
     cssboot <- readLines(cssbootfile, warn = FALSE)
     
     csspkgfile <- system.file("css", "pkg.css", package = "diffdf")
@@ -33,7 +33,7 @@ difdf_css <- function(){
 }
 
 html_file_content <- function(x){
-    header <- add_tag( add_tag( difdf_css(), "head"), "style")
+    header <- add_tag( add_tag( diffdf_css(), "head"), "style")
     
     body <- add_tag(
         add_tag( x, "div", args = "class='w-50'; style = 'margin: auto;'"),
