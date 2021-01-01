@@ -1,13 +1,27 @@
 
 add_tag <- function(x, tag, args = ""){
-    paste0( "<" , tag,  " ", args,  " >" , paste0(x,collapse="") , "</", tag, ">")
+    
+    if(args != ""){
+        args <- paste0(" ", args)
+    }
+    
+    x <- sprintf( 
+        "<%s%s>%s</%s>", 
+        tag, 
+        args, 
+        paste0(x, collapse=""),
+        tag
+    )
+    return(x)
 }
 
 
-
-
-render_html <- function(x){
-    
+#' diffdf_css
+#' 
+#' Returns the CSS used by diffdf when rendering html output
+#' 
+#' @export
+difdf_css <- function(){
     cssbootfile <- system.file("css", "bootstrap.min.css", package = "diffdf")
     cssboot <- readLines(cssbootfile, warn = FALSE)
     
@@ -15,21 +29,31 @@ render_html <- function(x){
     csspkg <- readLines(csspkgfile, warn = FALSE)
     
     css <- c(cssboot, csspkg)
-    
-    header <- add_tag( add_tag( css, "head"), "style")
+    return(css)
+}
+
+html_file_content <- function(x){
+    header <- add_tag( add_tag( difdf_css(), "head"), "style")
     
     body <- add_tag(
         add_tag( x, "div", args = "class='w-50'; style = 'margin: auto;'"),
         "body"
     )
     
+    c(header, body)
+}
+
+
+html_print <- function(x){
+    
     tempDir <- tempfile()
     dir.create(tempDir)
     htmlFile <- file.path(tempDir, "index.html")
+    
     sink(htmlFile)
-    cat(header)
-    cat(gsub( "\n", "<br/>", body))
+    cat(html_file_content(x))
     sink()
+    
     viewer <- getOption("viewer")
     viewer(htmlFile)
 }
@@ -59,7 +83,21 @@ as_html_table <- function(df, limitstring){
     header <- sapply( names(df), add_tag , "th", args = "style='text-align: center;' class='df-header'")
     header_row <- add_tag( header , "tr", args = "class='df-row df_header-row'")
     
-    add_tag( c( header_row, dat_rows, caption), "table", " class='table df-table'")
+    add_tag( c( header_row, dat_rows, caption), "table", "class='table df-table'")
 }
 
+html_file <- function(file, x){
+    sink(file)
+    cat(html_file_content(x))
+    sink()
+}
+
+
+render_html <- list(
+    as_title = as_html_title,
+    as_string = as_html_string,
+    as_table = as_html_table,
+    file = html_file,
+    print = html_print
+)
 

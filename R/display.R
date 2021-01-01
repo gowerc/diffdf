@@ -13,15 +13,15 @@ display <- R6::R6Class(
             self$body = body
         },
         
-        as.character = function(as_title, as_string, as_table, rowlimit){
+        as.character = function(render, rowlimit){
   
             x <- list(
-                title = as_title(self$title),
+                title = render$as_title(self$title),
                 body = lapply(
                     self$body, 
                     get_body, 
-                    as_string = as_string, 
-                    as_table = as_table, 
+                    as_string = render$as_string, 
+                    as_table = render$as_table, 
                     rowlimit = rowlimit
                 )
             )

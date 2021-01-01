@@ -121,14 +121,24 @@ as_ascii_title <- function(x){
     return(x)
 }
 
-render_ascii <- function(x){
+ascii_print <- function(x){
     cat(x, sep = "\n")
 }
 
+ascii_file <- function(file, x){
+    sink(file)
+    cat(x, sep = "\n")
+    sink()
+}
 
 
-
-
+render_ascii <- list(
+    as_title = as_ascii_title,
+    as_string = as_ascii_string,
+    as_table = as_ascii_table,
+    file = ascii_file,
+    print = ascii_print
+)
 
 
 

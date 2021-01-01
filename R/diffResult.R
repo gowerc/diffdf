@@ -77,7 +77,7 @@ print.diffResult <- function(
     type = "ascii", 
     rowlimit = 10, 
     file = NULL, 
-    display = TRUE, 
+    display = is.null(file), 
     ...
 ){
         
@@ -85,66 +85,34 @@ print.diffResult <- function(
         any(type %in% c("ascii", "html"))
     )
     
-    if( type == "ascii"){
-        as_title <- as_ascii_title
-        as_string <- as_ascii_string
-        as_table <- as_ascii_table
-        render <- render_ascii
-    }
-    if( type == "html"){
-        as_title <- as_html_title
-        as_string <- as_html_string
-        as_table <- as_html_table
-        render <- render_html
-    }
+    if( type == "ascii") render <- render_ascii
+    if( type == "html") render <- render_html
     
     failed_displays <- Filter(
         function(x){ x$result == "Failed" },
         x$checks
-        
+    )
+    
+    failed_displays <- Map( 
+        function(x) x$display,
+        failed_displays
     )
     
     if(length(failed_displays) == 0){
         displays <- list(x$no_issues_found)
     } else {
-        displays <- append(x$dfSummary, lapply(failed_displays, function(x) x$display))
+        displays <- append(x$dfSummary, failed_displays)
     }
     
     strings_list <- lapply(
         displays,
-        function(x){
-            x$as.character(
-                as_title = as_title,
-                as_string = as_string,
-                as_table = as_table,
-                rowlimit = rowlimit
-            )
-        }
+        function(x) x$as.character(render, rowlimit = rowlimit)
     )
     
     strings = unlist(strings_list, use.names = FALSE)
     
-    if(display){
-        render(strings)
-    }
-    
-    if (!is.null(file)){
-        tryCatch(
-            {
-                sink(file)
-                cat(strings, sep = "\n")
-                sink()
-            },
-            warning = function(w){
-                sink() 
-                warning(w)
-            },
-            error = function(e){
-                sink()
-                stop(e)
-            }
-        )
-    }
+    if(display) render$print(strings)
+    if (!is.null(file)) render$file(file, strings)
     
     return(invisible(strings))
 }
