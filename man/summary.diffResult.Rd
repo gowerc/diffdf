@@ -2,12 +2,9 @@
 % Please edit documentation in R/diffResult.R
 \name{summary.diffResult}
 \alias{summary.diffResult}
-\alias{print.diffSummary}
 \title{summary.diffResult}
 \usage{
 \method{summary}{diffResult}(object, ...)
-
-\method{print}{diffSummary}(x, ...)
 }
 \arguments{
 \item{object}{A diffResult object created by diffdf()}

@@ -202,7 +202,6 @@ summary.diffResult <- function(object, ...){
 
 
 #' @export
-#' @rdname summary.diffResult
 print.diffSummary <- function(x, ...){
     print(attr(x, "Results"))
 }

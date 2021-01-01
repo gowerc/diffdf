@@ -9,7 +9,7 @@ as_ascii_table(dat, limitstring, line_prefix = "  ")
 \arguments{
 \item{dat}{Input dataset to convert into a ascii table}
 
-\item{limitstring}{TODO}
+\item{limitstring}{A string indicating whether the dataset has been subset}
 
 \item{line_prefix}{Symbols to prefix infront of every line of the table}
 }
