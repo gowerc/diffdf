@@ -62,6 +62,7 @@ checkResult <- R6::R6Class(
                         exclude_rows[[nam]] <- NULL
                     }
                 }
+                if(length(exclude_rows) == 0) exclude_rows <- NULL
             }
             
             self$name <- name

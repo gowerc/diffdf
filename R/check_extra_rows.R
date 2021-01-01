@@ -2,8 +2,8 @@
 
 check_extra_rows <- function(dfa, dfb, keys, name, message, type){
     
-    dat_a <- copy(dfa)[,keys, with = FALSE]
-    dat_b <- copy(dfb)[,keys, with = FALSE]
+    dat_a <- copy(dfa[,keys, with = FALSE])
+    dat_b <- copy(dfb[,keys, with = FALSE])
     
     index <- generate_keys(dat_a, dat_b)
     
@@ -12,9 +12,11 @@ check_extra_rows <- function(dfa, dfb, keys, name, message, type){
     ER <- list()
     ER[[type]] <- extra[[index]]
     
+    extra_keys <- extra[, keys, with = FALSE]
+    
     disp <- display$new(
         title = paste0("Extra Rows in ", totitle(type)),
-        body = list(extra[, keys, with = FALSE])
+        body = list(extra_keys)
     )
     
     CR <- checkResult$new(
@@ -22,7 +24,7 @@ check_extra_rows <- function(dfa, dfb, keys, name, message, type){
         display = disp,
         result = ifelse(nrow(extra) == 0, "Passed", "Failed"), 
         message = message, 
-        data = extra[, keys, with = FALSE],
+        data = extra_keys,
         exclude_rows = ER
     )
     
