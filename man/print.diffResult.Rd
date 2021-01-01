@@ -5,7 +5,14 @@
 \alias{as.character.diffResult}
 \title{print.diffResult}
 \usage{
-\method{print}{diffResult}(x, type = "ascii", rowlimit = 10, file = NULL, display = TRUE, ...)
+\method{print}{diffResult}(
+  x,
+  type = "ascii",
+  rowlimit = 10,
+  file = NULL,
+  display = is.null(file),
+  ...
+)
 
 \method{as.character}{diffResult}(x, ...)
 }
