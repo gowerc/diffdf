@@ -2,15 +2,20 @@
 % Please edit documentation in R/diffResult.R
 \name{summary.diffResult}
 \alias{summary.diffResult}
+\alias{print.diffSummary}
 \title{summary.diffResult}
 \usage{
 \method{summary}{diffResult}(object, ...)
+
+\method{print}{diffSummary}(x, ...)
 }
 \arguments{
-\item{object}{TODO}
+\item{object}{A diffResult object created by diffdf()}
 
-\item{...}{TODO}
+\item{...}{Additional arguments (not used)}
 }
 \description{
-Description - TODO
+Creates a summary of the issues found during the comparison
+Returns a list of the issues in a format more accessible
+for querying and exploring interactively
 }

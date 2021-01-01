@@ -2,23 +2,27 @@
 % Please edit documentation in R/diffResult.R
 \name{print.diffResult}
 \alias{print.diffResult}
+\alias{as.character.diffResult}
 \title{print.diffResult}
 \usage{
 \method{print}{diffResult}(x, type = "ascii", rowlimit = 10, file = NULL, display = TRUE, ...)
+
+\method{as.character}{diffResult}(x, ...)
 }
 \arguments{
-\item{x}{TODO}
+\item{x}{diffResult Object}
 
-\item{type}{TODO}
+\item{type}{Output format. Options = "ascii" (default) or "html"}
 
-\item{rowlimit}{TODO}
+\item{rowlimit}{How many rows of a display dataset should be shown (default = 10)}
 
-\item{file}{TODO}
+\item{file}{Location and name of a text file to output the results to. Setting to NULL will cause no file to be produced.}
 
-\item{display}{TODO}
+\item{display}{Whether to print the rendered output in the R console}
 
-\item{...}{TODO}
+\item{...}{Additional arguments (not used)}
 }
 \description{
-Description - TODO
+Print method for a diffdf result object (diffResult). Can be rendered
+into different output formats and saved into a report file.
 }

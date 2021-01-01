@@ -7,8 +7,9 @@
 totitle(x)
 }
 \arguments{
-\item{x}{TODO}
+\item{x}{string to convert to title case}
 }
 \description{
-totitle
+Converts word to title case 
+Poor mans version of str_to_title
 }

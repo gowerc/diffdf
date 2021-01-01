@@ -1,7 +1,9 @@
 #' remove_columns
 #' 
-#' @param df TODO
-#' @param cols TODO
+#' Removes named columns from a dataset
+#' 
+#' @param df dataset to remove columns from
+#' @param cols columns to remove (character string)
 remove_columns <- function(df, cols){
     keep_cols <- names(df)[!names(df) %in% cols]
     df2 <- df[, keep_cols, with = FALSE] 
@@ -10,8 +12,10 @@ remove_columns <- function(df, cols){
 
 #' remove_columns
 #' 
-#' @param df TODO
-#' @param rows TODO
+#' Removes rows from a dataset by index
+#' 
+#' @param df dataset to remove rows from
+#' @param rows rows to remove (index) (numeric vector)
 remove_rows <- function(df, rows){
     if(length(rows) == 0) return(df)
     df2 <- df[-rows,]
@@ -89,7 +93,10 @@ as_cropped_char <- function(inval, crop_at = 30 ){
 
 #' totitle
 #' 
-#' @param x TODO
+#' Converts word to title case 
+#' Poor mans version of str_to_title
+#' 
+#' @param x string to convert to title case
 totitle <- function(x){
     firstup <- function(x) {
         substr(x, 1, 1) <- toupper(substr(x, 1, 1))

@@ -7,10 +7,10 @@
 remove_rows(df, rows)
 }
 \arguments{
-\item{df}{TODO}
+\item{df}{dataset to remove rows from}
 
-\item{rows}{TODO}
+\item{rows}{rows to remove (index) (numeric vector)}
 }
 \description{
-remove_columns
+Removes rows from a dataset by index
 }

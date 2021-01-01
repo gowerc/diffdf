@@ -7,10 +7,10 @@
 remove_columns(df, cols)
 }
 \arguments{
-\item{df}{TODO}
+\item{df}{dataset to remove columns from}
 
-\item{cols}{TODO}
+\item{cols}{columns to remove (character string)}
 }
 \description{
-remove_columns
+Removes named columns from a dataset
 }

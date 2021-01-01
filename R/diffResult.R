@@ -61,13 +61,15 @@ diffResult <- R6::R6Class(
 
 #' print.diffResult
 #' 
-#' Description - TODO
-#' @param x TODO
-#' @param type TODO
-#' @param rowlimit TODO
-#' @param file TODO
-#' @param display TODO
-#' @param ... TODO
+#' Print method for a diffdf result object (diffResult). Can be rendered
+#' into different output formats and saved into a report file.
+#' 
+#' @param x diffResult Object
+#' @param type Output format. Options = "ascii" (default) or "html"
+#' @param rowlimit How many rows of a display dataset should be shown (default = 10)
+#' @param file Location and name of a text file to output the results to. Setting to NULL will cause no file to be produced.
+#' @param display Whether to print the rendered output in the R console
+#' @param ... Additional arguments (not used)
 #' 
 #' @export
 print.diffResult <- function(
@@ -150,13 +152,8 @@ print.diffResult <- function(
 
 
 
-#' as.character.diffResult
-#' 
-#' Description - TODO
-#' @param x TODO
-#' @param ... TODO
-#' 
 #' @export
+#' @rdname print.diffResult
 as.character.diffResult <- function(x, ...){
     x <- print(x, display = FALSE, ...)
     return(x)
@@ -167,9 +164,12 @@ as.character.diffResult <- function(x, ...){
 
 #' summary.diffResult
 #' 
-#' Description - TODO
-#' @param object TODO
-#' @param ... TODO
+#' Creates a summary of the issues found during the comparison
+#' Returns a list of the issues in a format more accessible
+#' for querying and exploring interactively
+#' 
+#' @param object A diffResult object created by diffdf()
+#' @param ... Additional arguments (not used)
 #' 
 #' @export
 summary.diffResult <- function(object, ...){
@@ -193,7 +193,7 @@ summary.diffResult <- function(object, ...){
         ))
     }
     
-    x[["Results"]] <- results
+    attr(x, "Results") <- results
     
     class(x) <- "diffSummary"
     return(x)
@@ -201,14 +201,9 @@ summary.diffResult <- function(object, ...){
 
 
 
-#' print.diffSummary
-#' 
-#' Description - TODO
-#' @param x TODO
-#' @param ... TODO
-#' 
 #' @export
+#' @rdname summary.diffResult
 print.diffSummary <- function(x, ...){
-    print(x$Results)
+    print(attr(x, "Results"))
 }
 
