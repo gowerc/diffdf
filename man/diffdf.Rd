@@ -5,26 +5,49 @@
 \alias{diffdf}
 \title{diffdf}
 \usage{
-diffdf(base, comp, keys = NULL, opts = NULL, ...)
+diffdf(base, compare, keys = NULL, opts = NULL, ...)
 }
 \arguments{
-\item{base}{TODO}
+\item{base}{input dataframe}
 
-\item{comp}{TODO}
+\item{compare}{comparison dataframe}
 
-\item{keys}{TODO}
+\item{keys}{vector of variables (as strings) that defines a unique row in the base and compare dataframes}
 
-\item{opts}{TODO}
+\item{opts}{a named list of arguments passed onto diffopts. See \code{\link[diffdf]{diffopts}}}
 
-\item{...}{TODO}
+\item{...}{arguments passed onto diffopts (takes precedence over `opts`). See \code{\link[diffdf]{diffopts}}}
 }
 \description{
-Description - TODO
+Compares 2 dataframes and provides details on any differences found
 
 Functions for comparing two data.frames against 
 each other. The core functionality is to provide a detailed breakdown of any differences 
 between two data.frames as well as providing utility functions to help narrow down the 
 source of problems and differences.
+}
+\examples{
+library(diffdf)
+
+dat1 <- data.frame(
+    id = c(1, 2, 3),
+    var1 = c(4, 5, 6),
+    var2 = c(1L, 2L, 3L),
+    var3 = factor(c("a", "b", "c")),
+    var4 = c(1, 2, 3)
+)
+
+dat2 <- data.frame(
+    id = c(0, 2, 3),
+    var1 = c(4, 5, 6),
+    var2 = c(1, 2, 3),
+    var3 = factor(c("a", "b", "d"))
+)
+
+x <- diffdf(dat1, dat2, keys = c("id")) 
+print(x, type = "html")
+summary(x)
+
 }
 \author{
 Craig Gower-Page

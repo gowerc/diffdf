@@ -12,14 +12,14 @@ diffopts(
 )
 }
 \arguments{
-\item{scale}{TODO}
+\item{scale}{Set scale for numeric comparisons. Note that comparisons fail if (x-y)/scale > tolerance}
 
-\item{tolerance}{TODO}
+\item{tolerance}{Set tolerance for numeric comparisons. Note that comparisons fail if (x-y)/scale > tolerance}
 
-\item{onfailure}{TODO}
+\item{onfailure}{How should messages be raised if a comparison fails. Options are "warning", "message", "error" & "nothing". Default = "warning"}
 
-\item{...}{TODO}
+\item{...}{Not used but included for compatibility reasons}
 }
 \description{
-Description - TODO
+Options to modify how diffdf performs its comparison
 }

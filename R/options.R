@@ -11,11 +11,11 @@ depreciated <- function(version, old, new){
 
 #' diffopts
 #'
-#' Description - TODO 
-#' @param scale TODO 
-#' @param tolerance TODO 
-#' @param onfailure TODO
-#' @param ... TODO
+#' Options to modify how diffdf performs its comparison
+#' @param tolerance Set tolerance for numeric comparisons. Note that comparisons fail if (x-y)/scale > tolerance
+#' @param scale Set scale for numeric comparisons. Note that comparisons fail if (x-y)/scale > tolerance 
+#' @param onfailure How should messages be raised if a comparison fails. Options are "warning", "message", "error" & "nothing". Default = "warning"
+#' @param ... Not used but included for compatibility reasons
 #'  
 #' @export
 diffopts <- function(
@@ -56,9 +56,9 @@ diffopts <- function(
 
 #' merge_options
 #' 
-#' Description - TODO
-#' @param opts TODO
-#' @param ... TODO
+#' Merges a named list of options with named arguments via dots
+#' @param opts List of named options
+#' @param ... named arguments
 merge_options <- function(opts = NULL, ...){
     dots <- list(...)
     if( is.null(opts)) opts <- list()

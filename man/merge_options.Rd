@@ -7,10 +7,10 @@
 merge_options(opts = NULL, ...)
 }
 \arguments{
-\item{opts}{TODO}
+\item{opts}{List of named options}
 
-\item{...}{TODO}
+\item{...}{named arguments}
 }
 \description{
-Description - TODO
+Merges a named list of options with named arguments via dots
 }
