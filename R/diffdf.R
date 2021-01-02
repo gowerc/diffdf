@@ -7,6 +7,7 @@
 #' @param opts a named list of arguments passed onto diffopts. See \code{\link[diffdf]{diffopts}}
 #' @param ... arguments passed onto diffopts (takes precedence over `opts`). See \code{\link[diffdf]{diffopts}}
 #' @examples
+#' \dontrun{
 #' library(diffdf)
 #' 
 #' dat1 <- data.frame(
@@ -27,7 +28,7 @@
 #' x <- diffdf(dat1, dat2, keys = c("id")) 
 #' print(x, type = "html")
 #' summary(x)
-#' 
+#' }
 #' @export
 diffdf <- function(base, compare, keys = NULL, opts = NULL, ...){
     setDTthreads(1)
