@@ -27,6 +27,7 @@ between two data.frames as well as providing utility functions to help narrow do
 source of problems and differences.
 }
 \examples{
+\dontrun{
 library(diffdf)
 
 dat1 <- data.frame(
@@ -47,7 +48,7 @@ dat2 <- data.frame(
 x <- diffdf(dat1, dat2, keys = c("id")) 
 print(x, type = "html")
 summary(x)
-
+}
 }
 \author{
 Craig Gower-Page
