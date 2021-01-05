@@ -8,9 +8,20 @@ diffMain <- R6::R6Class(
         keys = NULL,
         opts = NULL,
         diff_result = NULL,
+        checks = NULL,
         
-        initialize = function(base, comp, keys, opts){
+        initialize = function(checks = NULL){
+            if(is.null(checks)){
+                self$checks <- default_checks
+            }else{
+                self$checks <- checks
+            }
+     
+                
+            return(invisible(self))
             
+        },
+        update_data = function(base, comp, keys, opts){
             self$diff_result <- diffResult$new(base, comp, keys)
             
             base <- copy(as.data.table(base))
@@ -24,6 +35,7 @@ diffMain <- R6::R6Class(
             self$comp <- comp
             self$keys <- keys
             self$opts <- opts
+            return(invisible(self))
         },
         
         perform_check = function(check_fun){
@@ -49,7 +61,32 @@ diffMain <- R6::R6Class(
             
             self$diff_result$add_checkResult(check_result)
         
-            return(invisible())
+            return(invisible(self))
+        },
+        perform_checks = function(){
+            for (check in self$checks){
+                self$perform_check(check)
+            }
+            return(invisible(self))
+        },
+        add_check = function(new_check, end){
+            if(end){
+                self$checks <- c(self$checks, new_check)
+            }else{
+                self$checks <- c(new_check,self$checks)
+            }
+            return(invisible(self))
+        },
+        reset_checks = function(checks = NULL){
+            if(is.null(checks)){
+                self$checks <- default_checks
+            }else{
+                self$checks <- checks
+            }
+            
+            
+            return(invisible(self))
+            
         },
         
         get_result = function(){
