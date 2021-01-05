@@ -4,7 +4,7 @@
 \alias{diffdf_issuerows}
 \title{diffdf_issuerows}
 \usage{
-diffdf_issuerows(df, diff, vars = NULL)
+diffdf_issuerows(...)
 }
 \arguments{
 \item{...}{Not Used}

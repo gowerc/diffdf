@@ -8,7 +8,7 @@
 #' 
 #' @param ... Not Used
 #' @export
-diffdf_issuerows <- function( df , diff, vars = NULL){ 
+diffdf_issuerows <- function(...){ 
     stop( "diffdf_issuerows has been depreciated and there is currently no replacement due to a perceived lack of need for it. ",
           "If you do wish to have a replacement created please create an enhancement ticket at: ", 
           "https://github.com/gowerc/diffdf/issues" )
