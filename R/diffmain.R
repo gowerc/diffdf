@@ -26,6 +26,25 @@ diffMain <- R6::R6Class(
             self$opts <- opts
         },
         
+        perform_checks = function(){
+            checks = list(
+                check_extra_rows_base,
+                check_extra_rows_comp,
+                check_extra_cols_base,
+                check_extra_cols_comp,
+                # check_col_order,
+                # check_row_order,
+                check_modes,
+                check_class,
+                check_attributes,
+                check_values
+            )
+            
+            for( check in checks){
+                self$perform_check(check)
+            }
+        },
+        
         perform_check = function(check_fun){
 
             check_result <- check_fun(self$base, self$comp, self$keys, self$opts)
@@ -75,6 +94,8 @@ diffMain <- R6::R6Class(
             } else {
                 self$diff_result$result <- "Passed"
             }
+            
+            self$diff_result$generate_summary()
             
             return(self$diff_result)
         }

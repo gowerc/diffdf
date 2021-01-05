@@ -7,34 +7,73 @@ diffResult <- R6::R6Class(
         opts = NULL,
         checks = list(),
         result = NULL, 
-        dfSummary = NULL,
-        no_issues_found = NULL,
+        meta = NULL,
+        check_summary = NULL,
+        summary = NULL,
+        keys = NULL,
         
         initialize = function(base, comp, keys = NULL){
             
-            self$no_issues_found = display$new(
-                title = NULL,
-                body = "No Issues Were Found"
-            )
+            self$keys = keys
             
-            if(is.null(keys)) keys <- "-- None Provided --"
+            self$meta = list(
+                class_base = class(base),
+                class_comp = class(comp),
+                nrow_base = nrow(base),
+                nrow_comp = nrow(comp),
+                ncol_base = ncol(base),
+                ncol_comp = ncol(comp)
+            )
+        },
+        
+        add_checkResult = function(CR){
+            self$checks[[CR$name]] <- CR
+        },
+        
+        generate_summary = function(){
+            
+            if(is.null(self$keys)){
+                keys <- "  None Provided  "
+            } else {
+                keys <- self$keys
+            }
             
             keysum <- data.frame(
                 "Variable" = keys,
                 stringsAsFactors = FALSE
             )
             
-            class_base <- as_cropped_char( paste0(class(base), collapse = ", "))
-            class_comp <- as_cropped_char( paste0(class(comp), collapse = ", "))
+            class_base <- as_cropped_char( paste0(self$meta$class_base, collapse = ", "))
+            class_comp <- as_cropped_char( paste0(self$meta$class_comp, collapse = ", "))
+            
             
             dfsum <-  data.frame(
                 "Summary" = c("Number of rows", "Number of columns", "Class"),
-                "Base" = c( nrow(base), ncol(base), class_base),
-                "Compare" = c( nrow(comp), ncol(comp), class_comp),
+                "Base" = c( self$meta$nrow_base, self$meta$ncol_base, class_base),
+                "Compare" = c( self$meta$nrow_comp, self$meta$ncol_comp, class_comp),
                 stringsAsFactors = FALSE
             )
             
-            self$dfSummary <- display$new(
+            results <- data.table(
+                Name = character(0),
+                Result = character(0)
+            )
+            for( i in self$checks){
+                results <- rbind(results, data.table(
+                    Name = i$name,
+                    Result = i$result
+                ))
+            }
+            
+            self$check_summary = results
+            
+            if(self$result == "Passed"){
+                line <- "All checks have passed"
+            } else {
+                line <- "Not all checks have passed, details are provided below"
+            }
+            
+            self$summary <- display$new(
                 title = sprintf("Comparison of Base vs Compare"),
                 body = list(
                     "Dataset Summary",
@@ -43,15 +82,13 @@ diffResult <- R6::R6Class(
                     "Listing of Keys",
                     keysum,
                     "",
-                    "Differences were found, details are provided below",
+                    "Check Summary",
+                    results,
+                    "",
+                    line,
                     ""
                 )
             )
-    
-        },
-        
-        add_checkResult = function(CR){
-            self$checks[[CR$name]] <- CR
         }
     )
 )
@@ -98,11 +135,7 @@ print.diffResult <- function(
         failed_displays
     )
     
-    if(length(failed_displays) == 0){
-        displays <- list(x$no_issues_found)
-    } else {
-        displays <- append(x$dfSummary, failed_displays)
-    }
+    displays <- append(x$summary, failed_displays)
     
     strings_list <- lapply(
         displays,
@@ -141,28 +174,13 @@ as.character.diffResult <- function(x, ...){
 #' 
 #' @export
 summary.diffResult <- function(object, ...){
-
     x <- list()
-    
-    results <- data.table(
-        Name = character(0),
-        Result = character(0)
-    )
-    
     for( i in object$checks){
-        
         if( i[["result"]] == "Failed"){
             x[[i[["name"]]]] <- i$data
         }
-        
-        results <- rbind(results, data.table(
-            Name = i$name,
-            Result = i$result
-        ))
     }
-    
-    attr(x, "Results") <- results
-    
+    attr(x, "Results") <- object$check_summary
     class(x) <- "diffSummary"
     return(x)
 }

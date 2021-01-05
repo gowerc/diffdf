@@ -1,13 +1,77 @@
 # Ascii - Identical
 
+    Comparison of Base vs Compare
     
-    No Issues Were Found
+    Dataset Summary
+      ===================================================================
+            Summary                Base                  Compare         
+      -------------------------------------------------------------------
+        Number of rows              20                      20           
+       Number of columns            1                       1            
+             Class        data.table, data.frame  data.table, data.frame 
+      -------------------------------------------------------------------
+    
+    Listing of Keys
+      ===================
+           Variable      
+      -------------------
+         None Provided   
+      -------------------
+    
+    Check Summary
+      =======================
+           Name       Result 
+      -----------------------
+       ExtraRowsBase  Passed 
+       ExtraRowsComp  Passed 
+       ExtraColsBase  Passed 
+       ExtraColsComp  Passed 
+           Mode       Passed 
+           Class      Passed 
+        Attributes    Passed 
+          Values      Passed 
+      -----------------------
+    
+    All checks have passed
+    
     
 
 ---
 
+    Comparison of Base vs Compare
     
-    No Issues Were Found
+    Dataset Summary
+      ===================================================================
+            Summary                Base                  Compare         
+      -------------------------------------------------------------------
+        Number of rows              20                      20           
+       Number of columns            1                       1            
+             Class        data.table, data.frame  data.table, data.frame 
+      -------------------------------------------------------------------
+    
+    Listing of Keys
+      ===================
+           Variable      
+      -------------------
+         None Provided   
+      -------------------
+    
+    Check Summary
+      =======================
+           Name       Result 
+      -----------------------
+       ExtraRowsBase  Passed 
+       ExtraRowsComp  Passed 
+       ExtraColsBase  Passed 
+       ExtraColsComp  Passed 
+           Mode       Passed 
+           Class      Passed 
+        Attributes    Passed 
+          Values      Passed 
+      -----------------------
+    
+    All checks have passed
+    
     
 
 # Ascii - Different Values
@@ -24,13 +88,27 @@
       -------------------------------------------------------------------
     
     Listing of Keys
-      =====================
-            Variable       
-      ---------------------
-       -- None Provided -- 
-      ---------------------
+      ===================
+           Variable      
+      -------------------
+         None Provided   
+      -------------------
     
-    Differences were found, details are provided below
+    Check Summary
+      =======================
+           Name       Result 
+      -----------------------
+       ExtraRowsBase  Passed 
+       ExtraRowsComp  Passed 
+       ExtraColsBase  Passed 
+       ExtraColsComp  Passed 
+           Mode       Passed 
+           Class      Passed 
+        Attributes    Passed 
+          Values      Failed 
+      -----------------------
+    
+    Not all checks have passed, details are provided below
     
     
     Value Mismatches
@@ -60,13 +138,27 @@
       -------------------------------------------------------------------
     
     Listing of Keys
-      =====================
-            Variable       
-      ---------------------
-       -- None Provided -- 
-      ---------------------
+      ===================
+           Variable      
+      -------------------
+         None Provided   
+      -------------------
     
-    Differences were found, details are provided below
+    Check Summary
+      =======================
+           Name       Result 
+      -----------------------
+       ExtraRowsBase  Passed 
+       ExtraRowsComp  Passed 
+       ExtraColsBase  Passed 
+       ExtraColsComp  Passed 
+           Mode       Passed 
+           Class      Passed 
+        Attributes    Passed 
+          Values      Failed 
+      -----------------------
+    
+    Not all checks have passed, details are provided below
     
     
     Value Mismatches
@@ -96,13 +188,27 @@
       -------------------------------------------------------------------
     
     Listing of Keys
-      =====================
-            Variable       
-      ---------------------
-       -- None Provided -- 
-      ---------------------
+      ===================
+           Variable      
+      -------------------
+         None Provided   
+      -------------------
     
-    Differences were found, details are provided below
+    Check Summary
+      =======================
+           Name       Result 
+      -----------------------
+       ExtraRowsBase  Passed 
+       ExtraRowsComp  Passed 
+       ExtraColsBase  Passed 
+       ExtraColsComp  Passed 
+           Mode       Passed 
+           Class      Passed 
+        Attributes    Failed 
+          Values      Passed 
+      -----------------------
+    
+    Not all checks have passed, details are provided below
     
     
     Attribute Mismatches
@@ -128,13 +234,27 @@
       -------------------------------------------------------------------
     
     Listing of Keys
-      =====================
-            Variable       
-      ---------------------
-       -- None Provided -- 
-      ---------------------
+      ===================
+           Variable      
+      -------------------
+         None Provided   
+      -------------------
     
-    Differences were found, details are provided below
+    Check Summary
+      =======================
+           Name       Result 
+      -----------------------
+       ExtraRowsBase  Passed 
+       ExtraRowsComp  Passed 
+       ExtraColsBase  Passed 
+       ExtraColsComp  Passed 
+           Mode       Passed 
+           Class      Passed 
+        Attributes    Failed 
+          Values      Passed 
+      -----------------------
+    
+    Not all checks have passed, details are provided below
     
     
     Attribute Mismatches
@@ -160,13 +280,27 @@
       -------------------------------------------------------------------
     
     Listing of Keys
-      =====================
-            Variable       
-      ---------------------
-       -- None Provided -- 
-      ---------------------
+      ===================
+           Variable      
+      -------------------
+         None Provided   
+      -------------------
     
-    Differences were found, details are provided below
+    Check Summary
+      =======================
+           Name       Result 
+      -----------------------
+       ExtraRowsBase  Passed 
+       ExtraRowsComp  Passed 
+       ExtraColsBase  Passed 
+       ExtraColsComp  Passed 
+           Mode       Passed 
+           Class      Passed 
+        Attributes    Failed 
+          Values      Failed 
+      -----------------------
+    
+    Not all checks have passed, details are provided below
     
     
     Attribute Mismatches
@@ -209,13 +343,27 @@
       -------------------------------------------------------------------
     
     Listing of Keys
-      =====================
-            Variable       
-      ---------------------
-       -- None Provided -- 
-      ---------------------
+      ===================
+           Variable      
+      -------------------
+         None Provided   
+      -------------------
     
-    Differences were found, details are provided below
+    Check Summary
+      =======================
+           Name       Result 
+      -----------------------
+       ExtraRowsBase  Passed 
+       ExtraRowsComp  Passed 
+       ExtraColsBase  Passed 
+       ExtraColsComp  Passed 
+           Mode       Passed 
+           Class      Passed 
+        Attributes    Failed 
+          Values      Failed 
+      -----------------------
+    
+    Not all checks have passed, details are provided below
     
     
     Attribute Mismatches
@@ -258,13 +406,27 @@
       -------------------------------------------------------------------
     
     Listing of Keys
-      =====================
-            Variable       
-      ---------------------
-       -- None Provided -- 
-      ---------------------
+      ===================
+           Variable      
+      -------------------
+         None Provided   
+      -------------------
     
-    Differences were found, details are provided below
+    Check Summary
+      =======================
+           Name       Result 
+      -----------------------
+       ExtraRowsBase  Passed 
+       ExtraRowsComp  Passed 
+       ExtraColsBase  Passed 
+       ExtraColsComp  Passed 
+           Mode       Passed 
+           Class      Failed 
+        Attributes    Passed 
+          Values      Passed 
+      -----------------------
+    
+    Not all checks have passed, details are provided below
     
     
     Class Mismatches
@@ -290,13 +452,27 @@
       -------------------------------------------------------------------
     
     Listing of Keys
-      =====================
-            Variable       
-      ---------------------
-       -- None Provided -- 
-      ---------------------
+      ===================
+           Variable      
+      -------------------
+         None Provided   
+      -------------------
     
-    Differences were found, details are provided below
+    Check Summary
+      =======================
+           Name       Result 
+      -----------------------
+       ExtraRowsBase  Passed 
+       ExtraRowsComp  Passed 
+       ExtraColsBase  Passed 
+       ExtraColsComp  Passed 
+           Mode       Passed 
+           Class      Failed 
+        Attributes    Passed 
+          Values      Passed 
+      -----------------------
+    
+    Not all checks have passed, details are provided below
     
     
     Class Mismatches
@@ -322,13 +498,27 @@
       -------------------------------------------------------------------
     
     Listing of Keys
-      =====================
-            Variable       
-      ---------------------
-       -- None Provided -- 
-      ---------------------
+      ===================
+           Variable      
+      -------------------
+         None Provided   
+      -------------------
     
-    Differences were found, details are provided below
+    Check Summary
+      =======================
+           Name       Result 
+      -----------------------
+       ExtraRowsBase  Passed 
+       ExtraRowsComp  Passed 
+       ExtraColsBase  Passed 
+       ExtraColsComp  Passed 
+           Mode       Failed 
+           Class      Passed 
+        Attributes    Passed 
+          Values      Passed 
+      -----------------------
+    
+    Not all checks have passed, details are provided below
     
     
     Mode Mismatches
@@ -354,13 +544,27 @@
       -------------------------------------------------------------------
     
     Listing of Keys
-      =====================
-            Variable       
-      ---------------------
-       -- None Provided -- 
-      ---------------------
+      ===================
+           Variable      
+      -------------------
+         None Provided   
+      -------------------
     
-    Differences were found, details are provided below
+    Check Summary
+      =======================
+           Name       Result 
+      -----------------------
+       ExtraRowsBase  Passed 
+       ExtraRowsComp  Passed 
+       ExtraColsBase  Passed 
+       ExtraColsComp  Passed 
+           Mode       Failed 
+           Class      Passed 
+        Attributes    Passed 
+          Values      Passed 
+      -----------------------
+    
+    Not all checks have passed, details are provided below
     
     
     Mode Mismatches
@@ -386,13 +590,27 @@
       -------------------------------------------------------------------
     
     Listing of Keys
-      =====================
-            Variable       
-      ---------------------
-       -- None Provided -- 
-      ---------------------
+      ===================
+           Variable      
+      -------------------
+         None Provided   
+      -------------------
     
-    Differences were found, details are provided below
+    Check Summary
+      =======================
+           Name       Result 
+      -----------------------
+       ExtraRowsBase  Passed 
+       ExtraRowsComp  Passed 
+       ExtraColsBase  Failed 
+       ExtraColsComp  Passed 
+           Mode       Failed 
+           Class      Passed 
+        Attributes    Passed 
+          Values      Passed 
+      -----------------------
+    
+    Not all checks have passed, details are provided below
     
     
     Extra Columns in Base
@@ -426,13 +644,27 @@
       -------------------------------------------------------------------
     
     Listing of Keys
-      =====================
-            Variable       
-      ---------------------
-       -- None Provided -- 
-      ---------------------
+      ===================
+           Variable      
+      -------------------
+         None Provided   
+      -------------------
     
-    Differences were found, details are provided below
+    Check Summary
+      =======================
+           Name       Result 
+      -----------------------
+       ExtraRowsBase  Passed 
+       ExtraRowsComp  Passed 
+       ExtraColsBase  Failed 
+       ExtraColsComp  Passed 
+           Mode       Failed 
+           Class      Passed 
+        Attributes    Passed 
+          Values      Passed 
+      -----------------------
+    
+    Not all checks have passed, details are provided below
     
     
     Extra Columns in Base
@@ -466,13 +698,27 @@
       -------------------------------------------------------------------
     
     Listing of Keys
-      =====================
-            Variable       
-      ---------------------
-       -- None Provided -- 
-      ---------------------
+      ===================
+           Variable      
+      -------------------
+         None Provided   
+      -------------------
     
-    Differences were found, details are provided below
+    Check Summary
+      =======================
+           Name       Result 
+      -----------------------
+       ExtraRowsBase  Failed 
+       ExtraRowsComp  Passed 
+       ExtraColsBase  Passed 
+       ExtraColsComp  Passed 
+           Mode       Passed 
+           Class      Passed 
+        Attributes    Passed 
+          Values      Passed 
+      -----------------------
+    
+    Not all checks have passed, details are provided below
     
     
     Extra Rows in Base
@@ -507,13 +753,27 @@
       -------------------------------------------------------------------
     
     Listing of Keys
-      =====================
-            Variable       
-      ---------------------
-       -- None Provided -- 
-      ---------------------
+      ===================
+           Variable      
+      -------------------
+         None Provided   
+      -------------------
     
-    Differences were found, details are provided below
+    Check Summary
+      =======================
+           Name       Result 
+      -----------------------
+       ExtraRowsBase  Failed 
+       ExtraRowsComp  Passed 
+       ExtraColsBase  Passed 
+       ExtraColsComp  Passed 
+           Mode       Passed 
+           Class      Passed 
+        Attributes    Passed 
+          Values      Passed 
+      -----------------------
+    
+    Not all checks have passed, details are provided below
     
     
     Extra Rows in Base
@@ -548,13 +808,27 @@
       -------------------------------------------------------------------
     
     Listing of Keys
-      =====================
-            Variable       
-      ---------------------
-       -- None Provided -- 
-      ---------------------
+      ===================
+           Variable      
+      -------------------
+         None Provided   
+      -------------------
     
-    Differences were found, details are provided below
+    Check Summary
+      =======================
+           Name       Result 
+      -----------------------
+       ExtraRowsBase  Passed 
+       ExtraRowsComp  Passed 
+       ExtraColsBase  Passed 
+       ExtraColsComp  Passed 
+           Mode       Failed 
+           Class      Failed 
+        Attributes    Failed 
+          Values      Failed 
+      -----------------------
+    
+    Not all checks have passed, details are provided below
     
     
     Mode Mismatches
@@ -641,13 +915,27 @@
       -------------------------------------------------------------------
     
     Listing of Keys
-      =====================
-            Variable       
-      ---------------------
-       -- None Provided -- 
-      ---------------------
+      ===================
+           Variable      
+      -------------------
+         None Provided   
+      -------------------
     
-    Differences were found, details are provided below
+    Check Summary
+      =======================
+           Name       Result 
+      -----------------------
+       ExtraRowsBase  Passed 
+       ExtraRowsComp  Passed 
+       ExtraColsBase  Passed 
+       ExtraColsComp  Passed 
+           Mode       Failed 
+           Class      Failed 
+        Attributes    Failed 
+          Values      Failed 
+      -----------------------
+    
+    Not all checks have passed, details are provided below
     
     
     Mode Mismatches
@@ -734,13 +1022,27 @@
       -------------------------------------------------------------------
     
     Listing of Keys
-      =====================
-            Variable       
-      ---------------------
-       -- None Provided -- 
-      ---------------------
+      ===================
+           Variable      
+      -------------------
+         None Provided   
+      -------------------
     
-    Differences were found, details are provided below
+    Check Summary
+      =======================
+           Name       Result 
+      -----------------------
+       ExtraRowsBase  Passed 
+       ExtraRowsComp  Passed 
+       ExtraColsBase  Passed 
+       ExtraColsComp  Passed 
+           Mode       Passed 
+           Class      Passed 
+        Attributes    Passed 
+          Values      Failed 
+      -----------------------
+    
+    Not all checks have passed, details are provided below
     
     
     Value Mismatches

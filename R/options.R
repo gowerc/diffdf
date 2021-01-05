@@ -1,14 +1,5 @@
 
 
-depreciated <- function(version, old, new){
-    stop( 
-        "`",old, "`", 
-        " is depreciated as of diffdf v", version, 
-        "\nPlease use ", "`",new, "`", " instead",
-        call. = FALSE
-    )
-}
-
 #' diffopts
 #'
 #' Options to modify how diffdf performs its comparison
@@ -28,7 +19,7 @@ diffopts <- function(
     dots <- list(...)
     
     if( !is.null(dots$suppress_warnings)){
-        depreciated("2.0.0", "suppress_warnings = TRUE", "onfailure = 'nothing'")
+        stop( "`suppress_warnings = TRUE` is depreciated as of diffdf v2.0.0\nPlease use `onfailure = 'nothing'` instead" )
     }
     
     if( length(dots) != 0){

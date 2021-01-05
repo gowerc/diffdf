@@ -1,4 +1,4 @@
-
+# options("testthat.progress.max_fails" = 999)
 
 runme <- function(x){
     x2 <- diffdf(x[[1]] , x[[2]] , onfailure = "nothing")
