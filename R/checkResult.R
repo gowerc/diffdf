@@ -72,8 +72,9 @@ checkResult <- R6::R6Class(
             self$display <- display
             self$exclude_rows <- exclude_rows
             self$exclude_cols <- exclude_cols
-        }
-        
+            
+            return(invisible(self))
+        }        
     )
 )
 

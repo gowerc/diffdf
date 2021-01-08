@@ -35,6 +35,6 @@ diffdf <- function(base, compare, keys = NULL, opts = NULL, ...){
     opts <- merge_options(opts, ...)
     main <- diffMain$new(base, compare, keys, opts)
     main$perform_checks()
-    result <- main$get_result()
-    return(result)
+    main$prepare_result()
+    return(main$diff_result)
 }

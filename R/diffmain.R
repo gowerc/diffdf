@@ -24,6 +24,7 @@ diffMain <- R6::R6Class(
             self$comp <- comp
             self$keys <- keys
             self$opts <- opts
+            return(invisible(self))
         },
         
         perform_checks = function(){
@@ -43,6 +44,7 @@ diffMain <- R6::R6Class(
             for( check in checks){
                 self$perform_check(check)
             }
+            return(invisible(self))
         },
         
         perform_check = function(check_fun){
@@ -68,10 +70,10 @@ diffMain <- R6::R6Class(
             
             self$diff_result$add_checkResult(check_result)
         
-            return(invisible())
+            return(invisible(self))
         },
         
-        get_result = function(){
+        prepare_result = function(){
             
             onfailure <- self$opts$onfailure
             failurefun <- switch(onfailure,
@@ -97,7 +99,7 @@ diffMain <- R6::R6Class(
             
             self$diff_result$generate_summary()
             
-            return(self$diff_result)
+            return(invisible(self))
         }
     )
 )

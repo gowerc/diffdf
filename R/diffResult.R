@@ -23,11 +23,13 @@ diffResult <- R6::R6Class(
                 nrow_comp = nrow(comp),
                 ncol_base = ncol(base),
                 ncol_comp = ncol(comp)
-            )
+            )        
+            return(invisible(self))
         },
         
         add_checkResult = function(CR){
             self$checks[[CR$name]] <- CR
+            return(invisible(self))
         },
         
         generate_summary = function(){
@@ -88,7 +90,8 @@ diffResult <- R6::R6Class(
                     line,
                     ""
                 )
-            )
+            )        
+            return(invisible(self))
         }
     )
 )
