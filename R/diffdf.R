@@ -1,11 +1,15 @@
 #' diffdf
 #' @description  
-#' Compares 2 dataframes and provides details on any differences found
+#' Compares 2 dataframes and provides details on any differences found. 
+#' For options related to the output format as well as the ability to create a report
+#' please see \code{\link[diffdf]{print.diffResult}}
 #' @param base input dataframe
 #' @param compare comparison dataframe
 #' @param keys vector of variables (as strings) that defines a unique row in the base and compare dataframes
 #' @param opts a named list of arguments passed onto diffopts. See \code{\link[diffdf]{diffopts}}
 #' @param ... arguments passed onto diffopts (takes precedence over `opts`). See \code{\link[diffdf]{diffopts}}
+#' @import data.table 
+#' @importFrom stats setNames
 #' @examples
 #' \dontrun{
 #' library(diffdf)
@@ -25,9 +29,11 @@
 #'     var3 = factor(c("a", "b", "d"))
 #' )
 #' 
-#' x <- diffdf(dat1, dat2, keys = c("id")) 
+#' x <- diffdf(dat1, dat2, keys = c("id"))
 #' print(x, type = "html")
-#' summary(x)
+#' y <- summary(x)
+#' names(y)
+#' y$Values$var3
 #' }
 #' @export
 diffdf <- function(base, compare, keys = NULL, opts = NULL, ...){
