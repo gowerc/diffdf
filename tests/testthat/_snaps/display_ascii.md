@@ -1,6 +1,6 @@
 # Ascii - Identical
 
-    Comparison of Base vs Compare
+    Comparison of x[[1]] (Base) vs x[[2]] (Compare)
     
     Dataset Summary
       ===================================================================
@@ -38,7 +38,7 @@
 
 ---
 
-    Comparison of Base vs Compare
+    Comparison of x[[1]] (Base) vs x[[2]] (Compare)
     
     Dataset Summary
       ===================================================================
@@ -76,7 +76,7 @@
 
 # Ascii - Different Values
 
-    Comparison of Base vs Compare
+    Comparison of x[[1]] (Base) vs x[[2]] (Compare)
     
     Dataset Summary
       ===================================================================
@@ -126,7 +126,7 @@
 
 ---
 
-    Comparison of Base vs Compare
+    Comparison of x[[1]] (Base) vs x[[2]] (Compare)
     
     Dataset Summary
       ===================================================================
@@ -176,7 +176,7 @@
 
 # Ascii - Different Attributes
 
-    Comparison of Base vs Compare
+    Comparison of x[[1]] (Base) vs x[[2]] (Compare)
     
     Dataset Summary
       ===================================================================
@@ -222,7 +222,7 @@
 
 ---
 
-    Comparison of Base vs Compare
+    Comparison of x[[1]] (Base) vs x[[2]] (Compare)
     
     Dataset Summary
       ===================================================================
@@ -268,7 +268,7 @@
 
 # Ascii - Different Levels
 
-    Comparison of Base vs Compare
+    Comparison of x[[1]] (Base) vs x[[2]] (Compare)
     
     Dataset Summary
       ===================================================================
@@ -331,7 +331,7 @@
 
 ---
 
-    Comparison of Base vs Compare
+    Comparison of x[[1]] (Base) vs x[[2]] (Compare)
     
     Dataset Summary
       ===================================================================
@@ -394,7 +394,7 @@
 
 # Ascii - Difference Class
 
-    Comparison of Base vs Compare
+    Comparison of x[[1]] (Base) vs x[[2]] (Compare)
     
     Dataset Summary
       ===================================================================
@@ -440,7 +440,7 @@
 
 ---
 
-    Comparison of Base vs Compare
+    Comparison of x[[1]] (Base) vs x[[2]] (Compare)
     
     Dataset Summary
       ===================================================================
@@ -486,7 +486,7 @@
 
 # Ascii - Different Modes
 
-    Comparison of Base vs Compare
+    Comparison of x[[1]] (Base) vs x[[2]] (Compare)
     
     Dataset Summary
       ===================================================================
@@ -532,7 +532,7 @@
 
 ---
 
-    Comparison of Base vs Compare
+    Comparison of x[[1]] (Base) vs x[[2]] (Compare)
     
     Dataset Summary
       ===================================================================
@@ -578,7 +578,7 @@
 
 # Ascii - Missing Columns
 
-    Comparison of Base vs Compare
+    Comparison of x[[1]] (Base) vs x[[2]] (Compare)
     
     Dataset Summary
       ===================================================================
@@ -632,7 +632,7 @@
 
 ---
 
-    Comparison of Base vs Compare
+    Comparison of x[[1]] (Base) vs x[[2]] (Compare)
     
     Dataset Summary
       ===================================================================
@@ -686,7 +686,7 @@
 
 # Ascii - Missing Rows
 
-    Comparison of Base vs Compare
+    Comparison of x[[1]] (Base) vs x[[2]] (Compare)
     
     Dataset Summary
       ===================================================================
@@ -741,7 +741,7 @@
 
 ---
 
-    Comparison of Base vs Compare
+    Comparison of x[[1]] (Base) vs x[[2]] (Compare)
     
     Dataset Summary
       ===================================================================
@@ -796,7 +796,7 @@
 
 # Ascii - Everything
 
-    Comparison of Base vs Compare
+    Comparison of x[[1]] (Base) vs x[[2]] (Compare)
     
     Dataset Summary
       ===================================================================
@@ -903,7 +903,7 @@
 
 ---
 
-    Comparison of Base vs Compare
+    Comparison of x[[1]] (Base) vs x[[2]] (Compare)
     
     Dataset Summary
       ===================================================================
@@ -1010,7 +1010,7 @@
 
 # Ascii - Misc
 
-    Comparison of Base vs Compare
+    Comparison of x[[1]] (Base) vs x[[2]] (Compare)
     
     Dataset Summary
       ===================================================================
@@ -1053,6 +1053,62 @@
       ------------------------------
              1        <NA>          
       ------------------------------
+    
+    
+
+# Ascii - Different Values - No Summary
+
+    Comparison of x[[1]] (Base) vs x[[2]] (Compare)
+    
+    Not all checks have passed, details are provided below
+    
+    
+    Value Mismatches
+    
+    Variable: CONTINUOUS
+      ==========================================
+       ..ROWNUMBER..        Base        Compare 
+      ------------------------------------------
+             1        15.6572034240234     1    
+             5        26.1530304291068     2    
+             7        16.2928917544776     3    
+      ------------------------------------------
+    
+    
+
+---
+
+    Comparison of x[[1]] (Base) vs x[[2]] (Compare)
+    
+    Not all checks have passed, details are provided below
+    
+    
+    Value Mismatches
+    
+    Variable: CONTINUOUS
+      =======================================
+       ..ROWNUMBER..  Base      Compare      
+      ---------------------------------------
+             1         1    15.6572034240234 
+             5         2    26.1530304291068 
+             7         3    16.2928917544776 
+      ---------------------------------------
+    
+    
+
+# Ascii - Identical - No Summary
+
+    Comparison of x[[1]] (Base) vs x[[2]] (Compare)
+    
+    All checks have passed
+    
+    
+
+---
+
+    Comparison of x[[1]] (Base) vs x[[2]] (Compare)
+    
+    All checks have passed
     
     
 

@@ -9,9 +9,9 @@ diffMain <- R6::R6Class(
         opts = NULL,
         diff_result = NULL,
         
-        initialize = function(base, comp, keys, opts){
+        initialize = function(base, comp, keys, opts, call){
             
-            self$diff_result <- diffResult$new(base, comp, keys)
+            self$diff_result <- diffResult$new(base, comp, keys, call)
             
             base <- copy(as.data.table(base))
             comp <- copy(as.data.table(comp))
@@ -73,7 +73,7 @@ diffMain <- R6::R6Class(
             return(invisible(self))
         },
         
-        prepare_result = function(){
+        set_result = function(){
             
             onfailure <- self$opts$onfailure
             failurefun <- switch(onfailure,
@@ -96,8 +96,6 @@ diffMain <- R6::R6Class(
             } else {
                 self$diff_result$result <- "Passed"
             }
-            
-            self$diff_result$generate_summary()
             
             return(invisible(self))
         }

@@ -1,6 +1,6 @@
 # HTML - Identical
 
-    <h4>Comparison of Base vs Compare</h4>
+    <h4>Comparison of x[[1]] (Base) vs x[[2]] (Compare)</h4>
     
     <p>Dataset Summary</p>
     <table class='table df-table'><tr class='df-row df_header-row'><th style='text-align: center;' class='df-header'>Summary</th><th style='text-align: center;' class='df-header'>Base</th><th style='text-align: center;' class='df-header'>Compare</th></tr><tr class='df_row'><td style='text-align: center;' class='df-cell'>Number of rows</td><td style='text-align: center;' class='df-cell'>20</td><td style='text-align: center;' class='df-cell'>20</td></tr class='df_row'><tr class='df_row'><td style='text-align: center;' class='df-cell'>Number of columns</td><td style='text-align: center;' class='df-cell'>1</td><td style='text-align: center;' class='df-cell'>1</td></tr class='df_row'><tr class='df_row'><td style='text-align: center;' class='df-cell'>Class</td><td style='text-align: center;' class='df-cell'>data.table, data.frame</td><td style='text-align: center;' class='df-cell'>data.table, data.frame</td></tr class='df_row'></table>
@@ -17,7 +17,7 @@
 
 ---
 
-    <h4>Comparison of Base vs Compare</h4>
+    <h4>Comparison of x[[1]] (Base) vs x[[2]] (Compare)</h4>
     
     <p>Dataset Summary</p>
     <table class='table df-table'><tr class='df-row df_header-row'><th style='text-align: center;' class='df-header'>Summary</th><th style='text-align: center;' class='df-header'>Base</th><th style='text-align: center;' class='df-header'>Compare</th></tr><tr class='df_row'><td style='text-align: center;' class='df-cell'>Number of rows</td><td style='text-align: center;' class='df-cell'>20</td><td style='text-align: center;' class='df-cell'>20</td></tr class='df_row'><tr class='df_row'><td style='text-align: center;' class='df-cell'>Number of columns</td><td style='text-align: center;' class='df-cell'>1</td><td style='text-align: center;' class='df-cell'>1</td></tr class='df_row'><tr class='df_row'><td style='text-align: center;' class='df-cell'>Class</td><td style='text-align: center;' class='df-cell'>data.table, data.frame</td><td style='text-align: center;' class='df-cell'>data.table, data.frame</td></tr class='df_row'></table>
@@ -34,7 +34,7 @@
 
 # HTML - Different Values
 
-    <h4>Comparison of Base vs Compare</h4>
+    <h4>Comparison of x[[1]] (Base) vs x[[2]] (Compare)</h4>
     
     <p>Dataset Summary</p>
     <table class='table df-table'><tr class='df-row df_header-row'><th style='text-align: center;' class='df-header'>Summary</th><th style='text-align: center;' class='df-header'>Base</th><th style='text-align: center;' class='df-header'>Compare</th></tr><tr class='df_row'><td style='text-align: center;' class='df-cell'>Number of rows</td><td style='text-align: center;' class='df-cell'>20</td><td style='text-align: center;' class='df-cell'>20</td></tr class='df_row'><tr class='df_row'><td style='text-align: center;' class='df-cell'>Number of columns</td><td style='text-align: center;' class='df-cell'>2</td><td style='text-align: center;' class='df-cell'>2</td></tr class='df_row'><tr class='df_row'><td style='text-align: center;' class='df-cell'>Class</td><td style='text-align: center;' class='df-cell'>data.table, data.frame</td><td style='text-align: center;' class='df-cell'>data.table, data.frame</td></tr class='df_row'></table>
@@ -57,7 +57,7 @@
 
 ---
 
-    <h4>Comparison of Base vs Compare</h4>
+    <h4>Comparison of x[[1]] (Base) vs x[[2]] (Compare)</h4>
     
     <p>Dataset Summary</p>
     <table class='table df-table'><tr class='df-row df_header-row'><th style='text-align: center;' class='df-header'>Summary</th><th style='text-align: center;' class='df-header'>Base</th><th style='text-align: center;' class='df-header'>Compare</th></tr><tr class='df_row'><td style='text-align: center;' class='df-cell'>Number of rows</td><td style='text-align: center;' class='df-cell'>20</td><td style='text-align: center;' class='df-cell'>20</td></tr class='df_row'><tr class='df_row'><td style='text-align: center;' class='df-cell'>Number of columns</td><td style='text-align: center;' class='df-cell'>2</td><td style='text-align: center;' class='df-cell'>2</td></tr class='df_row'><tr class='df_row'><td style='text-align: center;' class='df-cell'>Class</td><td style='text-align: center;' class='df-cell'>data.table, data.frame</td><td style='text-align: center;' class='df-cell'>data.table, data.frame</td></tr class='df_row'></table>
@@ -80,7 +80,7 @@
 
 # HTML - Different Attributes
 
-    <h4>Comparison of Base vs Compare</h4>
+    <h4>Comparison of x[[1]] (Base) vs x[[2]] (Compare)</h4>
     
     <p>Dataset Summary</p>
     <table class='table df-table'><tr class='df-row df_header-row'><th style='text-align: center;' class='df-header'>Summary</th><th style='text-align: center;' class='df-header'>Base</th><th style='text-align: center;' class='df-header'>Compare</th></tr><tr class='df_row'><td style='text-align: center;' class='df-cell'>Number of rows</td><td style='text-align: center;' class='df-cell'>20</td><td style='text-align: center;' class='df-cell'>20</td></tr class='df_row'><tr class='df_row'><td style='text-align: center;' class='df-cell'>Number of columns</td><td style='text-align: center;' class='df-cell'>2</td><td style='text-align: center;' class='df-cell'>2</td></tr class='df_row'><tr class='df_row'><td style='text-align: center;' class='df-cell'>Class</td><td style='text-align: center;' class='df-cell'>data.table, data.frame</td><td style='text-align: center;' class='df-cell'>data.table, data.frame</td></tr class='df_row'></table>
@@ -101,7 +101,7 @@
 
 ---
 
-    <h4>Comparison of Base vs Compare</h4>
+    <h4>Comparison of x[[1]] (Base) vs x[[2]] (Compare)</h4>
     
     <p>Dataset Summary</p>
     <table class='table df-table'><tr class='df-row df_header-row'><th style='text-align: center;' class='df-header'>Summary</th><th style='text-align: center;' class='df-header'>Base</th><th style='text-align: center;' class='df-header'>Compare</th></tr><tr class='df_row'><td style='text-align: center;' class='df-cell'>Number of rows</td><td style='text-align: center;' class='df-cell'>20</td><td style='text-align: center;' class='df-cell'>20</td></tr class='df_row'><tr class='df_row'><td style='text-align: center;' class='df-cell'>Number of columns</td><td style='text-align: center;' class='df-cell'>2</td><td style='text-align: center;' class='df-cell'>2</td></tr class='df_row'><tr class='df_row'><td style='text-align: center;' class='df-cell'>Class</td><td style='text-align: center;' class='df-cell'>data.table, data.frame</td><td style='text-align: center;' class='df-cell'>data.table, data.frame</td></tr class='df_row'></table>
@@ -122,7 +122,7 @@
 
 # HTML - Different Levels
 
-    <h4>Comparison of Base vs Compare</h4>
+    <h4>Comparison of x[[1]] (Base) vs x[[2]] (Compare)</h4>
     
     <p>Dataset Summary</p>
     <table class='table df-table'><tr class='df-row df_header-row'><th style='text-align: center;' class='df-header'>Summary</th><th style='text-align: center;' class='df-header'>Base</th><th style='text-align: center;' class='df-header'>Compare</th></tr><tr class='df_row'><td style='text-align: center;' class='df-cell'>Number of rows</td><td style='text-align: center;' class='df-cell'>20</td><td style='text-align: center;' class='df-cell'>20</td></tr class='df_row'><tr class='df_row'><td style='text-align: center;' class='df-cell'>Number of columns</td><td style='text-align: center;' class='df-cell'>2</td><td style='text-align: center;' class='df-cell'>2</td></tr class='df_row'><tr class='df_row'><td style='text-align: center;' class='df-cell'>Class</td><td style='text-align: center;' class='df-cell'>data.table, data.frame</td><td style='text-align: center;' class='df-cell'>data.table, data.frame</td></tr class='df_row'></table>
@@ -149,7 +149,7 @@
 
 ---
 
-    <h4>Comparison of Base vs Compare</h4>
+    <h4>Comparison of x[[1]] (Base) vs x[[2]] (Compare)</h4>
     
     <p>Dataset Summary</p>
     <table class='table df-table'><tr class='df-row df_header-row'><th style='text-align: center;' class='df-header'>Summary</th><th style='text-align: center;' class='df-header'>Base</th><th style='text-align: center;' class='df-header'>Compare</th></tr><tr class='df_row'><td style='text-align: center;' class='df-cell'>Number of rows</td><td style='text-align: center;' class='df-cell'>20</td><td style='text-align: center;' class='df-cell'>20</td></tr class='df_row'><tr class='df_row'><td style='text-align: center;' class='df-cell'>Number of columns</td><td style='text-align: center;' class='df-cell'>2</td><td style='text-align: center;' class='df-cell'>2</td></tr class='df_row'><tr class='df_row'><td style='text-align: center;' class='df-cell'>Class</td><td style='text-align: center;' class='df-cell'>data.table, data.frame</td><td style='text-align: center;' class='df-cell'>data.table, data.frame</td></tr class='df_row'></table>
@@ -176,7 +176,7 @@
 
 # HTML - Difference Class
 
-    <h4>Comparison of Base vs Compare</h4>
+    <h4>Comparison of x[[1]] (Base) vs x[[2]] (Compare)</h4>
     
     <p>Dataset Summary</p>
     <table class='table df-table'><tr class='df-row df_header-row'><th style='text-align: center;' class='df-header'>Summary</th><th style='text-align: center;' class='df-header'>Base</th><th style='text-align: center;' class='df-header'>Compare</th></tr><tr class='df_row'><td style='text-align: center;' class='df-cell'>Number of rows</td><td style='text-align: center;' class='df-cell'>20</td><td style='text-align: center;' class='df-cell'>20</td></tr class='df_row'><tr class='df_row'><td style='text-align: center;' class='df-cell'>Number of columns</td><td style='text-align: center;' class='df-cell'>2</td><td style='text-align: center;' class='df-cell'>2</td></tr class='df_row'><tr class='df_row'><td style='text-align: center;' class='df-cell'>Class</td><td style='text-align: center;' class='df-cell'>data.table, data.frame</td><td style='text-align: center;' class='df-cell'>data.table, data.frame</td></tr class='df_row'></table>
@@ -197,7 +197,7 @@
 
 ---
 
-    <h4>Comparison of Base vs Compare</h4>
+    <h4>Comparison of x[[1]] (Base) vs x[[2]] (Compare)</h4>
     
     <p>Dataset Summary</p>
     <table class='table df-table'><tr class='df-row df_header-row'><th style='text-align: center;' class='df-header'>Summary</th><th style='text-align: center;' class='df-header'>Base</th><th style='text-align: center;' class='df-header'>Compare</th></tr><tr class='df_row'><td style='text-align: center;' class='df-cell'>Number of rows</td><td style='text-align: center;' class='df-cell'>20</td><td style='text-align: center;' class='df-cell'>20</td></tr class='df_row'><tr class='df_row'><td style='text-align: center;' class='df-cell'>Number of columns</td><td style='text-align: center;' class='df-cell'>2</td><td style='text-align: center;' class='df-cell'>2</td></tr class='df_row'><tr class='df_row'><td style='text-align: center;' class='df-cell'>Class</td><td style='text-align: center;' class='df-cell'>data.table, data.frame</td><td style='text-align: center;' class='df-cell'>data.table, data.frame</td></tr class='df_row'></table>
@@ -218,7 +218,7 @@
 
 # HTML - Different Modes
 
-    <h4>Comparison of Base vs Compare</h4>
+    <h4>Comparison of x[[1]] (Base) vs x[[2]] (Compare)</h4>
     
     <p>Dataset Summary</p>
     <table class='table df-table'><tr class='df-row df_header-row'><th style='text-align: center;' class='df-header'>Summary</th><th style='text-align: center;' class='df-header'>Base</th><th style='text-align: center;' class='df-header'>Compare</th></tr><tr class='df_row'><td style='text-align: center;' class='df-cell'>Number of rows</td><td style='text-align: center;' class='df-cell'>20</td><td style='text-align: center;' class='df-cell'>20</td></tr class='df_row'><tr class='df_row'><td style='text-align: center;' class='df-cell'>Number of columns</td><td style='text-align: center;' class='df-cell'>2</td><td style='text-align: center;' class='df-cell'>2</td></tr class='df_row'><tr class='df_row'><td style='text-align: center;' class='df-cell'>Class</td><td style='text-align: center;' class='df-cell'>data.table, data.frame</td><td style='text-align: center;' class='df-cell'>data.table, data.frame</td></tr class='df_row'></table>
@@ -239,7 +239,7 @@
 
 ---
 
-    <h4>Comparison of Base vs Compare</h4>
+    <h4>Comparison of x[[1]] (Base) vs x[[2]] (Compare)</h4>
     
     <p>Dataset Summary</p>
     <table class='table df-table'><tr class='df-row df_header-row'><th style='text-align: center;' class='df-header'>Summary</th><th style='text-align: center;' class='df-header'>Base</th><th style='text-align: center;' class='df-header'>Compare</th></tr><tr class='df_row'><td style='text-align: center;' class='df-cell'>Number of rows</td><td style='text-align: center;' class='df-cell'>20</td><td style='text-align: center;' class='df-cell'>20</td></tr class='df_row'><tr class='df_row'><td style='text-align: center;' class='df-cell'>Number of columns</td><td style='text-align: center;' class='df-cell'>2</td><td style='text-align: center;' class='df-cell'>2</td></tr class='df_row'><tr class='df_row'><td style='text-align: center;' class='df-cell'>Class</td><td style='text-align: center;' class='df-cell'>data.table, data.frame</td><td style='text-align: center;' class='df-cell'>data.table, data.frame</td></tr class='df_row'></table>
@@ -260,7 +260,7 @@
 
 # HTML - Missing Columns
 
-    <h4>Comparison of Base vs Compare</h4>
+    <h4>Comparison of x[[1]] (Base) vs x[[2]] (Compare)</h4>
     
     <p>Dataset Summary</p>
     <table class='table df-table'><tr class='df-row df_header-row'><th style='text-align: center;' class='df-header'>Summary</th><th style='text-align: center;' class='df-header'>Base</th><th style='text-align: center;' class='df-header'>Compare</th></tr><tr class='df_row'><td style='text-align: center;' class='df-cell'>Number of rows</td><td style='text-align: center;' class='df-cell'>20</td><td style='text-align: center;' class='df-cell'>20</td></tr class='df_row'><tr class='df_row'><td style='text-align: center;' class='df-cell'>Number of columns</td><td style='text-align: center;' class='df-cell'>3</td><td style='text-align: center;' class='df-cell'>2</td></tr class='df_row'><tr class='df_row'><td style='text-align: center;' class='df-cell'>Class</td><td style='text-align: center;' class='df-cell'>data.table, data.frame</td><td style='text-align: center;' class='df-cell'>data.table, data.frame</td></tr class='df_row'></table>
@@ -285,7 +285,7 @@
 
 ---
 
-    <h4>Comparison of Base vs Compare</h4>
+    <h4>Comparison of x[[1]] (Base) vs x[[2]] (Compare)</h4>
     
     <p>Dataset Summary</p>
     <table class='table df-table'><tr class='df-row df_header-row'><th style='text-align: center;' class='df-header'>Summary</th><th style='text-align: center;' class='df-header'>Base</th><th style='text-align: center;' class='df-header'>Compare</th></tr><tr class='df_row'><td style='text-align: center;' class='df-cell'>Number of rows</td><td style='text-align: center;' class='df-cell'>20</td><td style='text-align: center;' class='df-cell'>20</td></tr class='df_row'><tr class='df_row'><td style='text-align: center;' class='df-cell'>Number of columns</td><td style='text-align: center;' class='df-cell'>3</td><td style='text-align: center;' class='df-cell'>2</td></tr class='df_row'><tr class='df_row'><td style='text-align: center;' class='df-cell'>Class</td><td style='text-align: center;' class='df-cell'>data.table, data.frame</td><td style='text-align: center;' class='df-cell'>data.table, data.frame</td></tr class='df_row'></table>
@@ -310,7 +310,7 @@
 
 # HTML - Missing Rows
 
-    <h4>Comparison of Base vs Compare</h4>
+    <h4>Comparison of x[[1]] (Base) vs x[[2]] (Compare)</h4>
     
     <p>Dataset Summary</p>
     <table class='table df-table'><tr class='df-row df_header-row'><th style='text-align: center;' class='df-header'>Summary</th><th style='text-align: center;' class='df-header'>Base</th><th style='text-align: center;' class='df-header'>Compare</th></tr><tr class='df_row'><td style='text-align: center;' class='df-cell'>Number of rows</td><td style='text-align: center;' class='df-cell'>20</td><td style='text-align: center;' class='df-cell'>10</td></tr class='df_row'><tr class='df_row'><td style='text-align: center;' class='df-cell'>Number of columns</td><td style='text-align: center;' class='df-cell'>2</td><td style='text-align: center;' class='df-cell'>2</td></tr class='df_row'><tr class='df_row'><td style='text-align: center;' class='df-cell'>Class</td><td style='text-align: center;' class='df-cell'>data.table, data.frame</td><td style='text-align: center;' class='df-cell'>data.table, data.frame</td></tr class='df_row'></table>
@@ -331,7 +331,7 @@
 
 ---
 
-    <h4>Comparison of Base vs Compare</h4>
+    <h4>Comparison of x[[1]] (Base) vs x[[2]] (Compare)</h4>
     
     <p>Dataset Summary</p>
     <table class='table df-table'><tr class='df-row df_header-row'><th style='text-align: center;' class='df-header'>Summary</th><th style='text-align: center;' class='df-header'>Base</th><th style='text-align: center;' class='df-header'>Compare</th></tr><tr class='df_row'><td style='text-align: center;' class='df-cell'>Number of rows</td><td style='text-align: center;' class='df-cell'>20</td><td style='text-align: center;' class='df-cell'>10</td></tr class='df_row'><tr class='df_row'><td style='text-align: center;' class='df-cell'>Number of columns</td><td style='text-align: center;' class='df-cell'>2</td><td style='text-align: center;' class='df-cell'>2</td></tr class='df_row'><tr class='df_row'><td style='text-align: center;' class='df-cell'>Class</td><td style='text-align: center;' class='df-cell'>data.table, data.frame</td><td style='text-align: center;' class='df-cell'>data.table, data.frame</td></tr class='df_row'></table>
@@ -352,7 +352,7 @@
 
 # HTML - Everything
 
-    <h4>Comparison of Base vs Compare</h4>
+    <h4>Comparison of x[[1]] (Base) vs x[[2]] (Compare)</h4>
     
     <p>Dataset Summary</p>
     <table class='table df-table'><tr class='df-row df_header-row'><th style='text-align: center;' class='df-header'>Summary</th><th style='text-align: center;' class='df-header'>Base</th><th style='text-align: center;' class='df-header'>Compare</th></tr><tr class='df_row'><td style='text-align: center;' class='df-cell'>Number of rows</td><td style='text-align: center;' class='df-cell'>20</td><td style='text-align: center;' class='df-cell'>20</td></tr class='df_row'><tr class='df_row'><td style='text-align: center;' class='df-cell'>Number of columns</td><td style='text-align: center;' class='df-cell'>11</td><td style='text-align: center;' class='df-cell'>11</td></tr class='df_row'><tr class='df_row'><td style='text-align: center;' class='df-cell'>Class</td><td style='text-align: center;' class='df-cell'>data.table, data.frame</td><td style='text-align: center;' class='df-cell'>data.table, data.frame</td></tr class='df_row'></table>
@@ -393,7 +393,7 @@
 
 ---
 
-    <h4>Comparison of Base vs Compare</h4>
+    <h4>Comparison of x[[1]] (Base) vs x[[2]] (Compare)</h4>
     
     <p>Dataset Summary</p>
     <table class='table df-table'><tr class='df-row df_header-row'><th style='text-align: center;' class='df-header'>Summary</th><th style='text-align: center;' class='df-header'>Base</th><th style='text-align: center;' class='df-header'>Compare</th></tr><tr class='df_row'><td style='text-align: center;' class='df-cell'>Number of rows</td><td style='text-align: center;' class='df-cell'>20</td><td style='text-align: center;' class='df-cell'>20</td></tr class='df_row'><tr class='df_row'><td style='text-align: center;' class='df-cell'>Number of columns</td><td style='text-align: center;' class='df-cell'>11</td><td style='text-align: center;' class='df-cell'>11</td></tr class='df_row'><tr class='df_row'><td style='text-align: center;' class='df-cell'>Class</td><td style='text-align: center;' class='df-cell'>data.table, data.frame</td><td style='text-align: center;' class='df-cell'>data.table, data.frame</td></tr class='df_row'></table>
@@ -434,7 +434,7 @@
 
 # HTML - Misc
 
-    <h4>Comparison of Base vs Compare</h4>
+    <h4>Comparison of x[[1]] (Base) vs x[[2]] (Compare)</h4>
     
     <p>Dataset Summary</p>
     <table class='table df-table'><tr class='df-row df_header-row'><th style='text-align: center;' class='df-header'>Summary</th><th style='text-align: center;' class='df-header'>Base</th><th style='text-align: center;' class='df-header'>Compare</th></tr><tr class='df_row'><td style='text-align: center;' class='df-cell'>Number of rows</td><td style='text-align: center;' class='df-cell'>20</td><td style='text-align: center;' class='df-cell'>20</td></tr class='df_row'><tr class='df_row'><td style='text-align: center;' class='df-cell'>Number of columns</td><td style='text-align: center;' class='df-cell'>11</td><td style='text-align: center;' class='df-cell'>11</td></tr class='df_row'><tr class='df_row'><td style='text-align: center;' class='df-cell'>Class</td><td style='text-align: center;' class='df-cell'>data.table, data.frame</td><td style='text-align: center;' class='df-cell'>data.table, data.frame</td></tr class='df_row'></table>

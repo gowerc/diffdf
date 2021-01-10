@@ -8,14 +8,13 @@ diffResult <- R6::R6Class(
         checks = list(),
         result = NULL, 
         meta = NULL,
-        check_summary = NULL,
-        summary = NULL,
         keys = NULL,
+        call = NULL,
         
-        initialize = function(base, comp, keys = NULL){
+        initialize = function(base, comp, keys = NULL, call){
             
             self$keys = keys
-            
+            self$call = call
             self$meta = list(
                 class_base = class(base),
                 class_comp = class(comp),
@@ -28,12 +27,19 @@ diffResult <- R6::R6Class(
         },
         
         add_checkResult = function(CR){
+            stopifnot( "checkResult" %in% class(CR))
             self$checks[[CR$name]] <- CR
             return(invisible(self))
         },
         
-        generate_summary = function(){
+        get_display_header = function(dfsummary = TRUE){
             
+            if(self$result == "Passed"){
+                line <- "All checks have passed"
+            } else {
+                line <- "Not all checks have passed, details are provided below"
+            }
+        
             if(is.null(self$keys)){
                 keys <- "  None Provided  "
             } else {
@@ -67,31 +73,26 @@ diffResult <- R6::R6Class(
                 ))
             }
             
-            self$check_summary = results
-            
-            if(self$result == "Passed"){
-                line <- "All checks have passed"
+            if(dfsummary){
+                header <- list(
+                    "Dataset Summary", dfsum, "",
+                    "Listing of Keys", keysum, "",
+                    "Check Summary", results, ""
+                )
             } else {
-                line <- "Not all checks have passed, details are provided below"
+                header <- list()
             }
             
-            self$summary <- display$new(
-                title = sprintf("Comparison of Base vs Compare"),
-                body = list(
-                    "Dataset Summary",
-                    dfsum,
-                    "",
-                    "Listing of Keys",
-                    keysum,
-                    "",
-                    "Check Summary",
-                    results,
-                    "",
-                    line,
-                    ""
-                )
+            disp <- display$new(
+                title = sprintf(
+                    "Comparison of %s (Base) vs %s (Compare)", 
+                    deparse(self$call$base), 
+                    deparse(self$call$compare)
+                ),
+                body = append(header, list(line, ""))
             )        
-            return(invisible(self))
+            
+            return(disp)
         }
     )
 )
@@ -109,6 +110,7 @@ diffResult <- R6::R6Class(
 #' @param rowlimit How many rows of a display dataset should be shown (default = 10)
 #' @param file Location and name of a text file to output the results to. Setting to NULL will cause no file to be produced.
 #' @param display Whether to print the rendered output in the R console
+#' @param dfsummary Whether to print a summary of the two datasets in addition to check information
 #' @param ... Additional arguments (not used)
 #' 
 #' @export
@@ -118,9 +120,10 @@ print.diffResult <- function(
     rowlimit = 10, 
     file = NULL, 
     display = is.null(file), 
+    dfsummary = TRUE,
     ...
 ){
-        
+    
     stopifnot(
         any(type %in% c("ascii", "html"))
     )
@@ -138,7 +141,10 @@ print.diffResult <- function(
         failed_displays
     )
     
-    displays <- append(x$summary, failed_displays)
+    displays <- append(
+        x$get_display_header(dfsummary = dfsummary), 
+        failed_displays
+    )
     
     strings_list <- lapply(
         displays,

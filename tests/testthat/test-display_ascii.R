@@ -1,8 +1,8 @@
 # options("testthat.progress.max_fails" = 999)
 
-runme <- function(x){
+runme <- function(x, dfsummary = TRUE){
     x2 <- diffdf(x[[1]] , x[[2]] , onfailure = "nothing")
-    expect_snapshot_output( cat(as.character(x2, type = "ascii"), sep = "\n") )
+    expect_snapshot_output( cat(as.character(x2, type = "ascii", dfsummary = dfsummary), sep = "\n") )
 }
 
 
@@ -65,7 +65,16 @@ test_that("Ascii - Misc",{
 })
 
 
+ 
+## No summary
+
+test_that("Ascii - Different Values - No Summary",{
+    runme(list_of_comparisons$`Different Values`, dfsummary = FALSE)
+    runme(list_of_comparisons$`Different Values 2`, dfsummary = FALSE )
+})
     
-    
-    
+test_that("Ascii - Identical - No Summary", {
+    runme(list_of_comparisons$Identical, dfsummary = FALSE)
+    runme(list_of_comparisons$`Identical 2`, dfsummary = FALSE )
+})
     

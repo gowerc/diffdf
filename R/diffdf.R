@@ -37,10 +37,11 @@
 #' }
 #' @export
 diffdf <- function(base, compare, keys = NULL, opts = NULL, ...){
+    CALL <- match.call(expand.dots = FALSE)
     setDTthreads(1)
     opts <- merge_options(opts, ...)
-    main <- diffMain$new(base, compare, keys, opts)
+    main <- diffMain$new(base, compare, keys, opts, CALL)
     main$perform_checks()
-    main$prepare_result()
+    main$set_result()
     return(main$diff_result)
 }
