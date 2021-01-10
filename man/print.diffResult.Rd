@@ -11,6 +11,7 @@
   rowlimit = 10,
   file = NULL,
   display = is.null(file),
+  dfsummary = TRUE,
   ...
 )
 
@@ -26,6 +27,8 @@
 \item{file}{Location and name of a text file to output the results to. Setting to NULL will cause no file to be produced.}
 
 \item{display}{Whether to print the rendered output in the R console}
+
+\item{dfsummary}{Whether to print a summary of the two datasets in addition to check information}
 
 \item{...}{Additional arguments (not used)}
 }
