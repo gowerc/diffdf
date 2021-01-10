@@ -73,7 +73,7 @@ diffMain <- R6::R6Class(
             return(invisible(self))
         },
         
-        set_result = function(){
+        set_results = function(){
             
             onfailure <- self$opts$onfailure
             failurefun <- switch(onfailure,
@@ -83,12 +83,24 @@ diffMain <- R6::R6Class(
                 "nothing" = function(x){invisible()}
             )
             
-            x <- Filter(
+            as_df_row <- function(x){
+                data.table(
+                    Name = x$name,
+                    Result = x$result
+                )
+            }
+            list_of_results <- lapply(self$diff_result$checks, as_df_row)
+            self$diff_result$check_results  <- do.call(rbind, list_of_results)
+            
+            
+            failed_checks <- Filter(
                 function(x) x$result == "Failed",
                 self$diff_result$checks
             )
             
-            xmsg <- unlist(lapply(x, function(x) c(" - ", x$message, "\n")))
+            xmsg <- unlist(
+                lapply(failed_checks, function(x) c(" - ", x$message, "\n"))
+            )
    
             if(length(xmsg) > 0){
                 failurefun(c("diffdf comparison has failed\n",xmsg))

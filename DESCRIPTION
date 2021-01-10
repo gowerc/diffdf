@@ -16,6 +16,7 @@ Depends:
     R (>= 3.5.0)
 Imports:
     data.table (>= 1.10.0), 
+    tibble,
     R6 (>= 2.0.0)
 Suggests:
     testthat (>= 3.0.1),

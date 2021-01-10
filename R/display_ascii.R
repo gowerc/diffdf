@@ -60,7 +60,7 @@ invert <- function(x){
 #' @param dat Input dataset to convert into a ascii table
 #' @param limitstring A string indicating whether the dataset has been subset
 #' @param line_prefix Symbols to prefix infront of every line of the table
-as_ascii_table <- function(dat, limitstring, line_prefix = "  "){
+as_ascii_table <- function(dat, limitstring = NA, line_prefix = "  "){
     
     
     ## Convert every value to character and crop to a suitable length

@@ -10,6 +10,7 @@ diffResult <- R6::R6Class(
         meta = NULL,
         keys = NULL,
         call = NULL,
+        check_results = NULL,
         
         initialize = function(base, comp, keys = NULL, call){
             
@@ -62,22 +63,11 @@ diffResult <- R6::R6Class(
                 stringsAsFactors = FALSE
             )
             
-            results <- data.table(
-                Name = character(0),
-                Result = character(0)
-            )
-            for( i in self$checks){
-                results <- rbind(results, data.table(
-                    Name = i$name,
-                    Result = i$result
-                ))
-            }
-            
             if(dfsummary){
                 header <- list(
                     "Dataset Summary", dfsum, "",
                     "Listing of Keys", keysum, "",
-                    "Check Summary", results, ""
+                    "Check Summary", self$check_results, ""
                 )
             } else {
                 header <- list()
@@ -186,10 +176,28 @@ summary.diffResult <- function(object, ...){
     x <- list()
     for( i in object$checks){
         if( i[["result"]] == "Failed"){
-            x[[i[["name"]]]] <- i$data
+            
+            k <- i$data
+            
+            ## If a dataset convert to tibble
+            if( is.data.frame(k)) {
+                k <- tibble::as_tibble(k)
+            }
+            
+            ## If list of datasets loop through the list converting them to tibbles
+            if( is.list(k)){
+                for( data in names(k)){
+                    k2 <- k[[data]]
+                    if( is.data.frame(k2)){
+                        k[[data]] <- tibble::as_tibble(k2)
+                    }
+                }
+            }
+            
+            x[[i[["name"]]]] <- k
         }
     }
-    attr(x, "Results") <- object$check_summary
+    attr(x, "Results") <- object$check_results
     class(x) <- "diffSummary"
     return(x)
 }
@@ -198,6 +206,10 @@ summary.diffResult <- function(object, ...){
 
 #' @export
 print.diffSummary <- function(x, ...){
-    print(attr(x, "Results"))
+    obj <- attr(x, "Results")
+    render_ascii$print(
+        render_ascii$as_table(obj)
+    )
+    return(invisible(tibble::as_tibble(obj)))
 }
 
