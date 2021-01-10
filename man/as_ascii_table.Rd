@@ -4,7 +4,7 @@
 \alias{as_ascii_table}
 \title{as_ascii_table}
 \usage{
-as_ascii_table(dat, limitstring, line_prefix = "  ")
+as_ascii_table(dat, limitstring = NA, line_prefix = "  ")
 }
 \arguments{
 \item{dat}{Input dataset to convert into a ascii table}
