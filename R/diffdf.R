@@ -6,8 +6,10 @@
 #' @param base input dataframe
 #' @param compare comparison dataframe
 #' @param keys vector of variables (as strings) that defines a unique row in the base and compare dataframes
-#' @param opts a named list of arguments passed onto diffopts. See \code{\link[diffdf]{diffopts}}
-#' @param ... arguments passed onto diffopts (takes precedence over `opts`). See \code{\link[diffdf]{diffopts}}
+#' @param opts a named list of arguments passed onto diffopts which control how the comparison is performed.  
+#' See \code{\link[diffdf]{diffopts}} for more information
+#' @param ... arguments passed onto diffopts which control how the comparison is performed.  
+#' See \code{\link[diffdf]{diffopts}} for more information (takes precedence over `opts`).
 #' @import data.table 
 #' @importFrom stats setNames
 #' @examples

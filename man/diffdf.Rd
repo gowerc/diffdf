@@ -13,9 +13,11 @@ diffdf(base, compare, keys = NULL, opts = NULL, ...)
 
 \item{keys}{vector of variables (as strings) that defines a unique row in the base and compare dataframes}
 
-\item{opts}{a named list of arguments passed onto diffopts. See \code{\link[diffdf]{diffopts}}}
+\item{opts}{a named list of arguments passed onto diffopts which control how the comparison is performed.
+See \code{\link[diffdf]{diffopts}} for more information}
 
-\item{...}{arguments passed onto diffopts (takes precedence over `opts`). See \code{\link[diffdf]{diffopts}}}
+\item{...}{arguments passed onto diffopts which control how the comparison is performed.
+See \code{\link[diffdf]{diffopts}} for more information (takes precedence over `opts`).}
 }
 \description{
 Compares 2 dataframes and provides details on any differences found. 
