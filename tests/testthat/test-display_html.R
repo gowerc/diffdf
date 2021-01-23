@@ -1,3 +1,5 @@
+# options("testthat.progress.max_fails" = 999)
+
 runme <- function(x){
     x2 <- diffdf(x[[1]] , x[[2]] , onfailure = "nothing")
     expect_snapshot_output( cat(as.character(x2, type = "html"), sep = "\n") )
