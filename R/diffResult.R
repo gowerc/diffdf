@@ -65,22 +65,30 @@ diffResult <- R6::R6Class(
             
             if(dfsummary){
                 header <- list(
-                    "Dataset Summary", dfsum, "",
-                    "Listing of Keys", keysum, "",
-                    "Check Summary", self$check_results, ""
+                    "h4" = "Dataset Summary", 
+                    "table" = dfsum, 
+                    "br" = "",
+                    "h4" = "Listing of Keys", 
+                    "table" = keysum, 
+                    "br" = "",
+                    "h4" = "Check Summary", 
+                    "table" = self$check_results, 
+                    "br" = ""
                 )
             } else {
                 header <- list()
             }
             
-            disp <- display$new(
-                title = sprintf(
+            title <- list(
+                "h2" = sprintf(
                     "Comparison of %s (Base) vs %s (Compare)", 
                     deparse(self$call$base), 
                     deparse(self$call$compare)
                 ),
-                body = append(header, list(line, ""))
-            )        
+                "br" = ""
+            )
+            
+            disp  = append(title, header)
             
             return(disp)
         }
@@ -118,8 +126,8 @@ print.diffResult <- function(
         any(type %in% c("ascii", "html"))
     )
     
-    if( type == "ascii") render <- render_ascii
-    if( type == "html") render <- render_html
+    if( type == "ascii") renderer <- render_ascii
+    if( type == "html") renderer <- render_html
     
     failed_displays <- Filter(
         function(x){ x$result == "Failed" },
@@ -130,23 +138,26 @@ print.diffResult <- function(
         function(x) x$display,
         failed_displays
     )
-    
+
+    failed_displays_flat <- list()
+    for( i in seq_along(failed_displays)){
+        failed_displays_flat <- append(failed_displays_flat, failed_displays[[i]])
+    }
+        
     displays <- append(
         x$get_display_header(dfsummary = dfsummary), 
-        failed_displays
+        failed_displays_flat
     )
     
-    strings_list <- lapply(
+    rend <- renderer$new(
         displays,
-        function(x) x$as.character(render, rowlimit = rowlimit)
+        rowlimit = rowlimit
     )
     
-    strings = unlist(strings_list, use.names = FALSE)
+    if(display) rend$display()
+    if(!is.null(file)) render$file(file)
     
-    if(display) render$print(strings)
-    if (!is.null(file)) render$file(file, strings)
-    
-    return(invisible(strings))
+    return(invisible(rend$strings))
 }
 
 

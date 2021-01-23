@@ -7,9 +7,9 @@ check_extra_cols <- function(df1, df2, name, message, dname){
 
     dat <- data.table("Columns" = extra)
     
-    disp <- display$new(
-        title = paste0("Extra Columns in ", dname),
-        body = list(dat)
+    disp <- list(
+        "h4" = paste0("Extra Columns in ", dname),
+        "table" = dat
     )
     
     CR <- checkResult$new(
