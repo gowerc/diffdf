@@ -83,7 +83,15 @@ as_html_table <- function(df, limitstring){
     header <- sapply( names(df), add_tag , "th", args = "style='text-align: center;' class='df-header'")
     header_row <- add_tag( header , "tr", args = "class='df-row df_header-row'")
     
-    add_tag( c( header_row, dat_rows, caption), "table", "class='table df-table'")
+    add_tag( 
+        c( 
+            add_tag(header_row, "thead", "class='thead-light'"), 
+            add_tag(dat_rows, "tbody"), 
+            caption
+        ), 
+        "table", 
+        "class='table df-table table-striped'"
+    )
 }
 
 html_file <- function(file, x){
