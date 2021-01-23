@@ -14,16 +14,10 @@ display <- R6::R6Class(
         },
         
         as.character = function(render, rowlimit){
-  
+            
             x <- list(
-                title = render$as_title(self$title),
-                body = lapply(
-                    self$body, 
-                    get_body, 
-                    as_string = render$as_string, 
-                    as_table = render$as_table, 
-                    rowlimit = rowlimit
-                )
+                title = self$render_title(render),
+                body =  self$render_body(render, rowlimit)
             )
             
             strings <- unlist(
@@ -37,35 +31,44 @@ display <- R6::R6Class(
             )
             
             return(strings)
+        },
+        
+        render_title = function(render){
+            render$as_title(self$title)
+        },
+        
+        render_body = function(render, rowlimit){
+            x = lapply(self$body, self$render_body_element, render=render, rowlimit=rowlimit)
+            return(x)
+        },
+        
+        render_body_element = function(x, render, rowlimit){
+            if(is.character(x)) {
+                y <- render$as_string(x)
+            }
+            
+            if(is.data.frame(x)) {
+                limitstring <- NA
+                if( nrow(x) > rowlimit){
+                    limitstring <- sprintf(
+                        "Showing %i of %i observations",
+                        rowlimit,
+                        nrow(x)
+                    )
+                    x <- x[seq_len(rowlimit),]
+                }
+                y <- render$as_table(x, limitstring)
+            }
+            
+            stopifnot(is.character(y))
+            
+            return(y)
         }
-    
+        
     )
 )
 
-get_body <- function(x, as_string, as_table, rowlimit){
-    
-    if(is.character(x)) {
-        y <- as_string(x)
-    }
-    
-    if(is.data.frame(x)) {
-        limitstring <- NA
-        if( nrow(x) > rowlimit){
-            limitstring <- sprintf(
-                "Showing %i of %i observations",
-                rowlimit,
-                nrow(x)
-                
-            )
-            x <- x[seq_len(rowlimit),]
-        }
-        y <- as_table(x, limitstring)
-    }
-    
-    stopifnot(is.character(y))
-    
-    return(y)
-}
+
 
 
 
