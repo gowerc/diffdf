@@ -2,12 +2,9 @@
 % Please edit documentation in R/render_ascii.R
 \name{render_ascii}
 \alias{render_ascii}
-\title{table}
+\title{file}
 \description{
-This function takes a data.frame and attempts to convert it into
-a simple ascii format suitable for printing to the screen
-It is assumed all variable values have a as.character() method
-in order to cast them to character.
+Method for writing ascii object to a file
 }
 \section{Super class}{
 \code{\link[diffdf:renderAbstract]{diffdf::renderAbstract}} -> \code{render_ascii}
@@ -20,6 +17,7 @@ in order to cast them to character.
 \item \href{#method-h1}{\code{render_ascii$h1()}}
 \item \href{#method-h2}{\code{render_ascii$h2()}}
 \item \href{#method-h3}{\code{render_ascii$h3()}}
+\item \href{#method-h4}{\code{render_ascii$h4()}}
 \item \href{#method-p}{\code{render_ascii$p()}}
 \item \href{#method-br}{\code{render_ascii$br()}}
 \item \href{#method-table}{\code{render_ascii$table()}}
@@ -42,6 +40,19 @@ in order to cast them to character.
 \if{html}{\out{<div class="r">}}\preformatted{render_ascii$file(filename)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{filename}}{file to write to 
+display
+
+Method to print ascii object to the screen
+h1
+
+Convert string into ascii h1 format}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-display"></a>}}
@@ -60,6 +71,16 @@ in order to cast them to character.
 \if{html}{\out{<div class="r">}}\preformatted{render_ascii$h1(x)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{x}}{string
+h2
+
+Convert string into ascii h1 format}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-h2"></a>}}
@@ -69,6 +90,16 @@ in order to cast them to character.
 \if{html}{\out{<div class="r">}}\preformatted{render_ascii$h2(x)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{x}}{string
+h3
+
+Convert string into ascii h1 format}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-h3"></a>}}
@@ -78,6 +109,35 @@ in order to cast them to character.
 \if{html}{\out{<div class="r">}}\preformatted{render_ascii$h3(x)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{x}}{string
+h4
+
+Convert string into ascii h1 format}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-h4"></a>}}
+\if{latex}{\out{\hypertarget{method-h4}{}}}
+\subsection{Method \code{h4()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{render_ascii$h4(x)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{x}}{string
+p
+
+Convert string into ascii h1 format}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-p"></a>}}
@@ -87,6 +147,16 @@ in order to cast them to character.
 \if{html}{\out{<div class="r">}}\preformatted{render_ascii$p(x)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{x}}{string
+br
+
+Convert string into ascii h1 format}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-br"></a>}}
@@ -96,6 +166,19 @@ in order to cast them to character.
 \if{html}{\out{<div class="r">}}\preformatted{render_ascii$br(x)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{x}}{string
+table
+
+This function takes a data.frame and attempts to convert it into
+a simple ascii format suitable for printing to the screen
+It is assumed all variable values have a as.character() method
+in order to cast them to character.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-table"></a>}}
@@ -108,11 +191,9 @@ in order to cast them to character.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
+\item{\code{df}}{Input dataset to convert into a ascii table}
+
 \item{\code{limitstring}}{A string indicating whether the dataset has been subset}
-
-\item{\code{dat}}{Input dataset to convert into a ascii table}
-
-\item{\code{line_prefix}}{Symbols to prefix infront of every line of the table}
 }
 \if{html}{\out{</div>}}
 }

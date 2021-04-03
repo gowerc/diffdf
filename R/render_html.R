@@ -8,17 +8,22 @@ render_html <- R6Class(
             header <- add_tag( add_tag( diffdf_css(), "head"), "style")
             
             body <- add_tag(
-                add_tag( self$strings, "div", args = "class='w-50'; style = 'margin: auto;'"),
+                add_tag( 
+                    self$strings, "div", 
+                    args = "class='w-50'; style = 'margin: auto;'"
+                ),
                 "body"
             )
-            c(header, body)
+            return(c(header, body))
         },
+        
         
         file = function(filename){
             sink(filename)
             cat(self$file_content())
             sink()
         },
+        
         
         display = function(){
             
@@ -34,29 +39,13 @@ render_html <- R6Class(
             viewer(htmlFile)
         },
         
-        h1 = function(x){
-            add_tag(x, "h1")
-        },
         
-        h2 = function(x){
-            add_tag(x, "h2")
-        },
-        
-        h3 = function(x){
-            add_tag(x, "h3")
-        },
-        
-        h4 = function(x){
-            add_tag(x, "h4")
-        },
-        
-        p = function(x){
-            add_tag(x, "p")
-        },
-        
-        br = function(x){
-            return("<br/>")
-        },
+        h1 = function(x) add_tag(x, "h1"),
+        h2 = function(x) add_tag(x, "h2"),
+        h3 = function(x) add_tag(x, "h3"),
+        h4 = function(x) add_tag(x, "h4"),
+        p = function(x) add_tag(x, "p"),
+        br = function(x) return("<br/>"),
         
         table = function(df, limitstring){
             
@@ -66,12 +55,39 @@ render_html <- R6Class(
                 caption <- ""
             }
             
-            dat_char  <- apply(df, c(1, 2), as_cropped_char)
-            dat_tag  <- apply(dat_char, c(1, 2), add_tag, tag = "td", args = "style='text-align: center;' class='df-cell'")
-            dat_rows  <- apply(dat_tag, c(1), add_tag, tag = "tr class='df_row'")
+            dat_char  <- apply(
+                df, 
+                c(1, 2), 
+                as_cropped_char
+            )
             
-            header <- sapply( names(df), add_tag , "th", args = "style='text-align: center;' class='df-header'")
-            header_row <- add_tag( header , "tr", args = "class='df-row df_header-row'")
+            dat_tag  <- apply(
+                dat_char, 
+                c(1, 2), 
+                add_tag, 
+                tag = "td", 
+                args = "style='text-align: center;' class='df-cell'"
+            )
+            
+            dat_rows  <- apply(
+                dat_tag, 
+                c(1), 
+                add_tag, 
+                tag = "tr class='df_row'"
+            )
+            
+            header <- sapply(
+                names(df), 
+                add_tag, 
+                "th", 
+                args = "style='text-align: center;' class='df-header'"
+            )
+            
+            header_row <- add_tag(
+                header, 
+                "tr",
+                args = "class='df-row df_header-row'"
+            )
             
             add_tag( 
                 c( 
@@ -87,7 +103,13 @@ render_html <- R6Class(
     )
 )
 
-
+#' Wrap string in html tag
+#' 
+#' Takes a string and adds a opening and closing html tag to it
+#' i.e. add_tag('hi', 'h1') ->  <h1>hi</h1>
+#' @param x string
+#' @param tag Tag to wrap the string in 
+#' @param args attritutes to add to the tag (i.e. class or css properties)
 add_tag <- function(x, tag, args = ""){
     
     if(args != "") args <- paste0(" ", args)
@@ -105,7 +127,7 @@ add_tag <- function(x, tag, args = ""){
 
 #' diffdf_css
 #' 
-#' Returns the CSS used by diffdf when rendering html output
+#' Returns the CSS used by diffdf when rendering a html report
 #' 
 #' @export
 diffdf_css <- function(){

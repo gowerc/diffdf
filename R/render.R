@@ -14,34 +14,28 @@ render <- R6::R6Class(
             "table"
         ),
         
-        initialize = function(content, rowlimit = 10){
-            
-            stopifnot(is.list(content))
-            
-            content_types = names(content)
-            
-            stopifnot(all(content_types %in% self$valid_content_types))
-            
+        initialize = function(display, rowlimit = 10){
+            display_flat <- flatten_display(display)
+
             strings = list()
             
-            for( i in seq_along(content_types)){
-                
-                content_element <- content[[i]]
-                content_type <- content_types[[i]]
-                
-                if(content_type == "table"){
+            for( i in seq_along(display_flat)){
+                item_content <- display_flat[[i]]$content
+                item_type <- display_flat[[i]]$type
+                stopifnot(item_type %in% self$valid_content_types)
+                if(item_type == "table"){
                     limitstring <- NA
-                    if( nrow(content_element) > rowlimit){
+                    if( nrow(item_content) > rowlimit){
                         limitstring <- sprintf(
                             "Showing %i of %i observations",
                             rowlimit,
-                            nrow(content_element)
+                            nrow(item_content)
                         )
-                        content_element <- content_element[seq_len(rowlimit),]
+                        item_content <- item_content[seq_len(rowlimit),]
                     }
-                    string <- self$table(content_element, limitstring)
+                    string <- self$table(item_content, limitstring)
                 } else {
-                    string <- self[[content_type]](content_element)
+                    string <- self[[item_type]](item_content)
                 }
                 
                 strings[[i]] <- string
@@ -78,10 +72,6 @@ render <- R6::R6Class(
          
     )
 )
-
-
-
-
 
 
 

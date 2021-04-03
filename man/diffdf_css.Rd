@@ -7,5 +7,5 @@
 diffdf_css()
 }
 \description{
-Returns the CSS used by diffdf when rendering html output
+Returns the CSS used by diffdf when rendering a html report
 }

@@ -54,23 +54,65 @@ render_ascii <- R6Class(
     inherit = render,
     public = list(
 
+        #' file
+        #' 
+        #' Method for writing ascii object to a file
+        #' @param filename file to write to 
         file = function(filename){
             sink(filename)
             cat(self$strings, sep = "\n")
             sink()
         },
         
+        #' display
+        #' 
+        #' Method to print ascii object to the screen
         display = function(){
             cat(self$strings, sep = "\n")
         },
         
+        #' h1
+        #' 
+        #' Convert string into ascii h1 format
+        #' @param x string
         h1 = function(x) return(x),
+        
+        
+        #' h2
+        #' 
+        #' Convert string into ascii h1 format
+        #' @param x string
         h2 = function(x) return(x),
+        
+        
+        #' h3
+        #' 
+        #' Convert string into ascii h1 format
+        #' @param x string
         h3 = function(x) return(x),
+        
+        
+        #' h4
+        #' 
+        #' Convert string into ascii h1 format
+        #' @param x string
         h4 = function(x) return(x),
+        
+        
+        #' p
+        #' 
+        #' Convert string into ascii h1 format
+        #' @param x string
         p = function(x) return(x),
+        
+        
+        #' br
+        #' 
+        #' Convert string into ascii h1 format
+        #' @param x string
         br = function(x) return("\n"),
        
+        
         #' table
         #' 
         #' This function takes a data.frame and attempts to convert it into
@@ -78,9 +120,8 @@ render_ascii <- R6Class(
         #' It is assumed all variable values have a as.character() method
         #' in order to cast them to character. 
         #' 
-        #' @param dat Input dataset to convert into a ascii table
+        #' @param df Input dataset to convert into a ascii table
         #' @param limitstring A string indicating whether the dataset has been subset
-        #' @param line_prefix Symbols to prefix infront of every line of the table
         table = function(df, limitstring){
             line_prefix = "  "
             

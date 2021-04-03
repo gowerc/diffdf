@@ -24,9 +24,9 @@ check_class <- function(base, comp, keys, opts){
     
     dat2 <- setNames(dat2, c("Variable", "Base", "Compare"))
    
-    disp <- list(
-        "h4" = "Class Mismatches",
-        "table" = dat2
+    disp <- display(
+        d_h4("Class Mismatches"),
+        d_table(dat2)
     )
     
     CR <- checkResult$new(

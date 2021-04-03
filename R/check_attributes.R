@@ -53,9 +53,9 @@ check_attributes <- function(base, comp, keys, opts){
     
     RETURN <- setNames(RETURN, c("Variable", "Attribute", "Base", "Compare"))
     
-    disp <- list(
-        "h4" = "Attribute Mismatches",
-        "table" = RETURN
+    disp <- display(
+        d_h4("Attribute Mismatches"),
+        d_table(RETURN)
     )
     
     CR <- checkResult$new(

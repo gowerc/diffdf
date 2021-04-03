@@ -52,23 +52,17 @@ check_values <- function(base, comp, keys, opts) {
     
     failed_values <- matching_list[!have_passed]
     
-    body <- list()
-    for( var in names(failed_values)){
-        body <- append(
-            body, 
-            list(
-                "p" = paste0("Variable: ", var),
-                "table" = failed_values[[var]],
-                "br" = ""
-            )
-        )
-    }
-    
-    disp <- append(
-        list("h4" = "Value Mismatches"),
-        body
+    disp <- display(
+        d_h4("Value Mismatches")
     )
     
+    for( var in names(failed_values)){
+        disp[[var]] <- display(
+            d_p(paste0("Variable: ", var)),
+            d_table(failed_values[[var]]),
+            d_br()
+        )
+    }
     
     CR <- checkResult$new(
         name = "Values",
