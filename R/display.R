@@ -37,6 +37,12 @@ d_p <- function(x) as_display_item(x, "p")
 d_table <- function(x) as_display_item(x, "table")
 
 
+is_display_item <- function(x){
+    cond1 <- length(class(x)) == 1
+    cond2 <- all(class(x) %in% c("display_item"))
+    return(cond1 & cond2)    
+}
+
 is_display <- function(x){
     cond1 <- length(class(x)) == 1
     cond2 <- all(class(x) %in% c("display"))
@@ -49,13 +55,16 @@ flatten_display <- function(x){
     stopifnot(is_display(x))
     HOLD <- list()
     INDEX <- 1
-    for(i in seq_along(x)){
-        y <- x[[i]]
-        if("display_item" %in% class(y)){
-            HOLD[[INDEX]] <- y
+    for(item in x){
+        if(is_display_item(item)){
+            HOLD[[INDEX]] <- item
             INDEX <- INDEX + 1
-        } else if( is_display(y)){
-            HOLD <- append(HOLD, flatten_display(y))
+        } else if( is_display(item)){
+            item_flat <- flatten_display(item)
+            for(sub_item in item_flat){
+                HOLD[[INDEX]] <- sub_item
+                INDEX <- INDEX + 1
+            }
         } else {
             stop("Object is not a display_item nor a display")
         }
@@ -66,8 +75,9 @@ flatten_display <- function(x){
 
 #' @export
 as_display <- function(x){
-    class(x) <- "display"
-    return(x)
+    y <- x
+    class(y) <- "display"
+    return(y)
 }
 
 
@@ -78,8 +88,8 @@ display <- function(...){
     for(i in x){
         stopifnot( all(class(i) %in% c("display", "display_item")))
     }
-    
-    return(as_display(x))
+    y <- as_display(x)
+    return(y)
 }
 
 
