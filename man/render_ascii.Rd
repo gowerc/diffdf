@@ -27,8 +27,10 @@ Method for writing ascii object to a file
 \if{html}{
 \out{<details open ><summary>Inherited methods</summary>}
 \itemize{
+\item \out{<span class="pkg-link" data-pkg="diffdf" data-topic="renderAbstract" data-id="class_handle">}\href{../../diffdf/html/renderAbstract.html#method-class_handle}{\code{diffdf::renderAbstract$class_handle()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="diffdf" data-topic="renderAbstract" data-id="initialize">}\href{../../diffdf/html/renderAbstract.html#method-initialize}{\code{diffdf::renderAbstract$initialize()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="diffdf" data-topic="renderAbstract" data-id="not_yet_implemented">}\href{../../diffdf/html/renderAbstract.html#method-not_yet_implemented}{\code{diffdf::renderAbstract$not_yet_implemented()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="diffdf" data-topic="renderAbstract" data-id="table_handle">}\href{../../diffdf/html/renderAbstract.html#method-table_handle}{\code{diffdf::renderAbstract$table_handle()}}\out{</span>}
 }
 \out{</details>}
 }
