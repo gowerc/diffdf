@@ -3,6 +3,15 @@ render_html <- R6Class(
     "render_html", 
     inherit = render,
     public = list(
+        valid_content_types = c(
+            "h1",
+            "h2",
+            "h3", 
+            "h4",
+            "p",
+            "br",
+            "table"
+        ),
 
         file_content = function(){
             header <- add_tag( add_tag( diffdf_css(), "head"), "style")

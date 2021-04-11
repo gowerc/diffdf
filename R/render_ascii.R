@@ -53,6 +53,15 @@ render_ascii <- R6Class(
     "render_ascii", 
     inherit = render,
     public = list(
+        valid_content_types = c(
+            "h1",
+            "h2",
+            "h3", 
+            "h4",
+            "p",
+            "br",
+            "table"
+        ),
 
         #' file
         #' 
