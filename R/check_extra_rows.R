@@ -14,9 +14,9 @@ check_extra_rows <- function(dfa, dfb, keys, name, message, type){
     
     extra_keys <- extra[, keys, with = FALSE]
     
-    disp <- display$new(
-        title = paste0("Extra Rows in ", totitle(type)),
-        body = list(extra_keys)
+    disp <- display(
+        d_h4(paste0("Extra Rows in ", totitle(type))),
+        d_table(extra_keys)
     )
     
     CR <- checkResult$new(

@@ -26,10 +26,9 @@ checkResult <- R6::R6Class(
                 is.character(result),
                 any(result %in% c("Passed", "Failed", "Not-Done")),
                 ( is.null(message) | is.character(message)), 
-                ( is.null(display) | all(class(display) == c("display", "R6")) ),
+                ( is.null(display) | is.list(display) ),
                 ( is.null(exclude_rows) | is.list(exclude_rows)),
                 ( is.null(exclude_cols) | is.character(exclude_cols))
-                 
             )
             
             if( is.data.frame(data)){

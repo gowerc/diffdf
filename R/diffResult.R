@@ -64,29 +64,36 @@ diffResult <- R6::R6Class(
             )
             
             if(dfsummary){
-                header <- list(
-                    "Dataset Summary", dfsum, "",
-                    "Listing of Keys", keysum, "",
-                    "Check Summary", self$check_results, ""
+                header <- display(
+                    d_h4("Dataset Summary"), 
+                    d_table(dfsum), 
+                    d_br(),
+                    d_h4("Listing of Keys"), 
+                    d_table(keysum), 
+                    d_br(),
+                    d_h4("Check Summary"), 
+                    d_table(self$check_results), 
+                    d_br()
                 )
             } else {
                 header <- list()
             }
             
-            disp <- display$new(
-                title = sprintf(
+            title <- display(
+                d_h2(sprintf(
                     "Comparison of %s (Base) vs %s (Compare)", 
                     deparse(self$call$base), 
                     deparse(self$call$compare)
-                ),
-                body = append(header, list(line, ""))
-            )        
+                )),
+                d_br()
+            )
+            
+            disp  = display(title, header)
             
             return(disp)
         }
     )
 )
-
 
 
 
@@ -106,49 +113,12 @@ diffResult <- R6::R6Class(
 #' @export
 print.diffResult <- function(
     x, 
-    type = "ascii", 
-    rowlimit = 10, 
-    file = NULL, 
-    display = is.null(file), 
     dfsummary = TRUE,
     ...
 ){
-    
-    stopifnot(
-        any(type %in% c("ascii", "html"))
-    )
-    
-    if( type == "ascii") render <- render_ascii
-    if( type == "html") render <- render_html
-    
-    failed_displays <- Filter(
-        function(x){ x$result == "Failed" },
-        x$checks
-    )
-    
-    failed_displays <- Map( 
-        function(x) x$display,
-        failed_displays
-    )
-    
-    displays <- append(
-        x$get_display_header(dfsummary = dfsummary), 
-        failed_displays
-    )
-    
-    strings_list <- lapply(
-        displays,
-        function(x) x$as.character(render, rowlimit = rowlimit)
-    )
-    
-    strings = unlist(strings_list, use.names = FALSE)
-    
-    if(display) render$print(strings)
-    if (!is.null(file)) render$file(file, strings)
-    
-    return(invisible(strings))
+    display <- extract_display(x, dfsummary=dfsummary)
+    print(display, ...)
 }
-
 
 
 
@@ -158,8 +128,6 @@ as.character.diffResult <- function(x, ...){
     x <- print(x, display = FALSE, ...)
     return(x)
 }
-
-
 
 
 #' summary.diffResult
@@ -213,3 +181,29 @@ print.diffSummary <- function(x, ...){
     return(invisible(tibble::as_tibble(obj)))
 }
 
+
+#' @export
+extract_display <- function(x, dfsummary= TRUE){
+    failed_checks <- Filter(
+        function(x){ x$result == "Failed" },
+        x$checks
+    )
+    
+    failed_displays <- Map( 
+        function(x) x$display,
+        failed_checks
+    )
+    
+    displays <- list()
+    for(i in failed_checks){
+        displays[[i$name]] <- i$display
+    }
+    
+    
+    displays <- append(
+        list("summary" = x$get_display_header(dfsummary = dfsummary)), 
+        displays
+    )
+    
+    return(as_display(displays))
+}

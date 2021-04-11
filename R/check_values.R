@@ -5,7 +5,7 @@ check_values <- function(base, comp, keys, opts) {
     if( length(compare_cols) == 0  ) {
         x <- checkResult$new(
             name = "Values",
-            display = display$new(), 
+            display = list(), 
             result = "Passed", 
             message = "Not all Values Compared Equal", 
             data = data.table()
@@ -52,23 +52,17 @@ check_values <- function(base, comp, keys, opts) {
     
     failed_values <- matching_list[!have_passed]
     
-    body <- list()
-    for( var in names(failed_values)){
-        body <- append(
-            body, 
-            list(
-                paste0("Variable: ", var),
-                failed_values[[var]],
-                ""
-            )
-        )
-    }
-    
-    disp <- display$new(
-        title = "Value Mismatches",
-        body = body
+    disp <- display(
+        d_h4("Value Mismatches")
     )
     
+    for( var in names(failed_values)){
+        disp[[var]] <- display(
+            d_p(paste0("Variable: ", var)),
+            d_table(failed_values[[var]]),
+            d_br()
+        )
+    }
     
     CR <- checkResult$new(
         name = "Values",

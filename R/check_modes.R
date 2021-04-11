@@ -19,9 +19,9 @@ check_modes <- function(base, comp, keys, opts){
     
     dat2 <- dat[KEEP]
     
-    disp <- display$new(
-        title = "Mode Mismatches",
-        body = list(dat2)
+    disp <- display(
+        d_h4("Mode Mismatches"),
+        d_table(dat2)
     )
     
     CR <- checkResult$new(

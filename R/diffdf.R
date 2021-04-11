@@ -10,7 +10,8 @@
 #' See \code{\link[diffdf]{diffopts}} for more information
 #' @param ... arguments passed onto diffopts which control how the comparison is performed.  
 #' See \code{\link[diffdf]{diffopts}} for more information (takes precedence over `opts`).
-#' @import data.table 
+#' @import data.table
+#' @import R6
 #' @importFrom stats setNames
 #' @examples
 #' \dontrun{
