@@ -9,3 +9,5 @@ docs/
 ^makevars$
 ^data-raw$
 ^\.github/
+^\.github$
+^LICENSE\.md$

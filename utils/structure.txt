@@ -1,0 +1,41 @@
+
+
+diffMain
+    base
+    comp
+    keys
+    opts
+    diffResult
+    perform_check(checkID, checkfun)
+    
+diffResult
+    opts
+    checks
+    has_passed
+    dfsummary - displayObj
+    summary()
+
+    
+checkfuns(base, comp, keys, opts)
+    return
+        checkResult
+        exclude_rows
+        exclude_cols
+
+
+checkResult
+    displayObj
+    has_passed
+    failure_msg
+    failure_data
+    
+    
+displayObj
+    title
+    body - a list containing only character vectors or data.frames
+    footer
+    render_html
+    render_ascii
+    render_markdown
+    
+

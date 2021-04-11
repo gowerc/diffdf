@@ -5,6 +5,7 @@
 [![Dependencies](https://tinyverse.netlify.com/badge/diffdf)](https://cran.r-project.org/package=diffdf)
 [![Downloads](http://cranlogs.r-pkg.org/badges/diffdf?color=brightgreen)](http://www.r-pkg.org/pkg/diffdf)
 [![R build status](https://github.com/gowerc/diffdf/workflows/R-CMD-check/badge.svg)](https://github.com/gowerc/diffdf)
+[![R-CMD-check](https://github.com/gowerc/diffdf/workflows/R-CMD-check/badge.svg)](https://github.com/gowerc/diffdf/actions)
 <!-- badges: end -->
 
 
