@@ -157,16 +157,20 @@ as_cropped_char <- function(inval, crop_at = 30 ){
 #' 
 #' Generate nice looking table from a data frame
 #' @param dsin dataset 
-#' @param row_limit Maximum number of rows displayed in dataset
+#' @param row_limit Maximum number of rows displayed in dataset (<= 0 means no limit)
 get_table <- function(dsin , row_limit = 10){
     
     if( nrow(dsin) == 0 ) {
         return("")
     }
     
-    display_table <- subset(dsin ,  1:nrow(dsin) < (row_limit + 1) )
+    if( row_limit > 0 ) {
+        display_table <- subset(dsin ,  1:nrow(dsin) < (row_limit + 1) )
+    } else {
+        display_table <- dsin
+    }
     
-    if ( nrow(dsin) > row_limit ){
+    if ( nrow(dsin) > row_limit && row_limit > 0 ){
         
         add_message <- paste0(
             'First ',

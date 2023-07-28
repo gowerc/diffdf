@@ -9,7 +9,7 @@ get_table(dsin, row_limit = 10)
 \arguments{
 \item{dsin}{dataset}
 
-\item{row_limit}{Maximum number of rows displayed in dataset}
+\item{row_limit}{Maximum number of rows displayed in dataset (<= 0 means no limit)}
 }
 \description{
 Generate nice looking table from a data frame
