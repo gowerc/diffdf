@@ -13,6 +13,6 @@ get_issue_dataset(issue, diff)
 }
 \description{
 Internal function used by diffdf_issuerows to extract the dataframe
-from each a target issue. In particular it also strips off any 
+from each a target issue. In particular it also strips off any
 non-key variables
 }
