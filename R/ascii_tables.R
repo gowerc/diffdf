@@ -22,7 +22,7 @@ string_pad <- function(x, width) {
 #' @param .l list of values to apply a function to
 #' @param .f function to apply to each each element of the list in turn. See details.
 #' @details
-#' This funtion is essentially performing the following operation:
+#' This function is essentially performing the following operation:
 #' ```
 #' .l[[1]] <- .f( .l[[1]] , .l[[2]]) ; .l[[1]] <- .f( .l[[1]] , .l[[3]])
 #' ```
