@@ -8,7 +8,7 @@
 [![Code Coverage 📔](https://raw.githubusercontent.com/gowerc/diffdf/_xml_coverage_reports/data/main/badge.svg)](https://gowerc.github.io/diffdf/main/coverage-report/)
 <!-- end badges -->
 
-The diffdf package is designed to enable detailed comparison of two data.frames. Whilst many packages exist forinforming you if there are differences between data.frames, none provide as much detail on what and where those differences are as diffdf does!
+The diffdf package is designed to enable detailed comparison of two data.frames. Whilst many packages exist for informing you if there are differences between data.frames, none provide as much detail on what and where those differences are as diffdf does!
 
 Currently diffdf supports the following:
 
@@ -40,7 +40,7 @@ devtools::install_github("gowerc/diffdf")
 
 ## Example
 
-``` r 
+``` r
 library(diffdf)
 iris2 <- iris
 for (i in 1:3) iris2[i,i] <- i^2
