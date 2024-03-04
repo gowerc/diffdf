@@ -20,8 +20,12 @@ string_pad <- function(x, width) {
 #' Utility function used to replicated `purrr::reduce`. Recursively applies a
 #' function to a list of elements until only 1 element remains
 #' @param .l list of values to apply a function to
-#' @param .f function to apply to each each element of the list in turn
-#' i.e. .l[[1]] <- .f( .l[[1]] , .l[[2]]) ; .l[[1]] <- .f( .l[[1]] , .l[[3]])
+#' @param .f function to apply to each each element of the list in turn. See details.
+#' @details
+#' This funtion is essentially performing the following operation:
+#' ```
+#' .l[[1]] <- .f( .l[[1]] , .l[[2]]) ; .l[[1]] <- .f( .l[[1]] , .l[[3]])
+#' ```
 recursive_reduce <- function(.l, .f) {
     if (length(.l) != 1) {
         .l[[2]] <- .f(.l[[1]], .l[[2]])
