@@ -1,30 +1,27 @@
 
+# diffdf
 
+<!-- start badges -->
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/diffdf)](https://CRAN.R-project.org/package=diffdf)
 [![Dependencies](https://tinyverse.netlify.com/badge/diffdf)](https://cran.r-project.org/package=diffdf)
 [![Downloads](http://cranlogs.r-pkg.org/badges/diffdf?color=brightgreen)](http://www.r-pkg.org/pkg/diffdf)
 [![Code Coverage 📔](https://raw.githubusercontent.com/gowerc/diffdf/_xml_coverage_reports/data/main/badge.svg)](https://gowerc.github.io/diffdf/main/coverage-report/)
+<!-- end badges -->
 
-
-
-
-# diffdf
-
-The diffdf package is designed to enable detailed comparison of two data.frames. Whilst many packages exist for informing you if there are differences between data.frames, none provide as much detail on what and where those differences are as diffdf does!
+The diffdf package is designed to enable detailed comparison of two data.frames. Whilst many packages exist forinforming you if there are differences between data.frames, none provide as much detail on what and where those differences are as diffdf does!
 
 Currently diffdf supports the following:
-   - Checking for differences in values
-   - Checking for differences in attributes
-   - Checking for differences in classes
-   - Checking for differences in column names
-   - Checking for differences in the number of observations
-   - Matching rows by key/id variables
-   - Fuzzy comparisons (i.e. treating doubles and integers as the same)
-   - Extracting datasets of different rows
-   
 
-For more information on features please consult the vignette and man pages. 
+- Checking for differences in values
+- Checking for differences in attributes
+- Checking for differences in classes
+- Checking for differences in column names
+- Checking for differences in the number of observations
+- Matching rows by key/id variables
+- Fuzzy comparisons (i.e. treating doubles and integers as the same)
+- Extracting datasets of different rows
 
+For more information on features please consult the vignette and man pages.
 
 ## Installation
 
@@ -40,8 +37,8 @@ And the development version from [GitHub](https://github.com/gowerc/diffdf) with
 # install.packages("devtools")
 devtools::install_github("gowerc/diffdf")
 ```
-## Example
 
+## Example
 
 ``` r 
 library(diffdf)
@@ -51,4 +48,3 @@ iris2$new_var <- "hello"
 class(iris2$Species) <- "some class"
 diffdf(iris, iris2)
 ```
-
