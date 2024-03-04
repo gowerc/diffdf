@@ -13,6 +13,6 @@ recursive_reduce(.l, .f)
 i.e. .l[[1]] <- .f( .l[[1]] , .l[[2]]) ; .l[[1]] <- .f( .l[[1]] , .l[[3]])}
 }
 \description{
-Utility function used to replicated purrr::reduce. Recursively applies a
+Utility function used to replicated `purrr::reduce`. Recursively applies a
 function to a list of elements until only 1 element remains
 }

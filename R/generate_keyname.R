@@ -1,6 +1,6 @@
-#'generate_keyname
+#' Generate unique key name
 #'
-#'Function to generate a name for the keys if not provided
+#' Function to generate a name for the keys if not provided
 #'
 #'@param BASE base dataset
 #'@param COMP comparison dataset

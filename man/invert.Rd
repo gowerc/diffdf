@@ -10,6 +10,6 @@ invert(x)
 \item{x}{list}
 }
 \description{
-Utility function used to replicated purrr::transpose. Turns a list inside
+Utility function used to replicated `purrr::transpose`. Turns a list inside
 out.
 }

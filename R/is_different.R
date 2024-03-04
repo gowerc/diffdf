@@ -1,6 +1,6 @@
 #' is_variable_different
 #'
-#' This subsets the data set on the variable name, picks out differences and returns a tibble
+#' This subsets the data set on the variable name, picks out differences and returns a `tibble`
 #' of differences for the given variable
 #' @importFrom tibble as_tibble
 #' @param variablename name of variable being compared
@@ -52,7 +52,7 @@ compare_vectors <- function(target, current, ...) {
 #'
 #' This determines if two vectors are different. It expects vectors of the same
 #' length and type, and is intended to be used after checks have already been done
-#' Initially picks out any nas (matching nas count as a match)
+#' Initially picks out any `NA`'s (matching `NA`'s count as a match)
 #' Then compares remaining vector
 #'
 #' @param target the base vector
