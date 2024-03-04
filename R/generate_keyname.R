@@ -1,3 +1,5 @@
+
+
 #' Generate unique key name
 #'
 #' Function to generate a name for the keys if not provided
@@ -9,7 +11,8 @@
 generate_keyname <- function(
     BASE,
     COMP,
-    replace_names = c("..ROWNUMBER..", "..RN..", "..ROWN..", "..N..")) {
+    replace_names = c("..ROWNUMBER..", "..RN..", "..ROWN..", "..N..")
+) {
     if (class(replace_names) != "character") {
         stop("replace_names is not a character vector")
     }

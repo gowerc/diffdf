@@ -12,6 +12,7 @@ Description: Functions for comparing two data.frames against
     source of problems and differences.
 Encoding: UTF-8
 LazyData: true
+Language: en-GB
 Depends:
     R (>= 3.1.2)
 Imports:
@@ -28,6 +29,7 @@ Suggests:
     devtools,
     covr
 RoxygenNote: 7.3.1
+Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
 License: MIT + file LICENSE
 URL: https://github.com/gowerc/diffdf

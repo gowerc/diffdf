@@ -3,10 +3,10 @@
 
 
 
-#' diffdf_issuerows
+#' Identify Issue Rows
 #'
-#' This function takes a diffdf object and a dataframe and subsets
-#' the dataframe for problem rows as identified in the comparison object.
+#' This function takes a `diffdf` object and a dataframe and subsets
+#' the `data.frame` for problem rows as identified in the comparison object.
 #' If \code{vars} has been specified only issue rows associated with those
 #' variable(s) will be returned.
 #' @param df dataframe to be subsetted
@@ -94,7 +94,7 @@ diffdf_issuerows <- function(df, diff, vars = NULL) {
 
 #' get_issue_dataset
 #'
-#' Internal function used by diffdf_issuerows to extract the dataframe
+#' Internal function used by `diffdf_issuerows` to extract the dataframe
 #' from each a target issue. In particular it also strips off any
 #' non-key variables
 #' @param issue name of issue to extract the dataset from diff

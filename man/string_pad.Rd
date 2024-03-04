@@ -2,7 +2,7 @@
 % Please edit documentation in R/ascii_tables.R
 \name{string_pad}
 \alias{string_pad}
-\title{string_pad}
+\title{Pad String}
 \usage{
 string_pad(x, width)
 }
@@ -12,6 +12,6 @@ string_pad(x, width)
 \item{width}{desired length}
 }
 \description{
-Utility function used to replicate `str_pad`. Adds white space to either end
+Utility function used to replicate \code{str_pad}. Adds white space to either end
 of a string to get it to equal the desired length
 }

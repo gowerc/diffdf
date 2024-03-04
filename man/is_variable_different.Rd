@@ -19,6 +19,6 @@ is_variable_different(variablename, keynames, datain, ...)
 A boolean vector which is T if target and current are different
 }
 \description{
-This subsets the data set on the variable name, picks out differences and returns a `tibble`
+This subsets the data set on the variable name, picks out differences and returns a \code{tibble}
 of differences for the given variable
 }

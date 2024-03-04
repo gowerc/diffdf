@@ -136,7 +136,7 @@ identify_class_differences <- function(BASE, COMP) {
 
 
 
-#' identify_att_differences
+#' Identify differences in attributes
 #'
 #' Identifies any attribute differences between two data frames
 #' @param BASE Base dataset for comparison (data.frame)
