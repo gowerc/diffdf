@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+      - master
       - develop
     paths:
       - "inst/templates/**"
@@ -23,6 +24,7 @@ on:
       - ready_for_review
     branches:
       - main
+      - master
       - develop
     paths:
       - "inst/templates/**"

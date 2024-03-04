@@ -10,10 +10,12 @@ on:
       - ready_for_review
     branches:
       - main
+      - master
       - develop
   push:
     branches:
       - main
+      - master
       - develop
   workflow_dispatch:
 
