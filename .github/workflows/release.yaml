@@ -1,0 +1,42 @@
+---
+name: Release 🎈
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build package 🎁
+    needs: release
+    uses: insightsengineering/r.pkg.template/.github/workflows/build-check-install.yaml@main
+    secrets:
+      REPO_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    with:
+      skip-r-cmd-check: true
+      skip-r-cmd-install: true
+  docs:
+    name: Pkgdown Docs 📚
+    needs: release
+    uses: insightsengineering/r.pkg.template/.github/workflows/pkgdown.yaml@main
+    secrets:
+      REPO_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  release:
+    name: Create release 🎉
+    uses: insightsengineering/r.pkg.template/.github/workflows/release.yaml@main
+    permissions:
+      contents: write
+  r-cmd:
+    name: R CMD Check 🧬
+    needs: [release, docs]
+    uses: insightsengineering/r.pkg.template/.github/workflows/build-check-install.yaml@main
+    secrets:
+      REPO_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  coverage:
+    name: Coverage 📔
+    needs: [release, docs]
+    uses: insightsengineering/r.pkg.template/.github/workflows/test-coverage.yaml@main
+    secrets:
+      REPO_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

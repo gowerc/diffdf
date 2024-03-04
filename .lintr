@@ -1,0 +1,13 @@
+
+linters: linters_with_defaults(
+    line_length_linter(120),
+    object_name_linter = NULL,     # Stops complaints about functions not being in snake_case
+    object_usage_linter = NULL,    # Stops spurious warnings over imported functions
+    cyclocomp_linter = NULL,
+    indentation_linter = indentation_linter(4),
+    object_length_linter = object_length_linter(40)
+    )
+exclusions: list(
+    "design/tests",
+    "./inst/WORDLIST"
+    )

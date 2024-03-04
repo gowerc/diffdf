@@ -2,22 +2,22 @@
 % Please edit documentation in R/ascii_tables.R
 \name{recursive_reduce}
 \alias{recursive_reduce}
-\title{recursive_reduce
- 
-Utility function used to replicated purrr::reduce. Recursively applies a 
-function to a list of elements until only 1 element remains}
+\title{recursive_reduce}
 \usage{
 recursive_reduce(.l, .f)
 }
 \arguments{
 \item{.l}{list of values to apply a function to}
 
-\item{.f}{function to apply to each each element of the list in turn
-i.e. .l[[1]] <- .f( .l[[1]] , .l[[2]]) ; .l[[1]] <- .f( .l[[1]] , .l[[3]])}
+\item{.f}{function to apply to each each element of the list in turn. See details.}
 }
 \description{
-recursive_reduce
- 
-Utility function used to replicated purrr::reduce. Recursively applies a 
+Utility function used to replicated \code{purrr::reduce}. Recursively applies a
 function to a list of elements until only 1 element remains
+}
+\details{
+This function is essentially performing the following operation:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{.l[[1]] <- .f( .l[[1]] , .l[[2]]) ; .l[[1]] <- .f( .l[[1]] , .l[[3]])
+}\if{html}{\out{</div>}}
 }

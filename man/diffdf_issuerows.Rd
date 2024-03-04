@@ -2,7 +2,7 @@
 % Please edit documentation in R/issuerows.R
 \name{diffdf_issuerows}
 \alias{diffdf_issuerows}
-\title{diffdf_issuerows}
+\title{Identify Issue Rows}
 \usage{
 diffdf_issuerows(df, diff, vars = NULL)
 }
@@ -11,21 +11,21 @@ diffdf_issuerows(df, diff, vars = NULL)
 
 \item{diff}{diffdf object}
 
-\item{vars}{(optional) character vector containing names of issue variables to subset dataframe 
+\item{vars}{(optional) character vector containing names of issue variables to subset dataframe
 on. A value of NULL (default) will be taken to mean available issue variables.}
 }
 \description{
-This function takes a diffdf object and a dataframe and subsets
-the dataframe for problem rows as identified in the comparison object.
+This function takes a \code{diffdf} object and a dataframe and subsets
+the \code{data.frame} for problem rows as identified in the comparison object.
 If \code{vars} has been specified only issue rows associated with those
 variable(s) will be returned.
 }
 \details{
-Note that diffdf_issuerows can be used to subset against any dataframe. The only
+Note that \code{diffdf_issuerows} can be used to subset against any dataframe. The only
 requirement is that the original variables specified in the keys argument to diffdf
-are present on the dataframe you are subsetting against. However please note that if 
-no keys were specified in diffdf then the row number is used. This means using 
-diffdf_issuerows without a keys against an arbitrary dataset can easily result in 
+are present on the dataframe you are subsetting against. However please note that if
+no keys were specified in diffdf then the row number is used. This means using
+\code{diffdf_issuerows} without a keys against an arbitrary dataset can easily result in
 nonsense rows being returned. It is always recommended to supply keys to diffdf.
 }
 \examples{

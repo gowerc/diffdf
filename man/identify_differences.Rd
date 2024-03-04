@@ -27,6 +27,6 @@ identify_differences(
 \item{scale}{Scale that tolerance should be set on. If NULL assume absolute}
 }
 \description{
-Compares each column within 2 datasets to identify any values which they 
+Compares each column within 2 datasets to identify any values which they
 mismatch on.
 }
