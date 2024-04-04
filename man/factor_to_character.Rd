@@ -9,7 +9,7 @@ factor_to_character(dsin, vars = NULL)
 \arguments{
 \item{dsin}{input dataframe}
 
-\item{vars}{variables to consider for conversion. Default NULL will consider 
+\item{vars}{variables to consider for conversion. Default NULL will consider
 every variable within the dataset}
 }
 \description{

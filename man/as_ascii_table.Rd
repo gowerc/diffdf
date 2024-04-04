@@ -9,11 +9,11 @@ as_ascii_table(dat, line_prefix = "  ")
 \arguments{
 \item{dat}{Input dataset to convert into a ascii table}
 
-\item{line_prefix}{Symbols to prefix infront of every line of the table}
+\item{line_prefix}{Symbols to prefix in front of every line of the table}
 }
 \description{
-This function takes a data.frame and attempts to convert it into
+This function takes a \code{data.frame} and attempts to convert it into
 a simple ascii format suitable for printing to the screen
-It is assumed all variable values have a as.character() method
+It is assumed all variable values have a \code{as.character()} method
 in order to cast them to character.
 }

@@ -14,6 +14,6 @@ get_casted_dataset(df, columns, whichdat)
 \item{whichdat}{whether base or compare is being casted (used for messages)}
 }
 \description{
-Internal utility function to loop across a dataset casting all target 
+Internal utility function to loop across a dataset casting all target
 variables
 }
