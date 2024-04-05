@@ -32,6 +32,14 @@ test_that("find_difference correctly uses tolerances/scale arguments",{
     expect_equal( find_difference( VALS$flt, VALS$flt_calc) , c(F,F,F,F,F)) 
     expect_equal( find_difference( VALS$flt, VALS$flt_calc, tolerance = 1e-17) , VALS$flt!=VALS$flt_calc) 
 })
+
+test_that("find_difference handles int64 correctly",{
+    expect_equal( find_difference(bit64::as.integer64(3),bit64::as.integer64(4)) , c(T))
+    expect_equal( find_difference(bit64::as.integer64(3),bit64::as.integer64(5), tolerance = 2) , c(F)) 
+    expect_equal( find_difference(bit64::as.integer64(3),bit64::as.integer64(8), tolerance = 1, scale = 4)  , c(T)) 
+    expect_equal( find_difference(bit64::as.integer64(3),bit64::as.integer64(8), tolerance = 1, scale = 8)  , c(F))
+})
+
     
 
 
