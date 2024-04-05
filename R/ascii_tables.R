@@ -158,10 +158,12 @@ get_table <- function(dsin, row_limit = 10) {
         return("")
     }
 
-    display_table <- subset(dsin, seq_len(nrow(dsin)) < (row_limit + 1))
-
-    if (nrow(dsin) > row_limit) {
-
+    if (row_limit > 0) {
+        display_table <- subset(dsin, seq_len(nrow(dsin)) < (row_limit + 1))
+    } else {
+        display_table <- dsin
+    }
+    if (nrow(dsin) > row_limit && row_limit > 0) {
         add_message <- paste0(
             "First ",
             row_limit,

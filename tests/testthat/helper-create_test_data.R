@@ -7,7 +7,7 @@ library(tibble)
 suppressWarnings(RNGversion("3.5.0"))
 set.seed(20202)
 
-LENGTH <- 20 
+LENGTH <- 20
 
 TDAT <- dplyr::data_frame( 
     ID          = 1:LENGTH,

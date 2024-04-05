@@ -51,9 +51,10 @@ get_print_message.default <- function(object) {
 #' Get text from a basic issue, based on the class of the value of the issue
 #'
 #' @param object an object of class issue_basic
-get_print_message.issue <- function(object) {
+#' @param row_limit is the row_limit for the table for the issue
+get_print_message.issue <- function(object, row_limit, ...) {
     paste(
-        c(attr(object, "message"),  get_table(object)),
+        c(attr(object, "message"), get_table(object, row_limit = row_limit)),
         collapse = "\n"
     )
 }

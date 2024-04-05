@@ -56,14 +56,22 @@ if ( SET_GOLD ){
     }
 }
 
-
-
-
-
-
-
-
-
+test_that( "row_limit works as expected", {
+    diff <- diffdf(
+      data.frame(col1 = LETTERS, col2 =  1:26),
+      data.frame(col1 = LETTERS, col2 = 21:46),
+      keys = 'col1',
+      suppress_warnings = TRUE
+    )
+    output <- print(diff, as_string = TRUE)
+    expect_length(output, 10+21)
+    output <- print(diff, as_string = TRUE, row_limit = 26)
+    expect_length(output, 26+21)
+    output <- print(diff, as_string = TRUE, row_limit = 5)
+    expect_length(output,  5+21)
+    output <- print(diff, as_string = TRUE, row_limit = 0)
+    expect_length(output, 26+21)
+})
 
 
 
