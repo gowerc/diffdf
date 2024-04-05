@@ -13,7 +13,7 @@ context("Testing print functionality")
 
 runme <- function(x){
     x2 <- diffdf(x[[1]] , x[[2]] , suppress_warnings = T)
-    print(x2 , as_string = TRUE)
+    print(x2, as_string = TRUE)
 }
 
 RES <- map( list_of_comparisons , runme)
@@ -56,7 +56,7 @@ if ( SET_GOLD ){
     }
 }
 
-test_that( "row_limit works as expected", {
+test_that("row_limit works as expected", {
     diff <- diffdf(
       data.frame(col1 = LETTERS, col2 =  1:26),
       data.frame(col1 = LETTERS, col2 = 21:46),
@@ -69,10 +69,43 @@ test_that( "row_limit works as expected", {
     expect_length(output, 26+21)
     output <- print(diff, as_string = TRUE, row_limit = 5)
     expect_length(output,  5+21)
-    output <- print(diff, as_string = TRUE, row_limit = 0)
+    output <- print(diff, as_string = TRUE, row_limit = NULL)
     expect_length(output, 26+21)
 })
 
+test_that("print.diffdf errors when given bad inputs", {
+    diff <- diffdf(
+        data.frame(col1 = LETTERS, col2 =  1:26),
+        data.frame(col1 = LETTERS, col2 = 21:46),
+        keys = 'col1',
+        suppress_warnings = TRUE
+    )
+    expect_error(
+        print(diff, row_limit = 0),
+              regexp = "row_limit should be a positive integer"
+    )
+    expect_error(
+        print(diff, row_limit = "String"),
+              regexp = "row_limit should be a numeric value or NULL"
+    )
+    expect_error(
+        print(diff, row_limit = NA),
+              regexp = "row_limit should be a numeric value or NULL"
+    )
+    expect_error(
+        print(diff, row_limit = c(1,2)),
+              regexp = "row_limit should have a length of 1"
+    )
+    
+    expect_error(
+        print(diff, as_string = "String"),
+              regexp = "as_string should be a logical of length one"
+    )
+    expect_error(
+        print(diff, as_string = c(TRUE, TRUE)),
+              regexp = "as_string should be a logical of length one"
+    )
+})
 
 
 # i <- 3

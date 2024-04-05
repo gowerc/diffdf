@@ -9,7 +9,7 @@
 \arguments{
 \item{x}{comparison object created by diffdf().}
 
-\item{row_limit}{Max row limit for difference tables (<= 0 for all rows)}
+\item{row_limit}{Max row limit for difference tables (NULL to show all rows)}
 
 \item{as_string}{Return printed message as an R character vector?}
 
@@ -23,5 +23,5 @@ x <- subset( iris , -Species )
 x[1,2] <- 5
 COMPARE <- diffdf( iris, x)
 print( COMPARE )
-print( COMPARE , "Sepal.Length" )
+print( COMPARE, row_limit = 5 )
 }
