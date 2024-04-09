@@ -170,11 +170,10 @@ compare_vectors.numeric <- function(
 #' @param tolerance Level of tolerance for differences between two variables
 #' @param scale Scale that tolerance should be set on. If NULL assume absolute
 compare_vectors.integer64 <- function(
-        target,
-        current,
-        tolerance = sqrt(.Machine$double.eps),
-        scale = NULL
+    target,
+    current,
+    tolerance = sqrt(.Machine$double.eps),
+    scale = NULL
 ) {
     compare_vectors.numeric(target, current, tolerance, scale)
-    
 }
