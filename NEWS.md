@@ -1,3 +1,10 @@
+# diffdf 1.1.0
+
+- `row_limit` argument now functional again in print method! With thanks to Brian Repko
+
+
+
+
 # diffdf 1.0.4
 
 - No new functionality
