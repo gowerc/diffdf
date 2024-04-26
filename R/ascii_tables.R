@@ -168,7 +168,6 @@ get_table <- function(dsin, row_limit = 10) {
             stop("row_limit should be a positive integer")
         }
     }
-    
     if (is.null(row_limit)) {
         display_table <- dsin
     } else {
