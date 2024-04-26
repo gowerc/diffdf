@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.913370998116761" branch-rate="0" lines-covered="485" lines-valid="531" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-04-25 14:31:47.297526">
+<coverage line-rate="0.913370998116761" branch-rate="0" lines-covered="485" lines-valid="531" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-04-26 12:13:27.081717">
   <sources>
     <source>/__w/diffdf/diffdf/diffdf</source>
   </sources>
@@ -95,18 +95,19 @@
                 <line number="165" hits="0" branch="false"/>
                 <line number="167" hits="62" branch="false"/>
                 <line number="168" hits="0" branch="false"/>
-                <line number="172" hits="64" branch="false"/>
-                <line number="173" hits="2" branch="false"/>
-                <line number="175" hits="62" branch="false"/>
-                <line number="178" hits="64" branch="false"/>
+                <line number="171" hits="64" branch="false"/>
+                <line number="172" hits="2" branch="false"/>
+                <line number="174" hits="62" branch="false"/>
+                <line number="177" hits="64" branch="false"/>
+                <line number="178" hits="6" branch="false"/>
                 <line number="179" hits="6" branch="false"/>
                 <line number="180" hits="6" branch="false"/>
                 <line number="181" hits="6" branch="false"/>
                 <line number="182" hits="6" branch="false"/>
                 <line number="183" hits="6" branch="false"/>
                 <line number="184" hits="6" branch="false"/>
-                <line number="185" hits="6" branch="false"/>
-                <line number="188" hits="58" branch="false"/>
+                <line number="187" hits="58" branch="false"/>
+                <line number="190" hits="64" branch="false"/>
                 <line number="191" hits="64" branch="false"/>
                 <line number="192" hits="64" branch="false"/>
                 <line number="193" hits="64" branch="false"/>
@@ -115,7 +116,6 @@
                 <line number="196" hits="64" branch="false"/>
                 <line number="197" hits="64" branch="false"/>
                 <line number="198" hits="64" branch="false"/>
-                <line number="199" hits="64" branch="false"/>
               </lines>
             </method>
           </methods>
@@ -184,18 +184,19 @@
             <line number="165" hits="0" branch="false"/>
             <line number="167" hits="62" branch="false"/>
             <line number="168" hits="0" branch="false"/>
-            <line number="172" hits="64" branch="false"/>
-            <line number="173" hits="2" branch="false"/>
-            <line number="175" hits="62" branch="false"/>
-            <line number="178" hits="64" branch="false"/>
+            <line number="171" hits="64" branch="false"/>
+            <line number="172" hits="2" branch="false"/>
+            <line number="174" hits="62" branch="false"/>
+            <line number="177" hits="64" branch="false"/>
+            <line number="178" hits="6" branch="false"/>
             <line number="179" hits="6" branch="false"/>
             <line number="180" hits="6" branch="false"/>
             <line number="181" hits="6" branch="false"/>
             <line number="182" hits="6" branch="false"/>
             <line number="183" hits="6" branch="false"/>
             <line number="184" hits="6" branch="false"/>
-            <line number="185" hits="6" branch="false"/>
-            <line number="188" hits="58" branch="false"/>
+            <line number="187" hits="58" branch="false"/>
+            <line number="190" hits="64" branch="false"/>
             <line number="191" hits="64" branch="false"/>
             <line number="192" hits="64" branch="false"/>
             <line number="193" hits="64" branch="false"/>
@@ -204,7 +205,6 @@
             <line number="196" hits="64" branch="false"/>
             <line number="197" hits="64" branch="false"/>
             <line number="198" hits="64" branch="false"/>
-            <line number="199" hits="64" branch="false"/>
           </lines>
         </class>
         <class name="cast_variables.R" filename="R/cast_variables.R" line-rate="1" branch-rate="0" complexity="0">
