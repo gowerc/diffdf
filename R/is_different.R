@@ -161,3 +161,19 @@ compare_vectors.numeric <- function(
 
     return(xy > tolerance)
 }
+
+#' compare_vectors.int64
+#'
+#' Handle int64 vectors. Uses numeric comparison
+#' @param target the base vector
+#' @param current a vector to compare target to
+#' @param tolerance Level of tolerance for differences between two variables
+#' @param scale Scale that tolerance should be set on. If NULL assume absolute
+compare_vectors.integer64 <- function(
+    target,
+    current,
+    tolerance = sqrt(.Machine$double.eps),
+    scale = NULL
+) {
+    compare_vectors.numeric(target, current, tolerance, scale)
+}
