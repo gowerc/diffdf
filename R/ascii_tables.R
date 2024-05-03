@@ -151,17 +151,30 @@ as_cropped_char <- function(inval, crop_at = 30) {
 #'
 #' Generate nice looking table from a data frame
 #' @param dsin dataset
-#' @param row_limit Maximum number of rows displayed in dataset
+#' @inheritParams print.diffdf
 get_table <- function(dsin, row_limit = 10) {
 
     if (nrow(dsin) == 0) {
         return("")
     }
+    if (!is.null(row_limit)) {
+        if (length(row_limit) != 1) {
+            stop("row_limit should have a length of 1")
+        }
+        if (!is.numeric(row_limit)) {
+            stop("row_limit should be a numeric value or NULL")
+        }
+        if (row_limit <= 0) {
+            stop("row_limit should be a positive integer")
+        }
+    }
+    if (is.null(row_limit)) {
+        display_table <- dsin
+    } else {
+        display_table <- subset(dsin, seq_len(nrow(dsin)) < (row_limit + 1))
+    }
 
-    display_table <- subset(dsin, seq_len(nrow(dsin)) < (row_limit + 1))
-
-    if (nrow(dsin) > row_limit) {
-
+    if (!is.null(row_limit) && nrow(dsin) > row_limit) {
         add_message <- paste0(
             "First ",
             row_limit,

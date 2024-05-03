@@ -4,14 +4,16 @@
 \alias{print.diffdf}
 \title{Print diffdf objects}
 \usage{
-\method{print}{diffdf}(x, ..., as_string = FALSE)
+\method{print}{diffdf}(x, row_limit = 10, as_string = FALSE, ...)
 }
 \arguments{
 \item{x}{comparison object created by diffdf().}
 
-\item{...}{Additional arguments (not used)}
+\item{row_limit}{Max row limit for difference tables (NULL to show all rows)}
 
 \item{as_string}{Return printed message as an R character vector?}
+
+\item{...}{Additional arguments (not used)}
 }
 \description{
 Print nicely formatted version of an diffdf object
@@ -21,5 +23,5 @@ x <- subset( iris , -Species )
 x[1,2] <- 5
 COMPARE <- diffdf( iris, x)
 print( COMPARE )
-print( COMPARE , "Sepal.Length" )
+print( COMPARE, row_limit = 5 )
 }
