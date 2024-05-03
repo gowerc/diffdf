@@ -26,7 +26,6 @@
 #' x[1,2] <- 5
 #' COMPARE <- diffdf( iris, x)
 #' print( COMPARE )
-#' print( COMPARE , "Sepal.Length" )
 #'
 #' #### Sample data frames
 #'

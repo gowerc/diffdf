@@ -4,10 +4,14 @@
 \alias{get_print_message.issue}
 \title{get_print_message.issue}
 \usage{
-\method{get_print_message}{issue}(object)
+\method{get_print_message}{issue}(object, row_limit, ...)
 }
 \arguments{
 \item{object}{an object of class issue_basic}
+
+\item{row_limit}{Max row limit for difference tables (NULL to show all rows)}
+
+\item{...}{Additional arguments (not used)}
 }
 \description{
 Get text from a basic issue, based on the class of the value of the issue
