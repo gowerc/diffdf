@@ -1,5 +1,3 @@
-
-
 #' Pad String
 #'
 #' Utility function used to replicate `str_pad`. Adds white space to either end
@@ -7,7 +5,9 @@
 #' @param x string
 #' @param width desired length
 string_pad <- function(x, width) {
-    if (nchar(x) >= width) return(x)
+    if (nchar(x) >= width) {
+        return(x)
+    }
     width <- width - nchar(x)
     left <- paste0(rep(" ", floor(width / 2)), collapse = "")
     right <- paste0(rep(" ", ceiling(width / 2)), collapse = "")
@@ -44,9 +44,9 @@ invert <- function(x) {
     x2 <- list()
     cnames <- names(x)
     tnames <- names(x[[1]])
-    for (i in tnames){
+    for (i in tnames) {
         x2[[i]] <- list()
-        for (j in cnames){
+        for (j in cnames) {
             x2[[i]][[j]] <- x[[j]][[i]]
         }
     }
@@ -65,10 +65,8 @@ invert <- function(x) {
 #' @param dat Input dataset to convert into a ascii table
 #' @param line_prefix Symbols to prefix in front of every line of the table
 as_ascii_table <- function(dat, line_prefix = "  ") {
-
-
     ## Convert every value to character and crop to a suitable length
-    dat  <- as_tibble(apply(dat, c(1, 2), as_cropped_char))
+    dat <- as_tibble(apply(dat, c(1, 2), as_cropped_char))
 
     hold <- list()
     COLS <- colnames(dat)
@@ -89,14 +87,14 @@ as_ascii_table <- function(dat, line_prefix = "  ") {
     }
 
     ### Collapse into a single value per component ( title , values, width )
-    thold  <- invert(hold)
-    tvals  <- recursive_reduce(thold$VALUES, paste0)
-    thead  <- recursive_reduce(thold$HEADER, paste0)
+    thold <- invert(hold)
+    tvals <- recursive_reduce(thold$VALUES, paste0)
+    thead <- recursive_reduce(thold$HEADER, paste0)
     twidth <- recursive_reduce(thold$WIDTH, sum)
 
     ### Create header and footer lines
     TLINE <- paste0(rep("=", twidth), collapse = "")
-    LINE  <- paste0(rep("-", twidth), collapse = "")
+    LINE <- paste0(rep("-", twidth), collapse = "")
     FVALS <- paste0(line_prefix, tvals, collapse = "\n")
 
     ### Output table
@@ -104,7 +102,7 @@ as_ascii_table <- function(dat, line_prefix = "  ") {
         "\n",
         line_prefix, TLINE, "\n",
         line_prefix, thead, "\n",
-        line_prefix, LINE,  "\n",
+        line_prefix, LINE, "\n",
         FVALS, "\n",
         line_prefix, LINE
     )
@@ -124,7 +122,6 @@ as_ascii_table <- function(dat, line_prefix = "  ") {
 #' @param inval a single element value
 #' @param crop_at character limit
 as_cropped_char <- function(inval, crop_at = 30) {
-
     if (is.null(inval)) {
         inval <- "<NULL>"
     } else if (is.na(inval)) {
@@ -153,7 +150,6 @@ as_cropped_char <- function(inval, crop_at = 30) {
 #' @param dsin dataset
 #' @inheritParams print.diffdf
 get_table <- function(dsin, row_limit = 10) {
-
     if (nrow(dsin) == 0) {
         return("")
     }
@@ -182,7 +178,6 @@ get_table <- function(dsin, row_limit = 10) {
             nrow(dsin),
             " rows are shown in table below"
         )
-
     } else {
         add_message <- "All rows are shown in table below"
     }

@@ -1,4 +1,3 @@
-
 #' Print diffdf objects
 #'
 #' Print nicely formatted version of an diffdf object
@@ -7,11 +6,11 @@
 #' @param row_limit Max row limit for difference tables (NULL to show all rows)
 #' @param as_string Return printed message as an R character vector?
 #' @examples
-#' x <- subset( iris , -Species )
-#' x[1,2] <- 5
-#' COMPARE <- diffdf( iris, x)
-#' print( COMPARE )
-#' print( COMPARE, row_limit = 5 )
+#' x <- subset(iris, -Species)
+#' x[1, 2] <- 5
+#' COMPARE <- diffdf(iris, x)
+#' print(COMPARE)
+#' print(COMPARE, row_limit = 5)
 #' @export
 print.diffdf <- function(x, row_limit = 10, as_string = FALSE, ...) {
     if (!is.null(row_limit)) {

@@ -1,4 +1,3 @@
-
 #' sort_then_join
 #'
 #' Convenience function to sort two strings and paste them together
@@ -31,8 +30,7 @@ get_message <- function(colname, whichdat, totype) {
 #' @param colin column to cast
 #' @param colname name of vector
 #' @param whichdat whether base or compare is being casted (used for messages)
-get_casted_vector <- function(colin, colname,  whichdat) {
-
+get_casted_vector <- function(colin, colname, whichdat) {
     if (class(colin) == "factor") {
         get_message(colname, whichdat, "character")
         return(as.character(colin))
@@ -56,7 +54,7 @@ get_casted_vector <- function(colin, colname,  whichdat) {
 #' @param columns columns to be casted
 #' @param whichdat whether base or compare is being casted (used for messages)
 get_casted_dataset <- function(df, columns, whichdat) {
-    for (col in  columns) {
+    for (col in columns) {
         df[[col]] <- get_casted_vector(df[[col]], col, whichdat)
     }
     return(df)
@@ -77,12 +75,11 @@ get_casted_dataset <- function(df, columns, whichdat) {
 #' @param cast_integers Logical - Whether integers should be cased to double when compared to doubles
 #' @param cast_factors Logical - Whether characters should be casted to characters when compared to characters
 cast_variables <- function(
-    BASE,
-    COMPARE,
-    ignore_vars = NULL,
-    cast_integers = FALSE,
-    cast_factors = FALSE
-) {
+        BASE,
+        COMPARE,
+        ignore_vars = NULL,
+        cast_integers = FALSE,
+        cast_factors = FALSE) {
 
     allowed_class_casts <- c("integernumeric", "characterfactor")[c(cast_integers, cast_factors)]
 
@@ -132,7 +129,7 @@ cast_variables <- function(
     }
 
 
-    for (i in names(DATASETS)){
+    for (i in names(DATASETS)) {
         DATASETS[[i]] <- get_casted_dataset(DATASETS[[i]], cast_columns$colname, i)
     }
 

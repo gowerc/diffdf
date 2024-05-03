@@ -9,7 +9,9 @@ construct_issue <- function(value, message, add_class = NULL) {
     x <- value
 
     ### If nothing has been provided return nothing !
-    if (nrow(x) == 0) return(NULL)
+    if (nrow(x) == 0) {
+        return(NULL)
+    }
 
     class(x) <- c(add_class, "issue", class(x))
     attributes(x)[["message"]] <- message

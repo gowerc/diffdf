@@ -9,15 +9,14 @@
 #' @param ...  Additional arguments which might be passed through (numerical accuracy)
 #' @return A boolean vector which is T if target and current are different
 is_variable_different <- function(variablename, keynames, datain, ...) {
-
     xvar <- paste0(variablename, ".x")
     yvar <- paste0(variablename, ".y")
 
-    if (!xvar %in% names(datain) || ! yvar %in% names(datain)) {
+    if (!xvar %in% names(datain) || !yvar %in% names(datain)) {
         stop("Variable does not exist within input dataset")
     }
 
-    target  <- datain[[xvar]]
+    target <- datain[[xvar]]
     current <- datain[[yvar]]
     outvect <- find_difference(target, current, ...)
 
@@ -59,7 +58,6 @@ compare_vectors <- function(target, current, ...) {
 #' @param current a vector to compare target to
 #' @param ...  Additional arguments which might be passed through (numerical accuracy)
 find_difference <- function(target, current, ...) {
-
     if (length(target) != length(current)) {
         warning("Inputs are not of the same length")
         return(NULL)
@@ -78,7 +76,7 @@ find_difference <- function(target, current, ...) {
     ## compare missing values
     nacompare <- nas_t != nas_c
     naselect <- nas_t | nas_c
-    return_vector[naselect]  <- nacompare[naselect]
+    return_vector[naselect] <- nacompare[naselect]
 
     ## compare non-missing values
     selectvector <- as.logical((!nas_t) * (!nas_c))
@@ -136,11 +134,10 @@ compare_vectors.factor <- function(target, current, ...) {
 #' @param tolerance Level of tolerance for differences between two variables
 #' @param scale Scale that tolerance should be set on. If NULL assume absolute
 compare_vectors.numeric <- function(
-    target,
-    current,
-    tolerance = sqrt(.Machine$double.eps),
-    scale = NULL
-) {
+        target,
+        current,
+        tolerance = sqrt(.Machine$double.eps),
+        scale = NULL) {
 
     out <- target == current
 
@@ -170,10 +167,9 @@ compare_vectors.numeric <- function(
 #' @param tolerance Level of tolerance for differences between two variables
 #' @param scale Scale that tolerance should be set on. If NULL assume absolute
 compare_vectors.integer64 <- function(
-    target,
-    current,
-    tolerance = sqrt(.Machine$double.eps),
-    scale = NULL
-) {
+        target,
+        current,
+        tolerance = sqrt(.Machine$double.eps),
+        scale = NULL) {
     compare_vectors.numeric(target, current, tolerance, scale)
 }

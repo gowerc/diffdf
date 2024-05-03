@@ -1,5 +1,3 @@
-
-
 #' identify_extra_rows
 #'
 #' Identifies rows that are in a baseline dataset but not in a comparator dataset
@@ -50,7 +48,7 @@ identify_extra_cols <- function(DS1, DS2) {
 #' @param DS2 Input dataset 2 (data frame)
 #' @param EXCLUDE Columns to ignore
 identify_matching_cols <- function(DS1, DS2, EXCLUDE = "") {
-    match_cols   <- sapply(names(DS1), "%in%", names(DS2))
+    match_cols <- sapply(names(DS1), "%in%", names(DS2))
     exclude_cols <- sapply(names(DS1), "%in%", EXCLUDE)
     names(DS1)[match_cols & !exclude_cols]
 }
@@ -70,7 +68,6 @@ identify_unsupported_cols <- function(dsin) {
     )
 
     dat[!dat[["MODE"]] %in% c("numeric", "character", "logical"), , drop = FALSE]
-
 }
 
 
@@ -81,7 +78,6 @@ identify_unsupported_cols <- function(dsin) {
 #' @param BASE Base dataset for comparison (data.frame)
 #' @param COMP Comparator dataset to compare base against (data.frame)
 identify_mode_differences <- function(BASE, COMP) {
-
     matching_cols <- identify_matching_cols(BASE, COMP)
 
     dat <- merge(
@@ -92,13 +88,12 @@ identify_mode_differences <- function(BASE, COMP) {
         suffixes = c(".BASE", ".COMP"),
         sort = TRUE
     )
-    dat <-  subset(dat, select = c("VARIABLE", "MODE.BASE", "MODE.COMP"))
+    dat <- subset(dat, select = c("VARIABLE", "MODE.BASE", "MODE.COMP"))
 
     KEEP1 <- dat[["VARIABLE"]] %in% matching_cols
     KEEP2 <- dat[["MODE.BASE"]] != dat[["MODE.COMP"]]
 
     dat[KEEP1 & KEEP2, , drop = FALSE]
-
 }
 
 
@@ -109,7 +104,6 @@ identify_mode_differences <- function(BASE, COMP) {
 #' @param BASE Base dataset for comparison (data.frame)
 #' @param COMP Comparator dataset to compare base against (data.frame)
 identify_class_differences <- function(BASE, COMP) {
-
     matching_cols <- identify_matching_cols(BASE, COMP)
 
     dat <- merge(
@@ -118,7 +112,7 @@ identify_class_differences <- function(BASE, COMP) {
         by = "VARIABLE",
         all = TRUE,
         sort = TRUE,
-        suffixes =  c(".BASE", ".COMP")
+        suffixes = c(".BASE", ".COMP")
     )
 
     dat <- subset(dat, select = c("VARIABLE", "CLASS.BASE", "CLASS.COMP"))
@@ -131,7 +125,6 @@ identify_class_differences <- function(BASE, COMP) {
     )
 
     dat[KEEP1 & KEEP2, , drop = FALSE]
-
 }
 
 
@@ -144,7 +137,6 @@ identify_class_differences <- function(BASE, COMP) {
 #' @param exclude_cols Columns to exclude from comparison
 #' @importFrom tibble tibble
 identify_att_differences <- function(BASE, COMP, exclude_cols = "") {
-
     matching_cols <- identify_matching_cols(BASE, COMP, exclude_cols)
 
     PROPS <- merge(
@@ -156,7 +148,7 @@ identify_att_differences <- function(BASE, COMP, exclude_cols = "") {
         suffixes = c(".BASE", ".COMP")
     )
 
-    PROPS <- subset(PROPS, select =  c("VARIABLE", "ATTRIBS.BASE", "ATTRIBS.COMP"))
+    PROPS <- subset(PROPS, select = c("VARIABLE", "ATTRIBS.BASE", "ATTRIBS.COMP"))
 
     PROPS <- PROPS[PROPS[["VARIABLE"]] %in% matching_cols, , drop = FALSE]
 
@@ -169,8 +161,7 @@ identify_att_differences <- function(BASE, COMP, exclude_cols = "") {
         VALUES.COMP = list()
     )
 
-    for (i in  PROPS[["VARIABLE"]]) {
-
+    for (i in PROPS[["VARIABLE"]]) {
         PROPS_filt <- PROPS[PROPS[["VARIABLE"]] == i, , drop = FALSE]
 
         ### Get a vector of all available attributes across both variables
@@ -184,13 +175,11 @@ identify_att_differences <- function(BASE, COMP, exclude_cols = "") {
 
         ### Loop over each attribute checking if they are identical and outputing
         ### anyones that arn't
-        for (j in ATTRIB_NAMES){
-
+        for (j in ATTRIB_NAMES) {
             ATTRIB_BASE <- PROPS_filt[["ATTRIBS.BASE"]][[1]][j]
             ATTRIB_COMP <- PROPS_filt[["ATTRIBS.COMP"]][[1]][j]
 
             if (!identical(ATTRIB_BASE, ATTRIB_COMP)) {
-
                 ATT_DIFFS <- tibble(
                     VARIABLE = i,
                     ATTR_NAME = j,
@@ -220,17 +209,18 @@ identify_att_differences <- function(BASE, COMP, exclude_cols = "") {
 #' @param tolerance Level of tolerance for numeric differences between two variables
 #' @param scale Scale that tolerance should be set on. If NULL assume absolute
 identify_differences <- function(
-    BASE,
-    COMP,
-    KEYS,
-    exclude_cols,
-    tolerance = sqrt(.Machine$double.eps),
-    scale = NULL
-) {
+        BASE,
+        COMP,
+        KEYS,
+        exclude_cols,
+        tolerance = sqrt(.Machine$double.eps),
+        scale = NULL) {
 
     matching_cols <- identify_matching_cols(BASE, COMP, c(KEYS, exclude_cols))
 
-    if (length(matching_cols) == 0) return(tibble())
+    if (length(matching_cols) == 0) {
+        return(tibble())
+    }
 
     DAT <- merge(
         x = BASE,
@@ -271,24 +261,23 @@ identify_differences <- function(
 #' @param dsin input dataframe that you want to get the metadata from
 #' @importFrom tibble tibble
 identify_properties <- function(dsin) {
-
     ### If missing or null return empty dataset
     if (is.null(dsin)) {
         x <- tibble(
             VARIABLE = character(),
-            CLASS     = list(),
-            MODE      = character(),
-            TYPE      = character(),
-            ATTRIBS   = list()
+            CLASS = list(),
+            MODE = character(),
+            TYPE = character(),
+            ATTRIBS = list()
         )
         return(x)
     }
 
     tibble(
         VARIABLE = names(dsin),
-        CLASS     = lapply(dsin, class),
-        MODE      = sapply(dsin, mode),
-        TYPE      = sapply(dsin, typeof),
-        ATTRIBS   = lapply(dsin, attributes)
+        CLASS = lapply(dsin, class),
+        MODE = sapply(dsin, mode),
+        TYPE = sapply(dsin, typeof),
+        ATTRIBS = lapply(dsin, attributes)
     )
 }
