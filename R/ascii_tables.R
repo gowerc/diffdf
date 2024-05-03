@@ -154,15 +154,10 @@ get_table <- function(dsin, row_limit = 10) {
         return("")
     }
     if (!is.null(row_limit)) {
-        if (length(row_limit) != 1) {
-            stop("row_limit should have a length of 1")
-        }
-        if (!is.numeric(row_limit)) {
-            stop("row_limit should be a numeric value or NULL")
-        }
-        if (row_limit <= 0) {
-            stop("row_limit should be a positive integer")
-        }
+        assertthat::assert_that(
+            assertthat::is.number(row_limit),
+            row_limit > 0
+        )
     }
     if (is.null(row_limit)) {
         display_table <- dsin

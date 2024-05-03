@@ -111,26 +111,27 @@ diffdf <- function(
         KEYS <- keyname
     }
     attr(COMPARE, "keys") <- list(value = KEYS, is_derived = is_derived)
+    
+    assertthat::assert_that(
+        is.numeric(tolerance),
+        is.numeric(scale) || is.null(scale)
+        
+    )
+    
+    assertthat::assert_that(
+        has_unique_rows(BASE, KEYS),
+        msg = "BY variables in BASE do not result in unique observations"
+    )
+    
+    assertthat::assert_that(
+        has_unique_rows(COMP, KEYS),
+        msg = "BY variables in COMPARE do not result in unique observations"
+    )
+    
 
 
 
-    if (!is.numeric(tolerance)) {
-        stop("'tolerance' should be numeric")
-    }
-
-    if (!is.numeric(scale) && !is.null(scale)) {
-        stop("'scale' should be numeric or NULL")
-    }
-
-
-
-    if (!has_unique_rows(BASE, KEYS)) {
-        stop("BY variables in BASE do not result in unique observations")
-    }
-
-    if (!has_unique_rows(COMP, KEYS)) {
-        stop("BY variables in COMPARE do not result in unique observations")
-    }
+ 
 
 
 
@@ -187,19 +188,23 @@ diffdf <- function(
 
     BASE_keys <- names(BASE)[names(BASE) %in% KEYS]
     COMP_keys <- names(COMP)[names(COMP) %in% KEYS]
+    
+    assertthat::assert_that(
+        length(BASE_keys) == length(KEYS),
+        msg = "BASE is missing variables specified in KEYS"
+    )
+    
+    assertthat::assert_that(
+        length(COMP_keys) == length(KEYS),
+        msg = "COMP is missing variables specified in KEYS"
+    )
+    
+    assertthat::assert_that(
+        all(!(KEYS %in% exclude_cols)),
+        msg = "KEYS are either an invalid or contain different modes between BASE and COMP"
+    )
+    
 
-
-    if (length(BASE_keys) != length(KEYS)) {
-        stop("BASE is missing variables specified in KEYS")
-    }
-
-    if (length(COMP_keys) != length(KEYS)) {
-        stop("COMP is missing variables specified in KEYS")
-    }
-
-    if (any(KEYS %in% exclude_cols)) {
-        stop("KEYS are either an invalid or contain different modes between BASE and COMP")
-    }
 
 
     ##### Check Attributes

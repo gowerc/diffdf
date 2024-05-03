@@ -13,10 +13,12 @@ generate_keyname <- function(
     if (class(replace_names) != "character") {
         stop("replace_names is not a character vector")
     }
+    
+    assertthat::assert_that(
+        length(replace_names) != 0,
+        msg = "All default row names are in use in BASE/COMPARE. Please provide a KEY argument"
+    )
 
-    if (length(replace_names) == 0) {
-        stop("All default row names are in use in BASE/COMPARE. Please provide a KEY argument")
-    }
 
     key_name <- replace_names[1]
 

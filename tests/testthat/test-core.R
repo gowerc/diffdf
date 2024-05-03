@@ -281,19 +281,19 @@ test_that("Additional rows error", {
 test_that("Bad values for scale or tolerance error", {
     expect_error(
         diffdf(TDAT, TDAT, tolerance = "bad value"),
-        "tolerance' should be numeric"
+        "tolerance is not a numeric or integer vector"
     )
     expect_error(
         diffdf(TDAT, TDAT, scale = "bad value"),
-        "'scale' should be numeric or NULL"
+        "scale is not a numeric or integer vector or scale is not NULL"
     )
     expect_error(
         diffdf(TDAT, TDAT_EXTROWS, scale = "bad value"),
-        "'scale' should be numeric or NULL"
+        "scale is not a numeric or integer vector or scale is not NULL"
     )
     expect_error(
         diffdf(TDAT, TDAT_CHARCHANGE, tolerance = "bad value"),
-        "tolerance' should be numeric"
+        "tolerance is not a numeric or integer vector"
     )
 })
 

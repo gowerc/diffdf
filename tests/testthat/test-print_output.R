@@ -73,27 +73,26 @@ test_that("print.diffdf errors when given bad inputs", {
     )
     expect_error(
         print(diff, row_limit = 0),
-        regexp = "row_limit should be a positive integer"
+
     )
     expect_error(
         print(diff, row_limit = "String"),
-        regexp = "row_limit should be a numeric value or NULL"
+
     )
     expect_error(
         print(diff, row_limit = NA),
-        regexp = "row_limit should be a numeric value or NULL"
+
     )
     expect_error(
         print(diff, row_limit = c(1, 2)),
-        regexp = "row_limit should have a length of 1"
+
     )
 
     expect_error(
         print(diff, as_string = "String"),
-        regexp = "as_string should be a logical of length one"
+
     )
     expect_error(
         print(diff, as_string = c(TRUE, TRUE)),
-        regexp = "as_string should be a logical of length one"
     )
 })

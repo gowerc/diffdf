@@ -14,19 +14,14 @@
 #' @export
 print.diffdf <- function(x, row_limit = 10, as_string = FALSE, ...) {
     if (!is.null(row_limit)) {
-        if (length(row_limit) != 1) {
-            stop("row_limit should have a length of 1")
-        }
-        if (!is.numeric(row_limit)) {
-            stop("row_limit should be a numeric value or NULL")
-        }
-        if (row_limit <= 0) {
-            stop("row_limit should be a positive integer")
-        }
+        assertthat::assert_that(
+            assertthat::is.number(row_limit),
+            row_limit > 0
+        )
     }
-    if (!is.logical(as_string) || length(as_string) != 1) {
-        stop("as_string should be a logical of length one")
-    }
+    assertthat::assert_that(
+        assertthat::is.flag(as_string)
+    )
     COMPARE <- x
 
     if (length(COMPARE) == 0) {
