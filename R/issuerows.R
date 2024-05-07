@@ -25,19 +25,19 @@
 #' nonsense rows being returned. It is always recommended to supply keys to diffdf.
 #' @export
 diffdf_issuerows <- function(df, diff, vars = NULL) {
-    
+
     assertthat::assert_that(
-        class(diff)[[1]] == "diffdf" 
+        class(diff)[[1]] == "diffdf"
     )
 
 
     KEYS_ATT <- attr(diff, "keys")
-    
+
     assertthat::assert_that(
         !is.null(KEYS_ATT),
         msg = "diff is missing the keys attribute"
     )
-    
+
 
     issue_vars <- names(diff)[grep("^VarDiff_", names(diff))]
 

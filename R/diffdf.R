@@ -111,27 +111,21 @@ diffdf <- function(
         KEYS <- keyname
     }
     attr(COMPARE, "keys") <- list(value = KEYS, is_derived = is_derived)
-    
+
     assertthat::assert_that(
         is.numeric(tolerance),
         is.numeric(scale) || is.null(scale)
-        
     )
-    
+
     assertthat::assert_that(
         has_unique_rows(BASE, KEYS),
         msg = "BY variables in BASE do not result in unique observations"
     )
-    
+
     assertthat::assert_that(
         has_unique_rows(COMP, KEYS),
         msg = "BY variables in COMPARE do not result in unique observations"
     )
-    
-
-
-
- 
 
 
 
@@ -188,28 +182,26 @@ diffdf <- function(
 
     BASE_keys <- names(BASE)[names(BASE) %in% KEYS]
     COMP_keys <- names(COMP)[names(COMP) %in% KEYS]
-    
+
     assertthat::assert_that(
         length(BASE_keys) == length(KEYS),
         msg = "BASE is missing variables specified in KEYS"
     )
-    
+
     assertthat::assert_that(
         length(COMP_keys) == length(KEYS),
         msg = "COMP is missing variables specified in KEYS"
     )
-    
+
     assertthat::assert_that(
         all(!(KEYS %in% exclude_cols)),
         msg = "KEYS are either an invalid or contain different modes between BASE and COMP"
     )
-    
+
 
 
 
     ##### Check Attributes
-
-
     COMPARE[["AttribDiffs"]] <- construct_issue(
         value = identify_att_differences(BASE, COMP, exclude_cols),
         message = "There are columns in BASE and COMPARE with differing attributes !!"

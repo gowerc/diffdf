@@ -414,7 +414,7 @@ test_that("strict_numeric and strict_factor was as intended", {
     expect_message(
         diffdf(TDAT_MODEDBL, TDAT_MODECHR, strict_factor = FALSE, strict_numeric = FALSE),
         regexp = paste0("NOTE: Variable CATEGORICAL in base was casted",
-               " to character|NOTE: Variable INTEGER in compare was casted to numeric"),
+                        " to character|NOTE: Variable INTEGER in compare was casted to numeric"),
         all = TRUE
     )
 })

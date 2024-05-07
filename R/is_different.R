@@ -11,7 +11,7 @@
 is_variable_different <- function(variablename, keynames, datain, ...) {
     xvar <- paste0(variablename, ".x")
     yvar <- paste0(variablename, ".y")
-    
+
     assertthat::assert_that(
         xvar %in% names(datain) && yvar %in% names(datain),
         msg = "Variable does not exist within input dataset"
