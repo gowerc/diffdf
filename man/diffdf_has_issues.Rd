@@ -16,12 +16,12 @@ object has issues or FALSE if an diffdf object does not have issues
 \examples{
 
 # Example with no issues
-x <- diffdf( iris, iris )
+x <- diffdf(iris, iris)
 diffdf_has_issues(x)
 
 # Example with issues
 iris2 <- iris
-iris2[2,2] <- NA
-x <- diffdf( iris , iris2 , suppress_warnings = TRUE)
+iris2[2, 2] <- NA
+x <- diffdf(iris, iris2, suppress_warnings = TRUE)
 diffdf_has_issues(x)
 }
