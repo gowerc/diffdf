@@ -16,7 +16,8 @@ print.diffdf <- function(x, row_limit = 10, as_string = FALSE, ...) {
     if (!is.null(row_limit)) {
         assertthat::assert_that(
             assertthat::is.number(row_limit),
-            row_limit > 0
+            row_limit > 0,
+            msg = "row_limit must be a positive integer"
         )
     }
     assertthat::assert_that(

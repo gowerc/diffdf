@@ -73,18 +73,22 @@ test_that("print.diffdf errors when given bad inputs", {
     )
     expect_error(
         print(diff, row_limit = 0),
+        "row_limit must be a positive integer"
 
     )
     expect_error(
         print(diff, row_limit = "String"),
+        "row_limit must be a positive integer"
 
     )
     expect_error(
         print(diff, row_limit = NA),
+        "row_limit must be a positive integer"
 
     )
     expect_error(
         print(diff, row_limit = c(1, 2)),
+        "row_limit must be a positive integer"
 
     )
 

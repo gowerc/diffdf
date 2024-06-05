@@ -81,15 +81,16 @@
 #'
 #' @export
 diffdf <- function(
-        base,
-        compare,
-        keys = NULL,
-        suppress_warnings = FALSE,
-        strict_numeric = TRUE,
-        strict_factor = TRUE,
-        file = NULL,
-        tolerance = sqrt(.Machine$double.eps),
-        scale = NULL) {
+    base,
+    compare,
+    keys = NULL,
+    suppress_warnings = FALSE,
+    strict_numeric = TRUE,
+    strict_factor = TRUE,
+    file = NULL,
+    tolerance = sqrt(.Machine$double.eps),
+    scale = NULL
+) {
 
     BASE <- base
     COMP <- compare

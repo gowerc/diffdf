@@ -156,7 +156,8 @@ get_table <- function(dsin, row_limit = 10) {
     if (!is.null(row_limit)) {
         assertthat::assert_that(
             assertthat::is.number(row_limit),
-            row_limit > 0
+            row_limit > 0,
+            msg = "row_limit must be a positive integer"
         )
     }
     if (is.null(row_limit)) {

@@ -7,9 +7,10 @@
 #' @param replace_names a vector of replacement names. Used for recursion, should be edited in function for clarity
 #'
 generate_keyname <- function(
-        BASE,
-        COMP,
-        replace_names = c("..ROWNUMBER..", "..RN..", "..ROWN..", "..N..")) {
+    BASE,
+    COMP,
+    replace_names = c("..ROWNUMBER..", "..RN..", "..ROWN..", "..N..")
+) {
     if (class(replace_names) != "character") {
         stop("replace_names is not a character vector")
     }
