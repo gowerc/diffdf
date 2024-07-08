@@ -63,4 +63,3 @@ test_that("can handle non-overlapping keys", {
     )
     expect_snapshot(res)
 })
-
