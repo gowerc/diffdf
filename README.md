@@ -4,8 +4,8 @@
 <!-- start badges -->
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/diffdf)](https://CRAN.R-project.org/package=diffdf)
 [![Dependencies](https://tinyverse.netlify.com/badge/diffdf)](https://cran.r-project.org/package=diffdf)
-[![Downloads](http://cranlogs.r-pkg.org/badges/diffdf?color=brightgreen)](http://www.r-pkg.org/pkg/diffdf)
-[![Code Coverage 📔](https://raw.githubusercontent.com/gowerc/diffdf/_xml_coverage_reports/data/main/badge.svg)](https://gowerc.github.io/diffdf/main/coverage-report/)
+[![Downloads](https://cranlogs.r-pkg.org/badges/diffdf?color=brightgreen)](https://www.r-pkg.org/pkg/diffdf)
+[![Code Coverage 📔](https://raw.githubusercontent.com/gowerc/diffdf/_xml_coverage_reports/data/master/badge.svg)](https://gowerc.github.io/diffdf/master/coverage-report/)
 <!-- end badges -->
 
 The diffdf package is designed to enable detailed comparison of two data.frames. Whilst many packages exist for informing you if there are differences between data.frames, none provide as much detail on what and where those differences are as diffdf does!
