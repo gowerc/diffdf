@@ -1,4 +1,3 @@
-context("Testing print functionality")
 
 
 

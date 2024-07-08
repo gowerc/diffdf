@@ -36,3 +36,4 @@ VignetteBuilder: knitr
 License: MIT + file LICENSE
 URL: https://github.com/gowerc/diffdf
 BugReports: https://github.com/gowerc/diffdf/issues
+Config/testthat/edition: 3

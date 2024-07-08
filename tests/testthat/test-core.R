@@ -1,4 +1,3 @@
-context("Testing entire function")
 
 
 ##############################

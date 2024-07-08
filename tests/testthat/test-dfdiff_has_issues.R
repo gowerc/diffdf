@@ -1,4 +1,3 @@
-context("Testing diffdf_has_issues")
 
 
 test_that("diffdf_has_issues works as expected", {
