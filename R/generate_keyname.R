@@ -1,5 +1,3 @@
-
-
 #' Generate unique key name
 #'
 #' Function to generate a name for the keys if not provided
@@ -17,9 +15,11 @@ generate_keyname <- function(
         stop("replace_names is not a character vector")
     }
 
-    if (length(replace_names) == 0) {
-        stop("All default row names are in use in BASE/COMPARE. Please provide a KEY argument")
-    }
+    assertthat::assert_that(
+        length(replace_names) != 0,
+        msg = "All default row names are in use in BASE/COMPARE. Please provide a KEY argument"
+    )
+
 
     key_name <- replace_names[1]
 

@@ -19,9 +19,9 @@
 Print nicely formatted version of an diffdf object
 }
 \examples{
-x <- subset( iris , -Species )
-x[1,2] <- 5
-COMPARE <- diffdf( iris, x)
-print( COMPARE )
-print( COMPARE, row_limit = 5 )
+x <- subset(iris, -Species)
+x[1, 2] <- 5
+COMPARE <- diffdf(iris, x)
+print(COMPARE)
+print(COMPARE, row_limit = 5)
 }

@@ -1,6 +1,3 @@
-
-
-
 #' factor_to_character
 #'
 #' Takes a dataframe and converts any factor variables to character
@@ -8,10 +5,9 @@
 #' @param vars variables to consider for conversion. Default NULL will consider
 #' every variable within the dataset
 factor_to_character <- function(dsin, vars = NULL) {
-
     if (is.null(vars)) vars <- names(dsin)
 
-    for (var in vars){
+    for (var in vars) {
         if (is.factor(dsin[[var]])) {
             dsin[[var]] <- as.character(dsin[[var]])
         }
@@ -33,11 +29,11 @@ has_unique_rows <- function(DAT, KEYS) {
     return(NDUPS == 0)
 }
 
-#'convert_to_issue
+#' convert_to_issue
 #'
-#'converts the count value into the correct issue format
-#'@param datin data inputted
-#'@importFrom tibble rownames_to_column
+#' converts the count value into the correct issue format
+#' @param datin data inputted
+#' @importFrom tibble rownames_to_column
 convert_to_issue <- function(datin) {
     datin_tibble <- tibble(
         `Variable` = names(datin),

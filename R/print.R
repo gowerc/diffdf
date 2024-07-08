@@ -1,4 +1,3 @@
-
 #' Print diffdf objects
 #'
 #' Print nicely formatted version of an diffdf object
@@ -7,27 +6,23 @@
 #' @param row_limit Max row limit for difference tables (NULL to show all rows)
 #' @param as_string Return printed message as an R character vector?
 #' @examples
-#' x <- subset( iris , -Species )
-#' x[1,2] <- 5
-#' COMPARE <- diffdf( iris, x)
-#' print( COMPARE )
-#' print( COMPARE, row_limit = 5 )
+#' x <- subset(iris, -Species)
+#' x[1, 2] <- 5
+#' COMPARE <- diffdf(iris, x)
+#' print(COMPARE)
+#' print(COMPARE, row_limit = 5)
 #' @export
 print.diffdf <- function(x, row_limit = 10, as_string = FALSE, ...) {
     if (!is.null(row_limit)) {
-        if (length(row_limit) != 1) {
-            stop("row_limit should have a length of 1")
-        }
-        if (!is.numeric(row_limit)) {
-            stop("row_limit should be a numeric value or NULL")
-        }
-        if (row_limit <= 0) {
-            stop("row_limit should be a positive integer")
-        }
+        assertthat::assert_that(
+            assertthat::is.number(row_limit),
+            row_limit > 0,
+            msg = "row_limit must be a positive integer"
+        )
     }
-    if (!is.logical(as_string) || length(as_string) != 1) {
-        stop("as_string should be a logical of length one")
-    }
+    assertthat::assert_that(
+        assertthat::is.flag(as_string)
+    )
     COMPARE <- x
 
     if (length(COMPARE) == 0) {

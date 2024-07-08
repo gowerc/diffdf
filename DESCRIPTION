@@ -16,7 +16,8 @@ Language: en-GB
 Depends:
     R (>= 3.1.2)
 Imports:
-    tibble
+    tibble,
+    assertthat
 Suggests: 
     testthat,
     lubridate,

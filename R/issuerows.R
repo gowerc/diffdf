@@ -1,8 +1,3 @@
-
-
-
-
-
 #' Identify Issue Rows
 #'
 #' This function takes a `diffdf` object and a dataframe and subsets
@@ -15,12 +10,12 @@
 #' on. A value of NULL (default) will be taken to mean available issue variables.
 #' @examples
 #' iris2 <- iris
-#' for ( i in 1:3) iris2[i,i] <- 99
-#' x <- diffdf( iris , iris2, suppress_warnings = TRUE)
-#' diffdf_issuerows( iris , x)
-#' diffdf_issuerows( iris2 , x)
-#' diffdf_issuerows( iris2 , x , vars = "Sepal.Length")
-#' diffdf_issuerows( iris2 , x , vars = c("Sepal.Length" , "Sepal.Width"))
+#' for (i in 1:3) iris2[i, i] <- 99
+#' x <- diffdf(iris, iris2, suppress_warnings = TRUE)
+#' diffdf_issuerows(iris, x)
+#' diffdf_issuerows(iris2, x)
+#' diffdf_issuerows(iris2, x, vars = "Sepal.Length")
+#' diffdf_issuerows(iris2, x, vars = c("Sepal.Length", "Sepal.Width"))
 #' @details
 #' Note that `diffdf_issuerows` can be used to subset against any dataframe. The only
 #' requirement is that the original variables specified in the keys argument to diffdf
@@ -31,21 +26,24 @@
 #' @export
 diffdf_issuerows <- function(df, diff, vars = NULL) {
 
-    if (class(diff)[[1]] != "diffdf") {
-        stop("diff should be an diffdf object")
-    }
+    assertthat::assert_that(
+        class(diff)[[1]] == "diffdf"
+    )
+
 
     KEYS_ATT <- attr(diff, "keys")
 
-    if (is.null(KEYS_ATT)) {
-        stop("diff is missing the keys attribute")
-    }
+    assertthat::assert_that(
+        !is.null(KEYS_ATT),
+        msg = "diff is missing the keys attribute"
+    )
+
 
     issue_vars <- names(diff)[grep("^VarDiff_", names(diff))]
 
     if (is.null(vars)) {
         vars <- issue_vars
-    }  else {
+    } else {
         vars <- paste0("VarDiff_", vars)
     }
 
@@ -69,7 +67,7 @@ diffdf_issuerows <- function(df, diff, vars = NULL) {
 
     keys <- KEYS_ATT$value
 
-    if (any(! keys %in% names(df))) {
+    if (any(!keys %in% names(df))) {
         stop("df does not contain all variables specified as keys in diff")
     }
 

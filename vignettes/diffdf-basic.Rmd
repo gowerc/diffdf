@@ -44,7 +44,7 @@ test_data <- tibble::tibble(
     CONTINUOUS  = rnorm(LENGTH, 30, 12),
     CATEGORICAL = factor(sample(c("A", "B", "C"), LENGTH, replace = TRUE)),
     LOGICAL     = sample(c(TRUE, FALSE), LENGTH, replace = TRUE),
-    CHARACTER   = stringi::stri_rand_strings(LENGTH,  rpois(LENGTH, 13),  pattern = "[ A-Za-z0-9]")
+    CHARACTER   = stringi::stri_rand_strings(LENGTH, rpois(LENGTH, 13), pattern = "[ A-Za-z0-9]")
 )
 
 test_data
@@ -137,7 +137,6 @@ Bear in mind that the `vars` option can be used to just subset down to issues as
 ```{r}
 diffdf_issuerows(iris2, diff, vars = "Sepal.Length")
 diffdf_issuerows(iris2, diff, vars = c("Sepal.Length", "Sepal.Width"))
-
 ```
 
 ### Are there issues ?
