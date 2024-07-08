@@ -36,12 +36,6 @@ variable(s) will be returned."><!-- mathjax --><script src="https://cdnjs.cloudf
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://gowerc.github.io/diffdf/"></a> </div></li>
-<!-- end dropdown for versions -->
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-reports">Reports</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-reports">
@@ -110,22 +104,22 @@ nonsense rows being returned. It is always recommended to supply keys to diffdf.
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">iris2</span> <span class="op">&lt;-</span> <span class="va">iris</span></span></span>
-<span class="r-in"><span><span class="kw">for</span> <span class="op">(</span> <span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span> <span class="va">iris2</span><span class="op">[</span><span class="va">i</span>,<span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">99</span></span></span>
-<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="diffdf.html">diffdf</a></span><span class="op">(</span> <span class="va">iris</span> , <span class="va">iris2</span>, suppress_warnings <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">diffdf_issuerows</span><span class="op">(</span> <span class="va">iris</span> , <span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span> <span class="va">iris2</span><span class="op">[</span><span class="va">i</span>, <span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">99</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="diffdf.html">diffdf</a></span><span class="op">(</span><span class="va">iris</span>, <span class="va">iris2</span>, suppress_warnings <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">diffdf_issuerows</span><span class="op">(</span><span class="va">iris</span>, <span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Sepal.Length Sepal.Width Petal.Length Petal.Width Species</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1          5.1         3.5          1.4         0.2  setosa</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2          4.9         3.0          1.4         0.2  setosa</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3          4.7         3.2          1.3         0.2  setosa</span>
-<span class="r-in"><span><span class="fu">diffdf_issuerows</span><span class="op">(</span> <span class="va">iris2</span> , <span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">diffdf_issuerows</span><span class="op">(</span><span class="va">iris2</span>, <span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Sepal.Length Sepal.Width Petal.Length Petal.Width Species</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1         99.0         3.5          1.4         0.2  setosa</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2          4.9        99.0          1.4         0.2  setosa</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3          4.7         3.2         99.0         0.2  setosa</span>
-<span class="r-in"><span><span class="fu">diffdf_issuerows</span><span class="op">(</span> <span class="va">iris2</span> , <span class="va">x</span> , vars <span class="op">=</span> <span class="st">"Sepal.Length"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">diffdf_issuerows</span><span class="op">(</span><span class="va">iris2</span>, <span class="va">x</span>, vars <span class="op">=</span> <span class="st">"Sepal.Length"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Sepal.Length Sepal.Width Petal.Length Petal.Width Species</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1           99         3.5          1.4         0.2  setosa</span>
-<span class="r-in"><span><span class="fu">diffdf_issuerows</span><span class="op">(</span> <span class="va">iris2</span> , <span class="va">x</span> , vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Sepal.Length"</span> , <span class="st">"Sepal.Width"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">diffdf_issuerows</span><span class="op">(</span><span class="va">iris2</span>, <span class="va">x</span>, vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Sepal.Length"</span>, <span class="st">"Sepal.Width"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Sepal.Length Sepal.Width Petal.Length Petal.Width Species</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1         99.0         3.5          1.4         0.2  setosa</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2          4.9        99.0          1.4         0.2  setosa</span>
