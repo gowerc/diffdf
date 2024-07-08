@@ -77,6 +77,17 @@ as_ascii_table <- function(dat, line_prefix = "  ") {
         COL <- COLS[i]
         VALUES <- dat[[i]]
 
+        # For character values convert newlines / carriedge returns to be printed
+        # values to not break the display format.
+        # Add enclosing " " around strings with white space so that it can be
+        # clearly identified in the printed output
+        if (is.character(VALUES)) {
+            VALUES <- gsub("\x0D", "<cr>", VALUES)
+            VALUES <- gsub("\x0A", "<nl>", VALUES)
+            add_quotes <- grepl("\\s", VALUES)
+            VALUES[add_quotes] <- paste0('"', VALUES, '"')[add_quotes]
+        }
+
         JOINT <- c(COL, VALUES)
         WIDTH <- max(sapply(JOINT, nchar)) + 2
 

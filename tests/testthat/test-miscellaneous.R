@@ -22,3 +22,42 @@ test_that("sort order is as expected (sorted by keys)", {
     expect_true(all(x2$G1 == c(1, 2, 10)))
     expect_true(all(x2$var == c(97, 99, 98)))
 })
+
+
+
+test_that("as_ascii_table() can handle white space and newlines", {
+    x1 <- data.frame(
+        x = c(
+            "no-quotes",
+            "yes have\x0D\nquotes",
+            "yes it should have quotes but its long"
+        )
+    )
+
+    gold <- c(
+        "",
+        "  =====================================",
+        "                    x                  ",
+        "  -------------------------------------",
+        "                no-quotes              ",
+        '        "yes have<cr><nl>quotes"       ',
+        '   "yes it should have quotes but ..." ',
+        "  -------------------------------------"
+    )
+
+    expect_equal(
+        (as_ascii_table(x1) |> strsplit("\n"))[[1]],
+        gold
+    )
+
+
+    #
+    # Show that converting to factor makes no difference
+    #
+    x2 <- x1
+    x2$x <- factor(x2$x)
+    expect_equal(
+        (as_ascii_table(x2) |> strsplit("\n"))[[1]],
+        gold
+    )
+})
