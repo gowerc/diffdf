@@ -3,6 +3,7 @@
 Development version
 
 - `row_limit` argument now functional again in print method! With thanks to @brianrepko
+- Enhanced table printing so that white space characters are more clearly defined (#87)
 
 
 
