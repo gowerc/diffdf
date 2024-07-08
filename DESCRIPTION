@@ -30,7 +30,7 @@ Suggests:
     devtools,
     covr,
     bit64
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
 License: MIT + file LICENSE
