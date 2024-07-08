@@ -1,0 +1,783 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="Testing casting variables" timestamp="2024-07-08T15:00:30Z" hostname="61c24a5e349a" tests="8" skipped="0" failures="0" errors="0" time="0.057">
+    <testcase time="0.0119999999999999" classname="Testing_casting_variables" name="Factor_cast_to_character_no_other_changes_"/>
+    <testcase time="0.019" classname="Testing_casting_variables" name="Factor_cast_to_character_no_other_changes_"/>
+    <testcase time="0.00900000000000001" classname="Testing_casting_variables" name="Factor_cast_to_character_no_other_changes_"/>
+    <testcase time="0.001" classname="Testing_casting_variables" name="Factor_cast_to_character_no_other_changes_"/>
+    <testcase time="0.01" classname="Testing_casting_variables" name="Int_cast_to_numeric_no_other_changes_"/>
+    <testcase time="0.001" classname="Testing_casting_variables" name="Int_cast_to_numeric_no_other_changes_"/>
+    <testcase time="0.003" classname="Testing_casting_variables" name="Int_cast_to_numeric_no_other_changes_"/>
+    <testcase time="0.002" classname="Testing_casting_variables" name="Int_cast_to_numeric_no_other_changes_"/>
+  </testsuite>
+  <testsuite name="Testing entire function" timestamp="2024-07-08T15:00:31Z" hostname="61c24a5e349a" tests="100" skipped="0" failures="0" errors="0" time="1.983">
+    <testcase time="0.038" classname="Testing_entire_function" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.025" classname="Testing_entire_function" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.0209999999999999" classname="Testing_entire_function" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.025" classname="Testing_entire_function" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.023" classname="Testing_entire_function" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.024" classname="Testing_entire_function" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.022" classname="Testing_entire_function" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.023" classname="Testing_entire_function" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.0239999999999999" classname="Testing_entire_function" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.022" classname="Testing_entire_function" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.0230000000000001" classname="Testing_entire_function" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.0179999999999998" classname="Testing_entire_function" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.0230000000000001" classname="Testing_entire_function" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.0209999999999999" classname="Testing_entire_function" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.024" classname="Testing_entire_function" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.022" classname="Testing_entire_function" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.04" classname="Testing_entire_function" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.022" classname="Testing_entire_function" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.0229999999999999" classname="Testing_entire_function" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.026" classname="Testing_entire_function" name="Unequal_objects_raise_warnings"/>
+    <testcase time="0.022" classname="Testing_entire_function" name="Unequal_objects_raise_warnings"/>
+    <testcase time="0.024" classname="Testing_entire_function" name="Unequal_objects_raise_warnings"/>
+    <testcase time="0.0209999999999999" classname="Testing_entire_function" name="Unequal_objects_raise_warnings"/>
+    <testcase time="0.024" classname="Testing_entire_function" name="Unequal_objects_raise_warnings"/>
+    <testcase time="0.0210000000000001" classname="Testing_entire_function" name="Unequal_objects_raise_warnings"/>
+    <testcase time="0.024" classname="Testing_entire_function" name="Unequal_objects_raise_warnings"/>
+    <testcase time="0.0229999999999999" classname="Testing_entire_function" name="Unequal_objects_raise_warnings"/>
+    <testcase time="0.0229999999999999" classname="Testing_entire_function" name="Unequal_objects_raise_warnings"/>
+    <testcase time="0.024" classname="Testing_entire_function" name="Unequal_objects_raise_warnings"/>
+    <testcase time="0.022" classname="Testing_entire_function" name="Unequal_objects_raise_warnings"/>
+    <testcase time="0.024" classname="Testing_entire_function" name="Unequal_objects_raise_warnings"/>
+    <testcase time="0.022" classname="Testing_entire_function" name="Unequal_objects_raise_warnings"/>
+    <testcase time="0.024" classname="Testing_entire_function" name="Unequal_objects_raise_warnings"/>
+    <testcase time="0.022" classname="Testing_entire_function" name="Unequal_objects_raise_warnings"/>
+    <testcase time="0.0249999999999999" classname="Testing_entire_function" name="Unequal_objects_raise_warnings"/>
+    <testcase time="0.024" classname="Testing_entire_function" name="Unequal_objects_raise_warnings"/>
+    <testcase time="0.022" classname="Testing_entire_function" name="Unequal_objects_raise_warnings"/>
+    <testcase time="0.028" classname="Testing_entire_function" name="Unequal_object_checking_numbers_correct"/>
+    <testcase time="0.002" classname="Testing_entire_function" name="Unequal_object_checking_numbers_correct"/>
+    <testcase time="0.002" classname="Testing_entire_function" name="Unequal_object_checking_numbers_correct"/>
+    <testcase time="0.0229999999999999" classname="Testing_entire_function" name="Unequal_object_checking_numbers_correct"/>
+    <testcase time="0.004" classname="Testing_entire_function" name="Unequal_object_checking_numbers_correct"/>
+    <testcase time="0.002" classname="Testing_entire_function" name="Unequal_object_checking_numbers_correct"/>
+    <testcase time="0.0230000000000001" classname="Testing_entire_function" name="Unequal_object_checking_numbers_correct"/>
+    <testcase time="0.002" classname="Testing_entire_function" name="Unequal_object_checking_numbers_correct"/>
+    <testcase time="0.00099999999999989" classname="Testing_entire_function" name="Unequal_object_checking_numbers_correct"/>
+    <testcase time="0.0250000000000001" classname="Testing_entire_function" name="Unequal_object_checking_numbers_correct"/>
+    <testcase time="0.00299999999999989" classname="Testing_entire_function" name="Unequal_object_checking_numbers_correct"/>
+    <testcase time="0.00100000000000011" classname="Testing_entire_function" name="Unequal_object_checking_numbers_correct"/>
+    <testcase time="0.0249999999999999" classname="Testing_entire_function" name="Unequal_object_checking_numbers_correct"/>
+    <testcase time="0.00300000000000011" classname="Testing_entire_function" name="Unequal_object_checking_numbers_correct"/>
+    <testcase time="0.00099999999999989" classname="Testing_entire_function" name="Unequal_object_checking_numbers_correct"/>
+    <testcase time="0.0229999999999999" classname="Testing_entire_function" name="Unequal_object_checking_numbers_correct"/>
+    <testcase time="0.00300000000000011" classname="Testing_entire_function" name="Unequal_object_checking_numbers_correct"/>
+    <testcase time="0.00099999999999989" classname="Testing_entire_function" name="Unequal_object_checking_numbers_correct"/>
+    <testcase time="0.0250000000000001" classname="Testing_entire_function" name="Unequal_object_checking_numbers_correct"/>
+    <testcase time="0.002" classname="Testing_entire_function" name="Unequal_object_checking_numbers_correct"/>
+    <testcase time="0.002" classname="Testing_entire_function" name="Unequal_object_checking_numbers_correct"/>
+    <testcase time="0.0249999999999999" classname="Testing_entire_function" name="Unequal_object_checking_numbers_correct"/>
+    <testcase time="0.00300000000000011" classname="Testing_entire_function" name="Unequal_object_checking_numbers_correct"/>
+    <testcase time="0.00099999999999989" classname="Testing_entire_function" name="Unequal_object_checking_numbers_correct"/>
+    <testcase time="0.0250000000000001" classname="Testing_entire_function" name="Differing_modes_error"/>
+    <testcase time="0.0249999999999999" classname="Testing_entire_function" name="Differing_modes_error"/>
+    <testcase time="0.024" classname="Testing_entire_function" name="Differing_classes_error"/>
+    <testcase time="0.018" classname="Testing_entire_function" name="Differing_classes_error"/>
+    <testcase time="0.00800000000000001" classname="Testing_entire_function" name="Non_Unique_rows_error"/>
+    <testcase time="0.026" classname="Testing_entire_function" name="Illegal_columns_error"/>
+    <testcase time="0.022" classname="Testing_entire_function" name="Illegal_columns_error"/>
+    <testcase time="0.0270000000000001" classname="Testing_entire_function" name="Illegal_columns_error"/>
+    <testcase time="0.028" classname="Testing_entire_function" name="Additional_columns_error"/>
+    <testcase time="0.0229999999999997" classname="Testing_entire_function" name="Additional_columns_error"/>
+    <testcase time="0.0260000000000002" classname="Testing_entire_function" name="Additional_rows_error"/>
+    <testcase time="0.0230000000000001" classname="Testing_entire_function" name="Additional_rows_error"/>
+    <testcase time="0.0089999999999999" classname="Testing_entire_function" name="Bad_values_for_scale_or_tolerance_error"/>
+    <testcase time="0.00499999999999989" classname="Testing_entire_function" name="Bad_values_for_scale_or_tolerance_error"/>
+    <testcase time="0.00499999999999989" classname="Testing_entire_function" name="Bad_values_for_scale_or_tolerance_error"/>
+    <testcase time="0.004" classname="Testing_entire_function" name="Bad_values_for_scale_or_tolerance_error"/>
+    <testcase time="0.0270000000000001" classname="Testing_entire_function" name="Objets_with_differing_attributes_produce_the_correct_warning"/>
+    <testcase time="0.0230000000000001" classname="Testing_entire_function" name="Objets_with_differing_attributes_produce_the_correct_warning"/>
+    <testcase time="0.0259999999999998" classname="Testing_entire_function" name="Objets_with_differing_attributes_produce_the_correct_warning"/>
+    <testcase time="0.024" classname="Testing_entire_function" name="Objets_with_differing_attributes_produce_the_correct_warning"/>
+    <testcase time="0.0249999999999999" classname="Testing_entire_function" name="Objets_with_differing_attributes_produce_the_correct_warning"/>
+    <testcase time="0.0249999999999999" classname="Testing_entire_function" name="Objets_with_differing_attributes_produce_the_correct_warning"/>
+    <testcase time="0.024" classname="Testing_entire_function" name="Objets_with_differing_attributes_produce_the_correct_warning"/>
+    <testcase time="0.028" classname="Testing_entire_function" name="Attribute_differnce_size_is_correct_"/>
+    <testcase time="0.0250000000000004" classname="Testing_entire_function" name="Attribute_differnce_size_is_correct_"/>
+    <testcase time="0.024" classname="Testing_entire_function" name="Attribute_differnce_size_is_correct_"/>
+    <testcase time="0.0259999999999998" classname="Testing_entire_function" name="Attribute_differnce_size_is_correct_"/>
+    <testcase time="0.0259999999999998" classname="Testing_entire_function" name="Attribute_differnce_size_is_correct_"/>
+    <testcase time="0.0230000000000001" classname="Testing_entire_function" name="Attribute_differnce_size_is_correct_"/>
+    <testcase time="0.0249999999999999" classname="Testing_entire_function" name="Attribute_differnce_size_is_correct_"/>
+    <testcase time="0.0269999999999997" classname="Testing_entire_function" name="strict_numeric_and_strict_factor_was_as_intended"/>
+    <testcase time="0.0230000000000001" classname="Testing_entire_function" name="strict_numeric_and_strict_factor_was_as_intended"/>
+    <testcase time="0.028" classname="Testing_entire_function" name="strict_numeric_and_strict_factor_was_as_intended"/>
+    <testcase time="0.0230000000000001" classname="Testing_entire_function" name="strict_numeric_and_strict_factor_was_as_intended"/>
+    <testcase time="0.0249999999999999" classname="Testing_entire_function" name="strict_numeric_and_strict_factor_was_as_intended"/>
+    <testcase time="0.024" classname="Testing_entire_function" name="strict_numeric_and_strict_factor_was_as_intended"/>
+    <testcase time="0.024" classname="Testing_entire_function" name="strict_numeric_and_strict_factor_was_as_intended"/>
+    <testcase time="0.0249999999999999" classname="Testing_entire_function" name="strict_numeric_and_strict_factor_was_as_intended"/>
+    <testcase time="0.0249999999999999" classname="Testing_entire_function" name="strict_numeric_and_strict_factor_was_as_intended"/>
+  </testsuite>
+  <testsuite name="Testing diffdf_has_issues" timestamp="2024-07-08T15:00:33Z" hostname="61c24a5e349a" tests="3" skipped="0" failures="0" errors="0" time="0.088">
+    <testcase time="0.0329999999999999" classname="Testing_diffdf_has_issues" name="diffdf_has_issues_works_as_expected"/>
+    <testcase time="0.0290000000000004" classname="Testing_diffdf_has_issues" name="diffdf_has_issues_works_as_expected"/>
+    <testcase time="0.0259999999999998" classname="Testing_diffdf_has_issues" name="diffdf_has_issues_works_as_expected"/>
+  </testsuite>
+  <testsuite name="Testing find_difference" timestamp="2024-07-08T15:00:33Z" hostname="61c24a5e349a" tests="36" skipped="0" failures="0" errors="0" time="0.111">
+    <testcase time="0.00599999999999978" classname="Testing_find_difference" name="find_difference_correctly_doesn_t_flag_identical_objects"/>
+    <testcase time="0.00300000000000011" classname="Testing_find_difference" name="find_difference_correctly_doesn_t_flag_identical_objects"/>
+    <testcase time="0.00200000000000022" classname="Testing_find_difference" name="find_difference_correctly_doesn_t_flag_identical_objects"/>
+    <testcase time="0.00199999999999978" classname="Testing_find_difference" name="find_difference_correctly_doesn_t_flag_identical_objects"/>
+    <testcase time="0.00300000000000011" classname="Testing_find_difference" name="find_difference_correctly_doesn_t_flag_identical_objects"/>
+    <testcase time="0.00199999999999978" classname="Testing_find_difference" name="find_difference_correctly_doesn_t_flag_identical_objects"/>
+    <testcase time="0.00200000000000022" classname="Testing_find_difference" name="find_difference_correctly_doesn_t_flag_identical_objects"/>
+    <testcase time="0.00300000000000011" classname="Testing_find_difference" name="find_difference_correctly_doesn_t_flag_identical_objects"/>
+    <testcase time="0.00199999999999978" classname="Testing_find_difference" name="find_difference_correctly_doesn_t_flag_identical_objects"/>
+    <testcase time="0.00200000000000022" classname="Testing_find_difference" name="find_difference_correctly_doesn_t_flag_identical_objects"/>
+    <testcase time="0.00299999999999967" classname="Testing_find_difference" name="find_difference_correctly_doesn_t_flag_identical_objects"/>
+    <testcase time="0.00200000000000022" classname="Testing_find_difference" name="find_difference_correctly_doesn_t_flag_identical_objects"/>
+    <testcase time="0.00599999999999978" classname="Testing_find_difference" name="find_difference_correctly_doesn_t_flag_identical_objects"/>
+    <testcase time="0.00300000000000011" classname="Testing_find_difference" name="find_difference_correctly_doesn_t_flag_identical_objects"/>
+    <testcase time="0.00300000000000011" classname="Testing_find_difference" name="find_difference_correctly_doesn_t_flag_identical_objects"/>
+    <testcase time="0.00199999999999978" classname="Testing_find_difference" name="find_difference_correctly_doesn_t_flag_identical_objects"/>
+    <testcase time="0.00300000000000011" classname="Testing_find_difference" name="find_difference_correctly_doesn_t_flag_identical_objects"/>
+    <testcase time="0.00200000000000022" classname="Testing_find_difference" name="find_difference_correctly_doesn_t_flag_identical_objects"/>
+    <testcase time="0.00299999999999967" classname="Testing_find_difference" name="find_difference_correctly_flags_differences"/>
+    <testcase time="0.00100000000000033" classname="Testing_find_difference" name="find_difference_correctly_flags_differences"/>
+    <testcase time="0.00199999999999978" classname="Testing_find_difference" name="find_difference_correctly_flags_differences"/>
+    <testcase time="0.00099999999999989" classname="Testing_find_difference" name="find_difference_correctly_flags_differences"/>
+    <testcase time="0.00100000000000033" classname="Testing_find_difference" name="find_difference_correctly_flags_differences"/>
+    <testcase time="0.00299999999999967" classname="Testing_find_difference" name="find_difference_correctly_uses_tolerances_scale_arguments"/>
+    <testcase time="0.00200000000000022" classname="Testing_find_difference" name="find_difference_correctly_uses_tolerances_scale_arguments"/>
+    <testcase time="0.00099999999999989" classname="Testing_find_difference" name="find_difference_correctly_uses_tolerances_scale_arguments"/>
+    <testcase time="0.00099999999999989" classname="Testing_find_difference" name="find_difference_correctly_uses_tolerances_scale_arguments"/>
+    <testcase time="0.00100000000000033" classname="Testing_find_difference" name="find_difference_correctly_uses_tolerances_scale_arguments"/>
+    <testcase time="0.00199999999999978" classname="Testing_find_difference" name="find_difference_correctly_uses_tolerances_scale_arguments"/>
+    <testcase time="0.00099999999999989" classname="Testing_find_difference" name="find_difference_correctly_uses_tolerances_scale_arguments"/>
+    <testcase time="0.032" classname="Testing_find_difference" name="find_difference_handles_int64_correctly"/>
+    <testcase time="0.00100000000000033" classname="Testing_find_difference" name="find_difference_handles_int64_correctly"/>
+    <testcase time="0.00199999999999978" classname="Testing_find_difference" name="find_difference_handles_int64_correctly"/>
+    <testcase time="0.00099999999999989" classname="Testing_find_difference" name="find_difference_handles_int64_correctly"/>
+    <testcase time="0.004" classname="Testing_find_difference" name="find_difference_throws_a_warning_if_vectors_are_of_a_different_length"/>
+    <testcase time="0.00100000000000033" classname="Testing_find_difference" name="find_difference_throws_a_warning_if_vectors_are_of_a_different_length"/>
+  </testsuite>
+  <testsuite name="Testing generate keyname" timestamp="2024-07-08T15:00:33Z" hostname="61c24a5e349a" tests="25" skipped="0" failures="0" errors="0" time="0.07">
+    <testcase time="0.00699999999999967" classname="Testing_generate_keyname" name="Correct_name_returned"/>
+    <testcase time="0.00099999999999989" classname="Testing_generate_keyname" name="Correct_name_returned"/>
+    <testcase time="0.00100000000000033" classname="Testing_generate_keyname" name="Correct_name_returned"/>
+    <testcase time="0.00099999999999989" classname="Testing_generate_keyname" name="Correct_name_returned"/>
+    <testcase time="0.00099999999999989" classname="Testing_generate_keyname" name="Correct_name_returned"/>
+    <testcase time="0.00200000000000022" classname="Testing_generate_keyname" name="Correct_name_returned"/>
+    <testcase time="0.00099999999999989" classname="Testing_generate_keyname" name="Correct_name_returned"/>
+    <testcase time="0.00099999999999989" classname="Testing_generate_keyname" name="Correct_name_returned"/>
+    <testcase time="0.00099999999999989" classname="Testing_generate_keyname" name="Correct_name_returned"/>
+    <testcase time="0.00200000000000022" classname="Testing_generate_keyname" name="Correct_name_returned"/>
+    <testcase time="0.00099999999999989" classname="Testing_generate_keyname" name="Correct_name_returned"/>
+    <testcase time="0.00099999999999989" classname="Testing_generate_keyname" name="Correct_name_returned"/>
+    <testcase time="0.004" classname="Testing_generate_keyname" name="Correct_name_returned"/>
+    <testcase time="0.00200000000000022" classname="Testing_generate_keyname" name="Correct_name_returned"/>
+    <testcase time="0.00099999999999989" classname="Testing_generate_keyname" name="Correct_name_returned"/>
+    <testcase time="0.00200000000000022" classname="Testing_generate_keyname" name="Correct_name_returned"/>
+    <testcase time="0.00099999999999989" classname="Testing_generate_keyname" name="Correct_name_returned"/>
+    <testcase time="0.00700000000000012" classname="Testing_generate_keyname" name="Error_if_all_names_taken_in_at_least_1_datasets"/>
+    <testcase time="0.004" classname="Testing_generate_keyname" name="Error_if_all_names_taken_in_at_least_1_datasets"/>
+    <testcase time="0.004" classname="Testing_generate_keyname" name="Error_if_all_names_taken_in_at_least_1_datasets"/>
+    <testcase time="0.00499999999999989" classname="Testing_generate_keyname" name="Error_if_all_names_taken_in_at_least_1_datasets"/>
+    <testcase time="0.004" classname="Testing_generate_keyname" name="Error_if_all_names_taken_in_at_least_1_datasets"/>
+    <testcase time="0.00700000000000012" classname="Testing_generate_keyname" name="Error_if_all_names_taken_in_at_least_1_datasets"/>
+    <testcase time="0.00499999999999989" classname="Testing_generate_keyname" name="Error_if_all_names_taken_in_at_least_1_datasets"/>
+    <testcase time="0.004" classname="Testing_generate_keyname" name="Error_if_all_names_taken_in_at_least_1_datasets"/>
+  </testsuite>
+  <testsuite name="Testing attribute differnce functions" timestamp="2024-07-08T15:00:33Z" hostname="61c24a5e349a" tests="10" skipped="0" failures="0" errors="0" time="0.098">
+    <testcase time="0.012" classname="Testing_attribute_differnce_functions" name="Check_comparision_of_attributes_objects"/>
+    <testcase time="0.00499999999999989" classname="Testing_attribute_differnce_functions" name="Check_comparision_of_attributes_objects"/>
+    <testcase time="0.00600000000000023" classname="Testing_attribute_differnce_functions" name="Check_comparision_of_attributes_objects"/>
+    <testcase time="0.00800000000000001" classname="Testing_attribute_differnce_functions" name="Check_comparision_of_attributes_objects"/>
+    <testcase time="0.0089999999999999" classname="Testing_attribute_differnce_functions" name="Check_comparision_of_attributes_objects"/>
+    <testcase time="0.0089999999999999" classname="Testing_attribute_differnce_functions" name="Check_comparision_of_attributes_objects"/>
+    <testcase time="0.00800000000000001" classname="Testing_attribute_differnce_functions" name="Check_comparision_of_attributes_objects"/>
+    <testcase time="0.0150000000000001" classname="Testing_attribute_differnce_functions" name="Check_comparision_of_attributes_objects"/>
+    <testcase time="0.0129999999999999" classname="Testing_attribute_differnce_functions" name="Check_comparision_of_attributes_objects"/>
+    <testcase time="0.0129999999999999" classname="Testing_attribute_differnce_functions" name="Check_comparision_of_attributes_objects"/>
+  </testsuite>
+  <testsuite name="Testing mode difference functions" timestamp="2024-07-08T15:00:33Z" hostname="61c24a5e349a" tests="300" skipped="0" failures="0" errors="0" time="1.632">
+    <testcase time="0.0210000000000004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00699999999999967" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00600000000000023" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00599999999999978" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00600000000000023" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00699999999999967" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00700000000000012" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00600000000000023" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00599999999999978" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00500000000000034" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00599999999999978" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00600000000000023" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_2"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_2"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_2"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_2"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_2"/>
+    <testcase time="0.00600000000000023" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_2"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_2"/>
+    <testcase time="0.0619999999999998" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00599999999999978" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00500000000000034" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00600000000000023" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00599999999999978" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00500000000000034" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00599999999999978" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00500000000000034" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00599999999999978" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.0100000000000002" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00500000000000034" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00699999999999967" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00500000000000034" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00699999999999967" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00500000000000034" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00700000000000012" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00700000000000012" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00699999999999967" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_2"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_2"/>
+    <testcase time="0.00700000000000012" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_2"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_2"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_2"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_2"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_2"/>
+    <testcase time="0.02" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00600000000000023" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00500000000000034" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00800000000000001" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00500000000000034" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00800000000000001" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.004" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00500000000000034" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00599999999999978" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00400000000000045" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00400000000000045" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00699999999999967" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00699999999999967" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00500000000000078" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00399999999999956" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00600000000000023" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00500000000000078" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00399999999999956" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00699999999999967" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00500000000000078" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00399999999999956" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00500000000000078" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00599999999999934" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00500000000000078" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00399999999999956" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00600000000000023" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00500000000000078" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00399999999999956" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00700000000000056" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00399999999999956" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00700000000000056" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_2"/>
+    <testcase time="0.00399999999999956" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_2"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_2"/>
+    <testcase time="0.00700000000000056" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_2"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_2"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_2"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_2"/>
+    <testcase time="0.0190000000000001" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00600000000000023" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00399999999999956" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00600000000000023" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00700000000000056" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00700000000000056" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00700000000000056" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00399999999999956" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00500000000000078" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.0619999999999994" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00500000000000078" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_equal_objects"/>
+    <testcase time="0.00699999999999967" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00500000000000078" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00699999999999967" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00600000000000023" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00699999999999967" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00600000000000023" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00699999999999967" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00600000000000023" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00699999999999967" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00600000000000023" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00800000000000001" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00500000000000078" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00500000000000078" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00699999999999967" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00500000000000078" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_1"/>
+    <testcase time="0.00700000000000056" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_2"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_2"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_2"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_2"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_2"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_2"/>
+    <testcase time="0.00499999999999989" classname="Testing_mode_difference_functions" name="Check_comparision_of_non_equal_objects_aiming_for_differences_of_length_2"/>
+  </testsuite>
+  <testsuite name="Testing diffdf_issuerows" timestamp="2024-07-08T15:00:34Z" hostname="61c24a5e349a" tests="47" skipped="0" failures="0" errors="0" time="0.23">
+    <testcase time="0.0250000000000004" classname="Testing_diffdf_issuerows" name="Equal_datasets_return_no_rows"/>
+    <testcase time="0.000999999999999446" classname="Testing_diffdf_issuerows" name="Equal_datasets_return_no_rows"/>
+    <testcase time="0.0210000000000008" classname="Testing_diffdf_issuerows" name="Checking_no_rows_returned_if_only_issue_is_missing_cols"/>
+    <testcase time="0.000999999999999446" classname="Testing_diffdf_issuerows" name="Checking_no_rows_returned_if_only_issue_is_missing_cols"/>
+    <testcase time="0.00100000000000033" classname="Testing_diffdf_issuerows" name="Checking_no_rows_returned_if_only_issue_is_missing_cols"/>
+    <testcase time="0.000999999999999446" classname="Testing_diffdf_issuerows" name="Checking_no_rows_returned_if_only_issue_is_missing_cols"/>
+    <testcase time="0.00300000000000011" classname="Testing_diffdf_issuerows" name="Checking_no_rows_returned_if_only_issue_is_missing_cols"/>
+    <testcase time="0.0200000000000005" classname="Testing_diffdf_issuerows" name="Checking_no_rows_returned_if_only_issue_is_missing_rows"/>
+    <testcase time="0.000999999999999446" classname="Testing_diffdf_issuerows" name="Checking_no_rows_returned_if_only_issue_is_missing_rows"/>
+    <testcase time="0.00100000000000033" classname="Testing_diffdf_issuerows" name="Checking_no_rows_returned_if_only_issue_is_missing_rows"/>
+    <testcase time="0.00100000000000033" classname="Testing_diffdf_issuerows" name="Checking_no_rows_returned_if_only_issue_is_missing_rows"/>
+    <testcase time="0.000999999999999446" classname="Testing_diffdf_issuerows" name="Checking_no_rows_returned_if_only_issue_is_missing_rows"/>
+    <testcase time="0.0209999999999999" classname="Testing_diffdf_issuerows" name="Checking_no_rows_returned_if_only_issue_is_different_attribs"/>
+    <testcase time="0.00200000000000067" classname="Testing_diffdf_issuerows" name="Checking_no_rows_returned_if_only_issue_is_different_attribs"/>
+    <testcase time="0.000999999999999446" classname="Testing_diffdf_issuerows" name="Checking_no_rows_returned_if_only_issue_is_different_attribs"/>
+    <testcase time="0.00100000000000033" classname="Testing_diffdf_issuerows" name="Checking_no_rows_returned_if_only_issue_is_different_attribs"/>
+    <testcase time="0.00100000000000033" classname="Testing_diffdf_issuerows" name="Checking_no_rows_returned_if_only_issue_is_different_attribs"/>
+    <testcase time="0.0239999999999991" classname="Testing_diffdf_issuerows" name="Checking_correct_values_return_where_value_differences_are_found"/>
+    <testcase time="0.00100000000000033" classname="Testing_diffdf_issuerows" name="Checking_correct_values_return_where_value_differences_are_found"/>
+    <testcase time="0.00100000000000033" classname="Testing_diffdf_issuerows" name="Checking_correct_values_return_where_value_differences_are_found"/>
+    <testcase time="0.00199999999999978" classname="Testing_diffdf_issuerows" name="Checking_correct_values_return_where_value_differences_are_found"/>
+    <testcase time="0.00100000000000033" classname="Testing_diffdf_issuerows" name="Checking_correct_values_return_where_value_differences_are_found"/>
+    <testcase time="0.00199999999999978" classname="Testing_diffdf_issuerows" name="Checking_correct_values_return_where_value_differences_are_found"/>
+    <testcase time="0.00300000000000011" classname="Testing_diffdf_issuerows" name="Checking_correct_values_return_where_value_differences_are_found"/>
+    <testcase time="0.0299999999999994" classname="Testing_diffdf_issuerows" name="can_handle_multple_errors_including_key_vars"/>
+    <testcase time="0.00200000000000067" classname="Testing_diffdf_issuerows" name="can_handle_multple_errors_including_key_vars"/>
+    <testcase time="0.000999999999999446" classname="Testing_diffdf_issuerows" name="can_handle_multple_errors_including_key_vars"/>
+    <testcase time="0.00100000000000033" classname="Testing_diffdf_issuerows" name="can_handle_multple_errors_including_key_vars"/>
+    <testcase time="0.00100000000000033" classname="Testing_diffdf_issuerows" name="can_handle_multple_errors_including_key_vars"/>
+    <testcase time="0.00399999999999956" classname="Testing_diffdf_issuerows" name="can_handle_multple_errors_including_key_vars"/>
+    <testcase time="0.00100000000000033" classname="Testing_diffdf_issuerows" name="can_handle_multple_errors_including_key_vars"/>
+    <testcase time="0.00199999999999978" classname="Testing_diffdf_issuerows" name="can_handle_multple_errors_including_key_vars"/>
+    <testcase time="0.00100000000000033" classname="Testing_diffdf_issuerows" name="can_handle_multple_errors_including_key_vars"/>
+    <testcase time="0.000999999999999446" classname="Testing_diffdf_issuerows" name="can_handle_multple_errors_including_key_vars"/>
+    <testcase time="0.00300000000000011" classname="Testing_diffdf_issuerows" name="can_handle_multple_errors_including_key_vars"/>
+    <testcase time="0.00199999999999978" classname="Testing_diffdf_issuerows" name="can_handle_multple_errors_including_key_vars"/>
+    <testcase time="0.00400000000000045" classname="Testing_diffdf_issuerows" name="can_handle_multple_errors_including_key_vars"/>
+    <testcase time="0.00199999999999978" classname="Testing_diffdf_issuerows" name="can_handle_multple_errors_including_key_vars"/>
+    <testcase time="0.00100000000000033" classname="Testing_diffdf_issuerows" name="can_handle_multple_errors_including_key_vars"/>
+    <testcase time="0.000999999999999446" classname="Testing_diffdf_issuerows" name="can_handle_multple_errors_including_key_vars"/>
+    <testcase time="0.00100000000000033" classname="Testing_diffdf_issuerows" name="can_handle_multple_errors_including_key_vars"/>
+    <testcase time="0.00699999999999967" classname="Testing_diffdf_issuerows" name="can_handle_multple_errors_including_key_vars"/>
+    <testcase time="0.0209999999999999" classname="Testing_diffdf_issuerows" name="Correct_columns_are_returned_where_both_values_and_columns_have_issues"/>
+    <testcase time="0.00199999999999978" classname="Testing_diffdf_issuerows" name="Correct_columns_are_returned_where_both_values_and_columns_have_issues"/>
+    <testcase time="0.00100000000000033" classname="Testing_diffdf_issuerows" name="Correct_columns_are_returned_where_both_values_and_columns_have_issues"/>
+    <testcase time="0.00100000000000033" classname="Testing_diffdf_issuerows" name="Correct_columns_are_returned_where_both_values_and_columns_have_issues"/>
+    <testcase time="0.00299999999999923" classname="Testing_diffdf_issuerows" name="Correct_columns_are_returned_where_both_values_and_columns_have_issues"/>
+  </testsuite>
+  <testsuite name="Testing misc (currently sorting only)" timestamp="2024-07-08T15:00:35Z" hostname="61c24a5e349a" tests="6" skipped="0" failures="0" errors="0" time="0.039">
+    <testcase time="0.0260000000000007" classname="Testing_misc_currently_sorting_only_" name="sort_order_is_as_expected_sorted_by_keys_"/>
+    <testcase time="0.00199999999999978" classname="Testing_misc_currently_sorting_only_" name="sort_order_is_as_expected_sorted_by_keys_"/>
+    <testcase time="0.00199999999999978" classname="Testing_misc_currently_sorting_only_" name="sort_order_is_as_expected_sorted_by_keys_"/>
+    <testcase time="0.00300000000000011" classname="Testing_misc_currently_sorting_only_" name="sort_order_is_as_expected_sorted_by_keys_"/>
+    <testcase time="0.00399999999999956" classname="Testing_misc_currently_sorting_only_" name="as_ascii_table_can_handle_white_space_and_newlines"/>
+    <testcase time="0.00200000000000067" classname="Testing_misc_currently_sorting_only_" name="as_ascii_table_can_handle_white_space_and_newlines"/>
+  </testsuite>
+  <testsuite name="Testing print functionality" timestamp="2024-07-08T15:00:35Z" hostname="61c24a5e349a" tests="31" skipped="0" failures="10" errors="0" time="0.69">
+    <testcase time="0.466" classname="Testing_print_functionality" name="_unnamed_"/>
+    <testcase time="0.000999999999999446" classname="Testing_print_functionality" name="_unnamed_"/>
+    <testcase time="0.00100000000000033" classname="Testing_print_functionality" name="_unnamed_"/>
+    <testcase time="0.000999999999999446" classname="Testing_print_functionality" name="_unnamed_"/>
+    <testcase time="0.00400000000000045" classname="Testing_print_functionality" name="_unnamed_">
+      <failure type="failure" message="RES[[i]] not equal to TESTING_print_msg[[i]]. ('test-print_output.R:42:9')">RES[[i]] not equal to TESTING_print_msg[[i]].
+5/13 mismatches
+x[8]: "  =======================================================================
+x[8]: "
+y[8]: "  ====================================================================="
+
+x[9]: "   VARIABLE  ATTR_NAME  VALUES.BASE              VALUES.COMP             
+x[9]: "
+y[9]: "   VARIABLE  ATTR_NAME  VALUES.BASE             VALUES.COMP            "
+
+x[10]: "  -----------------------------------------------------------------------
+x[10]: "
+y[10]: "  ---------------------------------------------------------------------"
+
+x[11]: "    BINARY   something     NULL      \"list(Sepal.Length = c(5.1, 4.9...\
+x[11]: " "
+y[11]: "    BINARY   something     NULL      list(Sepal.Length = c(5.1, 4.9... "
+
+x[12]: "  -----------------------------------------------------------------------
+x[12]: "
+y[12]: "  ---------------------------------------------------------------------"
+Reference = 5 - Different attributes</failure>
+    </testcase>
+    <testcase time="0.0249999999999995" classname="Testing_print_functionality" name="_unnamed_">
+      <failure type="failure" message="RES[[i]] not equal to TESTING_print_msg[[i]]. ('test-print_output.R:42:9')">RES[[i]] not equal to TESTING_print_msg[[i]].
+5/13 mismatches
+x[8]: "  =======================================================================
+x[8]: "
+y[8]: "  ====================================================================="
+
+x[9]: "   VARIABLE  ATTR_NAME              VALUES.BASE              VALUES.COMP 
+x[9]: "
+y[9]: "   VARIABLE  ATTR_NAME             VALUES.BASE             VALUES.COMP "
+
+x[10]: "  -----------------------------------------------------------------------
+x[10]: "
+y[10]: "  ---------------------------------------------------------------------"
+
+x[11]: "    BINARY   something  \"list(Sepal.Length = c(5.1, 4.9...\"     NULL   
+x[11]:   "
+y[11]: "    BINARY   something  list(Sepal.Length = c(5.1, 4.9...     NULL     "
+
+x[12]: "  -----------------------------------------------------------------------
+x[12]: "
+y[12]: "  ---------------------------------------------------------------------"
+Reference = 6 - Different attributes 2</failure>
+    </testcase>
+    <testcase time="0.0170000000000003" classname="Testing_print_functionality" name="_unnamed_">
+      <failure type="failure" message="RES[[i]] not equal to TESTING_print_msg[[i]]. ('test-print_output.R:42:9')">RES[[i]] not equal to TESTING_print_msg[[i]].
+10/38 mismatches
+x[8]: "  ================================================================"
+y[8]: "  ============================================================"
+
+x[9]: "    VARIABLE    ATTR_NAME     VALUES.BASE         VALUES.COMP     "
+y[9]: "    VARIABLE    ATTR_NAME    VALUES.BASE       VALUES.COMP    "
+
+x[10]: "  ----------------------------------------------------------------"
+y[10]: "  ------------------------------------------------------------"
+
+x[11]: "   CATEGORICAL   levels    \"c(\"A\", \"B\", \"C\")\"  \"c(\"A\", \"B\", 
+x[11]: \"D\")\" "
+y[11]: "   CATEGORICAL   levels    c(\"A\", \"B\", \"C\")  c(\"A\", \"B\", \"D\")
+y[11]:  "
+
+x[12]: "  ----------------------------------------------------------------"
+y[12]: "  ------------------------------------------------------------"
+Reference = 7 - Different Levels</failure>
+    </testcase>
+    <testcase time="0.0110000000000001" classname="Testing_print_functionality" name="_unnamed_">
+      <failure type="failure" message="RES[[i]] not equal to TESTING_print_msg[[i]]. ('test-print_output.R:42:9')">RES[[i]] not equal to TESTING_print_msg[[i]].
+10/38 mismatches
+x[8]: "  ================================================================"
+y[8]: "  ============================================================"
+
+x[9]: "    VARIABLE    ATTR_NAME     VALUES.BASE         VALUES.COMP     "
+y[9]: "    VARIABLE    ATTR_NAME    VALUES.BASE       VALUES.COMP    "
+
+x[10]: "  ----------------------------------------------------------------"
+y[10]: "  ------------------------------------------------------------"
+
+x[11]: "   CATEGORICAL   levels    \"c(\"A\", \"B\", \"D\")\"  \"c(\"A\", \"B\", 
+x[11]: \"C\")\" "
+y[11]: "   CATEGORICAL   levels    c(\"A\", \"B\", \"D\")  c(\"A\", \"B\", \"C\")
+y[11]:  "
+
+x[12]: "  ----------------------------------------------------------------"
+y[12]: "  ------------------------------------------------------------"
+Reference = 8 - Different Levels 2</failure>
+    </testcase>
+    <testcase time="0.0109999999999992" classname="Testing_print_functionality" name="_unnamed_">
+      <failure type="failure" message="RES[[i]] not equal to TESTING_print_msg[[i]]. ('test-print_output.R:42:9')">RES[[i]] not equal to TESTING_print_msg[[i]].
+5/13 mismatches
+x[8]: "  ========================================================"
+y[8]: "  ======================================================"
+
+x[9]: "   VARIABLE  CLASS.BASE             CLASS.COMP            "
+y[9]: "   VARIABLE  CLASS.BASE            CLASS.COMP           "
+
+x[10]: "  --------------------------------------------------------"
+y[10]: "  ------------------------------------------------------"
+
+x[11]: "     DATE       Date     \"c(\"A_DATE\", \"b_date\", \"cDate\")\" "
+y[11]: "     DATE       Date     c(\"A_DATE\", \"b_date\", \"cDate\") "
+
+x[12]: "  --------------------------------------------------------"
+y[12]: "  ------------------------------------------------------"
+Reference = 9 - Different Class</failure>
+    </testcase>
+    <testcase time="0.0100000000000007" classname="Testing_print_functionality" name="_unnamed_">
+      <failure type="failure" message="RES[[i]] not equal to TESTING_print_msg[[i]]. ('test-print_output.R:42:9')">RES[[i]] not equal to TESTING_print_msg[[i]].
+5/13 mismatches
+x[8]: "  ========================================================"
+y[8]: "  ======================================================"
+
+x[9]: "   VARIABLE             CLASS.BASE             CLASS.COMP "
+y[9]: "   VARIABLE            CLASS.BASE            CLASS.COMP "
+
+x[10]: "  --------------------------------------------------------"
+y[10]: "  ------------------------------------------------------"
+
+x[11]: "     DATE    \"c(\"A_DATE\", \"b_date\", \"cDate\")\"     Date    "
+y[11]: "     DATE    c(\"A_DATE\", \"b_date\", \"cDate\")     Date    "
+
+x[12]: "  --------------------------------------------------------"
+y[12]: "  ------------------------------------------------------"
+Reference = 10 - Different Class 2</failure>
+    </testcase>
+    <testcase time="0.00899999999999945" classname="Testing_print_functionality" name="_unnamed_"/>
+    <testcase time="0.00100000000000033" classname="Testing_print_functionality" name="_unnamed_"/>
+    <testcase time="0.00100000000000033" classname="Testing_print_functionality" name="_unnamed_"/>
+    <testcase time="0.000999999999999446" classname="Testing_print_functionality" name="_unnamed_"/>
+    <testcase time="0.00100000000000033" classname="Testing_print_functionality" name="_unnamed_"/>
+    <testcase time="0.000999999999999446" classname="Testing_print_functionality" name="_unnamed_"/>
+    <testcase time="0.00600000000000023" classname="Testing_print_functionality" name="_unnamed_">
+      <failure type="failure" message="RES[[i]] not equal to TESTING_print_msg[[i]]. ('test-print_output.R:42:9')">RES[[i]] not equal to TESTING_print_msg[[i]].
+29/90 mismatches
+x[17]: "  ========================================================"
+y[17]: "  ======================================================"
+
+x[18]: "   VARIABLE  CLASS.BASE             CLASS.COMP            "
+y[18]: "   VARIABLE  CLASS.BASE            CLASS.COMP           "
+
+x[19]: "  --------------------------------------------------------"
+y[19]: "  ------------------------------------------------------"
+
+x[20]: "     DATE       Date     \"c(\"A_DATE\", \"b_date\", \"cDate\")\" "
+y[20]: "     DATE       Date     c(\"A_DATE\", \"b_date\", \"cDate\") "
+
+x[21]: "   INTEGER    integer               character             "
+y[21]: "   INTEGER    integer              character            "
+Reference = 17 - everything</failure>
+    </testcase>
+    <testcase time="0.0110000000000001" classname="Testing_print_functionality" name="_unnamed_">
+      <failure type="failure" message="RES[[i]] not equal to TESTING_print_msg[[i]]. ('test-print_output.R:42:9')">RES[[i]] not equal to TESTING_print_msg[[i]].
+29/90 mismatches
+x[17]: "  ========================================================"
+y[17]: "  ======================================================"
+
+x[18]: "   VARIABLE             CLASS.BASE             CLASS.COMP "
+y[18]: "   VARIABLE            CLASS.BASE            CLASS.COMP "
+
+x[19]: "  --------------------------------------------------------"
+y[19]: "  ------------------------------------------------------"
+
+x[20]: "     DATE    \"c(\"A_DATE\", \"b_date\", \"cDate\")\"     Date    "
+y[20]: "     DATE    c(\"A_DATE\", \"b_date\", \"cDate\")     Date    "
+
+x[21]: "   INTEGER              character               integer   "
+y[21]: "   INTEGER             character              integer   "
+Reference = 18 - everything 2</failure>
+    </testcase>
+    <testcase time="0.00900000000000034" classname="Testing_print_functionality" name="_unnamed_"/>
+    <testcase time="0.00300000000000011" classname="Testing_print_functionality" name="_unnamed_">
+      <failure type="failure" message="RES[[i]] not equal to TESTING_print_msg[[i]]. ('test-print_output.R:42:9')">RES[[i]] not equal to TESTING_print_msg[[i]].
+41/90 mismatches
+x[17]: "  ========================================================"
+y[17]: "  ======================================================"
+
+x[18]: "   VARIABLE  CLASS.BASE             CLASS.COMP            "
+y[18]: "   VARIABLE  CLASS.BASE            CLASS.COMP           "
+
+x[19]: "  --------------------------------------------------------"
+y[19]: "  ------------------------------------------------------"
+
+x[20]: "     DATE       Date     \"c(\"A_DATE\", \"b_date\", \"cDate\")\" "
+y[20]: "     DATE       Date     c(\"A_DATE\", \"b_date\", \"cDate\") "
+
+x[21]: "   INTEGER    integer               character             "
+y[21]: "   INTEGER    integer              character            "
+Reference = 20 - With 1 key</failure>
+    </testcase>
+    <testcase time="0.0119999999999996" classname="Testing_print_functionality" name="_unnamed_">
+      <failure type="failure" message="RES[[i]] not equal to TESTING_print_msg[[i]]. ('test-print_output.R:42:9')">RES[[i]] not equal to TESTING_print_msg[[i]].
+41/90 mismatches
+x[17]: "  ========================================================"
+y[17]: "  ======================================================"
+
+x[18]: "   VARIABLE  CLASS.BASE             CLASS.COMP            "
+y[18]: "   VARIABLE  CLASS.BASE            CLASS.COMP           "
+
+x[19]: "  --------------------------------------------------------"
+y[19]: "  ------------------------------------------------------"
+
+x[20]: "     DATE       Date     \"c(\"A_DATE\", \"b_date\", \"cDate\")\" "
+y[20]: "     DATE       Date     c(\"A_DATE\", \"b_date\", \"cDate\") "
+
+x[21]: "   INTEGER    integer               character             "
+y[21]: "   INTEGER    integer              character            "
+Reference = 21 - With 2 keys</failure>
+    </testcase>
+    <testcase time="0.0279999999999996" classname="Testing_print_functionality" name="row_limit_works_as_expected"/>
+    <testcase time="0.00600000000000023" classname="Testing_print_functionality" name="row_limit_works_as_expected"/>
+    <testcase time="0.00300000000000011" classname="Testing_print_functionality" name="row_limit_works_as_expected"/>
+    <testcase time="0.00499999999999989" classname="Testing_print_functionality" name="row_limit_works_as_expected"/>
+    <testcase time="0.0250000000000004" classname="Testing_print_functionality" name="print.diffdf_errors_when_given_bad_inputs"/>
+    <testcase time="0.00399999999999956" classname="Testing_print_functionality" name="print.diffdf_errors_when_given_bad_inputs"/>
+    <testcase time="0.00400000000000045" classname="Testing_print_functionality" name="print.diffdf_errors_when_given_bad_inputs"/>
+    <testcase time="0.00499999999999989" classname="Testing_print_functionality" name="print.diffdf_errors_when_given_bad_inputs"/>
+    <testcase time="0.00399999999999956" classname="Testing_print_functionality" name="print.diffdf_errors_when_given_bad_inputs"/>
+    <testcase time="0.00400000000000045" classname="Testing_print_functionality" name="print.diffdf_errors_when_given_bad_inputs"/>
+  </testsuite>
+</testsuites>
