@@ -87,7 +87,7 @@
         =====================================================================
          VARIABLE  ATTR_NAME  VALUES.BASE             VALUES.COMP            
         ---------------------------------------------------------------------
-          BINARY   something     NULL      list(Sepal.Length = c(5.1, 4.9... 
+          BINARY   something     NULL      structure(list(Sepal.Length = ... 
         ---------------------------------------------------------------------
       
 
@@ -106,7 +106,7 @@
         =====================================================================
          VARIABLE  ATTR_NAME             VALUES.BASE             VALUES.COMP 
         ---------------------------------------------------------------------
-          BINARY   something  list(Sepal.Length = c(5.1, 4.9...     NULL     
+          BINARY   something  structure(list(Sepal.Length = ...     NULL     
         ---------------------------------------------------------------------
       
 
@@ -453,13 +453,13 @@
       There are columns in BASE and COMPARE with differing attributes !!
       All rows are shown in table below
       
-        =============================================================================
-          VARIABLE    ATTR_NAME    VALUES.BASE                VALUES.COMP            
-        -----------------------------------------------------------------------------
-           BINARY     something        NULL        list(Sepal.Length = c(5.1, 4.9... 
-         CATEGORICAL   levels    c("A", "B", "C")          c("A", "B", "D")          
-          DATETIME      label          NULL        This is the label for my amazi... 
-        -----------------------------------------------------------------------------
+        ===============================================================================
+          VARIABLE    ATTR_NAME    VALUES.BASE                 VALUES.COMP             
+        -------------------------------------------------------------------------------
+           BINARY     something        NULL         structure(list(Sepal.Length = ...  
+         CATEGORICAL   levels    c("A", "B", "C")           c("A", "B", "D")           
+          DATETIME      label          NULL        "This is the label for my amazi..." 
+        -------------------------------------------------------------------------------
       
       Not all Values Compared Equal
       All rows are shown in table below
@@ -549,13 +549,13 @@
       There are columns in BASE and COMPARE with differing attributes !!
       All rows are shown in table below
       
-        =============================================================================
-          VARIABLE    ATTR_NAME             VALUES.BASE               VALUES.COMP    
-        -----------------------------------------------------------------------------
-           BINARY     something  list(Sepal.Length = c(5.1, 4.9...        NULL       
-         CATEGORICAL   levels            c("A", "B", "D")           c("A", "B", "C") 
-          DATETIME      label    This is the label for my amazi...        NULL       
-        -----------------------------------------------------------------------------
+        ===============================================================================
+          VARIABLE    ATTR_NAME              VALUES.BASE                VALUES.COMP    
+        -------------------------------------------------------------------------------
+           BINARY     something   structure(list(Sepal.Length = ...         NULL       
+         CATEGORICAL   levels             c("A", "B", "D")            c("A", "B", "C") 
+          DATETIME      label    "This is the label for my amazi..."        NULL       
+        -------------------------------------------------------------------------------
       
       Not all Values Compared Equal
       All rows are shown in table below
@@ -674,13 +674,13 @@
       There are columns in BASE and COMPARE with differing attributes !!
       All rows are shown in table below
       
-        =============================================================================
-          VARIABLE    ATTR_NAME    VALUES.BASE                VALUES.COMP            
-        -----------------------------------------------------------------------------
-           BINARY     something        NULL        list(Sepal.Length = c(5.1, 4.9... 
-         CATEGORICAL   levels    c("A", "B", "C")          c("A", "B", "D")          
-          DATETIME      label          NULL        This is the label for my amazi... 
-        -----------------------------------------------------------------------------
+        ===============================================================================
+          VARIABLE    ATTR_NAME    VALUES.BASE                 VALUES.COMP             
+        -------------------------------------------------------------------------------
+           BINARY     something        NULL         structure(list(Sepal.Length = ...  
+         CATEGORICAL   levels    c("A", "B", "C")           c("A", "B", "D")           
+          DATETIME      label          NULL        "This is the label for my amazi..." 
+        -------------------------------------------------------------------------------
       
       Not all Values Compared Equal
       All rows are shown in table below
@@ -771,13 +771,13 @@
       There are columns in BASE and COMPARE with differing attributes !!
       All rows are shown in table below
       
-        =============================================================================
-          VARIABLE    ATTR_NAME    VALUES.BASE                VALUES.COMP            
-        -----------------------------------------------------------------------------
-           BINARY     something        NULL        list(Sepal.Length = c(5.1, 4.9... 
-         CATEGORICAL   levels    c("A", "B", "C")          c("A", "B", "D")          
-          DATETIME      label          NULL        This is the label for my amazi... 
-        -----------------------------------------------------------------------------
+        ===============================================================================
+          VARIABLE    ATTR_NAME    VALUES.BASE                 VALUES.COMP             
+        -------------------------------------------------------------------------------
+           BINARY     something        NULL         structure(list(Sepal.Length = ...  
+         CATEGORICAL   levels    c("A", "B", "C")           c("A", "B", "D")           
+          DATETIME      label          NULL        "This is the label for my amazi..." 
+        -------------------------------------------------------------------------------
       
       Not all Values Compared Equal
       All rows are shown in table below
