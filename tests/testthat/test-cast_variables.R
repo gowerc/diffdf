@@ -1,4 +1,3 @@
-context("Testing casting variables")
 
 TDAT_CAT_ASCHR <- TDAT
 TDAT_CAT_ASCHR$CATEGORICAL <- as.character(TDAT_CAT_ASCHR$CATEGORICAL)
