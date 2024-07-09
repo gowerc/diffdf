@@ -27,3 +27,4 @@ cast_variables(
 Function to cast datasets columns if they have differing types
 Restricted to specific cases, currently integer and double, and character and factor
 }
+\keyword{internal}

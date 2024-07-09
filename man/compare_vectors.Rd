@@ -16,3 +16,4 @@ compare_vectors(target, current, ...)
 \description{
 Compare two vectors looking for differences
 }
+\keyword{internal}

@@ -16,3 +16,4 @@
 \description{
 Get text from a basic issue, based on the class of the value of the issue
 }
+\keyword{internal}

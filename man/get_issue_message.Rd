@@ -14,3 +14,4 @@ get_issue_message(object, ...)
 \description{
 Simple function to grab the issue message
 }
+\keyword{internal}

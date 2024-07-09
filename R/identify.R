@@ -260,6 +260,7 @@ identify_differences <- function(
 #' Returned values include variable names , class , mode , type & attributes
 #' @param dsin input dataframe that you want to get the metadata from
 #' @importFrom tibble tibble
+#' @keywords internal
 identify_properties <- function(dsin) {
     ### If missing or null return empty dataset
     if (is.null(dsin)) {
