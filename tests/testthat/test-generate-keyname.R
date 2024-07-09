@@ -1,4 +1,3 @@
-context("Testing generate keyname")
 
 
 nonetaken <- data.frame(a = 1)
