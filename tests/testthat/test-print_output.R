@@ -1,50 +1,59 @@
 
 
+test_that("Print output is maintained", {
 
-runme <- function(x) {
-    x2 <- diffdf(x[[1]], x[[2]], suppress_warnings = TRUE)
-    print(x2, as_string = TRUE)
-}
-
-RES <- map(list_of_comparisons, runme)
-
-
-### Add additional examples that make use of keys
-
-x <- diffdf(
-    list_of_comparisons[["everything"]][[1]],
-    list_of_comparisons[["everything"]][[2]],
-    keys = "ID",
-    suppress_warnings = TRUE
-)
-RES[["With 1 key"]] <- print(x, as_string = TRUE)
-
-
-x <- diffdf(
-    list_of_comparisons[["everything"]][[1]],
-    list_of_comparisons[["everything"]][[2]],
-    keys = c("ID", "GROUP1"),
-    suppress_warnings = TRUE
-)
-RES[["With 2 keys"]] <- print(x, as_string = TRUE)
-
-
-
-
-SET_GOLD <- FALSE
-
-if (SET_GOLD) {
-    TESTING_print_msg <- RES
-    devtools::use_data(TESTING_print_msg, internal = TRUE, overwrite = TRUE)
-} else {
-    for (i in seq_along(RES)) {
-        expect_equal(
-            RES[[i]],
-            TESTING_print_msg[[i]],
-            info = paste0("Reference = ", i, " - ", names(RES)[i])
+    runme <- function(id) {
+        x2 <- diffdf(
+            list_of_comparisons[[id]][[1]],
+            list_of_comparisons[[id]][[2]],
+            suppress_warnings = TRUE
         )
+        print(x2)
     }
-}
+
+    expect_snapshot(runme("Identical"))
+    expect_snapshot(runme("Identical 2"))
+    expect_snapshot(runme("Different Values"))
+    expect_snapshot(runme("Different Values 2"))
+    expect_snapshot(runme("Different attributes"))
+    expect_snapshot(runme("Different attributes 2"))
+    expect_snapshot(runme("Different Levels"))
+    expect_snapshot(runme("Different Levels 2"))
+    expect_snapshot(runme("Different Class"))
+    expect_snapshot(runme("Different Class 2"))
+    expect_snapshot(runme("Different Modes"))
+    expect_snapshot(runme("Different Modes 2"))
+    expect_snapshot(runme("Missing Columns"))
+    expect_snapshot(runme("Missing Columns 2"))
+    expect_snapshot(runme("Missing Rows"))
+    expect_snapshot(runme("Missing Rows 2"))
+    expect_snapshot(runme("everything"))
+    expect_snapshot(runme("everything 2"))
+    expect_snapshot(runme("Missing Vs NA"))
+
+    expect_snapshot(
+        print(
+            diffdf(
+                list_of_comparisons[["everything"]][[1]],
+                list_of_comparisons[["everything"]][[2]],
+                keys = "ID",
+                suppress_warnings = TRUE
+            )
+        )
+    )
+
+    expect_snapshot(
+        print(
+            diffdf(
+                list_of_comparisons[["everything"]][[1]],
+                list_of_comparisons[["everything"]][[2]],
+                keys = c("ID", "GROUP1"),
+                suppress_warnings = TRUE
+            )
+        )
+    )
+})
+
 
 test_that("row_limit works as expected", {
     diff <- diffdf(
