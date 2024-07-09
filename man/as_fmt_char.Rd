@@ -27,13 +27,13 @@ as_fmt_char(x, ...)
 \item{...}{additional arguments (not currently used)}
 
 \item{add_quotes}{(\code{logical}) \cr if true will wrap strings that contain
-whitespaces with quotes}
+whitespace with quotes}
 
 \item{crop_at}{(\code{numeric}) \cr specifies the limit at which strings should
-be trucated to}
+be truncated to}
 }
 \description{
-Coerces a vector of anytype into a printable string. The most
+Coerces a vector of any type into a printable string. The most
 significant transformation is performed on existing character
 vectors which will be truncated, have newlines converted
 to explicit symbols and will be wrapped in quotes if they

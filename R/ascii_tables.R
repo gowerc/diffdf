@@ -114,7 +114,7 @@ as_ascii_table <- function(dat, line_prefix = "  ") {
 
 #' Format vector to printable string
 #'
-#' Coerces a vector of anytype into a printable string. The most
+#' Coerces a vector of any type into a printable string. The most
 #' significant transformation is performed on existing character
 #' vectors which will be truncated, have newlines converted
 #' to explicit symbols and will be wrapped in quotes if they
@@ -122,9 +122,9 @@ as_ascii_table <- function(dat, line_prefix = "  ") {
 #'
 #' @param x (`vector`) \cr vector to be converted to character
 #' @param add_quotes (`logical`) \cr if true will wrap strings that contain
-#' whitespaces with quotes
+#' whitespace with quotes
 #' @param crop_at (`numeric`) \cr specifies the limit at which strings should
-#' be trucated to
+#' be truncated to
 #' @param ... additional arguments (not currently used)
 #'
 #' @name as_fmt_char
