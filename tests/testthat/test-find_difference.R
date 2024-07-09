@@ -1,4 +1,3 @@
-context("Testing find_difference")
 
 test_that("find_difference correctly doesn't flag identical objects", {
     expect_self <- function(x, name) {

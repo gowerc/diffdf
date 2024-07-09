@@ -1,4 +1,3 @@
-context("Testing attribute differnce functions")
 
 ##### Setup test data with attributes ----
 #
