@@ -171,12 +171,6 @@ diffdf <- function(
     )
 
 
-    exclude_cols <- c(
-        COMPARE[["UnsupportedColsBase"]]$VARIABLE,
-        COMPARE[["UnsupportedColsComp"]]$VARIABLE,
-        COMPARE[["VarClassDiffs"]]$VARIABLE,
-        COMPARE[["VarModeDiffs"]]$VARIABLE
-    )
 
 
     ##### Check Validity of Keys
@@ -194,12 +188,42 @@ diffdf <- function(
         msg = "COMP is missing variables specified in KEYS"
     )
 
-    assertthat::assert_that(
-        all(!(KEYS %in% exclude_cols)),
-        msg = "KEYS are either an invalid or contain different modes between BASE and COMP"
+
+    assert_valid_keys <- function(COMPARE, KEYS, component, msg) {
+        keys_reduced <- KEYS[KEYS %in% COMPARE[[component]]$VARIABLE]
+        assertthat::assert_that(
+            length(keys_reduced) == 0,
+            msg = sprintf(
+                "%s:\n%s",
+                msg,
+                paste0("`", paste0(keys_reduced, collapse = "`, `"), "`")
+            )
+        )
+    }
+    assert_valid_keys(
+        COMPARE, KEYS, "UnsupportedColsBase",
+        "The following KEYS in BASE have an unsupported mode"
+    )
+    assert_valid_keys(
+        COMPARE, KEYS, "UnsupportedColsComp",
+        "The following KEYS in COMPARE have an unsupported mode"
+    )
+    assert_valid_keys(
+        COMPARE, KEYS, "VarModeDiffs",
+        "The following KEYS have different modes between BASE and COMPARE"
+    )
+    assert_valid_keys(
+        COMPARE, KEYS, "VarClassDiffs",
+        "The following KEYS have different classes between BASE and COMPARE"
     )
 
 
+    exclude_cols <- c(
+        COMPARE[["UnsupportedColsBase"]]$VARIABLE,
+        COMPARE[["UnsupportedColsComp"]]$VARIABLE,
+        COMPARE[["VarClassDiffs"]]$VARIABLE,
+        COMPARE[["VarModeDiffs"]]$VARIABLE
+    )
 
 
     ##### Check Attributes
