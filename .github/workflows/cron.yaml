@@ -1,0 +1,13 @@
+on:
+  schedule:
+    - cron: '0 4 1,15 * *'
+  workflow_dispatch:
+
+name: CRON
+
+jobs:
+  r-cmd:
+    name: R CMD Check 🧬
+    uses: insightsengineering/r.pkg.template/.github/workflows/build-check-install.yaml@main
+    secrets:
+      REPO_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
