@@ -12,6 +12,7 @@ Description: Functions for comparing two data.frames against
     source of problems and differences.
 Encoding: UTF-8
 LazyData: true
+Language: en-GB
 Depends:
     R (>= 3.1.2)
 Imports:
@@ -27,8 +28,8 @@ Suggests:
     stringr,
     devtools,
     covr
-RoxygenNote: 7.0.2
+RoxygenNote: 7.3.2
 VignetteBuilder: knitr
 License: MIT + file LICENSE
-URL: https://github.com/gowerc/diffdf
+URL: https://gowerc.github.io/diffdf, https://github.com/gowerc/diffdf
 BugReports: https://github.com/gowerc/diffdf/issues
