@@ -48,6 +48,22 @@ test_that("can handle null datasets", {
         print(diffdf(iris, iris)),
         "No issues were found!"
     )
+
+    x1 <- tibble(
+        x = c(1, 2, 3),
+        y = c(4, 5, 6)
+    )
+    expect_warning(
+        {res <- diffdf(x1, x1[FALSE, "x"])},
+        regexp = "rows in BASE that are not in COMPARE.*columns in BASE that are not in COMPARE"
+    )
+    expect_snapshot(res)
+    expect_warning(
+        {res <- diffdf(x1[FALSE, "x"], x1)},
+        regexp = "rows in COMPARE that are not in BASE.*columns in COMPARE that are not in BASE"
+    )
+    expect_snapshot(res)
+
 })
 
 
