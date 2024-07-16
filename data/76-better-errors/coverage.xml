@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.935314685314685" branch-rate="0" lines-covered="535" lines-valid="572" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-07-16 16:18:12.034218">
+<coverage line-rate="0.935314685314685" branch-rate="0" lines-covered="535" lines-valid="572" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-07-16 16:35:34.051836">
   <sources>
     <source>/__w/diffdf/diffdf/diffdf</source>
   </sources>
