@@ -14,3 +14,4 @@ identify_class_differences(BASE, COMP)
 \description{
 Identifies any class differences between two data frames
 }
+\keyword{internal}
