@@ -189,17 +189,6 @@ diffdf <- function(
     )
 
 
-    assert_valid_keys <- function(COMPARE, KEYS, component, msg) {
-        keys_reduced <- KEYS[KEYS %in% COMPARE[[component]]$VARIABLE]
-        assertthat::assert_that(
-            length(keys_reduced) == 0,
-            msg = sprintf(
-                "%s:\n%s",
-                msg,
-                paste0("`", paste0(keys_reduced, collapse = "`, `"), "`")
-            )
-        )
-    }
     assert_valid_keys(
         COMPARE, KEYS, "UnsupportedColsBase",
         "The following KEYS in BASE have an unsupported mode"
@@ -349,4 +338,29 @@ diffdf <- function(
 diffdf_has_issues <- function(x) {
     if (class(x)[[1]] != "diffdf") stop("x is not an diffdf object")
     return(length(x) != 0)
+}
+
+
+#' Assert that keys are valid
+#'
+#' Utility function to check that user provided "keys" aren't listed as a problem
+#' variable of the current list of issues.
+#' @param COMPARE (`list`)\cr A named list of which each element is a `data.frame` with the
+#' column `VARIABLE`
+#' @param KEYS (`character`)\cr name of key variables to check to make sure they don't contain
+#' any isues
+#' @param component (`character`)\cr name of the component within `COMPARE` to check against
+#' @param msg (`character`)\cr error message to print if any of `KEYS` are found within
+#' `COMPARE[component]$VARIABLE`
+#' @keywords internal
+assert_valid_keys <- function(COMPARE, KEYS, component, msg) {
+    keys_reduced <- KEYS[KEYS %in% COMPARE[[component]]$VARIABLE]
+    assertthat::assert_that(
+        length(keys_reduced) == 0,
+        msg = sprintf(
+            "%s:\n%s",
+            msg,
+            paste0("`", paste0(keys_reduced, collapse = "`, `"), "`")
+        )
+    )
 }
