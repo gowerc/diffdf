@@ -11,7 +11,7 @@ assert_valid_keys(COMPARE, KEYS, component, msg)
 column \code{VARIABLE}}
 
 \item{KEYS}{(\code{character})\cr name of key variables to check to make sure they don't contain
-any isues}
+any issues}
 
 \item{component}{(\code{character})\cr name of the component within \code{COMPARE} to check against}
 

@@ -348,7 +348,7 @@ diffdf_has_issues <- function(x) {
 #' @param COMPARE (`list`)\cr A named list of which each element is a `data.frame` with the
 #' column `VARIABLE`
 #' @param KEYS (`character`)\cr name of key variables to check to make sure they don't contain
-#' any isues
+#' any issues
 #' @param component (`character`)\cr name of the component within `COMPARE` to check against
 #' @param msg (`character`)\cr error message to print if any of `KEYS` are found within
 #' `COMPARE[component]$VARIABLE`
