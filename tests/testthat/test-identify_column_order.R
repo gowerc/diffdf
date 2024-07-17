@@ -97,3 +97,11 @@ test_that("Column order checks work as expected", {
         regex = NA
     )
 })
+
+
+test_that("Edge cases that once caused bugs now work as expected", {
+    x1 <- data.frame(x = 1)
+    expect_no_error(
+        diffdf(x1, x1)
+    )
+})

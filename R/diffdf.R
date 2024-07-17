@@ -170,8 +170,8 @@ diffdf <- function(
         }
         COMPARE[["ColumnOrder"]] <- construct_issue(
             value = identify_column_order_differences(
-                BASE[, keep_vars_base],
-                COMP[, keep_vars_comp]
+                BASE[, keep_vars_base, drop = FALSE],
+                COMP[, keep_vars_comp, drop = FALSE]
             ),
             message = "There are differences in the column ordering between BASE and COMPARE !!"
         )
