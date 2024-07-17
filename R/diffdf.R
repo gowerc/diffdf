@@ -21,6 +21,7 @@
 #' @param scale Set scale for numeric comparisons. Note that comparisons fail
 #' if (x-y)/scale > tolerance. Setting as NULL is a slightly more efficient
 #' version of scale = 1.
+#' @param check_column_order Should the column ordering be checked? (logical)
 #' @examples
 #' x <- subset(iris, -Species)
 #' x[1, 2] <- 5

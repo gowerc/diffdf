@@ -283,7 +283,15 @@ identify_properties <- function(dsin) {
 }
 
 
-
+#' Find column ordering differences
+#'
+#' Compares two datasets and outputs a table listing any diffferences in the column
+#' orders between the two datasets. Columns that are not contained within both
+#' are ignored however column ordering is derived prior to removing these columns.
+#'
+#' @param BASE (`data.frame`)\cr Base dataset for comparison
+#' @param COMP (`data.frame`)\cr Comparator dataset to compare base against
+#' @keywords internal
 identify_column_order_differences <- function(BASE, COMPARE) {
     base_cols <- tibble(
         COLUMN = names(BASE),
