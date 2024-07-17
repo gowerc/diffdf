@@ -281,3 +281,26 @@ identify_properties <- function(dsin) {
         ATTRIBS = lapply(dsin, attributes)
     )
 }
+
+
+
+identify_column_order_differences <- function(BASE, COMPARE) {
+    base_cols <- tibble(
+        COLUMN = names(BASE),
+        "BASE-INDEX" = seq_along(names(BASE))
+    )
+    comp_cols <- tibble(
+        COLUMN = names(COMPARE),
+        "COMPARE-INDEX" = seq_along(names(COMPARE))
+    )
+    col_index <- merge(
+        base_cols,
+        comp_cols,
+        by = c("COLUMN"),
+        all = TRUE,
+        sort = FALSE
+    )
+    keep_rows <- col_index[["BASE-INDEX"]] != col_index[["COMPARE-INDEX"]]
+    keep_rows[is.na(keep_rows)] <- FALSE
+    col_index[keep_rows, , drop = FALSE]
+}

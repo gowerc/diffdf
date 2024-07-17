@@ -89,7 +89,8 @@ diffdf <- function(
     strict_factor = TRUE,
     file = NULL,
     tolerance = sqrt(.Machine$double.eps),
-    scale = NULL
+    scale = NULL,
+    check_column_order = TRUE
 ) {
 
     BASE <- base
@@ -156,6 +157,23 @@ diffdf <- function(
 
         BASE <- casted_df$BASE
         COMP <- casted_df$COMP
+    }
+
+    if (check_column_order) {
+        if (attr(COMPARE, "keys")$is_derived) {
+            keep_vars_base <- !(names(BASE) %in% attr(COMPARE, "keys")$value)
+            keep_vars_comp <- !(names(COMP) %in% attr(COMPARE, "keys")$value)
+        } else {
+            keep_vars_base <- TRUE
+            keep_vars_comp <- TRUE
+        }
+        COMPARE[["ColumnOrder"]] <- construct_issue(
+            value = identify_column_order_differences(
+                BASE[, keep_vars_base],
+                COMP[, keep_vars_comp]
+            ),
+            message = "There are differences in the column ordering between BASE and COMPARE !!"
+        )
     }
 
 
