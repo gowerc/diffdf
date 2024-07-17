@@ -12,7 +12,7 @@ identify_column_order_differences(BASE, COMPARE)
 \item{COMP}{(\code{data.frame})\cr Comparator dataset to compare base against}
 }
 \description{
-Compares two datasets and outputs a table listing any diffferences in the column
+Compares two datasets and outputs a table listing any differences in the column
 orders between the two datasets. Columns that are not contained within both
 are ignored however column ordering is derived prior to removing these columns.
 }

@@ -285,7 +285,7 @@ identify_properties <- function(dsin) {
 
 #' Find column ordering differences
 #'
-#' Compares two datasets and outputs a table listing any diffferences in the column
+#' Compares two datasets and outputs a table listing any differences in the column
 #' orders between the two datasets. Columns that are not contained within both
 #' are ignored however column ordering is derived prior to removing these columns.
 #'
