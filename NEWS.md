@@ -3,6 +3,7 @@
 Development version
 
 - `row_limit` argument now functional again in print method! With thanks to @brianrepko
+- Added check to ensure that the column orders are the same (#32)
 
 
 
