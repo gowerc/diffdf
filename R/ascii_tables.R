@@ -99,7 +99,6 @@ as_ascii_table <- function(dat, line_prefix = "  ") {
 
     ### Output table
     paste0(
-        "\n",
         line_prefix, TLINE, "\n",
         line_prefix, thead, "\n",
         line_prefix, LINE, "\n",
@@ -166,8 +165,8 @@ get_table <- function(dsin, row_limit = 10) {
         display_table <- subset(dsin, seq_len(nrow(dsin)) < (row_limit + 1))
     }
 
-    if (!is.null(row_limit) && nrow(dsin) > row_limit) {
-        add_message <- paste0(
+    add_message <- if (!is.null(row_limit) && nrow(dsin) > row_limit) {
+        paste0(
             "First ",
             row_limit,
             " of ",
@@ -175,14 +174,13 @@ get_table <- function(dsin, row_limit = 10) {
             " rows are shown in table below"
         )
     } else {
-        add_message <- "All rows are shown in table below"
+        NULL
     }
 
     msg <- paste(
         c(
             add_message,
-            as_ascii_table(display_table),
-            "\n"
+            as_ascii_table(display_table)
         ),
         collapse = "\n"
     )

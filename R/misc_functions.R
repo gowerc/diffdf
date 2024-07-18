@@ -43,3 +43,35 @@ convert_to_issue <- function(datin) {
     datin_tibble_reduced <- datin_tibble[datin_tibble[["No of Differences"]] > 0, , drop = FALSE]
     return(datin_tibble_reduced)
 }
+
+#' Describe the datasets being compared
+#'
+#' This function is used to produce a basic summary table of the core
+#' features of the two `data.frame`'s being compared.
+#' @param base (`data.frame`)\cr base dataset to be described
+#' @param comp (`data.frame`)\cr comparison dataset to be described
+#' @param base_name (`character`)\cr name of the base dataset
+#' @param comp_name (`character`)\cr name of the comparison dataset
+#' @keywords internal
+describe_dataframe <- function(base, comp, base_name, comp_name) {
+    tibble(
+        PROPERTY = c(
+            "Name",
+            "Class",
+            "#Rows",
+            "#Cols"
+        ),
+        BASE = c(
+            base_name,
+            paste(class(base), collapse = ", "),
+            as.character(nrow(base)),
+            as.character(ncol(base))
+        ),
+        COMP = c(
+            comp_name,
+            paste(class(comp), collapse = ", "),
+            as.character(nrow(comp)),
+            as.character(ncol(comp))
+        )
+    )
+}

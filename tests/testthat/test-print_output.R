@@ -67,13 +67,22 @@ test_that("row_limit works as expected", {
         suppress_warnings = TRUE
     )
     output <- print(diff, as_string = TRUE)
-    expect_length(output, 10 + 21)
-    output <- print(diff, as_string = TRUE, row_limit = 26)
-    expect_length(output, 26 + 21)
-    output <- print(diff, as_string = TRUE, row_limit = 5)
-    expect_length(output, 5 + 21)
-    output <- print(diff, as_string = TRUE, row_limit = NULL)
-    expect_length(output, 26 + 21)
+    output_5 <- print(diff, as_string = TRUE, row_limit = 5)
+    output_10 <- print(diff, as_string = TRUE, row_limit = 10)
+    output_15 <- print(diff, as_string = TRUE, row_limit = 15)
+    output_26 <- print(diff, as_string = TRUE, row_limit = 26)
+    output_99 <- print(diff, as_string = TRUE, row_limit = 99)
+    output_null <- print(diff, as_string = TRUE, row_limit = NULL)
+
+    expect_equal(output, output_10)
+    expect_equal(output_26, output_99)
+    expect_equal(output_26, output_null)
+
+    # +16 for the difference in the number of rows
+    # -1 for the lack of "x of y rows displayed"
+    expect_equal(length(output_10) + 16 - 1, length(output_26))
+    expect_equal(length(output_10) - 5, length(output_5))
+    expect_equal(length(output_10) + 5, length(output_15))
 })
 
 test_that("print.diffdf errors when given bad inputs", {

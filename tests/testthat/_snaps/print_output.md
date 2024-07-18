@@ -19,19 +19,24 @@
     Output
       Differences found between the objects!
       
-      A summary is given below.
+      Summary of BASE and COMPARE
+        ==========================================================================
+         PROPERTY               BASE                            COMP              
+        --------------------------------------------------------------------------
+           Name    list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
+          Class       tbl_df, tbl, data.frame         tbl_df, tbl, data.frame     
+          #Rows                  20                              20               
+          #Cols                  2                               2                
+        --------------------------------------------------------------------------
+      
       
       Not all Values Compared Equal
-      All rows are shown in table below
-      
         ===============================
           Variable   No of Differences 
         -------------------------------
          CONTINUOUS          3         
         -------------------------------
       
-      
-      All rows are shown in table below
       
         ==============================================
           VARIABLE   ..ROWNUMBER..    BASE    COMPARE 
@@ -41,6 +46,7 @@
          CONTINUOUS        7        16.29289     3    
         ----------------------------------------------
       
+      
 
 ---
 
@@ -49,19 +55,24 @@
     Output
       Differences found between the objects!
       
-      A summary is given below.
+      Summary of BASE and COMPARE
+        ==========================================================================
+         PROPERTY               BASE                            COMP              
+        --------------------------------------------------------------------------
+           Name    list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
+          Class       tbl_df, tbl, data.frame         tbl_df, tbl, data.frame     
+          #Rows                  20                              20               
+          #Cols                  2                               2                
+        --------------------------------------------------------------------------
+      
       
       Not all Values Compared Equal
-      All rows are shown in table below
-      
         ===============================
           Variable   No of Differences 
         -------------------------------
          CONTINUOUS          3         
         -------------------------------
       
-      
-      All rows are shown in table below
       
         ===========================================
           VARIABLE   ..ROWNUMBER..  BASE  COMPARE  
@@ -71,6 +82,7 @@
          CONTINUOUS        7         3    16.29289 
         -------------------------------------------
       
+      
 
 ---
 
@@ -79,16 +91,24 @@
     Output
       Differences found between the objects!
       
-      A summary is given below.
+      Summary of BASE and COMPARE
+        ==========================================================================
+         PROPERTY               BASE                            COMP              
+        --------------------------------------------------------------------------
+           Name    list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
+          Class       tbl_df, tbl, data.frame         tbl_df, tbl, data.frame     
+          #Rows                  20                              20               
+          #Cols                  2                               2                
+        --------------------------------------------------------------------------
+      
       
       There are columns in BASE and COMPARE with differing attributes !!
-      All rows are shown in table below
-      
         =====================================================================
          VARIABLE  ATTR_NAME  VALUES.BASE             VALUES.COMP            
         ---------------------------------------------------------------------
           BINARY   something     NULL      list(Sepal.Length = c(5.1, 4.9... 
         ---------------------------------------------------------------------
+      
       
 
 ---
@@ -98,16 +118,24 @@
     Output
       Differences found between the objects!
       
-      A summary is given below.
+      Summary of BASE and COMPARE
+        ==========================================================================
+         PROPERTY               BASE                            COMP              
+        --------------------------------------------------------------------------
+           Name    list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
+          Class       tbl_df, tbl, data.frame         tbl_df, tbl, data.frame     
+          #Rows                  20                              20               
+          #Cols                  2                               2                
+        --------------------------------------------------------------------------
+      
       
       There are columns in BASE and COMPARE with differing attributes !!
-      All rows are shown in table below
-      
         =====================================================================
          VARIABLE  ATTR_NAME             VALUES.BASE             VALUES.COMP 
         ---------------------------------------------------------------------
           BINARY   something  list(Sepal.Length = c(5.1, 4.9...     NULL     
         ---------------------------------------------------------------------
+      
       
 
 ---
@@ -117,28 +145,32 @@
     Output
       Differences found between the objects!
       
-      A summary is given below.
+      Summary of BASE and COMPARE
+        ==========================================================================
+         PROPERTY               BASE                            COMP              
+        --------------------------------------------------------------------------
+           Name    list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
+          Class       tbl_df, tbl, data.frame         tbl_df, tbl, data.frame     
+          #Rows                  20                              20               
+          #Cols                  2                               2                
+        --------------------------------------------------------------------------
+      
       
       There are columns in BASE and COMPARE with differing attributes !!
-      All rows are shown in table below
-      
         ============================================================
           VARIABLE    ATTR_NAME    VALUES.BASE       VALUES.COMP    
         ------------------------------------------------------------
          CATEGORICAL   levels    c("A", "B", "C")  c("A", "B", "D") 
         ------------------------------------------------------------
       
-      Not all Values Compared Equal
-      All rows are shown in table below
       
+      Not all Values Compared Equal
         ================================
           Variable    No of Differences 
         --------------------------------
          CATEGORICAL          8         
         --------------------------------
       
-      
-      All rows are shown in table below
       
         ===========================================
           VARIABLE    ..ROWNUMBER..  BASE  COMPARE 
@@ -153,6 +185,7 @@
          CATEGORICAL       20         C       D    
         -------------------------------------------
       
+      
 
 ---
 
@@ -161,28 +194,32 @@
     Output
       Differences found between the objects!
       
-      A summary is given below.
+      Summary of BASE and COMPARE
+        ==========================================================================
+         PROPERTY               BASE                            COMP              
+        --------------------------------------------------------------------------
+           Name    list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
+          Class       tbl_df, tbl, data.frame         tbl_df, tbl, data.frame     
+          #Rows                  20                              20               
+          #Cols                  2                               2                
+        --------------------------------------------------------------------------
+      
       
       There are columns in BASE and COMPARE with differing attributes !!
-      All rows are shown in table below
-      
         ============================================================
           VARIABLE    ATTR_NAME    VALUES.BASE       VALUES.COMP    
         ------------------------------------------------------------
          CATEGORICAL   levels    c("A", "B", "D")  c("A", "B", "C") 
         ------------------------------------------------------------
       
-      Not all Values Compared Equal
-      All rows are shown in table below
       
+      Not all Values Compared Equal
         ================================
           Variable    No of Differences 
         --------------------------------
          CATEGORICAL          8         
         --------------------------------
       
-      
-      All rows are shown in table below
       
         ===========================================
           VARIABLE    ..ROWNUMBER..  BASE  COMPARE 
@@ -197,6 +234,7 @@
          CATEGORICAL       20         D       C    
         -------------------------------------------
       
+      
 
 ---
 
@@ -205,16 +243,24 @@
     Output
       Differences found between the objects!
       
-      A summary is given below.
+      Summary of BASE and COMPARE
+        ==========================================================================
+         PROPERTY               BASE                            COMP              
+        --------------------------------------------------------------------------
+           Name    list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
+          Class       tbl_df, tbl, data.frame         tbl_df, tbl, data.frame     
+          #Rows                  20                              20               
+          #Cols                  2                               2                
+        --------------------------------------------------------------------------
+      
       
       There are columns in BASE and COMPARE with different classes !!
-      All rows are shown in table below
-      
         ======================================================
          VARIABLE  CLASS.BASE            CLASS.COMP           
         ------------------------------------------------------
            DATE       Date     c("A_DATE", "b_date", "cDate") 
         ------------------------------------------------------
+      
       
 
 ---
@@ -224,16 +270,24 @@
     Output
       Differences found between the objects!
       
-      A summary is given below.
+      Summary of BASE and COMPARE
+        ==========================================================================
+         PROPERTY               BASE                            COMP              
+        --------------------------------------------------------------------------
+           Name    list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
+          Class       tbl_df, tbl, data.frame         tbl_df, tbl, data.frame     
+          #Rows                  20                              20               
+          #Cols                  2                               2                
+        --------------------------------------------------------------------------
+      
       
       There are columns in BASE and COMPARE with different classes !!
-      All rows are shown in table below
-      
         ======================================================
          VARIABLE            CLASS.BASE            CLASS.COMP 
         ------------------------------------------------------
            DATE    c("A_DATE", "b_date", "cDate")     Date    
         ------------------------------------------------------
+      
       
 
 ---
@@ -243,25 +297,32 @@
     Output
       Differences found between the objects!
       
-      A summary is given below.
+      Summary of BASE and COMPARE
+        ==========================================================================
+         PROPERTY               BASE                            COMP              
+        --------------------------------------------------------------------------
+           Name    list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
+          Class       tbl_df, tbl, data.frame         tbl_df, tbl, data.frame     
+          #Rows                  20                              20               
+          #Cols                  2                               2                
+        --------------------------------------------------------------------------
+      
       
       There are columns in BASE and COMPARE with different modes !!
-      All rows are shown in table below
-      
         ================================
          VARIABLE  MODE.BASE  MODE.COMP 
         --------------------------------
          INTEGER    numeric   character 
         --------------------------------
       
-      There are columns in BASE and COMPARE with different classes !!
-      All rows are shown in table below
       
+      There are columns in BASE and COMPARE with different classes !!
         ==================================
          VARIABLE  CLASS.BASE  CLASS.COMP 
         ----------------------------------
          INTEGER    integer    character  
         ----------------------------------
+      
       
 
 ---
@@ -271,25 +332,32 @@
     Output
       Differences found between the objects!
       
-      A summary is given below.
+      Summary of BASE and COMPARE
+        ==========================================================================
+         PROPERTY               BASE                            COMP              
+        --------------------------------------------------------------------------
+           Name    list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
+          Class       tbl_df, tbl, data.frame         tbl_df, tbl, data.frame     
+          #Rows                  20                              20               
+          #Cols                  2                               2                
+        --------------------------------------------------------------------------
+      
       
       There are columns in BASE and COMPARE with different modes !!
-      All rows are shown in table below
-      
         ================================
          VARIABLE  MODE.BASE  MODE.COMP 
         --------------------------------
          INTEGER   character   numeric  
         --------------------------------
       
-      There are columns in BASE and COMPARE with different classes !!
-      All rows are shown in table below
       
+      There are columns in BASE and COMPARE with different classes !!
         ==================================
          VARIABLE  CLASS.BASE  CLASS.COMP 
         ----------------------------------
          INTEGER   character    integer   
         ----------------------------------
+      
       
 
 ---
@@ -299,34 +367,40 @@
     Output
       Differences found between the objects!
       
-      A summary is given below.
+      Summary of BASE and COMPARE
+        ==========================================================================
+         PROPERTY               BASE                            COMP              
+        --------------------------------------------------------------------------
+           Name    list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
+          Class       tbl_df, tbl, data.frame         tbl_df, tbl, data.frame     
+          #Rows                  20                              20               
+          #Cols                  3                               2                
+        --------------------------------------------------------------------------
+      
       
       There are columns in BASE and COMPARE with different modes !!
-      All rows are shown in table below
-      
         ================================
          VARIABLE  MODE.BASE  MODE.COMP 
         --------------------------------
          INTEGER    numeric   character 
         --------------------------------
       
-      There are columns in BASE and COMPARE with different classes !!
-      All rows are shown in table below
       
+      There are columns in BASE and COMPARE with different classes !!
         ==================================
          VARIABLE  CLASS.BASE  CLASS.COMP 
         ----------------------------------
          INTEGER    integer    character  
         ----------------------------------
       
-      There are columns in BASE that are not in COMPARE !!
-      All rows are shown in table below
       
+      There are columns in BASE that are not in COMPARE !!
         =========
          COLUMNS 
         ---------
          BINARY  
         ---------
+      
       
 
 ---
@@ -336,34 +410,40 @@
     Output
       Differences found between the objects!
       
-      A summary is given below.
+      Summary of BASE and COMPARE
+        ==========================================================================
+         PROPERTY               BASE                            COMP              
+        --------------------------------------------------------------------------
+           Name    list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
+          Class       tbl_df, tbl, data.frame         tbl_df, tbl, data.frame     
+          #Rows                  20                              20               
+          #Cols                  3                               2                
+        --------------------------------------------------------------------------
+      
       
       There are columns in BASE and COMPARE with different modes !!
-      All rows are shown in table below
-      
         ================================
          VARIABLE  MODE.BASE  MODE.COMP 
         --------------------------------
          INTEGER   character   numeric  
         --------------------------------
       
-      There are columns in BASE and COMPARE with different classes !!
-      All rows are shown in table below
       
+      There are columns in BASE and COMPARE with different classes !!
         ==================================
          VARIABLE  CLASS.BASE  CLASS.COMP 
         ----------------------------------
          INTEGER   character    integer   
         ----------------------------------
       
-      There are columns in BASE that are not in COMPARE !!
-      All rows are shown in table below
       
+      There are columns in BASE that are not in COMPARE !!
         =========
          COLUMNS 
         ---------
          BINARY  
         ---------
+      
       
 
 ---
@@ -373,11 +453,18 @@
     Output
       Differences found between the objects!
       
-      A summary is given below.
+      Summary of BASE and COMPARE
+        ==========================================================================
+         PROPERTY               BASE                            COMP              
+        --------------------------------------------------------------------------
+           Name    list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
+          Class       tbl_df, tbl, data.frame         tbl_df, tbl, data.frame     
+          #Rows                  20                              10               
+          #Cols                  2                               2                
+        --------------------------------------------------------------------------
+      
       
       There are rows in BASE that are not in COMPARE !!
-      All rows are shown in table below
-      
         ===============
          ..ROWNUMBER.. 
         ---------------
@@ -392,6 +479,7 @@
               19       
               20       
         ---------------
+      
       
 
 ---
@@ -401,11 +489,18 @@
     Output
       Differences found between the objects!
       
-      A summary is given below.
+      Summary of BASE and COMPARE
+        ==========================================================================
+         PROPERTY               BASE                            COMP              
+        --------------------------------------------------------------------------
+           Name    list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
+          Class       tbl_df, tbl, data.frame         tbl_df, tbl, data.frame     
+          #Rows                  20                              10               
+          #Cols                  2                               2                
+        --------------------------------------------------------------------------
+      
       
       There are rows in BASE that are not in COMPARE !!
-      All rows are shown in table below
-      
         ===============
          ..ROWNUMBER.. 
         ---------------
@@ -421,6 +516,7 @@
               20       
         ---------------
       
+      
 
 ---
 
@@ -429,20 +525,26 @@
     Output
       Differences found between the objects!
       
-      A summary is given below.
+      Summary of BASE and COMPARE
+        ==========================================================================
+         PROPERTY               BASE                            COMP              
+        --------------------------------------------------------------------------
+           Name    list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
+          Class       tbl_df, tbl, data.frame         tbl_df, tbl, data.frame     
+          #Rows                  20                              20               
+          #Cols                  11                              11               
+        --------------------------------------------------------------------------
+      
       
       There are columns in BASE and COMPARE with different modes !!
-      All rows are shown in table below
-      
         ================================
          VARIABLE  MODE.BASE  MODE.COMP 
         --------------------------------
          INTEGER    numeric   character 
         --------------------------------
       
-      There are columns in BASE and COMPARE with different classes !!
-      All rows are shown in table below
       
+      There are columns in BASE and COMPARE with different classes !!
         ======================================================
          VARIABLE  CLASS.BASE            CLASS.COMP           
         ------------------------------------------------------
@@ -450,9 +552,8 @@
          INTEGER    integer              character            
         ------------------------------------------------------
       
-      There are columns in BASE and COMPARE with differing attributes !!
-      All rows are shown in table below
       
+      There are columns in BASE and COMPARE with differing attributes !!
         =============================================================================
           VARIABLE    ATTR_NAME    VALUES.BASE                VALUES.COMP            
         -----------------------------------------------------------------------------
@@ -461,9 +562,8 @@
           DATETIME      label          NULL        This is the label for my amazi... 
         -----------------------------------------------------------------------------
       
-      Not all Values Compared Equal
-      All rows are shown in table below
       
+      Not all Values Compared Equal
         ================================
           Variable    No of Differences 
         --------------------------------
@@ -474,7 +574,6 @@
       
       
       First 10 of 20 rows are shown in table below
-      
         ========================================
          VARIABLE  ..ROWNUMBER..  BASE  COMPARE 
         ----------------------------------------
@@ -491,8 +590,6 @@
         ----------------------------------------
       
       
-      All rows are shown in table below
-      
         ==============================================
           VARIABLE   ..ROWNUMBER..    BASE    COMPARE 
         ----------------------------------------------
@@ -501,8 +598,6 @@
          CONTINUOUS        7        16.29289     3    
         ----------------------------------------------
       
-      
-      All rows are shown in table below
       
         ===========================================
           VARIABLE    ..ROWNUMBER..  BASE  COMPARE 
@@ -517,6 +612,7 @@
          CATEGORICAL       20         C       D    
         -------------------------------------------
       
+      
 
 ---
 
@@ -525,20 +621,26 @@
     Output
       Differences found between the objects!
       
-      A summary is given below.
+      Summary of BASE and COMPARE
+        ==========================================================================
+         PROPERTY               BASE                            COMP              
+        --------------------------------------------------------------------------
+           Name    list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
+          Class       tbl_df, tbl, data.frame         tbl_df, tbl, data.frame     
+          #Rows                  20                              20               
+          #Cols                  11                              11               
+        --------------------------------------------------------------------------
+      
       
       There are columns in BASE and COMPARE with different modes !!
-      All rows are shown in table below
-      
         ================================
          VARIABLE  MODE.BASE  MODE.COMP 
         --------------------------------
          INTEGER   character   numeric  
         --------------------------------
       
-      There are columns in BASE and COMPARE with different classes !!
-      All rows are shown in table below
       
+      There are columns in BASE and COMPARE with different classes !!
         ======================================================
          VARIABLE            CLASS.BASE            CLASS.COMP 
         ------------------------------------------------------
@@ -546,9 +648,8 @@
          INTEGER             character              integer   
         ------------------------------------------------------
       
-      There are columns in BASE and COMPARE with differing attributes !!
-      All rows are shown in table below
       
+      There are columns in BASE and COMPARE with differing attributes !!
         =============================================================================
           VARIABLE    ATTR_NAME             VALUES.BASE               VALUES.COMP    
         -----------------------------------------------------------------------------
@@ -557,9 +658,8 @@
           DATETIME      label    This is the label for my amazi...        NULL       
         -----------------------------------------------------------------------------
       
-      Not all Values Compared Equal
-      All rows are shown in table below
       
+      Not all Values Compared Equal
         ================================
           Variable    No of Differences 
         --------------------------------
@@ -570,7 +670,6 @@
       
       
       First 10 of 20 rows are shown in table below
-      
         ========================================
          VARIABLE  ..ROWNUMBER..  BASE  COMPARE 
         ----------------------------------------
@@ -587,8 +686,6 @@
         ----------------------------------------
       
       
-      All rows are shown in table below
-      
         ===========================================
           VARIABLE   ..ROWNUMBER..  BASE  COMPARE  
         -------------------------------------------
@@ -597,8 +694,6 @@
          CONTINUOUS        7         3    16.29289 
         -------------------------------------------
       
-      
-      All rows are shown in table below
       
         ===========================================
           VARIABLE    ..ROWNUMBER..  BASE  COMPARE 
@@ -613,6 +708,7 @@
          CATEGORICAL       20         D       C    
         -------------------------------------------
       
+      
 
 ---
 
@@ -621,11 +717,18 @@
     Output
       Differences found between the objects!
       
-      A summary is given below.
+      Summary of BASE and COMPARE
+        ==========================================================================
+         PROPERTY               BASE                            COMP              
+        --------------------------------------------------------------------------
+           Name    list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
+          Class       tbl_df, tbl, data.frame         tbl_df, tbl, data.frame     
+          #Rows                  20                              20               
+          #Cols                  11                              11               
+        --------------------------------------------------------------------------
+      
       
       Not all Values Compared Equal
-      All rows are shown in table below
-      
         ==============================
          Variable   No of Differences 
         ------------------------------
@@ -633,13 +736,12 @@
         ------------------------------
       
       
-      All rows are shown in table below
-      
         =========================================
          VARIABLE   ..ROWNUMBER..  BASE  COMPARE 
         -----------------------------------------
          CHARACTER        1        <NA>          
         -----------------------------------------
+      
       
 
 ---
@@ -650,20 +752,26 @@
     Output
       Differences found between the objects!
       
-      A summary is given below.
+      Summary of BASE and COMPARE
+        ================================================================================
+         PROPERTY                BASE                               COMP                
+        --------------------------------------------------------------------------------
+           Name    list_of_comparisons[["everythi...  list_of_comparisons[["everythi... 
+          Class         tbl_df, tbl, data.frame            tbl_df, tbl, data.frame      
+          #Rows                   20                                 20                 
+          #Cols                   11                                 11                 
+        --------------------------------------------------------------------------------
+      
       
       There are columns in BASE and COMPARE with different modes !!
-      All rows are shown in table below
-      
         ================================
          VARIABLE  MODE.BASE  MODE.COMP 
         --------------------------------
          INTEGER    numeric   character 
         --------------------------------
       
-      There are columns in BASE and COMPARE with different classes !!
-      All rows are shown in table below
       
+      There are columns in BASE and COMPARE with different classes !!
         ======================================================
          VARIABLE  CLASS.BASE            CLASS.COMP           
         ------------------------------------------------------
@@ -671,9 +779,8 @@
          INTEGER    integer              character            
         ------------------------------------------------------
       
-      There are columns in BASE and COMPARE with differing attributes !!
-      All rows are shown in table below
       
+      There are columns in BASE and COMPARE with differing attributes !!
         =============================================================================
           VARIABLE    ATTR_NAME    VALUES.BASE                VALUES.COMP            
         -----------------------------------------------------------------------------
@@ -682,9 +789,8 @@
           DATETIME      label          NULL        This is the label for my amazi... 
         -----------------------------------------------------------------------------
       
-      Not all Values Compared Equal
-      All rows are shown in table below
       
+      Not all Values Compared Equal
         ================================
           Variable    No of Differences 
         --------------------------------
@@ -695,7 +801,6 @@
       
       
       First 10 of 20 rows are shown in table below
-      
         =============================
          VARIABLE  ID  BASE  COMPARE 
         -----------------------------
@@ -712,8 +817,6 @@
         -----------------------------
       
       
-      All rows are shown in table below
-      
         ===================================
           VARIABLE   ID    BASE    COMPARE 
         -----------------------------------
@@ -722,8 +825,6 @@
          CONTINUOUS  7   16.29289     3    
         -----------------------------------
       
-      
-      All rows are shown in table below
       
         ================================
           VARIABLE    ID  BASE  COMPARE 
@@ -738,6 +839,7 @@
          CATEGORICAL  20   C       D    
         --------------------------------
       
+      
 
 ---
 
@@ -747,20 +849,26 @@
     Output
       Differences found between the objects!
       
-      A summary is given below.
+      Summary of BASE and COMPARE
+        ================================================================================
+         PROPERTY                BASE                               COMP                
+        --------------------------------------------------------------------------------
+           Name    list_of_comparisons[["everythi...  list_of_comparisons[["everythi... 
+          Class         tbl_df, tbl, data.frame            tbl_df, tbl, data.frame      
+          #Rows                   20                                 20                 
+          #Cols                   11                                 11                 
+        --------------------------------------------------------------------------------
+      
       
       There are columns in BASE and COMPARE with different modes !!
-      All rows are shown in table below
-      
         ================================
          VARIABLE  MODE.BASE  MODE.COMP 
         --------------------------------
          INTEGER    numeric   character 
         --------------------------------
       
-      There are columns in BASE and COMPARE with different classes !!
-      All rows are shown in table below
       
+      There are columns in BASE and COMPARE with different classes !!
         ======================================================
          VARIABLE  CLASS.BASE            CLASS.COMP           
         ------------------------------------------------------
@@ -768,9 +876,8 @@
          INTEGER    integer              character            
         ------------------------------------------------------
       
-      There are columns in BASE and COMPARE with differing attributes !!
-      All rows are shown in table below
       
+      There are columns in BASE and COMPARE with differing attributes !!
         =============================================================================
           VARIABLE    ATTR_NAME    VALUES.BASE                VALUES.COMP            
         -----------------------------------------------------------------------------
@@ -779,9 +886,8 @@
           DATETIME      label          NULL        This is the label for my amazi... 
         -----------------------------------------------------------------------------
       
-      Not all Values Compared Equal
-      All rows are shown in table below
       
+      Not all Values Compared Equal
         ================================
           Variable    No of Differences 
         --------------------------------
@@ -792,7 +898,6 @@
       
       
       First 10 of 20 rows are shown in table below
-      
         =====================================
          VARIABLE  ID  GROUP1  BASE  COMPARE 
         -------------------------------------
@@ -809,8 +914,6 @@
         -------------------------------------
       
       
-      All rows are shown in table below
-      
         ===========================================
           VARIABLE   ID  GROUP1    BASE    COMPARE 
         -------------------------------------------
@@ -819,8 +922,6 @@
          CONTINUOUS  7     1     16.29289     3    
         -------------------------------------------
       
-      
-      All rows are shown in table below
       
         ========================================
           VARIABLE    ID  GROUP1  BASE  COMPARE 
@@ -834,5 +935,6 @@
          CATEGORICAL  17    2      C       D    
          CATEGORICAL  20    2      C       D    
         ----------------------------------------
+      
       
 

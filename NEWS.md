@@ -3,6 +3,7 @@
 Development version
 
 - `row_limit` argument now functional again in print method! With thanks to @brianrepko
+- Enabled check for differences in classes between the base and comparison datasets (#42)
 
 
 

@@ -56,7 +56,11 @@ get_print_message.default <- function(object) {
 #' @inheritParams print.diffdf
 get_print_message.issue <- function(object, row_limit, ...) {
     paste(
-        c(attr(object, "message"), get_table(object, row_limit = row_limit)),
+        c(
+            attr(object, "message"),
+            get_table(object, row_limit = row_limit),
+            "\n\n"
+        ),
         collapse = "\n"
     )
 }
