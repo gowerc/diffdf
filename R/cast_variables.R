@@ -123,7 +123,6 @@ cast_variables <- function(
         "COMPARE" = COMPARE
     )
 
-
     if (nrow(cast_columns) == 0) {
         return(DATASETS)
     }
