@@ -12,3 +12,4 @@ identify_unsupported_cols(dsin)
 \description{
 Identifies any columns for which the package is not setup to handle
 }
+\keyword{internal}

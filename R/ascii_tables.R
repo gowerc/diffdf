@@ -4,6 +4,7 @@
 #' of a string to get it to equal the desired length
 #' @param x string
 #' @param width desired length
+#' @keywords internal
 string_pad <- function(x, width) {
     if (nchar(x) >= width) {
         return(x)
@@ -26,6 +27,7 @@ string_pad <- function(x, width) {
 #' ```
 #' .l[[1]] <- .f( .l[[1]] , .l[[2]]) ; .l[[1]] <- .f( .l[[1]] , .l[[3]])
 #' ```
+#' @keywords internal
 recursive_reduce <- function(.l, .f) {
     if (length(.l) != 1) {
         .l[[2]] <- .f(.l[[1]], .l[[2]])
@@ -40,6 +42,7 @@ recursive_reduce <- function(.l, .f) {
 #' Utility function used to replicated `purrr::transpose`. Turns a list inside
 #' out.
 #' @param x list
+#' @keywords internal
 invert <- function(x) {
     x2 <- list()
     cnames <- names(x)
@@ -64,6 +67,7 @@ invert <- function(x) {
 #' in order to cast them to character.
 #' @param dat Input dataset to convert into a ascii table
 #' @param line_prefix Symbols to prefix in front of every line of the table
+#' @keywords internal
 as_ascii_table <- function(dat, line_prefix = "  ") {
     ## Convert every value to character and crop to a suitable length
     dat <- as_tibble(apply(dat, c(1, 2), as_cropped_char))
@@ -121,6 +125,7 @@ as_ascii_table <- function(dat, line_prefix = "  ") {
 #' Reduce down to a x char string with ...
 #' @param inval a single element value
 #' @param crop_at character limit
+#' @keywords internal
 as_cropped_char <- function(inval, crop_at = 30) {
     if (is.null(inval)) {
         inval <- "<NULL>"
@@ -149,6 +154,7 @@ as_cropped_char <- function(inval, crop_at = 30) {
 #' Generate nice looking table from a data frame
 #' @param dsin dataset
 #' @inheritParams print.diffdf
+#' @keywords internal
 get_table <- function(dsin, row_limit = 10) {
     if (nrow(dsin) == 0) {
         return("")

@@ -15,3 +15,4 @@ as_cropped_char(inval, crop_at = 30)
 Makes any character string above x chars
 Reduce down to a x char string with ...
 }
+\keyword{internal}

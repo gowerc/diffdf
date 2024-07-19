@@ -15,3 +15,4 @@ string_pad(x, width)
 Utility function used to replicate \code{str_pad}. Adds white space to either end
 of a string to get it to equal the desired length
 }
+\keyword{internal}

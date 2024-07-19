@@ -24,3 +24,4 @@
 This is a modified version of the all.equal function
 which returns a vector rather than a message
 }
+\keyword{internal}

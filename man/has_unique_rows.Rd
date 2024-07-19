@@ -14,3 +14,4 @@ has_unique_rows(DAT, KEYS)
 \description{
 Check if a data sets rows are unique
 }
+\keyword{internal}
