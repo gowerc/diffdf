@@ -6,6 +6,9 @@
 #' @param KEYS List of variables that define a unique row within the datasets (strings)
 #' @keywords internal
 identify_extra_rows <- function(DS1, DS2, KEYS) {
+    if (nrow(DS2) == 0 || nrow(DS1) == 0) {
+        return(DS1[, KEYS, drop = FALSE])
+    }
     DS2[["..FLAG.."]] <- "Y"
     dat <- merge(
         subset(DS1, select = KEYS),
@@ -217,12 +220,13 @@ identify_att_differences <- function(BASE, COMP, exclude_cols = "") {
 #' @param scale Scale that tolerance should be set on. If NULL assume absolute
 #' @keywords internal
 identify_differences <- function(
-        BASE,
-        COMP,
-        KEYS,
-        exclude_cols,
-        tolerance = sqrt(.Machine$double.eps),
-        scale = NULL) {
+    BASE,
+    COMP,
+    KEYS,
+    exclude_cols,
+    tolerance = sqrt(.Machine$double.eps),
+    scale = NULL
+) {
 
     matching_cols <- identify_matching_cols(BASE, COMP, c(KEYS, exclude_cols))
 
@@ -237,6 +241,9 @@ identify_differences <- function(
         suffix = c(".x", ".y"),
         sort = TRUE
     )
+    if (nrow(DAT) == 0) {
+        return(tibble())
+    }
     DAT <- DAT[do.call("order", DAT[KEYS]), ]
 
     matching_list <- mapply(

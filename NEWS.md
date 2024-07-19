@@ -2,7 +2,9 @@
 
 Development version
 
-- `row_limit` argument now functional again in print method! With thanks to @brianrepko
+- `row_limit` argument now functional again in print method! (#6, @brianrepko)
+- Fixed bug that caused an error if either the base or comparison dataset were empty (#44)
+- Fixed bug that caused an error if there were no matching keys between the base and comparison dataset (#79)
 
 
 
