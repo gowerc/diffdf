@@ -14,3 +14,4 @@ identify_mode_differences(BASE, COMP)
 \description{
 Identifies any mode differences between two data frames
 }
+\keyword{internal}

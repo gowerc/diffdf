@@ -21,3 +21,4 @@ This function is essentially performing the following operation:
 \if{html}{\out{<div class="sourceCode">}}\preformatted{.l[[1]] <- .f( .l[[1]] , .l[[2]]) ; .l[[1]] <- .f( .l[[1]] , .l[[3]])
 }\if{html}{\out{</div>}}
 }
+\keyword{internal}

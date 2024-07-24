@@ -13,3 +13,4 @@ invert(x)
 Utility function used to replicated \code{purrr::transpose}. Turns a list inside
 out.
 }
+\keyword{internal}

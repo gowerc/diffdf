@@ -14,3 +14,4 @@ sort_then_join(string1, string2)
 \description{
 Convenience function to sort two strings and paste them together
 }
+\keyword{internal}

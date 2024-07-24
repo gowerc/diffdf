@@ -16,3 +16,4 @@ get_casted_vector(colin, colname, whichdat)
 \description{
 casts a vector depending on its type and input
 }
+\keyword{internal}

@@ -97,6 +97,7 @@ diffdf_issuerows <- function(df, diff, vars = NULL) {
 #' non-key variables
 #' @param issue name of issue to extract the dataset from diff
 #' @param diff diffdf object which contains issues
+#' @keywords internal
 get_issue_dataset <- function(issue, diff) {
     issue_df <- diff[[issue]]
     keep <- names(issue_df)[!(names(issue_df) %in% c("BASE", "COMPARE", "VARIABLE"))]

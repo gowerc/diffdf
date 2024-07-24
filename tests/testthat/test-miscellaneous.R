@@ -60,3 +60,59 @@ test_that("as_ascii_table() can handle white space and newlines", {
         gold
     )
 })
+
+test_that("can handle null datasets", {
+    expect_warning(
+        {res <- diffdf(data.frame(), iris)},
+        regexp = "rows in COMPARE that are not in BASE.*columns in COMPARE that are not in BASE"
+    )
+    expect_snapshot(res)
+
+
+    expect_warning(
+        {res <- diffdf(iris, data.frame())},
+        regexp = "rows in BASE that are not in COMPARE.*columns in BASE that are not in COMPARE"
+    )
+    expect_snapshot(res)
+
+
+    expect_output(
+        print(diffdf(data.frame(), data.frame())),
+        "No issues were found!"
+    )
+
+    expect_output(
+        print(diffdf(iris, iris)),
+        "No issues were found!"
+    )
+
+    x1 <- tibble(
+        x = c(1, 2, 3),
+        y = c(4, 5, 6)
+    )
+    expect_warning(
+        {res <- diffdf(x1, x1[FALSE, "x"])},
+        regexp = "rows in BASE that are not in COMPARE.*columns in BASE that are not in COMPARE"
+    )
+    expect_snapshot(res)
+    expect_warning(
+        {res <- diffdf(x1[FALSE, "x"], x1)},
+        regexp = "rows in COMPARE that are not in BASE.*columns in COMPARE that are not in BASE"
+    )
+    expect_snapshot(res)
+
+})
+
+
+
+test_that("can handle non-overlapping keys", {
+    expect_warning(
+        {
+            x1 <- data.frame(ID = c("A", "C"), val = c(1, 2))
+            x2 <- data.frame(ID = c("B", "C"), val = c(3, 2))
+            res <- diffdf(x1, x2, "ID")
+        },
+        regexp = "rows in BASE that are not in COMPARE.*rows in COMPARE that are not in BASE"
+    )
+    expect_snapshot(res)
+})
