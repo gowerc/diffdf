@@ -3,3 +3,4 @@
 .RData
 .Ruserdata
 utils/print_output/*
+local/*
