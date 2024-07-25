@@ -14,7 +14,7 @@ diffdf(
   file = NULL,
   tolerance = sqrt(.Machine$double.eps),
   scale = NULL,
-  check_df_class = TRUE
+  check_df_class = FALSE
 )
 }
 \arguments{

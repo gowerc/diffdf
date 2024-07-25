@@ -58,8 +58,8 @@ describe_dataframe <- function(base, comp, base_name, comp_name) {
         PROPERTY = c(
             "Name",
             "Class",
-            "#Rows",
-            "#Cols"
+            "Rows (#)",
+            "Columns (#)"
         ),
         BASE = c(
             base_name,

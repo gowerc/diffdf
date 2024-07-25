@@ -92,12 +92,12 @@ diffdf <- function(
     file = NULL,
     tolerance = sqrt(.Machine$double.eps),
     scale = NULL,
-    check_df_class = TRUE
+    check_df_class = FALSE
 ) {
 
     assertthat::assert_that(
-        is.logical(check_df_class),
-        length(check_df_class) == 1,
+        assertthat::is.flag(check_df_class),
+        !is.na(check_df_class),
         msg = "`check_df_class` must be a length 1 logical"
     )
 

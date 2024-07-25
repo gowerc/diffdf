@@ -27,9 +27,10 @@ identify_extra_rows <- function(DS1, DS2, KEYS) {
 #' @importFrom tibble tibble
 identify_extra_cols <- function(DS1, DS2) {
     match.cols <- sapply(names(DS1), "%in%", names(DS2))
-    if (!all(is.logical(match.cols))) {
-        stop("Assumption of logical return type is not true")
-    }
+    assertthat::assert_that(
+        all(is.logical(match.cols)),
+        msg = "Assumption of logical return type is not true"
+    )
     tibble(
         COLUMNS = names(DS1)[!match.cols]
     )
