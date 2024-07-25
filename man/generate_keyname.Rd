@@ -20,3 +20,4 @@ generate_keyname(
 \description{
 Function to generate a name for the keys if not provided
 }
+\keyword{internal}

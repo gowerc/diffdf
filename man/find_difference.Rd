@@ -19,3 +19,4 @@ length and type, and is intended to be used after checks have already been done
 Initially picks out any \code{NA}'s (matching \code{NA}'s count as a match)
 Then compares remaining vector
 }
+\keyword{internal}

@@ -17,3 +17,4 @@ get_casted_dataset(df, columns, whichdat)
 Internal utility function to loop across a dataset casting all target
 variables
 }
+\keyword{internal}

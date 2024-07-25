@@ -15,3 +15,4 @@ every variable within the dataset}
 \description{
 Takes a dataframe and converts any factor variables to character
 }
+\keyword{internal}

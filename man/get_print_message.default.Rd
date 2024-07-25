@@ -12,3 +12,4 @@
 \description{
 Errors, as this should only ever be given an issue
 }
+\keyword{internal}

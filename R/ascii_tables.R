@@ -4,6 +4,7 @@
 #' of a string to get it to equal the desired length
 #' @param x string
 #' @param width desired length
+#' @keywords internal
 string_pad <- function(x, width) {
     if (nchar(x) >= width) {
         return(x)
@@ -26,6 +27,7 @@ string_pad <- function(x, width) {
 #' ```
 #' .l[[1]] <- .f( .l[[1]] , .l[[2]]) ; .l[[1]] <- .f( .l[[1]] , .l[[3]])
 #' ```
+#' @keywords internal
 recursive_reduce <- function(.l, .f) {
     if (length(.l) != 1) {
         .l[[2]] <- .f(.l[[1]], .l[[2]])
@@ -40,6 +42,7 @@ recursive_reduce <- function(.l, .f) {
 #' Utility function used to replicated `purrr::transpose`. Turns a list inside
 #' out.
 #' @param x list
+#' @keywords internal
 invert <- function(x) {
     x2 <- list()
     cnames <- names(x)
@@ -64,18 +67,23 @@ invert <- function(x) {
 #' in order to cast them to character.
 #' @param dat Input dataset to convert into a ascii table
 #' @param line_prefix Symbols to prefix in front of every line of the table
+#' @keywords internal
 as_ascii_table <- function(dat, line_prefix = "  ") {
+    n_col <- ncol(dat)
+    n_row <- nrow(dat)
+
     ## Convert every value to character and crop to a suitable length
-    dat <- as_tibble(apply(dat, c(1, 2), as_cropped_char))
+    dat_char <- lapply(dat, as_fmt_char)
+
 
     hold <- list()
     COLS <- colnames(dat)
 
     ### For each column extract core elements (width, values , title) and pad out
     ### each string to be a suitable length
-    for (i in seq_len(ncol(dat))) {
+    for (i in seq_len(n_col)) {
         COL <- COLS[i]
-        VALUES <- dat[[i]]
+        VALUES <- dat_char[[i]]
 
         JOINT <- c(COL, VALUES)
         WIDTH <- max(sapply(JOINT, nchar)) + 2
@@ -108,38 +116,87 @@ as_ascii_table <- function(dat, line_prefix = "  ") {
     )
 }
 
-
-
-
-
-
-
-
-#' as_cropped_char
+#' Format vector to printable string
 #'
-#' Makes any character string above x chars
-#' Reduce down to a x char string with ...
-#' @param inval a single element value
-#' @param crop_at character limit
-as_cropped_char <- function(inval, crop_at = 30) {
-    if (is.null(inval)) {
-        inval <- "<NULL>"
-    } else if (is.na(inval)) {
-        inval <- "<NA>"
-    } else {
-        inval <- as.character(inval)
-    }
+#' Coerces a vector of any type into a printable string. The most
+#' significant transformation is performed on existing character
+#' vectors which will be truncated, have newlines converted
+#' to explicit symbols and will be wrapped in quotes if they
+#' contain white space.
+#'
+#' @param x (`vector`) \cr vector to be converted to character
+#' @param add_quotes (`logical`) \cr if true will wrap strings that contain
+#' whitespace with quotes
+#' @param crop_at (`numeric`) \cr specifies the limit at which strings should
+#' be truncated to
+#' @param ... additional arguments (not currently used)
+#'
+#' @name as_fmt_char
+#' @keywords internal
+as_fmt_char <- function(x, ...) {
+    UseMethod("as_fmt_char")
+}
 
-    charlength <- sapply(inval, nchar)
+#' @rdname as_fmt_char
+#' @export
+as_fmt_char.numeric <- function(x, ...) {
+    format(x, digits = 7, justify = "right")
+}
 
-    if (charlength > crop_at) {
-        outval <- substr(inval, 1, crop_at)
-        outval <- paste0(outval, "...")
-    } else {
-        outval <- inval
-    }
+#' @rdname as_fmt_char
+#' @export
+as_fmt_char.NULL <- function(x, ...) {
+    "<NULL>"
+}
 
-    outval
+#' @rdname as_fmt_char
+#' @export
+as_fmt_char.list <- function(x, ...) {
+    vapply(
+        x,
+        function(x) {
+            if (is.numeric(x)) {
+                return(as_fmt_char(x))
+            }
+            if (is.character(x) & length(x) == 1) {
+                return(as_fmt_char(x))
+            }
+            as_fmt_char(
+                paste(capture.output(dput(x)), collapse = " "),
+                add_quotes = FALSE
+            )
+        },
+        character(1)
+    )
+}
+
+#' @rdname as_fmt_char
+#' @export
+as_fmt_char.factor <- function(x, ...) {
+    as_fmt_char(as.character(x))
+}
+
+#' @rdname as_fmt_char
+#' @export
+as_fmt_char.character <- function(x, add_quotes = TRUE, crop_at = 30, ...) {
+    needs_quotes <- grepl("\\s", x) & add_quotes
+
+    x[is.na(x)] <- "<NA>"
+
+    # Replace \nl \cr with tags to stop print message splitting over
+    # multiple lines
+    x <- gsub("\x0D", "<cr>", x)
+    x <- gsub("\x0A", "<nl>", x)
+
+    charlength <- vapply(x, nchar, numeric(1))
+    x <- substr(x, 1, crop_at)
+    x[charlength > crop_at] <- paste0(x[charlength > crop_at], "...")
+
+    # Add enclosing " " around strings with white space so that it can be
+    # clearly identified in the printed output
+    x[needs_quotes] <- paste0('"', x[needs_quotes], '"')
+
+    return(x)
 }
 
 
@@ -149,6 +206,7 @@ as_cropped_char <- function(inval, crop_at = 30) {
 #' Generate nice looking table from a data frame
 #' @param dsin dataset
 #' @inheritParams print.diffdf
+#' @keywords internal
 get_table <- function(dsin, row_limit = 10) {
     if (nrow(dsin) == 0) {
         return("")

@@ -6,6 +6,7 @@
 #' @param COMP comparison dataset
 #' @param replace_names a vector of replacement names. Used for recursion, should be edited in function for clarity
 #'
+#' @keywords internal
 generate_keyname <- function(
     BASE,
     COMP,

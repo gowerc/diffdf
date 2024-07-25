@@ -1,9 +1,5 @@
 
 
-
-
-
-
 test_that("Print output is maintained", {
 
     runme <- function(id) {
