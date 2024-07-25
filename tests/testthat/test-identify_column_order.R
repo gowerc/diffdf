@@ -93,9 +93,8 @@ test_that("Column order checks work as expected", {
     )
     expect_equal(actual, expected)
     expect_warning(
-        diffdf(x1, x1),
-        regex = NA,
-        check_column_order = TRUE
+        diffdf(x1, x1, check_column_order = TRUE),
+        regex = NA
     )
 })
 
@@ -119,7 +118,7 @@ test_that("Column order checks work with null columns", {
     )
     expect_equal(actual, expected)
     expect_warning(
-        diffdf(d1, d2),
+        diffdf(d1, d2, check_column_order = TRUE),
         regex = "the column ordering"
     )
     expect_snapshot(diffdf(d1, d2, suppress_warnings = TRUE, check_column_order = TRUE))
