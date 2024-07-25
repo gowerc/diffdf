@@ -34,7 +34,6 @@ test_that("as_ascii_table() can handle white space and newlines", {
     )
 
     gold <- c(
-        "",
         "  =====================================",
         "                    x                  ",
         "  -------------------------------------",
