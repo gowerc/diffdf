@@ -4,7 +4,11 @@
 #' @param DS1 Baseline dataset (data frame)
 #' @param DS2 Comparator dataset (data frame)
 #' @param KEYS List of variables that define a unique row within the datasets (strings)
+#' @keywords internal
 identify_extra_rows <- function(DS1, DS2, KEYS) {
+    if (nrow(DS2) == 0 || nrow(DS1) == 0) {
+        return(DS1[, KEYS, drop = FALSE])
+    }
     DS2[["..FLAG.."]] <- "Y"
     dat <- merge(
         subset(DS1, select = KEYS),
@@ -25,6 +29,7 @@ identify_extra_rows <- function(DS1, DS2, KEYS) {
 #' @param DS1 Baseline dataset (data frame)
 #' @param DS2 Comparator dataset (data frame)
 #' @importFrom tibble tibble
+#' @keywords internal
 identify_extra_cols <- function(DS1, DS2) {
     match.cols <- sapply(names(DS1), "%in%", names(DS2))
     assertthat::assert_that(
@@ -48,6 +53,7 @@ identify_extra_cols <- function(DS1, DS2) {
 #' @param DS1 Input dataset 1 (data frame)
 #' @param DS2 Input dataset 2 (data frame)
 #' @param EXCLUDE Columns to ignore
+#' @keywords internal
 identify_matching_cols <- function(DS1, DS2, EXCLUDE = "") {
     match_cols <- sapply(names(DS1), "%in%", names(DS2))
     exclude_cols <- sapply(names(DS1), "%in%", EXCLUDE)
@@ -62,6 +68,7 @@ identify_matching_cols <- function(DS1, DS2, EXCLUDE = "") {
 #'
 #' Identifies any columns for which the package is not setup to handle
 #' @param dsin input dataset
+#' @keywords internal
 identify_unsupported_cols <- function(dsin) {
     dat <- subset(
         identify_properties(dsin),
@@ -78,6 +85,7 @@ identify_unsupported_cols <- function(dsin) {
 #' Identifies any mode differences between two data frames
 #' @param BASE Base dataset for comparison (data.frame)
 #' @param COMP Comparator dataset to compare base against (data.frame)
+#' @keywords internal
 identify_mode_differences <- function(BASE, COMP) {
     matching_cols <- identify_matching_cols(BASE, COMP)
 
@@ -104,6 +112,7 @@ identify_mode_differences <- function(BASE, COMP) {
 #' Identifies any class differences between two data frames
 #' @param BASE Base dataset for comparison (data.frame)
 #' @param COMP Comparator dataset to compare base against (data.frame)
+#' @keywords internal
 identify_class_differences <- function(BASE, COMP) {
     matching_cols <- identify_matching_cols(BASE, COMP)
 
@@ -137,6 +146,7 @@ identify_class_differences <- function(BASE, COMP) {
 #' @param COMP Comparator dataset to compare base against (data.frame)
 #' @param exclude_cols Columns to exclude from comparison
 #' @importFrom tibble tibble
+#' @keywords internal
 identify_att_differences <- function(BASE, COMP, exclude_cols = "") {
     matching_cols <- identify_matching_cols(BASE, COMP, exclude_cols)
 
@@ -209,13 +219,15 @@ identify_att_differences <- function(BASE, COMP, exclude_cols = "") {
 #' @param exclude_cols Columns to exclude from comparison
 #' @param tolerance Level of tolerance for numeric differences between two variables
 #' @param scale Scale that tolerance should be set on. If NULL assume absolute
+#' @keywords internal
 identify_differences <- function(
-        BASE,
-        COMP,
-        KEYS,
-        exclude_cols,
-        tolerance = sqrt(.Machine$double.eps),
-        scale = NULL) {
+    BASE,
+    COMP,
+    KEYS,
+    exclude_cols,
+    tolerance = sqrt(.Machine$double.eps),
+    scale = NULL
+) {
 
     matching_cols <- identify_matching_cols(BASE, COMP, c(KEYS, exclude_cols))
 
@@ -230,6 +242,9 @@ identify_differences <- function(
         suffix = c(".x", ".y"),
         sort = TRUE
     )
+    if (nrow(DAT) == 0) {
+        return(tibble())
+    }
     DAT <- DAT[do.call("order", DAT[KEYS]), ]
 
     matching_list <- mapply(
@@ -261,6 +276,7 @@ identify_differences <- function(
 #' Returned values include variable names , class , mode , type & attributes
 #' @param dsin input dataframe that you want to get the metadata from
 #' @importFrom tibble tibble
+#' @keywords internal
 identify_properties <- function(dsin) {
     ### If missing or null return empty dataset
     if (is.null(dsin)) {

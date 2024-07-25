@@ -20,14 +20,14 @@
       Differences found between the objects!
       
       Summary of BASE and COMPARE
-        =============================================================================
-          PROPERTY                 BASE                            COMP              
-        -----------------------------------------------------------------------------
-            Name      list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
-            Class        tbl_df, tbl, data.frame         tbl_df, tbl, data.frame     
-          Rows (#)                  20                              20               
-         Columns (#)                2                               2                
-        -----------------------------------------------------------------------------
+        ============================================================================
+          PROPERTY                BASE                            COMP              
+        ----------------------------------------------------------------------------
+            Name     list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
+           Class       "tbl_df, tbl, data.frame"       "tbl_df, tbl, data.frame"    
+          Rows(#)                  20                              20               
+         Columns(#)                2                               2                
+        ----------------------------------------------------------------------------
       
       
       Not all Values Compared Equal
@@ -56,14 +56,14 @@
       Differences found between the objects!
       
       Summary of BASE and COMPARE
-        =============================================================================
-          PROPERTY                 BASE                            COMP              
-        -----------------------------------------------------------------------------
-            Name      list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
-            Class        tbl_df, tbl, data.frame         tbl_df, tbl, data.frame     
-          Rows (#)                  20                              20               
-         Columns (#)                2                               2                
-        -----------------------------------------------------------------------------
+        ============================================================================
+          PROPERTY                BASE                            COMP              
+        ----------------------------------------------------------------------------
+            Name     list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
+           Class       "tbl_df, tbl, data.frame"       "tbl_df, tbl, data.frame"    
+          Rows(#)                  20                              20               
+         Columns(#)                2                               2                
+        ----------------------------------------------------------------------------
       
       
       Not all Values Compared Equal
@@ -92,21 +92,21 @@
       Differences found between the objects!
       
       Summary of BASE and COMPARE
-        =============================================================================
-          PROPERTY                 BASE                            COMP              
-        -----------------------------------------------------------------------------
-            Name      list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
-            Class        tbl_df, tbl, data.frame         tbl_df, tbl, data.frame     
-          Rows (#)                  20                              20               
-         Columns (#)                2                               2                
-        -----------------------------------------------------------------------------
+        ============================================================================
+          PROPERTY                BASE                            COMP              
+        ----------------------------------------------------------------------------
+            Name     list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
+           Class       "tbl_df, tbl, data.frame"       "tbl_df, tbl, data.frame"    
+          Rows(#)                  20                              20               
+         Columns(#)                2                               2                
+        ----------------------------------------------------------------------------
       
       
       There are columns in BASE and COMPARE with differing attributes !!
         =====================================================================
          VARIABLE  ATTR_NAME  VALUES.BASE             VALUES.COMP            
         ---------------------------------------------------------------------
-          BINARY   something     NULL      list(Sepal.Length = c(5.1, 4.9... 
+          BINARY   something     NULL      structure(list(Sepal.Length = ... 
         ---------------------------------------------------------------------
       
       
@@ -119,21 +119,21 @@
       Differences found between the objects!
       
       Summary of BASE and COMPARE
-        =============================================================================
-          PROPERTY                 BASE                            COMP              
-        -----------------------------------------------------------------------------
-            Name      list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
-            Class        tbl_df, tbl, data.frame         tbl_df, tbl, data.frame     
-          Rows (#)                  20                              20               
-         Columns (#)                2                               2                
-        -----------------------------------------------------------------------------
+        ============================================================================
+          PROPERTY                BASE                            COMP              
+        ----------------------------------------------------------------------------
+            Name     list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
+           Class       "tbl_df, tbl, data.frame"       "tbl_df, tbl, data.frame"    
+          Rows(#)                  20                              20               
+         Columns(#)                2                               2                
+        ----------------------------------------------------------------------------
       
       
       There are columns in BASE and COMPARE with differing attributes !!
         =====================================================================
          VARIABLE  ATTR_NAME             VALUES.BASE             VALUES.COMP 
         ---------------------------------------------------------------------
-          BINARY   something  list(Sepal.Length = c(5.1, 4.9...     NULL     
+          BINARY   something  structure(list(Sepal.Length = ...     NULL     
         ---------------------------------------------------------------------
       
       
@@ -146,14 +146,14 @@
       Differences found between the objects!
       
       Summary of BASE and COMPARE
-        =============================================================================
-          PROPERTY                 BASE                            COMP              
-        -----------------------------------------------------------------------------
-            Name      list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
-            Class        tbl_df, tbl, data.frame         tbl_df, tbl, data.frame     
-          Rows (#)                  20                              20               
-         Columns (#)                2                               2                
-        -----------------------------------------------------------------------------
+        ============================================================================
+          PROPERTY                BASE                            COMP              
+        ----------------------------------------------------------------------------
+            Name     list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
+           Class       "tbl_df, tbl, data.frame"       "tbl_df, tbl, data.frame"    
+          Rows(#)                  20                              20               
+         Columns(#)                2                               2                
+        ----------------------------------------------------------------------------
       
       
       There are columns in BASE and COMPARE with differing attributes !!
@@ -195,14 +195,14 @@
       Differences found between the objects!
       
       Summary of BASE and COMPARE
-        =============================================================================
-          PROPERTY                 BASE                            COMP              
-        -----------------------------------------------------------------------------
-            Name      list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
-            Class        tbl_df, tbl, data.frame         tbl_df, tbl, data.frame     
-          Rows (#)                  20                              20               
-         Columns (#)                2                               2                
-        -----------------------------------------------------------------------------
+        ============================================================================
+          PROPERTY                BASE                            COMP              
+        ----------------------------------------------------------------------------
+            Name     list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
+           Class       "tbl_df, tbl, data.frame"       "tbl_df, tbl, data.frame"    
+          Rows(#)                  20                              20               
+         Columns(#)                2                               2                
+        ----------------------------------------------------------------------------
       
       
       There are columns in BASE and COMPARE with differing attributes !!
@@ -244,14 +244,14 @@
       Differences found between the objects!
       
       Summary of BASE and COMPARE
-        =============================================================================
-          PROPERTY                 BASE                            COMP              
-        -----------------------------------------------------------------------------
-            Name      list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
-            Class        tbl_df, tbl, data.frame         tbl_df, tbl, data.frame     
-          Rows (#)                  20                              20               
-         Columns (#)                2                               2                
-        -----------------------------------------------------------------------------
+        ============================================================================
+          PROPERTY                BASE                            COMP              
+        ----------------------------------------------------------------------------
+            Name     list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
+           Class       "tbl_df, tbl, data.frame"       "tbl_df, tbl, data.frame"    
+          Rows(#)                  20                              20               
+         Columns(#)                2                               2                
+        ----------------------------------------------------------------------------
       
       
       There are columns in BASE and COMPARE with different classes !!
@@ -271,14 +271,14 @@
       Differences found between the objects!
       
       Summary of BASE and COMPARE
-        =============================================================================
-          PROPERTY                 BASE                            COMP              
-        -----------------------------------------------------------------------------
-            Name      list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
-            Class        tbl_df, tbl, data.frame         tbl_df, tbl, data.frame     
-          Rows (#)                  20                              20               
-         Columns (#)                2                               2                
-        -----------------------------------------------------------------------------
+        ============================================================================
+          PROPERTY                BASE                            COMP              
+        ----------------------------------------------------------------------------
+            Name     list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
+           Class       "tbl_df, tbl, data.frame"       "tbl_df, tbl, data.frame"    
+          Rows(#)                  20                              20               
+         Columns(#)                2                               2                
+        ----------------------------------------------------------------------------
       
       
       There are columns in BASE and COMPARE with different classes !!
@@ -298,14 +298,14 @@
       Differences found between the objects!
       
       Summary of BASE and COMPARE
-        =============================================================================
-          PROPERTY                 BASE                            COMP              
-        -----------------------------------------------------------------------------
-            Name      list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
-            Class        tbl_df, tbl, data.frame         tbl_df, tbl, data.frame     
-          Rows (#)                  20                              20               
-         Columns (#)                2                               2                
-        -----------------------------------------------------------------------------
+        ============================================================================
+          PROPERTY                BASE                            COMP              
+        ----------------------------------------------------------------------------
+            Name     list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
+           Class       "tbl_df, tbl, data.frame"       "tbl_df, tbl, data.frame"    
+          Rows(#)                  20                              20               
+         Columns(#)                2                               2                
+        ----------------------------------------------------------------------------
       
       
       There are columns in BASE and COMPARE with different modes !!
@@ -333,14 +333,14 @@
       Differences found between the objects!
       
       Summary of BASE and COMPARE
-        =============================================================================
-          PROPERTY                 BASE                            COMP              
-        -----------------------------------------------------------------------------
-            Name      list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
-            Class        tbl_df, tbl, data.frame         tbl_df, tbl, data.frame     
-          Rows (#)                  20                              20               
-         Columns (#)                2                               2                
-        -----------------------------------------------------------------------------
+        ============================================================================
+          PROPERTY                BASE                            COMP              
+        ----------------------------------------------------------------------------
+            Name     list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
+           Class       "tbl_df, tbl, data.frame"       "tbl_df, tbl, data.frame"    
+          Rows(#)                  20                              20               
+         Columns(#)                2                               2                
+        ----------------------------------------------------------------------------
       
       
       There are columns in BASE and COMPARE with different modes !!
@@ -368,14 +368,14 @@
       Differences found between the objects!
       
       Summary of BASE and COMPARE
-        =============================================================================
-          PROPERTY                 BASE                            COMP              
-        -----------------------------------------------------------------------------
-            Name      list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
-            Class        tbl_df, tbl, data.frame         tbl_df, tbl, data.frame     
-          Rows (#)                  20                              20               
-         Columns (#)                3                               2                
-        -----------------------------------------------------------------------------
+        ============================================================================
+          PROPERTY                BASE                            COMP              
+        ----------------------------------------------------------------------------
+            Name     list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
+           Class       "tbl_df, tbl, data.frame"       "tbl_df, tbl, data.frame"    
+          Rows(#)                  20                              20               
+         Columns(#)                3                               2                
+        ----------------------------------------------------------------------------
       
       
       There are columns in BASE and COMPARE with different modes !!
@@ -411,14 +411,14 @@
       Differences found between the objects!
       
       Summary of BASE and COMPARE
-        =============================================================================
-          PROPERTY                 BASE                            COMP              
-        -----------------------------------------------------------------------------
-            Name      list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
-            Class        tbl_df, tbl, data.frame         tbl_df, tbl, data.frame     
-          Rows (#)                  20                              20               
-         Columns (#)                3                               2                
-        -----------------------------------------------------------------------------
+        ============================================================================
+          PROPERTY                BASE                            COMP              
+        ----------------------------------------------------------------------------
+            Name     list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
+           Class       "tbl_df, tbl, data.frame"       "tbl_df, tbl, data.frame"    
+          Rows(#)                  20                              20               
+         Columns(#)                3                               2                
+        ----------------------------------------------------------------------------
       
       
       There are columns in BASE and COMPARE with different modes !!
@@ -454,14 +454,14 @@
       Differences found between the objects!
       
       Summary of BASE and COMPARE
-        =============================================================================
-          PROPERTY                 BASE                            COMP              
-        -----------------------------------------------------------------------------
-            Name      list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
-            Class        tbl_df, tbl, data.frame         tbl_df, tbl, data.frame     
-          Rows (#)                  20                              10               
-         Columns (#)                2                               2                
-        -----------------------------------------------------------------------------
+        ============================================================================
+          PROPERTY                BASE                            COMP              
+        ----------------------------------------------------------------------------
+            Name     list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
+           Class       "tbl_df, tbl, data.frame"       "tbl_df, tbl, data.frame"    
+          Rows(#)                  20                              10               
+         Columns(#)                2                               2                
+        ----------------------------------------------------------------------------
       
       
       There are rows in BASE that are not in COMPARE !!
@@ -490,14 +490,14 @@
       Differences found between the objects!
       
       Summary of BASE and COMPARE
-        =============================================================================
-          PROPERTY                 BASE                            COMP              
-        -----------------------------------------------------------------------------
-            Name      list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
-            Class        tbl_df, tbl, data.frame         tbl_df, tbl, data.frame     
-          Rows (#)                  20                              10               
-         Columns (#)                2                               2                
-        -----------------------------------------------------------------------------
+        ============================================================================
+          PROPERTY                BASE                            COMP              
+        ----------------------------------------------------------------------------
+            Name     list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
+           Class       "tbl_df, tbl, data.frame"       "tbl_df, tbl, data.frame"    
+          Rows(#)                  20                              10               
+         Columns(#)                2                               2                
+        ----------------------------------------------------------------------------
       
       
       There are rows in BASE that are not in COMPARE !!
@@ -526,14 +526,14 @@
       Differences found between the objects!
       
       Summary of BASE and COMPARE
-        =============================================================================
-          PROPERTY                 BASE                            COMP              
-        -----------------------------------------------------------------------------
-            Name      list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
-            Class        tbl_df, tbl, data.frame         tbl_df, tbl, data.frame     
-          Rows (#)                  20                              20               
-         Columns (#)                11                              11               
-        -----------------------------------------------------------------------------
+        ============================================================================
+          PROPERTY                BASE                            COMP              
+        ----------------------------------------------------------------------------
+            Name     list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
+           Class       "tbl_df, tbl, data.frame"       "tbl_df, tbl, data.frame"    
+          Rows(#)                  20                              20               
+         Columns(#)                11                              11               
+        ----------------------------------------------------------------------------
       
       
       There are columns in BASE and COMPARE with different modes !!
@@ -554,13 +554,13 @@
       
       
       There are columns in BASE and COMPARE with differing attributes !!
-        =============================================================================
-          VARIABLE    ATTR_NAME    VALUES.BASE                VALUES.COMP            
-        -----------------------------------------------------------------------------
-           BINARY     something        NULL        list(Sepal.Length = c(5.1, 4.9... 
-         CATEGORICAL   levels    c("A", "B", "C")          c("A", "B", "D")          
-          DATETIME      label          NULL        This is the label for my amazi... 
-        -----------------------------------------------------------------------------
+        ===============================================================================
+          VARIABLE    ATTR_NAME    VALUES.BASE                 VALUES.COMP             
+        -------------------------------------------------------------------------------
+           BINARY     something        NULL         structure(list(Sepal.Length = ...  
+         CATEGORICAL   levels    c("A", "B", "C")           c("A", "B", "D")           
+          DATETIME      label          NULL        "This is the label for my amazi..." 
+        -------------------------------------------------------------------------------
       
       
       Not all Values Compared Equal
@@ -622,14 +622,14 @@
       Differences found between the objects!
       
       Summary of BASE and COMPARE
-        =============================================================================
-          PROPERTY                 BASE                            COMP              
-        -----------------------------------------------------------------------------
-            Name      list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
-            Class        tbl_df, tbl, data.frame         tbl_df, tbl, data.frame     
-          Rows (#)                  20                              20               
-         Columns (#)                11                              11               
-        -----------------------------------------------------------------------------
+        ============================================================================
+          PROPERTY                BASE                            COMP              
+        ----------------------------------------------------------------------------
+            Name     list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
+           Class       "tbl_df, tbl, data.frame"       "tbl_df, tbl, data.frame"    
+          Rows(#)                  20                              20               
+         Columns(#)                11                              11               
+        ----------------------------------------------------------------------------
       
       
       There are columns in BASE and COMPARE with different modes !!
@@ -650,13 +650,13 @@
       
       
       There are columns in BASE and COMPARE with differing attributes !!
-        =============================================================================
-          VARIABLE    ATTR_NAME             VALUES.BASE               VALUES.COMP    
-        -----------------------------------------------------------------------------
-           BINARY     something  list(Sepal.Length = c(5.1, 4.9...        NULL       
-         CATEGORICAL   levels            c("A", "B", "D")           c("A", "B", "C") 
-          DATETIME      label    This is the label for my amazi...        NULL       
-        -----------------------------------------------------------------------------
+        ===============================================================================
+          VARIABLE    ATTR_NAME              VALUES.BASE                VALUES.COMP    
+        -------------------------------------------------------------------------------
+           BINARY     something   structure(list(Sepal.Length = ...         NULL       
+         CATEGORICAL   levels             c("A", "B", "D")            c("A", "B", "C") 
+          DATETIME      label    "This is the label for my amazi..."        NULL       
+        -------------------------------------------------------------------------------
       
       
       Not all Values Compared Equal
@@ -718,14 +718,14 @@
       Differences found between the objects!
       
       Summary of BASE and COMPARE
-        =============================================================================
-          PROPERTY                 BASE                            COMP              
-        -----------------------------------------------------------------------------
-            Name      list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
-            Class        tbl_df, tbl, data.frame         tbl_df, tbl, data.frame     
-          Rows (#)                  20                              20               
-         Columns (#)                11                              11               
-        -----------------------------------------------------------------------------
+        ============================================================================
+          PROPERTY                BASE                            COMP              
+        ----------------------------------------------------------------------------
+            Name     list_of_comparisons[[id]][[1]]  list_of_comparisons[[id]][[2]] 
+           Class       "tbl_df, tbl, data.frame"       "tbl_df, tbl, data.frame"    
+          Rows(#)                  20                              20               
+         Columns(#)                11                              11               
+        ----------------------------------------------------------------------------
       
       
       Not all Values Compared Equal
@@ -753,14 +753,14 @@
       Differences found between the objects!
       
       Summary of BASE and COMPARE
-        ===================================================================================
-          PROPERTY                  BASE                               COMP                
-        -----------------------------------------------------------------------------------
-            Name      list_of_comparisons[["everythi...  list_of_comparisons[["everythi... 
-            Class          tbl_df, tbl, data.frame            tbl_df, tbl, data.frame      
-          Rows (#)                   20                                 20                 
-         Columns (#)                 11                                 11                 
-        -----------------------------------------------------------------------------------
+        ==================================================================================
+          PROPERTY                 BASE                               COMP                
+        ----------------------------------------------------------------------------------
+            Name     list_of_comparisons[["everythi...  list_of_comparisons[["everythi... 
+           Class         "tbl_df, tbl, data.frame"          "tbl_df, tbl, data.frame"     
+          Rows(#)                   20                                 20                 
+         Columns(#)                 11                                 11                 
+        ----------------------------------------------------------------------------------
       
       
       There are columns in BASE and COMPARE with different modes !!
@@ -781,13 +781,13 @@
       
       
       There are columns in BASE and COMPARE with differing attributes !!
-        =============================================================================
-          VARIABLE    ATTR_NAME    VALUES.BASE                VALUES.COMP            
-        -----------------------------------------------------------------------------
-           BINARY     something        NULL        list(Sepal.Length = c(5.1, 4.9... 
-         CATEGORICAL   levels    c("A", "B", "C")          c("A", "B", "D")          
-          DATETIME      label          NULL        This is the label for my amazi... 
-        -----------------------------------------------------------------------------
+        ===============================================================================
+          VARIABLE    ATTR_NAME    VALUES.BASE                 VALUES.COMP             
+        -------------------------------------------------------------------------------
+           BINARY     something        NULL         structure(list(Sepal.Length = ...  
+         CATEGORICAL   levels    c("A", "B", "C")           c("A", "B", "D")           
+          DATETIME      label          NULL        "This is the label for my amazi..." 
+        -------------------------------------------------------------------------------
       
       
       Not all Values Compared Equal
@@ -850,14 +850,14 @@
       Differences found between the objects!
       
       Summary of BASE and COMPARE
-        ===================================================================================
-          PROPERTY                  BASE                               COMP                
-        -----------------------------------------------------------------------------------
-            Name      list_of_comparisons[["everythi...  list_of_comparisons[["everythi... 
-            Class          tbl_df, tbl, data.frame            tbl_df, tbl, data.frame      
-          Rows (#)                   20                                 20                 
-         Columns (#)                 11                                 11                 
-        -----------------------------------------------------------------------------------
+        ==================================================================================
+          PROPERTY                 BASE                               COMP                
+        ----------------------------------------------------------------------------------
+            Name     list_of_comparisons[["everythi...  list_of_comparisons[["everythi... 
+           Class         "tbl_df, tbl, data.frame"          "tbl_df, tbl, data.frame"     
+          Rows(#)                   20                                 20                 
+         Columns(#)                 11                                 11                 
+        ----------------------------------------------------------------------------------
       
       
       There are columns in BASE and COMPARE with different modes !!
@@ -878,13 +878,13 @@
       
       
       There are columns in BASE and COMPARE with differing attributes !!
-        =============================================================================
-          VARIABLE    ATTR_NAME    VALUES.BASE                VALUES.COMP            
-        -----------------------------------------------------------------------------
-           BINARY     something        NULL        list(Sepal.Length = c(5.1, 4.9... 
-         CATEGORICAL   levels    c("A", "B", "C")          c("A", "B", "D")          
-          DATETIME      label          NULL        This is the label for my amazi... 
-        -----------------------------------------------------------------------------
+        ===============================================================================
+          VARIABLE    ATTR_NAME    VALUES.BASE                 VALUES.COMP             
+        -------------------------------------------------------------------------------
+           BINARY     something        NULL         structure(list(Sepal.Length = ...  
+         CATEGORICAL   levels    c("A", "B", "C")           c("A", "B", "D")           
+          DATETIME      label          NULL        "This is the label for my amazi..." 
+        -------------------------------------------------------------------------------
       
       
       Not all Values Compared Equal

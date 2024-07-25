@@ -13,14 +13,14 @@
       Differences found between the objects!
       
       Summary of BASE and COMPARE
-        ==================================================
-          PROPERTY             BASE               COMP    
-        --------------------------------------------------
-            Name           tibble(iris)           iris    
-            Class     tbl_df, tbl, data.frame  data.frame 
-          Rows (#)              150               150     
-         Columns (#)             5                 5      
-        --------------------------------------------------
+        ===================================================
+          PROPERTY             BASE                COMP    
+        ---------------------------------------------------
+            Name           tibble(iris)            iris    
+           Class     "tbl_df, tbl, data.frame"  data.frame 
+          Rows(#)               150                150     
+         Columns(#)              5                  5      
+        ---------------------------------------------------
       
       
 

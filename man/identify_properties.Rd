@@ -13,3 +13,4 @@ identify_properties(dsin)
 Returns a dataframe of metadata for a given dataset.
 Returned values include variable names , class , mode , type & attributes
 }
+\keyword{internal}

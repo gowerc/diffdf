@@ -245,7 +245,6 @@ diffdf <- function(
     )
 
 
-
     COMPARE[["ExtColsBase"]] <- construct_issue(
         value = identify_extra_cols(BASE, COMP),
         message = "There are columns in BASE that are not in COMPARE !!"

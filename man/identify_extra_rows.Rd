@@ -16,3 +16,4 @@ identify_extra_rows(DS1, DS2, KEYS)
 \description{
 Identifies rows that are in a baseline dataset but not in a comparator dataset
 }
+\keyword{internal}

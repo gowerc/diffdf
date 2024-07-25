@@ -16,3 +16,4 @@
 \description{
 Compares factors. Sets them as character and then compares
 }
+\keyword{internal}
