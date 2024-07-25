@@ -22,13 +22,6 @@
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
 <li class="nav-item dropdown">
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://gowerc.github.io/diffdf/latest-tag">latest-tag</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://gowerc.github.io/diffdf/v1.0.4">v1.0.4</a> </div></li>
-<!-- end dropdown for versions -->
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-reports" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Reports</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-reports"><li><a class="dropdown-item" href="../coverage-report/">Coverage report</a></li>
     <li><a class="dropdown-item" href="../unit-test-report/">Unit test report</a></li>
@@ -64,7 +57,8 @@
 <span>  strict_factor <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  file <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  tolerance <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">.Machine</span><span class="op">$</span><span class="va">double.eps</span><span class="op">)</span>,</span>
-<span>  scale <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  scale <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  check_df_class <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -118,6 +112,11 @@ comparisons fail if (x-y)/scale &gt; tolerance.</p></dd>
 if (x-y)/scale &gt; tolerance. Setting as NULL is a slightly more efficient
 version of scale = 1.</p></dd>
 
+
+<dt id="arg-check-df-class">check_df_class<a class="anchor" aria-label="anchor" href="#arg-check-df-class"></a></dt>
+<dd><p>Do you want to check for differences in the class
+between <code>base</code> and <code>compare</code>? (logical)</p></dd>
+
 </dl></div>
 
     <div class="section level2">
@@ -132,11 +131,19 @@ version of scale = 1.</p></dd>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">COMPARE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Differences found between the objects!</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A summary is given below.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Summary of BASE and COMPARE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ====================================</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     PROPERTY      BASE        COMP    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       Name        iris         x      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      Class     data.frame  data.frame </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     Rows(#)       150          1      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Columns(#)      5           5      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> There are rows in BASE that are not in COMPARE !!</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> First 10 of 149 rows are shown in table below</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ===============</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    ..ROWNUMBER.. </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ---------------</span>
@@ -152,9 +159,8 @@ version of scale = 1.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         11       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ---------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Not all Values Compared Equal</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> All rows are shown in table below</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Not all Values Compared Equal</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   =================================</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      Variable    No of Differences </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ---------------------------------</span>
@@ -166,16 +172,12 @@ version of scale = 1.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ---------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> All rows are shown in table below</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ============================================</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      VARIABLE    ..ROWNUMBER..  BASE  COMPARE </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   --------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Sepal.Length        1        5.1     NA    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   --------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> All rows are shown in table below</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ===========================================</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     VARIABLE    ..ROWNUMBER..  BASE  COMPARE </span>
@@ -184,16 +186,12 @@ version of scale = 1.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> All rows are shown in table below</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ============================================</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      VARIABLE    ..ROWNUMBER..  BASE  COMPARE </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   --------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Petal.Length        1        1.4     NA    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   --------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> All rows are shown in table below</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ===========================================</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     VARIABLE    ..ROWNUMBER..  BASE  COMPARE </span>
@@ -202,13 +200,12 @@ version of scale = 1.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> All rows are shown in table below</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ==========================================</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    VARIABLE  ..ROWNUMBER..   BASE   COMPARE </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Species         1        setosa   &lt;NA&gt;   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ------------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#### Sample data frames</span></span></span>
@@ -247,11 +244,18 @@ version of scale = 1.</p></dd>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> Not all Values Compared Equal</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Differences found between the objects!</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A summary is given below.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Summary of BASE and COMPARE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ====================================</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     PROPERTY      BASE        COMP    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       Name        DF1         DF2     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      Class     data.frame  data.frame </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     Rows(#)        6           6      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Columns(#)      3           3      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Not all Values Compared Equal</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> All rows are shown in table below</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   =============================</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Variable  No of Differences </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -----------------------------</span>
@@ -259,13 +263,12 @@ version of scale = 1.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -----------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> All rows are shown in table below</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   =============================</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    VARIABLE  id  BASE  COMPARE </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -----------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       v2     1    1      1.1   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   -----------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu">diffdf</span><span class="op">(</span><span class="va">DF1</span>, <span class="va">DF2</span>, keys <span class="op">=</span> <span class="st">"id"</span>, tolerance <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> No issues were found!</span>

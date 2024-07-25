@@ -38,13 +38,6 @@
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
 <li class="nav-item dropdown">
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://gowerc.github.io/diffdf/latest-tag">latest-tag</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://gowerc.github.io/diffdf/v1.0.4">v1.0.4</a> </div></li>
-<!-- end dropdown for versions -->
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-reports" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Reports</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-reports">
 <li><a class="dropdown-item" href="../coverage-report/">Coverage report</a></li>
@@ -74,7 +67,7 @@
                         <h4 data-toc-skip class="author">Craig Gower
 &amp; Kieran Martin</h4>
             
-            <h4 data-toc-skip class="date">2024-07-24</h4>
+            <h4 data-toc-skip class="date">2024-07-25</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/gowerc/diffdf/blob/master/vignettes/diffdf-basic.Rmd" class="external-link"><code>vignettes/diffdf-basic.Rmd</code></a></small>
       <div class="d-none name"><code>diffdf-basic.Rmd</code></div>
@@ -148,11 +141,18 @@ not used in production code as it may mask problems.</p>
 <span><span class="fu"><a href="../reference/diffdf.html">diffdf</a></span><span class="op">(</span><span class="va">test_data</span>, <span class="va">test_data2</span>, suppress_warnings <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Differences found between the objects!</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; A summary is given below.</span></span>
+<span><span class="co">#&gt; Summary of BASE and COMPARE</span></span>
+<span><span class="co">#&gt;   ==================================================================</span></span>
+<span><span class="co">#&gt;     PROPERTY             BASE                       COMP            </span></span>
+<span><span class="co">#&gt;   ------------------------------------------------------------------</span></span>
+<span><span class="co">#&gt;       Name             test_data                 test_data2         </span></span>
+<span><span class="co">#&gt;      Class     "tbl_df, tbl, data.frame"  "tbl_df, tbl, data.frame" </span></span>
+<span><span class="co">#&gt;     Rows(#)               30                         30             </span></span>
+<span><span class="co">#&gt;    Columns(#)             11                         10             </span></span>
+<span><span class="co">#&gt;   ------------------------------------------------------------------</span></span>
+<span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; There are columns in BASE that are not in COMPARE !!</span></span>
-<span><span class="co">#&gt; All rows are shown in table below</span></span>
-<span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;   =========</span></span>
 <span><span class="co">#&gt;    COLUMNS </span></span>
 <span><span class="co">#&gt;   ---------</span></span>
@@ -168,11 +168,18 @@ not used in production code as it may mask problems.</p>
 <span><span class="fu"><a href="../reference/diffdf.html">diffdf</a></span><span class="op">(</span><span class="va">test_data</span>, <span class="va">test_data2</span>, suppress_warnings <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Differences found between the objects!</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; A summary is given below.</span></span>
+<span><span class="co">#&gt; Summary of BASE and COMPARE</span></span>
+<span><span class="co">#&gt;   ==================================================================</span></span>
+<span><span class="co">#&gt;     PROPERTY             BASE                       COMP            </span></span>
+<span><span class="co">#&gt;   ------------------------------------------------------------------</span></span>
+<span><span class="co">#&gt;       Name             test_data                 test_data2         </span></span>
+<span><span class="co">#&gt;      Class     "tbl_df, tbl, data.frame"  "tbl_df, tbl, data.frame" </span></span>
+<span><span class="co">#&gt;     Rows(#)               30                         28             </span></span>
+<span><span class="co">#&gt;    Columns(#)             11                         11             </span></span>
+<span><span class="co">#&gt;   ------------------------------------------------------------------</span></span>
+<span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; There are rows in BASE that are not in COMPARE !!</span></span>
-<span><span class="co">#&gt; All rows are shown in table below</span></span>
-<span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;   ===============</span></span>
 <span><span class="co">#&gt;    ..ROWNUMBER.. </span></span>
 <span><span class="co">#&gt;   ---------------</span></span>
@@ -189,19 +196,24 @@ not used in production code as it may mask problems.</p>
 <span><span class="fu"><a href="../reference/diffdf.html">diffdf</a></span><span class="op">(</span><span class="va">test_data</span>, <span class="va">test_data2</span>, suppress_warnings <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Differences found between the objects!</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; A summary is given below.</span></span>
+<span><span class="co">#&gt; Summary of BASE and COMPARE</span></span>
+<span><span class="co">#&gt;   ==================================================================</span></span>
+<span><span class="co">#&gt;     PROPERTY             BASE                       COMP            </span></span>
+<span><span class="co">#&gt;   ------------------------------------------------------------------</span></span>
+<span><span class="co">#&gt;       Name             test_data                 test_data2         </span></span>
+<span><span class="co">#&gt;      Class     "tbl_df, tbl, data.frame"  "tbl_df, tbl, data.frame" </span></span>
+<span><span class="co">#&gt;     Rows(#)               30                         30             </span></span>
+<span><span class="co">#&gt;    Columns(#)             11                         11             </span></span>
+<span><span class="co">#&gt;   ------------------------------------------------------------------</span></span>
+<span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Not all Values Compared Equal</span></span>
-<span><span class="co">#&gt; All rows are shown in table below</span></span>
-<span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;   =============================</span></span>
 <span><span class="co">#&gt;    Variable  No of Differences </span></span>
 <span><span class="co">#&gt;   -----------------------------</span></span>
 <span><span class="co">#&gt;     GROUP1           1         </span></span>
 <span><span class="co">#&gt;   -----------------------------</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; All rows are shown in table below</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;   ========================================</span></span>
 <span><span class="co">#&gt;    VARIABLE  ..ROWNUMBER..  BASE  COMPARE </span></span>
@@ -218,20 +230,26 @@ not used in production code as it may mask problems.</p>
 <span><span class="fu"><a href="../reference/diffdf.html">diffdf</a></span><span class="op">(</span><span class="va">test_data</span>, <span class="va">test_data2</span>, suppress_warnings <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Differences found between the objects!</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; A summary is given below.</span></span>
+<span><span class="co">#&gt; Summary of BASE and COMPARE</span></span>
+<span><span class="co">#&gt;   ==================================================================</span></span>
+<span><span class="co">#&gt;     PROPERTY             BASE                       COMP            </span></span>
+<span><span class="co">#&gt;   ------------------------------------------------------------------</span></span>
+<span><span class="co">#&gt;       Name             test_data                 test_data2         </span></span>
+<span><span class="co">#&gt;      Class     "tbl_df, tbl, data.frame"  "tbl_df, tbl, data.frame" </span></span>
+<span><span class="co">#&gt;     Rows(#)               30                         30             </span></span>
+<span><span class="co">#&gt;    Columns(#)             11                         11             </span></span>
+<span><span class="co">#&gt;   ------------------------------------------------------------------</span></span>
+<span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; There are columns in BASE and COMPARE with different modes !!</span></span>
-<span><span class="co">#&gt; All rows are shown in table below</span></span>
-<span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;   ================================</span></span>
 <span><span class="co">#&gt;    VARIABLE  MODE.BASE  MODE.COMP </span></span>
 <span><span class="co">#&gt;   --------------------------------</span></span>
 <span><span class="co">#&gt;     GROUP1    numeric   character </span></span>
 <span><span class="co">#&gt;   --------------------------------</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; There are columns in BASE and COMPARE with different classes !!</span></span>
-<span><span class="co">#&gt; All rows are shown in table below</span></span>
 <span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; There are columns in BASE and COMPARE with different classes !!</span></span>
 <span><span class="co">#&gt;   ==================================</span></span>
 <span><span class="co">#&gt;    VARIABLE  CLASS.BASE  CLASS.COMP </span></span>
 <span><span class="co">#&gt;   ----------------------------------</span></span>
@@ -248,11 +266,18 @@ not used in production code as it may mask problems.</p>
 <span><span class="fu"><a href="../reference/diffdf.html">diffdf</a></span><span class="op">(</span><span class="va">test_data</span>, <span class="va">test_data2</span>, suppress_warnings <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Differences found between the objects!</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; A summary is given below.</span></span>
+<span><span class="co">#&gt; Summary of BASE and COMPARE</span></span>
+<span><span class="co">#&gt;   ==================================================================</span></span>
+<span><span class="co">#&gt;     PROPERTY             BASE                       COMP            </span></span>
+<span><span class="co">#&gt;   ------------------------------------------------------------------</span></span>
+<span><span class="co">#&gt;       Name             test_data                 test_data2         </span></span>
+<span><span class="co">#&gt;      Class     "tbl_df, tbl, data.frame"  "tbl_df, tbl, data.frame" </span></span>
+<span><span class="co">#&gt;     Rows(#)               30                         30             </span></span>
+<span><span class="co">#&gt;    Columns(#)             11                         11             </span></span>
+<span><span class="co">#&gt;   ------------------------------------------------------------------</span></span>
+<span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; There are columns in BASE and COMPARE with differing attributes !!</span></span>
-<span><span class="co">#&gt; All rows are shown in table below</span></span>
-<span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;   ============================================================================</span></span>
 <span><span class="co">#&gt;    VARIABLE  ATTR_NAME           VALUES.BASE                VALUES.COMP       </span></span>
 <span><span class="co">#&gt;   ----------------------------------------------------------------------------</span></span>
@@ -268,20 +293,26 @@ not used in production code as it may mask problems.</p>
 <span><span class="fu"><a href="../reference/diffdf.html">diffdf</a></span><span class="op">(</span><span class="va">test_data</span>, <span class="va">test_data2</span>, suppress_warnings <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Differences found between the objects!</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; A summary is given below.</span></span>
+<span><span class="co">#&gt; Summary of BASE and COMPARE</span></span>
+<span><span class="co">#&gt;   ==================================================================</span></span>
+<span><span class="co">#&gt;     PROPERTY             BASE                       COMP            </span></span>
+<span><span class="co">#&gt;   ------------------------------------------------------------------</span></span>
+<span><span class="co">#&gt;       Name             test_data                 test_data2         </span></span>
+<span><span class="co">#&gt;      Class     "tbl_df, tbl, data.frame"  "tbl_df, tbl, data.frame" </span></span>
+<span><span class="co">#&gt;     Rows(#)               30                         30             </span></span>
+<span><span class="co">#&gt;    Columns(#)             11                         11             </span></span>
+<span><span class="co">#&gt;   ------------------------------------------------------------------</span></span>
+<span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; There are columns in BASE and COMPARE with differing attributes !!</span></span>
-<span><span class="co">#&gt; All rows are shown in table below</span></span>
-<span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;   ============================================================</span></span>
 <span><span class="co">#&gt;     VARIABLE    ATTR_NAME    VALUES.BASE       VALUES.COMP    </span></span>
 <span><span class="co">#&gt;   ------------------------------------------------------------</span></span>
 <span><span class="co">#&gt;    CATEGORICAL   levels    c("A", "B", "C")  c("1", "2", "3") </span></span>
 <span><span class="co">#&gt;   ------------------------------------------------------------</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Not all Values Compared Equal</span></span>
-<span><span class="co">#&gt; All rows are shown in table below</span></span>
 <span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Not all Values Compared Equal</span></span>
 <span><span class="co">#&gt;   ================================</span></span>
 <span><span class="co">#&gt;     Variable    No of Differences </span></span>
 <span><span class="co">#&gt;   --------------------------------</span></span>
@@ -290,7 +321,6 @@ not used in production code as it may mask problems.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; First 10 of 30 rows are shown in table below</span></span>
-<span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;   ===========================================</span></span>
 <span><span class="co">#&gt;     VARIABLE    ..ROWNUMBER..  BASE  COMPARE </span></span>
 <span><span class="co">#&gt;   -------------------------------------------</span></span>
@@ -325,19 +355,24 @@ vectors using the <code>keys</code> argument.</p>
 <span><span class="fu"><a href="../reference/diffdf.html">diffdf</a></span><span class="op">(</span><span class="va">test_data</span>, <span class="va">test_data2</span>, keys <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GROUP1"</span>, <span class="st">"GROUP2"</span><span class="op">)</span>, suppress_warnings <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Differences found between the objects!</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; A summary is given below.</span></span>
+<span><span class="co">#&gt; Summary of BASE and COMPARE</span></span>
+<span><span class="co">#&gt;   ==================================================================</span></span>
+<span><span class="co">#&gt;     PROPERTY             BASE                       COMP            </span></span>
+<span><span class="co">#&gt;   ------------------------------------------------------------------</span></span>
+<span><span class="co">#&gt;       Name             test_data                 test_data2         </span></span>
+<span><span class="co">#&gt;      Class     "tbl_df, tbl, data.frame"  "tbl_df, tbl, data.frame" </span></span>
+<span><span class="co">#&gt;     Rows(#)               30                         30             </span></span>
+<span><span class="co">#&gt;    Columns(#)             11                         11             </span></span>
+<span><span class="co">#&gt;   ------------------------------------------------------------------</span></span>
+<span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Not all Values Compared Equal</span></span>
-<span><span class="co">#&gt; All rows are shown in table below</span></span>
-<span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;   =============================</span></span>
 <span><span class="co">#&gt;    Variable  No of Differences </span></span>
 <span><span class="co">#&gt;   -----------------------------</span></span>
 <span><span class="co">#&gt;    INTEGER           3         </span></span>
 <span><span class="co">#&gt;   -----------------------------</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; All rows are shown in table below</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;   =========================================</span></span>
 <span><span class="co">#&gt;    VARIABLE  GROUP1  GROUP2  BASE  COMPARE </span></span>
@@ -419,19 +454,24 @@ perfectly represented in binary. By default tolerance is set to
 <span><span class="fu"><a href="../reference/diffdf.html">diffdf</a></span><span class="op">(</span><span class="va">dsin1</span>, <span class="va">dsin2</span>, suppress_warnings <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Differences found between the objects!</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; A summary is given below.</span></span>
+<span><span class="co">#&gt; Summary of BASE and COMPARE</span></span>
+<span><span class="co">#&gt;   ====================================</span></span>
+<span><span class="co">#&gt;     PROPERTY      BASE        COMP    </span></span>
+<span><span class="co">#&gt;   ------------------------------------</span></span>
+<span><span class="co">#&gt;       Name       dsin1       dsin2    </span></span>
+<span><span class="co">#&gt;      Class     data.frame  data.frame </span></span>
+<span><span class="co">#&gt;     Rows(#)        1           1      </span></span>
+<span><span class="co">#&gt;    Columns(#)      1           1      </span></span>
+<span><span class="co">#&gt;   ------------------------------------</span></span>
+<span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Not all Values Compared Equal</span></span>
-<span><span class="co">#&gt; All rows are shown in table below</span></span>
-<span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;   =============================</span></span>
 <span><span class="co">#&gt;    Variable  No of Differences </span></span>
 <span><span class="co">#&gt;   -----------------------------</span></span>
 <span><span class="co">#&gt;       x              1         </span></span>
 <span><span class="co">#&gt;   -----------------------------</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; All rows are shown in table below</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;   ===========================================</span></span>
 <span><span class="co">#&gt;    VARIABLE  ..ROWNUMBER..   BASE    COMPARE </span></span>
@@ -457,11 +497,18 @@ some contexts to prevent this from occurring. We can do so with the
 <span><span class="fu"><a href="../reference/diffdf.html">diffdf</a></span><span class="op">(</span><span class="va">dsin1</span>, <span class="va">dsin2</span>, suppress_warnings <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Differences found between the objects!</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; A summary is given below.</span></span>
+<span><span class="co">#&gt; Summary of BASE and COMPARE</span></span>
+<span><span class="co">#&gt;   ====================================</span></span>
+<span><span class="co">#&gt;     PROPERTY      BASE        COMP    </span></span>
+<span><span class="co">#&gt;   ------------------------------------</span></span>
+<span><span class="co">#&gt;       Name       dsin1       dsin2    </span></span>
+<span><span class="co">#&gt;      Class     data.frame  data.frame </span></span>
+<span><span class="co">#&gt;     Rows(#)        3           3      </span></span>
+<span><span class="co">#&gt;    Columns(#)      1           1      </span></span>
+<span><span class="co">#&gt;   ------------------------------------</span></span>
+<span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; There are columns in BASE and COMPARE with different classes !!</span></span>
-<span><span class="co">#&gt; All rows are shown in table below</span></span>
-<span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;   ==================================</span></span>
 <span><span class="co">#&gt;    VARIABLE  CLASS.BASE  CLASS.COMP </span></span>
 <span><span class="co">#&gt;   ----------------------------------</span></span>
@@ -477,20 +524,26 @@ some contexts to prevent this from occurring. We can do so with the
 <span><span class="fu"><a href="../reference/diffdf.html">diffdf</a></span><span class="op">(</span><span class="va">dsin1</span>, <span class="va">dsin2</span>, suppress_warnings <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Differences found between the objects!</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; A summary is given below.</span></span>
+<span><span class="co">#&gt; Summary of BASE and COMPARE</span></span>
+<span><span class="co">#&gt;   ====================================</span></span>
+<span><span class="co">#&gt;     PROPERTY      BASE        COMP    </span></span>
+<span><span class="co">#&gt;   ------------------------------------</span></span>
+<span><span class="co">#&gt;       Name       dsin1       dsin2    </span></span>
+<span><span class="co">#&gt;      Class     data.frame  data.frame </span></span>
+<span><span class="co">#&gt;     Rows(#)        3           3      </span></span>
+<span><span class="co">#&gt;    Columns(#)      1           1      </span></span>
+<span><span class="co">#&gt;   ------------------------------------</span></span>
+<span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; There are columns in BASE and COMPARE with different modes !!</span></span>
-<span><span class="co">#&gt; All rows are shown in table below</span></span>
-<span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;   ================================</span></span>
 <span><span class="co">#&gt;    VARIABLE  MODE.BASE  MODE.COMP </span></span>
 <span><span class="co">#&gt;   --------------------------------</span></span>
 <span><span class="co">#&gt;       x      character   numeric  </span></span>
 <span><span class="co">#&gt;   --------------------------------</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; There are columns in BASE and COMPARE with different classes !!</span></span>
-<span><span class="co">#&gt; All rows are shown in table below</span></span>
 <span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; There are columns in BASE and COMPARE with different classes !!</span></span>
 <span><span class="co">#&gt;   ==================================</span></span>
 <span><span class="co">#&gt;    VARIABLE  CLASS.BASE  CLASS.COMP </span></span>
 <span><span class="co">#&gt;   ----------------------------------</span></span>
