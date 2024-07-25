@@ -22,7 +22,7 @@ test_that("Column order checks work as expected", {
     )
     expect_equal(actual, expected)
     expect_warning(
-        diffdf(x1, x2),
+        diffdf(x1, x2, check_column_order = TRUE),
         regex = "the column ordering"
     )
     expect_snapshot(diffdf(x1, x2, suppress_warnings = TRUE, check_column_order = TRUE))
@@ -48,7 +48,7 @@ test_that("Column order checks work as expected", {
     )
     expect_equal(actual, expected)
     expect_warning(
-        diffdf(x1, x2),
+        diffdf(x1, x2, check_column_order = TRUE),
         regex = "the column ordering"
     )
     expect_snapshot(diffdf(x1, x2, suppress_warnings = TRUE, check_column_order = TRUE))
@@ -148,5 +148,34 @@ test_that("Edge cases that once caused bugs now work as expected", {
     x1 <- data.frame(x = 1)
     expect_no_error(
         diffdf(x1, x1)
+    )
+})
+
+
+test_that("Coloumn order checks work with keys", {
+    d1 <- tibble(
+        x = c(1, 2, 3),
+        id = c("A", "B", "C"),
+        id2 = c("A1", "B2", "C3"),
+        y = c(4, 5, 6),
+        z = c(7, 8, 9)
+    )
+    d2 <- tibble(
+        id = c("A", "B", "C"),
+        id3 = c("A", "B", "C"),
+        x = c(1, 2, 3),
+        y = c(4, 5, 6),
+        z = c(7, 8, 9)
+    )
+    actual <- identify_column_order_differences(d1, d2) |> tibble()
+    expected <- tibble(
+        COLUMN = c("x", "id"),
+        "BASE-INDEX" = c(1, 2),
+        "COMPARE-INDEX" = c(3, 1)
+    )
+    expect_equal(actual, expected)
+    expect_warning(
+        diffdf(d1, d2, keys = c("id"), check_column_order = TRUE),
+        regex = "the column ordering"
     )
 })

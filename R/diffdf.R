@@ -160,23 +160,6 @@ diffdf <- function(
         COMP <- casted_df$COMP
     }
 
-    if (check_column_order) {
-        if (attr(COMPARE, "keys")$is_derived) {
-            keep_vars_base <- !(names(BASE) %in% attr(COMPARE, "keys")$value)
-            keep_vars_comp <- !(names(COMP) %in% attr(COMPARE, "keys")$value)
-        } else {
-            keep_vars_base <- TRUE
-            keep_vars_comp <- TRUE
-        }
-        COMPARE[["ColumnOrder"]] <- construct_issue(
-            value = identify_column_order_differences(
-                BASE[, keep_vars_base, drop = FALSE],
-                COMP[, keep_vars_comp, drop = FALSE]
-            ),
-            message = "There are differences in the column ordering between BASE and COMPARE !!"
-        )
-    }
-
 
     COMPARE[["VarModeDiffs"]] <- construct_issue(
         value = identify_mode_differences(BASE, COMP),
@@ -218,7 +201,22 @@ diffdf <- function(
         msg = "KEYS are either an invalid or contain different modes between BASE and COMP"
     )
 
-
+    if (check_column_order) {
+        if (attr(COMPARE, "keys")$is_derived) {
+            keep_vars_base <- !(names(BASE) %in% attr(COMPARE, "keys")$value)
+            keep_vars_comp <- !(names(COMP) %in% attr(COMPARE, "keys")$value)
+        } else {
+            keep_vars_base <- TRUE
+            keep_vars_comp <- TRUE
+        }
+        COMPARE[["ColumnOrder"]] <- construct_issue(
+            value = identify_column_order_differences(
+                BASE[, keep_vars_base, drop = FALSE],
+                COMP[, keep_vars_comp, drop = FALSE]
+            ),
+            message = "There are differences in the column ordering between BASE and COMPARE !!"
+        )
+    }
 
 
     ##### Check Attributes
