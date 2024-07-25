@@ -116,3 +116,26 @@ test_that("can handle non-overlapping keys", {
     )
     expect_snapshot(res)
 })
+
+
+test_that("Can handle missing keys", {
+    d1 <- tibble(
+        v1 = 1,
+        v2 = 1,
+    )
+    d2 <- tibble(
+        v1 = 1,
+        v2 = 1,
+        v3 = 1,
+        v4 = 1,
+        v5 = 1
+    )
+    expect_error(
+        diffdf(d1, d2, c("v1", "v2", "v3", "v4")),
+        regexp = "not available in BASE.*   v3.*   v4"
+    )
+    expect_error(
+        diffdf(d2, d1, c("v1", "v2", "v3", "v4")),
+        regexp = "not available in COMPARE.*   v3.*   v4"
+    )
+})

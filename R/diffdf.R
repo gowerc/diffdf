@@ -118,6 +118,24 @@ diffdf <- function(
         is.numeric(scale) || is.null(scale)
     )
 
+    missing_keys_base <- KEYS[!KEYS %in% names(BASE)]
+    assertthat::assert_that(
+        length(missing_keys_base) == 0,
+        msg = sprintf(
+            "The following KEYS are not available in BASE:\n   %s",
+            paste(missing_keys_base, collapse = "\n   ")
+        )
+    )
+
+    missing_keys_comp <- KEYS[!KEYS %in% names(COMP)]
+    assertthat::assert_that(
+        length(missing_keys_comp) == 0,
+        msg = sprintf(
+            "The following KEYS are not available in COMPARE:\n   %s",
+            paste(missing_keys_comp, collapse = "\n   ")
+        )
+    )
+
     assertthat::assert_that(
         has_unique_rows(BASE, KEYS),
         msg = "BY variables in BASE do not result in unique observations"
