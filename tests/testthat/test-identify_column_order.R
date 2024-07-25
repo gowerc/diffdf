@@ -25,7 +25,7 @@ test_that("Column order checks work as expected", {
         diffdf(x1, x2),
         regex = "the column ordering"
     )
-    expect_snapshot(diffdf(x1, x2, suppress_warnings = TRUE))
+    expect_snapshot(diffdf(x1, x2, suppress_warnings = TRUE, check_column_order = TRUE))
 
 
     ## Difference due to missing column
@@ -51,7 +51,7 @@ test_that("Column order checks work as expected", {
         diffdf(x1, x2),
         regex = "the column ordering"
     )
-    expect_snapshot(diffdf(x1, x2, suppress_warnings = TRUE))
+    expect_snapshot(diffdf(x1, x2, suppress_warnings = TRUE, check_column_order = TRUE))
 
 
     ## No-Difference both with missing column
@@ -74,7 +74,7 @@ test_that("Column order checks work as expected", {
         "COMPARE-INDEX" = numeric(0)
     )
     expect_equal(actual, expected)
-    expect_snapshot(diffdf(x1, x2, suppress_warnings = TRUE))
+    expect_snapshot(diffdf(x1, x2, suppress_warnings = TRUE, check_column_order = TRUE))
 
 
 
@@ -94,10 +94,55 @@ test_that("Column order checks work as expected", {
     expect_equal(actual, expected)
     expect_warning(
         diffdf(x1, x1),
-        regex = NA
+        regex = NA,
+        check_column_order = TRUE
     )
 })
 
+
+test_that("Column order checks work with null columns", {
+    d1 <- data.frame(
+        x = numeric(0),
+        y = numeric(0),
+        z = numeric(0)
+    )
+    d2 <- data.frame(
+        x = numeric(0),
+        z = numeric(0),
+        y = numeric(0)
+    )
+    actual <- identify_column_order_differences(d1, d2) |> tibble()
+    expected <- tibble(
+        COLUMN = c("y", "z"),
+        "BASE-INDEX" = c(2, 3),
+        "COMPARE-INDEX" = c(3, 2)
+    )
+    expect_equal(actual, expected)
+    expect_warning(
+        diffdf(d1, d2),
+        regex = "the column ordering"
+    )
+    expect_snapshot(diffdf(d1, d2, suppress_warnings = TRUE, check_column_order = TRUE))
+})
+
+
+test_that("By default column orders are not checked", {
+    d1 <- data.frame(
+        x = numeric(0),
+        y = numeric(0),
+        z = numeric(0)
+    )
+    d2 <- data.frame(
+        x = numeric(0),
+        z = numeric(0),
+        y = numeric(0)
+    )
+    expect_warning(
+        diffdf(d1, d2),
+        regex = NA
+    )
+    expect_snapshot(diffdf(d1, d2, suppress_warnings = TRUE))
+})
 
 test_that("Edge cases that once caused bugs now work as expected", {
     x1 <- data.frame(x = 1)

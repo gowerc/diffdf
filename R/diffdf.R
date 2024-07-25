@@ -91,7 +91,7 @@ diffdf <- function(
     file = NULL,
     tolerance = sqrt(.Machine$double.eps),
     scale = NULL,
-    check_column_order = TRUE
+    check_column_order = FALSE
 ) {
 
     BASE <- base
