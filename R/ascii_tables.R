@@ -203,7 +203,7 @@ as_fmt_char.character <- function(x, add_quotes = TRUE, crop_at = 30, ...) {
 #' @export
 as_fmt_char.default <- function(x, ...) {
     x_char <- as.character(x)
-    assertthat(is.character(x))
+    assertthat(is.character(x_char))
     as_fmt_char.character(x, add_quotes = FALSE)
 }
 
