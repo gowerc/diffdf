@@ -55,6 +55,6 @@ test_that("Class comparison works as expected when disabled (the default)", {
             tibble(x = 1, y = 2),
             data.frame(x = 1)
         ),
-        regexp = "^\\nThere are columns in BASE that are not in COMPARE !!$"
+        regexp = "^\\nThere are columns in BASE that are not in COMPARE$"
     )
 })

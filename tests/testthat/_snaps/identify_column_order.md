@@ -5,11 +5,18 @@
     Output
       Differences found between the objects!
       
-      A summary is given below.
+      Summary of BASE and COMPARE
+        ==================================================================
+          PROPERTY             BASE                       COMP            
+        ------------------------------------------------------------------
+            Name                x1                         x2             
+           Class     "tbl_df, tbl, data.frame"  "tbl_df, tbl, data.frame" 
+          Rows(#)                1                          1             
+         Columns(#)              4                          4             
+        ------------------------------------------------------------------
       
-      There are differences in the column ordering between BASE and COMPARE !!
-      All rows are shown in table below
       
+      There are differences in the column ordering between BASE and COMPARE
         ===================================
          COLUMN  BASE-INDEX  COMPARE-INDEX 
         -----------------------------------
@@ -17,6 +24,7 @@
            q         4             3       
         -----------------------------------
       
+      
 
 ---
 
@@ -25,11 +33,18 @@
     Output
       Differences found between the objects!
       
-      A summary is given below.
+      Summary of BASE and COMPARE
+        ==================================================================
+          PROPERTY             BASE                       COMP            
+        ------------------------------------------------------------------
+            Name                x1                         x2             
+           Class     "tbl_df, tbl, data.frame"  "tbl_df, tbl, data.frame" 
+          Rows(#)                1                          1             
+         Columns(#)              4                          3             
+        ------------------------------------------------------------------
       
-      There are differences in the column ordering between BASE and COMPARE !!
-      All rows are shown in table below
       
+      There are differences in the column ordering between BASE and COMPARE
         ===================================
          COLUMN  BASE-INDEX  COMPARE-INDEX 
         -----------------------------------
@@ -37,14 +52,14 @@
            q         4             3       
         -----------------------------------
       
-      There are columns in BASE that are not in COMPARE !!
-      All rows are shown in table below
       
+      There are columns in BASE that are not in COMPARE
         =========
          COLUMNS 
         ---------
             y    
         ---------
+      
       
 
 ---
@@ -54,25 +69,32 @@
     Output
       Differences found between the objects!
       
-      A summary is given below.
+      Summary of BASE and COMPARE
+        ==================================================================
+          PROPERTY             BASE                       COMP            
+        ------------------------------------------------------------------
+            Name                x1                         x2             
+           Class     "tbl_df, tbl, data.frame"  "tbl_df, tbl, data.frame" 
+          Rows(#)                1                          1             
+         Columns(#)              4                          4             
+        ------------------------------------------------------------------
       
-      There are columns in BASE that are not in COMPARE !!
-      All rows are shown in table below
       
+      There are columns in BASE that are not in COMPARE
         =========
          COLUMNS 
         ---------
            y1    
         ---------
       
-      There are columns in COMPARE that are not in BASE !!
-      All rows are shown in table below
       
+      There are columns in COMPARE that are not in BASE
         =========
          COLUMNS 
         ---------
            y2    
         ---------
+      
       
 
 # Column order checks work with null columns
@@ -82,17 +104,25 @@
     Output
       Differences found between the objects!
       
-      A summary is given below.
+      Summary of BASE and COMPARE
+        ====================================
+          PROPERTY      BASE        COMP    
+        ------------------------------------
+            Name         d1          d2     
+           Class     data.frame  data.frame 
+          Rows(#)        0           0      
+         Columns(#)      3           3      
+        ------------------------------------
       
-      There are differences in the column ordering between BASE and COMPARE !!
-      All rows are shown in table below
       
+      There are differences in the column ordering between BASE and COMPARE
         ===================================
          COLUMN  BASE-INDEX  COMPARE-INDEX 
         -----------------------------------
            y         2             3       
            z         3             2       
         -----------------------------------
+      
       
 
 # By default column orders are not checked
