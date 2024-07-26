@@ -28,10 +28,7 @@ print.diffdf <- function(x, row_limit = 10, as_string = FALSE, ...) {
     if (length(COMPARE) == 0) {
         outtext <- "No issues were found!\n"
     } else {
-        start_text <- paste0(
-            "Differences found between the objects!\n\n",
-            "A summary is given below.\n\n"
-        )
+        start_text <- paste0("Differences found between the objects!\n\n")
         end_text <- lapply(COMPARE, function(x) get_print_message(x, row_limit))
         end_text <- paste0(unlist(end_text), collapse = "")
         outtext <- paste0(start_text, end_text)
