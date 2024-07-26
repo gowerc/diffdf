@@ -174,7 +174,7 @@ test_that("Format Char works on standard data types", {
         )),
         c("2023-07-26 12:00:00", "1888-01-29 15:45:30")
     )
-
+ 
     x <- c(1, 2, 3, 4)
     class(x) <- "some random class"
     expect_equal(
