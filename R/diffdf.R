@@ -24,6 +24,7 @@
 #' @param check_column_order Should the column ordering be checked? (logical)
 #' @param check_df_class Do you want to check for differences in the class
 #' between `base` and `compare`? (logical)
+#' @import data.table
 #' @examples
 #' x <- subset(iris, -Species)
 #' x[1, 2] <- 5
@@ -97,14 +98,14 @@ diffdf <- function(
     check_df_class = FALSE
 ) {
 
+    BASE <- base
+    COMP <- compare
     assertthat::assert_that(
         assertthat::is.flag(check_df_class),
         !is.na(check_df_class),
         msg = "`check_df_class` must be a length 1 logical"
     )
 
-    BASE <- base
-    COMP <- compare
     KEYS <- keys
     SUPWARN <- suppress_warnings
 
@@ -119,7 +120,8 @@ diffdf <- function(
         value = describe_dataframe(BASE, COMP, BASE_NAME, COMP_NAME),
         message = "Summary of BASE and COMPARE"
     )
-
+    BASE <- as.data.table(BASE)
+    COMP <- as.data.table(COMP)
 
     is_derived <- FALSE
 
