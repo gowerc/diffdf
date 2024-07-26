@@ -9,6 +9,7 @@ Development version
 - Added check to ensure that the column ordering is the same (#32)
 - Added more informative error messaging if a specified key is missing from the base or comparison dataset (#113)
 - Added check for differences in classes between the base and comparison datasets (#42)
+- Updated character formatting of datetimes to show timezone to avoid misleading/confusing comparisons (#121)
 
 
 # diffdf 1.0.4
