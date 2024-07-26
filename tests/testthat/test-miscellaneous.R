@@ -168,11 +168,14 @@ test_that("Format Char works on standard data types", {
     )
 
     expect_equal(
-        as_fmt_char(c(
-            lubridate::ymd_hms("2023-07-26 12:00:00", tz = "CET"),
-            lubridate::ymd_hms("1888-01-29 15:45:30", tz = "CET")
+        as_fmt_char(lubridate::ymd_hms(
+            c(
+                "2023-01-01 14:12:12",
+                "1888-01-05 15:45:30"
+            ),
+            tz = "CET"
         )),
-        c("2023-07-26 12:00:00", "1888-01-29 15:45:30")
+        c("2023-01-01 14:12:12 CET", "1888-01-05 15:45:30 CET")
     )
 
     x <- c(1, 2, 3, 4)
@@ -198,4 +201,54 @@ test_that("Format Char works on standard data types", {
 
 test_that("ascii_table can handle all standard datatypes", {
     expect_snapshot(as_ascii_table(TDAT) |> cat())
+})
+
+
+test_that("datetimes compare as expected", {
+
+    # Same character values but different underlying numerics
+    d1 <- tibble(
+        id = c(1, 2),
+        dt1 = lubridate::ymd_hms(
+            "2024-01-10 01-02-03",
+            "2024-01-24 14-12-49",
+            tz = "EST"
+        )
+    )
+    d2 <- tibble(
+        id = c(1, 2),
+        dt1 = lubridate::ymd_hms(
+            "2024-01-10 01-02-03",
+            "2024-01-24 14-12-49",
+            tz = "CET"
+        )
+    )
+    expect_warning(
+        res <- diffdf(d1, d2, "id"),
+        regexp = "differing attributes.*Not all Values Compared Equal"
+    )
+    expect_snapshot(
+        print(res)
+    )
+
+
+
+    # Same underlying numerics but different character values
+    d1 <- tibble(
+        id = c(1, 2),
+        dt1 = lubridate::ymd_hms(
+            "2024-01-10 01-02-03",
+            "2024-01-24 14-12-49",
+            tz = "EST"
+        )
+    )
+    d2 <- d1
+    d2$dt1 <- lubridate::with_tz(d2$dt1, tzone = "CET")
+    expect_warning(
+        res <- diffdf(d1, d2, "id"),
+        regexp = "differing attributes[ !]*$"
+    )
+    expect_snapshot(
+        print(res)
+    )
 })
