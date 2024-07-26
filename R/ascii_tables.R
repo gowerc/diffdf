@@ -203,7 +203,13 @@ as_fmt_char.character <- function(x, add_quotes = TRUE, crop_at = 30, ...) {
 #' @export
 as_fmt_char.default <- function(x, ...) {
     x_char <- as.character(x)
-    assertthat(is.character(x_char))
+    assertthat::assert_that(
+        is.character(x_char),
+        msg = sprintf(
+            "Unable to convert class `'%s'` to character for printing purposes",
+            paste(class(x), collapse = "', '")
+        )
+    )
     as_fmt_char.character(x_char, add_quotes = FALSE)
 }
 

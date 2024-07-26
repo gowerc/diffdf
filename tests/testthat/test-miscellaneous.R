@@ -181,6 +181,16 @@ test_that("Format Char works on standard data types", {
         as_fmt_char(x),
         c("1", "2", "3", "4")
     )
+
+    # Test that as_fmt_char doesn't enter inf loop if
+    # as.character doesn't return a character
+    x <- 1
+    class(x) <- c("myclass", "myclass2")
+    as.character.myclass <- function(x) x
+    expect_error(
+        as_fmt_char(x),
+        regexp = "`'myclass', 'myclass2'`"
+    )
 })
 
 test_that("ascii_table can handle all standard datatypes", {
