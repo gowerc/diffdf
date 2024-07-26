@@ -4,7 +4,7 @@
 \alias{identify_column_order_differences}
 \title{Find column ordering differences}
 \usage{
-identify_column_order_differences(BASE, COMPARE)
+identify_column_order_differences(BASE, COMP)
 }
 \arguments{
 \item{BASE}{(\code{data.frame})\cr Base dataset for comparison}
