@@ -34,6 +34,6 @@ RoxygenNote: 7.3.2
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
 License: MIT + file LICENSE
-URL: https://github.com/gowerc/diffdf
+URL: https://gowerc.github.io/diffdf/, https://github.com/gowerc/diffdf/
 Config/testthat/edition: 3
 BugReports: https://github.com/gowerc/diffdf/issues

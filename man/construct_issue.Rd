@@ -17,3 +17,4 @@ construct_issue(value, message, add_class = NULL)
 Make an s3 object with class issue and possible additional class,
 and assign other arguments to attributes
 }
+\keyword{internal}

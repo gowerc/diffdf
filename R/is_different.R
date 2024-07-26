@@ -8,6 +8,7 @@
 #' @param datain Inputted dataset with base and compare vectors
 #' @param ...  Additional arguments which might be passed through (numerical accuracy)
 #' @return A boolean vector which is T if target and current are different
+#' @keywords internal
 is_variable_different <- function(variablename, keynames, datain, ...) {
     xvar <- paste0(variablename, ".x")
     yvar <- paste0(variablename, ".y")
@@ -43,6 +44,7 @@ is_variable_different <- function(variablename, keynames, datain, ...) {
 #' @param target the base vector
 #' @param current a vector to compare target to
 #' @param ...  Additional arguments which might be passed through (numerical accuracy)
+#' @keywords internal
 compare_vectors <- function(target, current, ...) {
     UseMethod("compare_vectors")
 }
@@ -58,6 +60,7 @@ compare_vectors <- function(target, current, ...) {
 #' @param target the base vector
 #' @param current a vector to compare target to
 #' @param ...  Additional arguments which might be passed through (numerical accuracy)
+#' @keywords internal
 find_difference <- function(target, current, ...) {
     if (length(target) != length(current)) {
         warning("Inputs are not of the same length")
@@ -105,6 +108,7 @@ find_difference <- function(target, current, ...) {
 #' @param target the base vector
 #' @param current a vector to compare target to
 #' @param ...  Additional arguments which might be passed through (numerical accuracy)
+#' @keywords internal
 compare_vectors.default <- function(target, current, ...) {
     target != current
 }
@@ -118,6 +122,7 @@ compare_vectors.default <- function(target, current, ...) {
 #' @param target the base vector
 #' @param current a vector to compare target to
 #' @param ...  Additional arguments which might be passed through (numerical accuracy)
+#' @keywords internal
 compare_vectors.factor <- function(target, current, ...) {
     as.character(target) != as.character(current)
 }
@@ -134,6 +139,7 @@ compare_vectors.factor <- function(target, current, ...) {
 #' @param current a vector to compare target to
 #' @param tolerance Level of tolerance for differences between two variables
 #' @param scale Scale that tolerance should be set on. If NULL assume absolute
+#' @keywords internal
 compare_vectors.numeric <- function(
         target,
         current,
@@ -167,6 +173,7 @@ compare_vectors.numeric <- function(
 #' @param current a vector to compare target to
 #' @param tolerance Level of tolerance for differences between two variables
 #' @param scale Scale that tolerance should be set on. If NULL assume absolute
+#' @keywords internal
 compare_vectors.integer64 <- function(
         target,
         current,

@@ -14,3 +14,4 @@ get_table(dsin, row_limit = 10)
 \description{
 Generate nice looking table from a data frame
 }
+\keyword{internal}

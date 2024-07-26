@@ -16,3 +16,4 @@ identify_matching_cols(DS1, DS2, EXCLUDE = "")
 \description{
 Identifies columns with the same name in two data frames
 }
+\keyword{internal}

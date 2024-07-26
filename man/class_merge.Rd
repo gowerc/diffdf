@@ -12,3 +12,4 @@ class_merge(x)
 \description{
 Convenience function to put all classes an object has into one string
 }
+\keyword{internal}

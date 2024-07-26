@@ -17,3 +17,4 @@ a simple ascii format suitable for printing to the screen
 It is assumed all variable values have a \code{as.character()} method
 in order to cast them to character.
 }
+\keyword{internal}

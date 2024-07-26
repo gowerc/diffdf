@@ -16,3 +16,4 @@
 \description{
 Default method, if the vector is not numeric or factor. Basic comparison
 }
+\keyword{internal}

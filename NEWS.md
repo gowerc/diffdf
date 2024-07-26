@@ -2,9 +2,13 @@
 
 Development version
 
-- `row_limit` argument now functional again in print method! With thanks to @brianrepko
-
-
+- Enhanced table printing so that white space characters are more clearly defined (#87)
+- `row_limit` argument now functional again in print method! (#6, @brianrepko)
+- Fixed bug that caused an error if either the base or comparison dataset were empty (#44)
+- Fixed bug that caused an error if there were no matching keys between the base and comparison dataset (#79)
+- Added check to ensure that the column ordering is the same (#32)
+- Added more informative error messaging if a specified key is missing from the base or comparison dataset (#113)
+- Added check for differences in classes between the base and comparison datasets (#42)
 
 
 # diffdf 1.0.4

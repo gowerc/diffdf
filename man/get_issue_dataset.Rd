@@ -16,3 +16,4 @@ Internal function used by \code{diffdf_issuerows} to extract the dataframe
 from each a target issue. In particular it also strips off any
 non-key variables
 }
+\keyword{internal}

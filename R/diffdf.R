@@ -21,6 +21,9 @@
 #' @param scale Set scale for numeric comparisons. Note that comparisons fail
 #' if (x-y)/scale > tolerance. Setting as NULL is a slightly more efficient
 #' version of scale = 1.
+#' @param check_column_order Should the column ordering be checked? (logical)
+#' @param check_df_class Do you want to check for differences in the class
+#' between `base` and `compare`? (logical)
 #' @examples
 #' x <- subset(iris, -Species)
 #' x[1, 2] <- 5
@@ -89,8 +92,16 @@ diffdf <- function(
     strict_factor = TRUE,
     file = NULL,
     tolerance = sqrt(.Machine$double.eps),
-    scale = NULL
+    scale = NULL,
+    check_column_order = FALSE,
+    check_df_class = FALSE
 ) {
+
+    assertthat::assert_that(
+        assertthat::is.flag(check_df_class),
+        !is.na(check_df_class),
+        msg = "`check_df_class` must be a length 1 logical"
+    )
 
     BASE <- base
     COMP <- compare
@@ -100,6 +111,15 @@ diffdf <- function(
     ### Initatiate output object
     COMPARE <- list()
     class(COMPARE) <- c("diffdf", "list")
+
+
+    BASE_NAME <- deparse(substitute(base))
+    COMP_NAME <- deparse(substitute(compare))
+    COMPARE[["DataSummary"]] <- construct_issue(
+        value = describe_dataframe(BASE, COMP, BASE_NAME, COMP_NAME),
+        message = "Summary of BASE and COMPARE"
+    )
+
 
     is_derived <- FALSE
 
@@ -116,6 +136,24 @@ diffdf <- function(
     assertthat::assert_that(
         is.numeric(tolerance),
         is.numeric(scale) || is.null(scale)
+    )
+
+    missing_keys_base <- KEYS[!KEYS %in% names(BASE)]
+    assertthat::assert_that(
+        length(missing_keys_base) == 0,
+        msg = sprintf(
+            "The following KEYS are not available in BASE:\n   %s",
+            paste(missing_keys_base, collapse = "\n   ")
+        )
+    )
+
+    missing_keys_comp <- KEYS[!KEYS %in% names(COMP)]
+    assertthat::assert_that(
+        length(missing_keys_comp) == 0,
+        msg = sprintf(
+            "The following KEYS are not available in COMPARE:\n   %s",
+            paste(missing_keys_comp, collapse = "\n   ")
+        )
     )
 
     assertthat::assert_that(
@@ -214,6 +252,23 @@ diffdf <- function(
         COMPARE[["VarModeDiffs"]]$VARIABLE
     )
 
+    if (check_column_order) {
+        if (attr(COMPARE, "keys")$is_derived) {
+            keep_vars_base <- !(names(BASE) %in% attr(COMPARE, "keys")$value)
+            keep_vars_comp <- !(names(COMP) %in% attr(COMPARE, "keys")$value)
+        } else {
+            keep_vars_base <- TRUE
+            keep_vars_comp <- TRUE
+        }
+        COMPARE[["ColumnOrder"]] <- construct_issue(
+            value = identify_column_order_differences(
+                BASE[, keep_vars_base, drop = FALSE],
+                COMP[, keep_vars_comp, drop = FALSE]
+            ),
+            message = "There are differences in the column ordering between BASE and COMPARE !!"
+        )
+    }
+
 
     ##### Check Attributes
     COMPARE[["AttribDiffs"]] <- construct_issue(
@@ -238,7 +293,6 @@ diffdf <- function(
         value = identify_extra_rows(COMP, BASE, KEYS),
         message = "There are rows in COMPARE that are not in BASE !!"
     )
-
 
 
     COMPARE[["ExtColsBase"]] <- construct_issue(
@@ -275,19 +329,43 @@ diffdf <- function(
     for (i in names(VALUE_DIFFERENCES)) {
         COMPARE[[paste0("VarDiff_", i)]] <- construct_issue(
             value = VALUE_DIFFERENCES[[i]],
-            message = ""
+            message = NULL
         )
     }
 
-    ## Get all issue messages, remove blank message, and collapse into single string
-    ISSUE_MSGS <- sapply(COMPARE, function(x) get_issue_message(x))
-    ISSUE_MSGS <- ISSUE_MSGS[ISSUE_MSGS != ""]
+
+    # suppress warning message of data summary if user didn't request to check it
+    # we leave the issue in the main compare object though for printing purposes
+    COMPARE_WARNINGS <- COMPARE
+    attr(COMPARE_WARNINGS[["DataSummary"]], "message") <- c(
+        "There are differences between the class of BASE and COMPARE"
+    )
+    if (!check_df_class || identical(class(base), class(compare))) {
+        COMPARE_WARNINGS["DataSummary"] <- NULL
+    }
+
+    # Get all issue messages, remove blank message, and collapse into single string
+    ISSUE_MSGS <- sapply(COMPARE_WARNINGS, function(x) get_issue_message(x))
+    ISSUE_MSGS <- Filter(function(x) !is.null(x), ISSUE_MSGS)
+    ISSUE_MSGS <- Filter(function(x) x != "", ISSUE_MSGS)
 
     if (length(ISSUE_MSGS) != 0) {
         if (!SUPWARN) {
             ISSUE_MSGS <- paste(ISSUE_MSGS, collapse = "\n")
             warning(c("\n", ISSUE_MSGS))
         }
+    }
+
+    # If the classes are the same and it is the only entry in the compare
+    # object then remove it in order to trigger "no issues found"
+    if (identical(class(base), class(compare)) && length(COMPARE) == 1) {
+        COMPARE["DataSummary"] <- NULL
+    }
+
+    # If the summary is the only item and the user didn't want to check classes
+    # then remove the object to trigger the "no issues found"
+    if (!check_df_class && length(COMPARE) == 1) {
+        COMPARE["DataSummary"] <- NULL
     }
 
 
