@@ -21,6 +21,7 @@
 #' @param scale Set scale for numeric comparisons. Note that comparisons fail
 #' if (x-y)/scale > tolerance. Setting as NULL is a slightly more efficient
 #' version of scale = 1.
+#' @param check_column_order Should the column ordering be checked? (logical)
 #' @param check_df_class Do you want to check for differences in the class
 #' between `base` and `compare`? (logical)
 #' @examples
@@ -92,6 +93,7 @@ diffdf <- function(
     file = NULL,
     tolerance = sqrt(.Machine$double.eps),
     scale = NULL,
+    check_column_order = FALSE,
     check_df_class = FALSE
 ) {
 
@@ -235,7 +237,22 @@ diffdf <- function(
         msg = "KEYS are either an invalid or contain different modes between BASE and COMP"
     )
 
-
+    if (check_column_order) {
+        if (attr(COMPARE, "keys")$is_derived) {
+            keep_vars_base <- !(names(BASE) %in% attr(COMPARE, "keys")$value)
+            keep_vars_comp <- !(names(COMP) %in% attr(COMPARE, "keys")$value)
+        } else {
+            keep_vars_base <- TRUE
+            keep_vars_comp <- TRUE
+        }
+        COMPARE[["ColumnOrder"]] <- construct_issue(
+            value = identify_column_order_differences(
+                BASE[, keep_vars_base, drop = FALSE],
+                COMP[, keep_vars_comp, drop = FALSE]
+            ),
+            message = "There are differences in the column ordering between BASE and COMPARE !!"
+        )
+    }
 
 
     ##### Check Attributes

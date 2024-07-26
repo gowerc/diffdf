@@ -298,3 +298,34 @@ identify_properties <- function(dsin) {
         ATTRIBS = lapply(dsin, attributes)
     )
 }
+
+
+#' Find column ordering differences
+#'
+#' Compares two datasets and outputs a table listing any differences in the column
+#' orders between the two datasets. Columns that are not contained within both
+#' are ignored however column ordering is derived prior to removing these columns.
+#'
+#' @param BASE (`data.frame`)\cr Base dataset for comparison
+#' @param COMP (`data.frame`)\cr Comparator dataset to compare base against
+#' @keywords internal
+identify_column_order_differences <- function(BASE, COMPARE) {
+    base_cols <- tibble(
+        COLUMN = names(BASE),
+        "BASE-INDEX" = seq_along(names(BASE))
+    )
+    comp_cols <- tibble(
+        COLUMN = names(COMPARE),
+        "COMPARE-INDEX" = seq_along(names(COMPARE))
+    )
+    col_index <- merge(
+        base_cols,
+        comp_cols,
+        by = c("COLUMN"),
+        all = TRUE,
+        sort = FALSE
+    )
+    keep_rows <- col_index[["BASE-INDEX"]] != col_index[["COMPARE-INDEX"]]
+    keep_rows[is.na(keep_rows)] <- FALSE
+    col_index[keep_rows, , drop = FALSE]
+}

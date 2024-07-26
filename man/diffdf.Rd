@@ -14,6 +14,7 @@ diffdf(
   file = NULL,
   tolerance = sqrt(.Machine$double.eps),
   scale = NULL,
+  check_column_order = FALSE,
   check_df_class = FALSE
 )
 }
@@ -46,6 +47,8 @@ comparisons fail if (x-y)/scale > tolerance.}
 \item{scale}{Set scale for numeric comparisons. Note that comparisons fail
 if (x-y)/scale > tolerance. Setting as NULL is a slightly more efficient
 version of scale = 1.}
+
+\item{check_column_order}{Should the column ordering be checked? (logical)}
 
 \item{check_df_class}{Do you want to check for differences in the class
 between \code{base} and \code{compare}? (logical)}
