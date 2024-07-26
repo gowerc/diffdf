@@ -115,6 +115,12 @@ as_ascii_table <- function(dat, line_prefix = "  ") {
     )
 }
 
+
+#' as_character
+#'
+#' Stub function to enable mocking in unit tests
+as_character <- as.character
+
 #' Format vector to printable string
 #'
 #' Coerces a vector of any type into a printable string. The most
@@ -202,7 +208,7 @@ as_fmt_char.character <- function(x, add_quotes = TRUE, crop_at = 30, ...) {
 #' @rdname as_fmt_char
 #' @export
 as_fmt_char.default <- function(x, ...) {
-    x_char <- as.character(x)
+    x_char <- as_character(x)
     assertthat::assert_that(
         is.character(x_char),
         msg = sprintf(

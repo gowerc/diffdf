@@ -191,8 +191,7 @@ test_that("Format Char works on standard data types", {
             as_fmt_char(x),
             regexp = "`'myclass', 'myclass2'`"
         ),
-        as.character = function(x) x,
-        .package = "base"
+        as_character = function(x) x,
     )
 })
 
