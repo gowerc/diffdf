@@ -199,6 +199,12 @@ as_fmt_char.character <- function(x, add_quotes = TRUE, crop_at = 30, ...) {
 }
 
 
+#' @rdname as_fmt_char
+#' @export
+as_fmt_char.default <- function(x, ...) {
+    as_fmt_char(as.character(x), add_quotes = FALSE)
+}
+
 
 #' get_table
 #'
