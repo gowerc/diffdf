@@ -174,7 +174,7 @@ test_that("Format Char works on standard data types", {
         )),
         c("2023-07-26 12:00:00", "1888-01-29 15:45:30")
     )
- 
+
     x <- c(1, 2, 3, 4)
     class(x) <- "some random class"
     expect_equal(
@@ -183,13 +183,16 @@ test_that("Format Char works on standard data types", {
     )
 
     # Test that as_fmt_char doesn't enter inf loop if
-    # as.character doesn't return a character
+    # as.character does't return a character
     x <- 1
     class(x) <- c("myclass", "myclass2")
-    as.character.myclass <- function(x) x
-    expect_error(
-        as_fmt_char(x),
-        regexp = "`'myclass', 'myclass2'`"
+    testthat::with_mocked_bindings(
+        expect_error(
+            as_fmt_char(x),
+            regexp = "`'myclass', 'myclass2'`"
+        ),
+        as.character = function(x) x,
+        .package = "base"
     )
 })
 
