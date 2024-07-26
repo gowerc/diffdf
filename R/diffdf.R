@@ -229,11 +229,11 @@ diffdf <- function(
 
     assert_valid_keys(
         COMPARE, KEYS, "UnsupportedColsBase",
-        "The following KEYS in BASE have an unsupported mode"
+        "The following KEYS in BASE have an unsupported mode (see `?mode()`)"
     )
     assert_valid_keys(
         COMPARE, KEYS, "UnsupportedColsComp",
-        "The following KEYS in COMPARE have an unsupported mode"
+        "The following KEYS in COMPARE have an unsupported mode (see `?mode()`)"
     )
     assert_valid_keys(
         COMPARE, KEYS, "VarModeDiffs",
