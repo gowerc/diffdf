@@ -182,3 +182,7 @@ test_that("Format Char works on standard data types", {
         c("1", "2", "3", "4")
     )
 })
+
+test_that("ascii_table can handle all standard datatypes", {
+    expect_snapshot(as_ascii_table(TDAT) |> cat())
+})
