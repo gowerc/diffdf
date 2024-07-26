@@ -16,7 +16,7 @@
         --------------------------------------
       
       
-      There are rows in COMPARE that are not in BASE !!
+      There are rows in COMPARE that are not in BASE
       First 10 of 150 rows are shown in table below
         ===============
          ..ROWNUMBER.. 
@@ -34,7 +34,7 @@
         ---------------
       
       
-      There are columns in COMPARE that are not in BASE !!
+      There are columns in COMPARE that are not in BASE
         ==============
            COLUMNS    
         --------------
@@ -65,7 +65,7 @@
         --------------------------------------
       
       
-      There are rows in BASE that are not in COMPARE !!
+      There are rows in BASE that are not in COMPARE
       First 10 of 150 rows are shown in table below
         ===============
          ..ROWNUMBER.. 
@@ -83,7 +83,7 @@
         ---------------
       
       
-      There are columns in BASE that are not in COMPARE !!
+      There are columns in BASE that are not in COMPARE
         ==============
            COLUMNS    
         --------------
@@ -114,7 +114,7 @@
         ------------------------------------------------------------------
       
       
-      There are rows in BASE that are not in COMPARE !!
+      There are rows in BASE that are not in COMPARE
         ===============
          ..ROWNUMBER.. 
         ---------------
@@ -124,7 +124,7 @@
         ---------------
       
       
-      There are columns in BASE that are not in COMPARE !!
+      There are columns in BASE that are not in COMPARE
         =========
          COLUMNS 
         ---------
@@ -151,7 +151,7 @@
         ------------------------------------------------------------------
       
       
-      There are rows in COMPARE that are not in BASE !!
+      There are rows in COMPARE that are not in BASE
         ===============
          ..ROWNUMBER.. 
         ---------------
@@ -161,7 +161,7 @@
         ---------------
       
       
-      There are columns in COMPARE that are not in BASE !!
+      There are columns in COMPARE that are not in BASE
         =========
          COLUMNS 
         ---------
@@ -188,7 +188,7 @@
         ------------------------------------
       
       
-      There are rows in BASE that are not in COMPARE !!
+      There are rows in BASE that are not in COMPARE
         ====
          ID 
         ----
@@ -196,7 +196,7 @@
         ----
       
       
-      There are rows in COMPARE that are not in BASE !!
+      There are rows in COMPARE that are not in BASE
         ====
          ID 
         ----

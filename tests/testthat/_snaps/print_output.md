@@ -102,7 +102,7 @@
         ----------------------------------------------------------------------------
       
       
-      There are columns in BASE and COMPARE with differing attributes !!
+      There are columns in BASE and COMPARE with differing attributes
         =====================================================================
          VARIABLE  ATTR_NAME  VALUES.BASE             VALUES.COMP            
         ---------------------------------------------------------------------
@@ -129,7 +129,7 @@
         ----------------------------------------------------------------------------
       
       
-      There are columns in BASE and COMPARE with differing attributes !!
+      There are columns in BASE and COMPARE with differing attributes
         =====================================================================
          VARIABLE  ATTR_NAME             VALUES.BASE             VALUES.COMP 
         ---------------------------------------------------------------------
@@ -156,7 +156,7 @@
         ----------------------------------------------------------------------------
       
       
-      There are columns in BASE and COMPARE with differing attributes !!
+      There are columns in BASE and COMPARE with differing attributes
         ============================================================
           VARIABLE    ATTR_NAME    VALUES.BASE       VALUES.COMP    
         ------------------------------------------------------------
@@ -205,7 +205,7 @@
         ----------------------------------------------------------------------------
       
       
-      There are columns in BASE and COMPARE with differing attributes !!
+      There are columns in BASE and COMPARE with differing attributes
         ============================================================
           VARIABLE    ATTR_NAME    VALUES.BASE       VALUES.COMP    
         ------------------------------------------------------------
@@ -254,7 +254,7 @@
         ----------------------------------------------------------------------------
       
       
-      There are columns in BASE and COMPARE with different classes !!
+      There are columns in BASE and COMPARE with different classes
         ======================================================
          VARIABLE  CLASS.BASE            CLASS.COMP           
         ------------------------------------------------------
@@ -281,7 +281,7 @@
         ----------------------------------------------------------------------------
       
       
-      There are columns in BASE and COMPARE with different classes !!
+      There are columns in BASE and COMPARE with different classes
         ======================================================
          VARIABLE            CLASS.BASE            CLASS.COMP 
         ------------------------------------------------------
@@ -308,7 +308,7 @@
         ----------------------------------------------------------------------------
       
       
-      There are columns in BASE and COMPARE with different modes !!
+      There are columns in BASE and COMPARE with different modes
         ================================
          VARIABLE  MODE.BASE  MODE.COMP 
         --------------------------------
@@ -316,7 +316,7 @@
         --------------------------------
       
       
-      There are columns in BASE and COMPARE with different classes !!
+      There are columns in BASE and COMPARE with different classes
         ==================================
          VARIABLE  CLASS.BASE  CLASS.COMP 
         ----------------------------------
@@ -343,7 +343,7 @@
         ----------------------------------------------------------------------------
       
       
-      There are columns in BASE and COMPARE with different modes !!
+      There are columns in BASE and COMPARE with different modes
         ================================
          VARIABLE  MODE.BASE  MODE.COMP 
         --------------------------------
@@ -351,7 +351,7 @@
         --------------------------------
       
       
-      There are columns in BASE and COMPARE with different classes !!
+      There are columns in BASE and COMPARE with different classes
         ==================================
          VARIABLE  CLASS.BASE  CLASS.COMP 
         ----------------------------------
@@ -378,7 +378,7 @@
         ----------------------------------------------------------------------------
       
       
-      There are columns in BASE and COMPARE with different modes !!
+      There are columns in BASE and COMPARE with different modes
         ================================
          VARIABLE  MODE.BASE  MODE.COMP 
         --------------------------------
@@ -386,7 +386,7 @@
         --------------------------------
       
       
-      There are columns in BASE and COMPARE with different classes !!
+      There are columns in BASE and COMPARE with different classes
         ==================================
          VARIABLE  CLASS.BASE  CLASS.COMP 
         ----------------------------------
@@ -394,7 +394,7 @@
         ----------------------------------
       
       
-      There are columns in BASE that are not in COMPARE !!
+      There are columns in BASE that are not in COMPARE
         =========
          COLUMNS 
         ---------
@@ -421,7 +421,7 @@
         ----------------------------------------------------------------------------
       
       
-      There are columns in BASE and COMPARE with different modes !!
+      There are columns in BASE and COMPARE with different modes
         ================================
          VARIABLE  MODE.BASE  MODE.COMP 
         --------------------------------
@@ -429,7 +429,7 @@
         --------------------------------
       
       
-      There are columns in BASE and COMPARE with different classes !!
+      There are columns in BASE and COMPARE with different classes
         ==================================
          VARIABLE  CLASS.BASE  CLASS.COMP 
         ----------------------------------
@@ -437,7 +437,7 @@
         ----------------------------------
       
       
-      There are columns in BASE that are not in COMPARE !!
+      There are columns in BASE that are not in COMPARE
         =========
          COLUMNS 
         ---------
@@ -464,7 +464,7 @@
         ----------------------------------------------------------------------------
       
       
-      There are rows in BASE that are not in COMPARE !!
+      There are rows in BASE that are not in COMPARE
         ===============
          ..ROWNUMBER.. 
         ---------------
@@ -500,7 +500,7 @@
         ----------------------------------------------------------------------------
       
       
-      There are rows in BASE that are not in COMPARE !!
+      There are rows in BASE that are not in COMPARE
         ===============
          ..ROWNUMBER.. 
         ---------------
@@ -536,7 +536,7 @@
         ----------------------------------------------------------------------------
       
       
-      There are columns in BASE and COMPARE with different modes !!
+      There are columns in BASE and COMPARE with different modes
         ================================
          VARIABLE  MODE.BASE  MODE.COMP 
         --------------------------------
@@ -544,7 +544,7 @@
         --------------------------------
       
       
-      There are columns in BASE and COMPARE with different classes !!
+      There are columns in BASE and COMPARE with different classes
         ======================================================
          VARIABLE  CLASS.BASE            CLASS.COMP           
         ------------------------------------------------------
@@ -553,7 +553,7 @@
         ------------------------------------------------------
       
       
-      There are columns in BASE and COMPARE with differing attributes !!
+      There are columns in BASE and COMPARE with differing attributes
         ===============================================================================
           VARIABLE    ATTR_NAME    VALUES.BASE                 VALUES.COMP             
         -------------------------------------------------------------------------------
@@ -632,7 +632,7 @@
         ----------------------------------------------------------------------------
       
       
-      There are columns in BASE and COMPARE with different modes !!
+      There are columns in BASE and COMPARE with different modes
         ================================
          VARIABLE  MODE.BASE  MODE.COMP 
         --------------------------------
@@ -640,7 +640,7 @@
         --------------------------------
       
       
-      There are columns in BASE and COMPARE with different classes !!
+      There are columns in BASE and COMPARE with different classes
         ======================================================
          VARIABLE            CLASS.BASE            CLASS.COMP 
         ------------------------------------------------------
@@ -649,7 +649,7 @@
         ------------------------------------------------------
       
       
-      There are columns in BASE and COMPARE with differing attributes !!
+      There are columns in BASE and COMPARE with differing attributes
         ===============================================================================
           VARIABLE    ATTR_NAME              VALUES.BASE                VALUES.COMP    
         -------------------------------------------------------------------------------
@@ -763,7 +763,7 @@
         ----------------------------------------------------------------------------------
       
       
-      There are columns in BASE and COMPARE with different modes !!
+      There are columns in BASE and COMPARE with different modes
         ================================
          VARIABLE  MODE.BASE  MODE.COMP 
         --------------------------------
@@ -771,7 +771,7 @@
         --------------------------------
       
       
-      There are columns in BASE and COMPARE with different classes !!
+      There are columns in BASE and COMPARE with different classes
         ======================================================
          VARIABLE  CLASS.BASE            CLASS.COMP           
         ------------------------------------------------------
@@ -780,7 +780,7 @@
         ------------------------------------------------------
       
       
-      There are columns in BASE and COMPARE with differing attributes !!
+      There are columns in BASE and COMPARE with differing attributes
         ===============================================================================
           VARIABLE    ATTR_NAME    VALUES.BASE                 VALUES.COMP             
         -------------------------------------------------------------------------------
@@ -860,7 +860,7 @@
         ----------------------------------------------------------------------------------
       
       
-      There are columns in BASE and COMPARE with different modes !!
+      There are columns in BASE and COMPARE with different modes
         ================================
          VARIABLE  MODE.BASE  MODE.COMP 
         --------------------------------
@@ -868,7 +868,7 @@
         --------------------------------
       
       
-      There are columns in BASE and COMPARE with different classes !!
+      There are columns in BASE and COMPARE with different classes
         ======================================================
          VARIABLE  CLASS.BASE            CLASS.COMP           
         ------------------------------------------------------
@@ -877,7 +877,7 @@
         ------------------------------------------------------
       
       
-      There are columns in BASE and COMPARE with differing attributes !!
+      There are columns in BASE and COMPARE with differing attributes
         ===============================================================================
           VARIABLE    ATTR_NAME    VALUES.BASE                 VALUES.COMP             
         -------------------------------------------------------------------------------

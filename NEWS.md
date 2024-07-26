@@ -9,6 +9,7 @@ Development version
 - Added check to ensure that the column ordering is the same (#32)
 - Added more informative error messaging if a specified key is missing from the base or comparison dataset (#113)
 - Added check for differences in classes between the base and comparison datasets (#42)
+- The package is less shouty now (#112)
 
 
 # diffdf 1.0.4
@@ -35,4 +36,4 @@ Development version
 
 # diffdf 1.0.0 
 
-- Initial Release !!
+- Initial Release

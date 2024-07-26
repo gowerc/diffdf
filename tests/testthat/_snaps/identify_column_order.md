@@ -16,7 +16,7 @@
         ------------------------------------------------------------------
       
       
-      There are differences in the column ordering between BASE and COMPARE !!
+      There are differences in the column ordering between BASE and COMPARE
         ===================================
          COLUMN  BASE-INDEX  COMPARE-INDEX 
         -----------------------------------
@@ -44,7 +44,7 @@
         ------------------------------------------------------------------
       
       
-      There are differences in the column ordering between BASE and COMPARE !!
+      There are differences in the column ordering between BASE and COMPARE
         ===================================
          COLUMN  BASE-INDEX  COMPARE-INDEX 
         -----------------------------------
@@ -53,7 +53,7 @@
         -----------------------------------
       
       
-      There are columns in BASE that are not in COMPARE !!
+      There are columns in BASE that are not in COMPARE
         =========
          COLUMNS 
         ---------
@@ -80,7 +80,7 @@
         ------------------------------------------------------------------
       
       
-      There are columns in BASE that are not in COMPARE !!
+      There are columns in BASE that are not in COMPARE
         =========
          COLUMNS 
         ---------
@@ -88,7 +88,7 @@
         ---------
       
       
-      There are columns in COMPARE that are not in BASE !!
+      There are columns in COMPARE that are not in BASE
         =========
          COLUMNS 
         ---------
@@ -115,7 +115,7 @@
         ------------------------------------
       
       
-      There are differences in the column ordering between BASE and COMPARE !!
+      There are differences in the column ordering between BASE and COMPARE
         ===================================
          COLUMN  BASE-INDEX  COMPARE-INDEX 
         -----------------------------------

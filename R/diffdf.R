@@ -172,13 +172,13 @@ diffdf <- function(
 
     COMPARE[["UnsupportedColsBase"]] <- construct_issue(
         value = identify_unsupported_cols(BASE),
-        message = "There are columns in BASE with unsupported modes !!"
+        message = "There are columns in BASE with unsupported modes"
     )
 
 
     COMPARE[["UnsupportedColsComp"]] <- construct_issue(
         value = identify_unsupported_cols(COMP),
-        message = "There are columns in COMPARE with unsupported modes !!"
+        message = "There are columns in COMPARE with unsupported modes"
     )
 
 
@@ -199,13 +199,13 @@ diffdf <- function(
 
     COMPARE[["VarModeDiffs"]] <- construct_issue(
         value = identify_mode_differences(BASE, COMP),
-        message = "There are columns in BASE and COMPARE with different modes !!"
+        message = "There are columns in BASE and COMPARE with different modes"
     )
 
 
     COMPARE[["VarClassDiffs"]] <- construct_issue(
         value = identify_class_differences(BASE, COMP),
-        message = "There are columns in BASE and COMPARE with different classes !!"
+        message = "There are columns in BASE and COMPARE with different classes"
     )
 
 
@@ -265,7 +265,7 @@ diffdf <- function(
                 BASE[, keep_vars_base, drop = FALSE],
                 COMP[, keep_vars_comp, drop = FALSE]
             ),
-            message = "There are differences in the column ordering between BASE and COMPARE !!"
+            message = "There are differences in the column ordering between BASE and COMPARE"
         )
     }
 
@@ -273,7 +273,7 @@ diffdf <- function(
     ##### Check Attributes
     COMPARE[["AttribDiffs"]] <- construct_issue(
         value = identify_att_differences(BASE, COMP, exclude_cols),
-        message = "There are columns in BASE and COMPARE with differing attributes !!"
+        message = "There are columns in BASE and COMPARE with differing attributes"
     )
 
 
@@ -285,25 +285,25 @@ diffdf <- function(
 
     COMPARE[["ExtRowsBase"]] <- construct_issue(
         value = identify_extra_rows(BASE, COMP, KEYS),
-        message = "There are rows in BASE that are not in COMPARE !!"
+        message = "There are rows in BASE that are not in COMPARE"
     )
 
 
     COMPARE[["ExtRowsComp"]] <- construct_issue(
         value = identify_extra_rows(COMP, BASE, KEYS),
-        message = "There are rows in COMPARE that are not in BASE !!"
+        message = "There are rows in COMPARE that are not in BASE"
     )
 
 
     COMPARE[["ExtColsBase"]] <- construct_issue(
         value = identify_extra_cols(BASE, COMP),
-        message = "There are columns in BASE that are not in COMPARE !!"
+        message = "There are columns in BASE that are not in COMPARE"
     )
 
 
     COMPARE[["ExtColsComp"]] <- construct_issue(
         value = identify_extra_cols(COMP, BASE),
-        message = "There are columns in COMPARE that are not in BASE !!"
+        message = "There are columns in COMPARE that are not in BASE"
     )
 
 
