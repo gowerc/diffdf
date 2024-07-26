@@ -58,6 +58,7 @@
 <span>  file <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  tolerance <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">.Machine</span><span class="op">$</span><span class="va">double.eps</span><span class="op">)</span>,</span>
 <span>  scale <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  check_column_order <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  check_df_class <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -111,6 +112,10 @@ comparisons fail if (x-y)/scale &gt; tolerance.</p></dd>
 <dd><p>Set scale for numeric comparisons. Note that comparisons fail
 if (x-y)/scale &gt; tolerance. Setting as NULL is a slightly more efficient
 version of scale = 1.</p></dd>
+
+
+<dt id="arg-check-column-order">check_column_order<a class="anchor" aria-label="anchor" href="#arg-check-column-order"></a></dt>
+<dd><p>Should the column ordering be checked? (logical)</p></dd>
 
 
 <dt id="arg-check-df-class">check_df_class<a class="anchor" aria-label="anchor" href="#arg-check-df-class"></a></dt>
