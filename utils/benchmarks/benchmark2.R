@@ -50,13 +50,18 @@ dat1 <- generate_test_data(1000000, n_col = 10) |>
 dat2 <- generate_test_data(1000000, n_col = 10) |>
     sample_frac(1)
 
-system.time({
-    diffdf(dat1, dat2, "id")
-})
-#    user  system elapsed
-#  12.875   0.805  13.704
 
-
+results_new <- replicate(
+    {
+        x <- system.time({
+            diffdf(dat1, dat2, "id", suppress_warnings = TRUE)
+        })
+        Sys.sleep(4)
+        x
+    },
+    simplify = FALSE,
+    n = 6
+)
 
 
 dat1 <- generate_test_data(1000, n_col = 1) |>
