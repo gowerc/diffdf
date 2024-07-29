@@ -115,6 +115,12 @@ as_ascii_table <- function(dat, line_prefix = "  ") {
     )
 }
 
+
+#' as_character
+#'
+#' Stub function to enable mocking in unit tests
+as_character <- as.character
+
 #' Format vector to printable string
 #'
 #' Coerces a vector of any type into a printable string. The most
@@ -198,6 +204,20 @@ as_fmt_char.character <- function(x, add_quotes = TRUE, crop_at = 30, ...) {
     return(x)
 }
 
+
+#' @rdname as_fmt_char
+#' @export
+as_fmt_char.default <- function(x, ...) {
+    x_char <- as_character(x)
+    assertthat::assert_that(
+        is.character(x_char),
+        msg = sprintf(
+            "Unable to convert class `'%s'` to character for printing purposes",
+            paste(class(x), collapse = "', '")
+        )
+    )
+    as_fmt_char.character(x_char, add_quotes = FALSE)
+}
 
 
 #' get_table

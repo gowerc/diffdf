@@ -2,6 +2,7 @@
 
 S3method(as_fmt_char,"NULL")
 S3method(as_fmt_char,character)
+S3method(as_fmt_char,default)
 S3method(as_fmt_char,factor)
 S3method(as_fmt_char,list)
 S3method(as_fmt_char,numeric)

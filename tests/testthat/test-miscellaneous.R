@@ -138,3 +138,64 @@ test_that("Can handle missing keys", {
         regexp = "not available in COMPARE.*   v3.*   v4"
     )
 })
+
+
+test_that("Format Char works on standard data types", {
+
+    expect_equal(
+        as_fmt_char(c(1.12345678, 2, 3, 4)),
+        c("1.123457", "2.000000", "3.000000", "4.000000")
+    )
+
+    expect_equal(
+        as_fmt_char(c("A", "awdaiowjdidddddoawj awijdwwwwwoiawjd", "B", "C")),
+        c("A", "\"awdaiowjdidddddoawj awijdwwwww...\"", "B", "C")
+    )
+
+    expect_equal(
+        as_fmt_char(factor(c("A", "B", "C", "adiawi iawjdoi  aiwjdioawj iawjdoa"))),
+        c("A", "B", "C", "\"adiawi iawjdoi  aiwjdioawj iaw...\"")
+    )
+
+    expect_equal(
+        as_fmt_char(c(TRUE, NA, FALSE)),
+        c("TRUE", "<NA>", "FALSE")
+    )
+
+    expect_equal(
+        as_fmt_char(lubridate::ymd("2020-01-01", "1888-01-29 UTC")),
+        c("2020-01-01", "1888-01-29")
+    )
+
+    expect_equal(
+        as_fmt_char(c(
+            lubridate::ymd_hms("2023-07-26 12:00:00", tz = "CET"),
+            lubridate::ymd_hms("1888-01-29 15:45:30", tz = "CET")
+        )),
+        c("2023-07-26 12:00:00", "1888-01-29 15:45:30")
+    )
+
+    x <- c(1, 2, 3, 4)
+    class(x) <- "some random class"
+    expect_equal(
+        as_fmt_char(x),
+        c("1", "2", "3", "4")
+    )
+
+    # Test that as_fmt_char doesn't enter inf loop if
+    # as.character does't return a character
+    x <- 1
+    class(x) <- c("myclass", "myclass2")
+    testthat::with_mocked_bindings(
+        expect_error(
+            as_fmt_char(x),
+            regexp = "`'myclass', 'myclass2'`"
+        ),
+        as_character = function(x) x,
+    )
+})
+
+
+test_that("ascii_table can handle all standard datatypes", {
+    expect_snapshot(as_ascii_table(TDAT) |> cat())
+})
