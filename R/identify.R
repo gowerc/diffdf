@@ -20,7 +20,7 @@ identify_extra_rows <- function(DS1, DS2, KEYS) {
         sort = TRUE
     )
     do.call(setorder, list(dat, KEYS))
-    select(dat[is.na(dat[["..FLAG.."]])], select = KEYS)
+    subset(dat[is.na(dat[["..FLAG.."]])], select = KEYS)
 }
 
 
