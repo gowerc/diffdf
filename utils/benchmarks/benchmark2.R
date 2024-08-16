@@ -1,120 +1,73 @@
 devtools::load_all()
 
-n <- 1000000
-test_dat <- data_frame( id = 1:n)
 
-
-vars <-letters[1:15]
-
-for ( i in vars){
-    test_dat[[paste0(i,"_num.x")]] <- rnorm(n)
-    test_dat[[paste0(i,"_num.y")]] <- rnorm(n)
-    test_dat[[paste0(i,"_chr.x")]] <- letters[ round(runif(n , 1,25))]
-    test_dat[[paste0(i,"_chr.y")]] <- letters[ round(runif(n , 1,25))]
-    test_dat[[paste0(i,"_fct.x")]] <- factor(test_dat[[paste0(i,"_chr.x")]])
-    test_dat[[paste0(i,"_fct.y")]] <- factor(test_dat[[paste0(i,"_chr.y")]])
-}
-
-vars2 <- c(
-    paste0(vars, "_num"),
-    paste0(vars, "_chr"),
-    paste0(vars, "_fct")
-)
-
-matching_cols = vars2
-KEYS = "id"
-DAT = test_dat
-tolerance = sqrt(.Machine$double.eps)
-scale = NULL
-
-RES5 <- purrr::rerun( 10 , {
-    x <- system.time({
-        matching_list <- mapply(
-            is_variable_different , 
-            matching_cols,
-            MoreArgs = list(
-                keynames = KEYS, 
-                datain = DAT, 
-                tolerance = tolerance ,
-                scale = scale
-            ),
-            SIMPLIFY = FALSE
-        )
-    })
-    
-    
-    y <- system.time({
-        HOLD <- list() 
-        for ( v in vars2){
-            
-            xvar <- paste0(v,'.x')
-            yvar <- paste0(v,'.y')
-            
-            keep <- find_difference( test_dat[[xvar]] , test_dat[[yvar]] , tolerance = tolerance , scale = scale)
-            
-            HOLD[[v]] <- data_frame(
-                VARIABLE = v,
-                BASE = test_dat[[xvar]][keep],
-                COMPARE = test_dat[[yvar]][keep]
-            )
-            
-            for ( i in KEYS){
-                HOLD[[v]][[i]] <- test_dat[[i]][keep]
-            }
-            
-            #HOLD[[v]] <- HOLD[[v]][ , c("VARIABLE" , KEYS, "BASE" , "COMPARE")]
-        }
-    })
-    
-    data_frame(
-        x = x[[3]] ,
-        y = y[[3]] ,
-        diff = x - y,
-        pcent = y / x
-    )
-    
+suppressPackageStartupMessages({
+    library(dplyr)
+    library(stringi)
+    library(lubridate)
+    library(haven)
 })
 
-bind_rows(RES1)$pcent %>% mean  # nrow = 300000 , ncol = 60
-bind_rows(RES2)$pcent %>% mean  # nrow = 300000 , ncol = 15
-bind_rows(RES3)$pcent %>% mean  # nrow = 600000 , ncol = 15
-bind_rows(RES4)$pcent %>% mean
-bind_rows(RES5)$pcent %>% mean
 
+generate_test_data <- function(
+    n = 10000,
+    n_col = 4,
+    n_num = n_col,
+    n_int = n_col,
+    n_chr = n_col,
+    n_fct = n_col,
+    n_date = n_col,
+    n_dt = n_col
+) {
+    dat <- tibble(id = 1:n)
 
-HOLD[["e_fct"]]
-matching_list[["e_fct"]]
-
-
-
-
-is_variable_different2 <- function (variablename, keynames, datain, ...) {
-    
-
-    
-    if ( ! xvar %in% names(datain) | ! yvar %in% names(datain)){
-        stop("Variable does not exist within input dataset")
+    for (i in seq_len(n_num)) {
+        dat[sprintf("num_%s", i)] <- runif(n, -1000000, 1000000)
     }
-    
-    target  <- datain[[xvar]]
-    current <- datain[[yvar]]
-    outvect <- find_difference(target, current, ...)
-    
-    datain[["VARIABLE"]] <- variablename
-    
-    names(datain)[names(datain) %in% c(xvar, yvar)] <- c("BASE", "COMPARE")
-    
-    as.tibble(subset(datain, outvect, select = c("VARIABLE", keynames, "BASE", "COMPARE")))
-    
+    for (i in seq_len(n_int)) {
+        dat[sprintf("int_%s", i)] <- as.integer(sample(seq(-9999, 9999), n, TRUE))
+    }
+    for (i in seq_len(n_chr)) {
+        possible_chrs <- stringi::stri_rand_strings(1000, 15)
+        dat[sprintf("chr_%s", i)] <- sample(possible_chrs, n, TRUE)
+    }
+    for (i in seq_len(n_fct)) {
+        fct_levels <- c("A", "B", "C", "D", "E", "F", "G", "H")
+        dat[sprintf("fct_%s", i)] <- factor(sample(fct_levels, size = n, replace = TRUE), levels = fct_levels)
+    }
+    for (i in seq_len(n_date)) {
+        dat[sprintf("date_%s", i)] <- ymd("20200101") + days(round(runif(n, -1000, 1000)))
+    }
+    for (i in seq_len(n_dt)) {
+        dat[sprintf("dt_%s", i)] <- ymd_hms("2020-01-01T12:00:01") + seconds(round(runif(n, -70000000, 70000000)))
+    }
+    return(dat)
 }
 
+dat1 <- generate_test_data(1000000, n_col = 10) |>
+    sample_frac(1)
+
+dat2 <- generate_test_data(1000000, n_col = 10) |>
+    sample_frac(1)
 
 
+results_new <- replicate(
+    {
+        x <- system.time({
+            diffdf(dat1, dat2, "id", suppress_warnings = TRUE)
+        })
+        Sys.sleep(4)
+        x
+    },
+    simplify = FALSE,
+    n = 6
+)
 
 
+dat1 <- generate_test_data(1000, n_col = 1) |>
+    sample_frac(1)
 
+dat2 <- generate_test_data(1000, n_col = 1) |>
+    sample_frac(1)
 
-
-
-
-
+diffdf(dat1, dat2, "id")

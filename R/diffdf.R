@@ -24,6 +24,7 @@
 #' @param check_column_order Should the column ordering be checked? (logical)
 #' @param check_df_class Do you want to check for differences in the class
 #' between `base` and `compare`? (logical)
+#' @import data.table
 #' @examples
 #' x <- subset(iris, -Species)
 #' x[1, 2] <- 5
@@ -97,14 +98,14 @@ diffdf <- function(
     check_df_class = FALSE
 ) {
 
+    BASE <- base
+    COMP <- compare
     assertthat::assert_that(
         assertthat::is.flag(check_df_class),
         !is.na(check_df_class),
         msg = "`check_df_class` must be a length 1 logical"
     )
 
-    BASE <- base
-    COMP <- compare
     KEYS <- keys
     SUPWARN <- suppress_warnings
 
@@ -119,7 +120,8 @@ diffdf <- function(
         value = describe_dataframe(BASE, COMP, BASE_NAME, COMP_NAME),
         message = "Summary of BASE and COMPARE"
     )
-
+    BASE <- copy(as.data.table(BASE))
+    COMP <- copy(as.data.table(COMP))
 
     is_derived <- FALSE
 
@@ -155,17 +157,6 @@ diffdf <- function(
             paste(missing_keys_comp, collapse = "\n   ")
         )
     )
-
-    assertthat::assert_that(
-        has_unique_rows(BASE, KEYS),
-        msg = "BY variables in BASE do not result in unique observations"
-    )
-
-    assertthat::assert_that(
-        has_unique_rows(COMP, KEYS),
-        msg = "BY variables in COMPARE do not result in unique observations"
-    )
-
 
 
     #### Check essential variable properties (class & mode)
@@ -209,24 +200,6 @@ diffdf <- function(
     )
 
 
-
-
-    ##### Check Validity of Keys
-
-    BASE_keys <- names(BASE)[names(BASE) %in% KEYS]
-    COMP_keys <- names(COMP)[names(COMP) %in% KEYS]
-
-    assertthat::assert_that(
-        length(BASE_keys) == length(KEYS),
-        msg = "BASE is missing variables specified in KEYS"
-    )
-
-    assertthat::assert_that(
-        length(COMP_keys) == length(KEYS),
-        msg = "COMP is missing variables specified in KEYS"
-    )
-
-
     assert_valid_keys(
         COMPARE, KEYS, "UnsupportedColsBase",
         "The following KEYS in BASE have an unsupported mode (see `?mode()`)"
@@ -244,6 +217,16 @@ diffdf <- function(
         "The following KEYS have different classes between BASE and COMPARE"
     )
 
+    assertthat::assert_that(
+        has_unique_rows(BASE, KEYS),
+        msg = "BY variables in BASE do not result in unique observations"
+    )
+
+    assertthat::assert_that(
+        has_unique_rows(COMP, KEYS),
+        msg = "BY variables in COMPARE do not result in unique observations"
+    )
+
 
     exclude_cols <- c(
         COMPARE[["UnsupportedColsBase"]]$VARIABLE,
@@ -257,13 +240,13 @@ diffdf <- function(
             keep_vars_base <- !(names(BASE) %in% attr(COMPARE, "keys")$value)
             keep_vars_comp <- !(names(COMP) %in% attr(COMPARE, "keys")$value)
         } else {
-            keep_vars_base <- TRUE
-            keep_vars_comp <- TRUE
+            keep_vars_base <- names(BASE)
+            keep_vars_comp <- names(COMP)
         }
         COMPARE[["ColumnOrder"]] <- construct_issue(
             value = identify_column_order_differences(
-                BASE[, keep_vars_base, drop = FALSE],
-                COMP[, keep_vars_comp, drop = FALSE]
+                subset(BASE, select = keep_vars_base),
+                subset(COMP, select = keep_vars_comp)
             ),
             message = "There are differences in the column ordering between BASE and COMPARE !!"
         )

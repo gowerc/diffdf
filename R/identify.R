@@ -6,8 +6,11 @@
 #' @param KEYS List of variables that define a unique row within the datasets (strings)
 #' @keywords internal
 identify_extra_rows <- function(DS1, DS2, KEYS) {
+
+    DS1 <- copy(DS1)
+    DS2 <- copy(DS2)
     if (nrow(DS2) == 0 || nrow(DS1) == 0) {
-        return(DS1[, KEYS, drop = FALSE])
+        return(subset(DS1, select = KEYS))
     }
     DS2[["..FLAG.."]] <- "Y"
     dat <- merge(
@@ -16,9 +19,8 @@ identify_extra_rows <- function(DS1, DS2, KEYS) {
         by = KEYS, all.x = TRUE,
         sort = TRUE
     )
-    dat <- dat[do.call("order", dat[KEYS]), ]
-
-    dat[is.na(dat[["..FLAG.."]]), KEYS, drop = FALSE]
+    do.call(setorder, list(dat, KEYS))
+    subset(dat[is.na(dat[["..FLAG.."]])], select = KEYS)
 }
 
 
@@ -228,6 +230,8 @@ identify_differences <- function(
     tolerance = sqrt(.Machine$double.eps),
     scale = NULL
 ) {
+    BASE <- copy(BASE)
+    COMP <- copy(COMP)
 
     matching_cols <- identify_matching_cols(BASE, COMP, c(KEYS, exclude_cols))
 
@@ -245,7 +249,7 @@ identify_differences <- function(
     if (nrow(DAT) == 0) {
         return(tibble())
     }
-    DAT <- DAT[do.call("order", DAT[KEYS]), ]
+    do.call(setorder, list(DAT, KEYS))
 
     matching_list <- mapply(
         is_variable_different,
