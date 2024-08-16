@@ -120,8 +120,8 @@ diffdf <- function(
         value = describe_dataframe(BASE, COMP, BASE_NAME, COMP_NAME),
         message = "Summary of BASE and COMPARE"
     )
-    BASE <- as.data.table(BASE)
-    COMP <- as.data.table(COMP)
+    BASE <- copy(as.data.table(BASE))
+    COMP <- copy(as.data.table(COMP))
 
     is_derived <- FALSE
 

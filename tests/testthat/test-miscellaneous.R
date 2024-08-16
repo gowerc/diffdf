@@ -199,3 +199,31 @@ test_that("Format Char works on standard data types", {
 test_that("ascii_table can handle all standard datatypes", {
     expect_snapshot(as_ascii_table(TDAT) |> cat())
 })
+
+
+test_that("diffdf doesn't alter existing data.table objects", {
+    # Many operations in data.table are pass by reference
+    # So here we just check to make sure diffdf doesn't modify the
+    # users data which would be unexpected / unwanted behaviour
+    df1 <- data.table(
+        id = c(1, 2, 3, 4, 5),
+        val = rnorm(5),
+        age = factor(runif(5))
+    )
+    attr(df1, "some attr") <- c(1, 2, 3, 4)
+    attr(df1$val, "att2") <- c("A", "B")
+    df1_copy <- copy(df1)
+
+    df2 <- data.table(
+        id = c(1, 2, 99, 4, 5),
+        val = rnorm(5),
+        age = runif(5)
+    )
+    df2_copy <- copy(df2)
+
+    devnull <- diffdf(df1, df2, suppress_warnings = TRUE)
+    devnull <- diffdf(df1, df2, key = "id", suppress_warnings = TRUE)
+
+    expect_equal(df1, df1_copy)
+    expect_equal(df2, df2_copy)
+})
