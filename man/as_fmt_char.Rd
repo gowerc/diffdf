@@ -8,6 +8,7 @@
 \alias{as_fmt_char.factor}
 \alias{as_fmt_char.character}
 \alias{as_fmt_char.default}
+\alias{as_fmt_char.POSIXt}
 \title{Format vector to printable string}
 \usage{
 as_fmt_char(x, ...)
@@ -23,6 +24,8 @@ as_fmt_char(x, ...)
 \method{as_fmt_char}{character}(x, add_quotes = TRUE, crop_at = 30, ...)
 
 \method{as_fmt_char}{default}(x, ...)
+
+\method{as_fmt_char}{POSIXt}(x, ...)
 }
 \arguments{
 \item{x}{(\code{vector}) \cr vector to be converted to character}

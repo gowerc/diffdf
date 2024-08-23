@@ -221,6 +221,13 @@ as_fmt_char.default <- function(x, ...) {
 }
 
 
+#' @rdname as_fmt_char
+#' @export
+as_fmt_char.POSIXt <- function(x, ...) {
+    format(x, "%Y-%m-%d %H:%M:%S %Z")
+}
+
+
 #' get_table
 #'
 #' Generate nice looking table from a data frame
