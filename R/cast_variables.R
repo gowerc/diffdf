@@ -32,14 +32,15 @@ get_message <- function(colname, whichdat, totype) {
 #' @param colin column to cast
 #' @param colname name of vector
 #' @param whichdat whether base or compare is being casted (used for messages)
+#' @importFrom methods is
 #' @keywords internal
 get_casted_vector <- function(colin, colname, whichdat) {
-    if (class(colin) == "factor") {
+    if (is(colin, "factor")) {
         get_message(colname, whichdat, "character")
         return(as.character(colin))
     }
 
-    if (class(colin) == "integer") {
+    if (is(colin, "integer")) {
         get_message(colname, whichdat, "numeric")
         return(as.numeric(colin))
     }
@@ -80,11 +81,12 @@ get_casted_dataset <- function(df, columns, whichdat) {
 #' @param cast_factors Logical - Whether characters should be casted to characters when compared to characters
 #' @keywords internal
 cast_variables <- function(
-        BASE,
-        COMPARE,
-        ignore_vars = NULL,
-        cast_integers = FALSE,
-        cast_factors = FALSE) {
+    BASE,
+    COMPARE,
+    ignore_vars = NULL,
+    cast_integers = FALSE,
+    cast_factors = FALSE
+) {
 
     allowed_class_casts <- c("integernumeric", "characterfactor")[c(cast_integers, cast_factors)]
 

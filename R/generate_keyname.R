@@ -12,9 +12,10 @@ generate_keyname <- function(
     COMP,
     replace_names = c("..ROWNUMBER..", "..RN..", "..ROWN..", "..N..")
 ) {
-    if (class(replace_names) != "character") {
-        stop("replace_names is not a character vector")
-    }
+    assertthat::assert_that(
+        is(replace_names, "character"),
+        msg = "replace_names is not a character vector"
+    )
 
     assertthat::assert_that(
         length(replace_names) != 0,

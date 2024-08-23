@@ -154,6 +154,7 @@ as_fmt_char.NULL <- function(x, ...) {
     "<NULL>"
 }
 
+#' @importFrom utils capture.output
 #' @rdname as_fmt_char
 #' @export
 as_fmt_char.list <- function(x, ...) {

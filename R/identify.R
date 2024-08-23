@@ -309,14 +309,14 @@ identify_properties <- function(dsin) {
 #' @param BASE (`data.frame`)\cr Base dataset for comparison
 #' @param COMP (`data.frame`)\cr Comparator dataset to compare base against
 #' @keywords internal
-identify_column_order_differences <- function(BASE, COMPARE) {
+identify_column_order_differences <- function(BASE, COMP) {
     base_cols <- tibble(
         COLUMN = names(BASE),
         "BASE-INDEX" = seq_along(names(BASE))
     )
     comp_cols <- tibble(
-        COLUMN = names(COMPARE),
-        "COMPARE-INDEX" = seq_along(names(COMPARE))
+        COLUMN = names(COMP),
+        "COMPARE-INDEX" = seq_along(names(COMP))
     )
     col_index <- merge(
         base_cols,
