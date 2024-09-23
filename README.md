@@ -28,11 +28,11 @@ For more information on features please consult the vignette and man pages.
 
 If `diffdf` isn't quite right for your use case then the following are other packages that provide similar functionality that may be more appropriate:
 
-- [daff](https://cloud.r-project.org/web/packages/daff/index.html)
-- [compareDF](https://cloud.r-project.org/web/packages/compareDF/index.html)
-- [waldo](https://cloud.r-project.org/web/packages/waldo/index.html)
-- [diffobj](https://cran.r-project.org/web/packages/diffobj/index.html)
-- [arsenal](https://cran.r-project.org/web/packages/arsenal/index.html)
+- [daff](https://CRAN.R-project.org/package=daff)
+- [compareDF](https://CRAN.R-project.org/package=compareDF)
+- [waldo](https://CRAN.R-project.org/package=waldo)
+- [diffobj](https://CRAN.R-project.org/package=diffobj)
+- [arsenal](https://CRAN.R-project.org/package=arsenal)
 
 ## Installation
 
