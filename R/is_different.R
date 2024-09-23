@@ -139,12 +139,15 @@ compare_vectors.factor <- function(target, current, ...) {
 #' @param current a vector to compare target to
 #' @param tolerance Level of tolerance for differences between two variables
 #' @param scale Scale that tolerance should be set on. If NULL assume absolute
+#' @param ... Not used
 #' @keywords internal
 compare_vectors.numeric <- function(
-        target,
-        current,
-        tolerance = sqrt(.Machine$double.eps),
-        scale = NULL) {
+    target,
+    current,
+    tolerance = sqrt(.Machine$double.eps),
+    scale = NULL,
+    ...
+) {
 
     out <- target == current
 
@@ -173,11 +176,14 @@ compare_vectors.numeric <- function(
 #' @param current a vector to compare target to
 #' @param tolerance Level of tolerance for differences between two variables
 #' @param scale Scale that tolerance should be set on. If NULL assume absolute
+#' @param ... Not used
 #' @keywords internal
 compare_vectors.integer64 <- function(
-        target,
-        current,
-        tolerance = sqrt(.Machine$double.eps),
-        scale = NULL) {
+    target,
+    current,
+    tolerance = sqrt(.Machine$double.eps),
+    scale = NULL,
+    ...
+) {
     compare_vectors.numeric(target, current, tolerance, scale)
 }
