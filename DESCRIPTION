@@ -11,7 +11,6 @@ Description: Functions for comparing two data.frames against
     between two data.frames as well as providing utility functions to help narrow down the 
     source of problems and differences.
 Encoding: UTF-8
-LazyData: true
 Language: en-GB
 Depends:
     R (>= 3.1.2)
