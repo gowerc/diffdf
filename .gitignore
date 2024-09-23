@@ -4,3 +4,4 @@
 .Ruserdata
 utils/print_output/*
 local/*
+.DS_Store
