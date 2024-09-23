@@ -1,7 +1,7 @@
 Package: diffdf
 Type: Package
 Title: Dataframe Difference Tool
-Version: 1.0.4.900
+Version: 1.1.0
 Authors@R: c( 
     person("Craig" ,"Gower-Page" , email = "craig.gower-page@roche.com" , role = c("cre","aut")),
     person("Kieran", "Martin" , email = "kieran.martin@roche.com" , role = "aut")
