@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.947142857142857" branch-rate="0" lines-covered="663" lines-valid="700" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-09-23 13:06:41.762739">
+<coverage line-rate="0.947142857142857" branch-rate="0" lines-covered="663" lines-valid="700" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-09-24 15:21:38.208485">
   <sources>
     <source>/__w/diffdf/diffdf/diffdf</source>
   </sources>
@@ -1308,21 +1308,21 @@
             </method>
             <method name="compare_vectors.numeric" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
-                <line number="149" hits="459" branch="false"/>
-                <line number="151" hits="459" branch="false"/>
-                <line number="152" hits="433" branch="false"/>
-                <line number="155" hits="26" branch="false"/>
-                <line number="156" hits="7" branch="false"/>
-                <line number="157" hits="7" branch="false"/>
-                <line number="160" hits="26" branch="false"/>
-                <line number="162" hits="26" branch="false"/>
-                <line number="163" hits="4" branch="false"/>
-                <line number="166" hits="26" branch="false"/>
+                <line number="152" hits="459" branch="false"/>
+                <line number="154" hits="459" branch="false"/>
+                <line number="155" hits="433" branch="false"/>
+                <line number="158" hits="26" branch="false"/>
+                <line number="159" hits="7" branch="false"/>
+                <line number="160" hits="7" branch="false"/>
+                <line number="163" hits="26" branch="false"/>
+                <line number="165" hits="26" branch="false"/>
+                <line number="166" hits="4" branch="false"/>
+                <line number="169" hits="26" branch="false"/>
               </lines>
             </method>
             <method name="compare_vectors.integer64" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
-                <line number="182" hits="4" branch="false"/>
+                <line number="188" hits="4" branch="false"/>
               </lines>
             </method>
           </methods>
@@ -1368,17 +1368,17 @@
             <line number="96" hits="950" branch="false"/>
             <line number="113" hits="408" branch="false"/>
             <line number="127" hits="83" branch="false"/>
-            <line number="149" hits="459" branch="false"/>
-            <line number="151" hits="459" branch="false"/>
-            <line number="152" hits="433" branch="false"/>
-            <line number="155" hits="26" branch="false"/>
-            <line number="156" hits="7" branch="false"/>
-            <line number="157" hits="7" branch="false"/>
-            <line number="160" hits="26" branch="false"/>
-            <line number="162" hits="26" branch="false"/>
-            <line number="163" hits="4" branch="false"/>
-            <line number="166" hits="26" branch="false"/>
-            <line number="182" hits="4" branch="false"/>
+            <line number="152" hits="459" branch="false"/>
+            <line number="154" hits="459" branch="false"/>
+            <line number="155" hits="433" branch="false"/>
+            <line number="158" hits="26" branch="false"/>
+            <line number="159" hits="7" branch="false"/>
+            <line number="160" hits="7" branch="false"/>
+            <line number="163" hits="26" branch="false"/>
+            <line number="165" hits="26" branch="false"/>
+            <line number="166" hits="4" branch="false"/>
+            <line number="169" hits="26" branch="false"/>
+            <line number="188" hits="4" branch="false"/>
           </lines>
         </class>
         <class name="issuerows.R" filename="R/issuerows.R" line-rate="1" branch-rate="0" complexity="0">
@@ -1499,12 +1499,11 @@
             </method>
             <method name="get_print_message.default" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
-                <line number="51" hits="0" branch="false"/>
+                <line number="52" hits="0" branch="false"/>
               </lines>
             </method>
             <method name="get_print_message.issue" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
-                <line number="63" hits="37" branch="false"/>
                 <line number="64" hits="37" branch="false"/>
                 <line number="65" hits="37" branch="false"/>
                 <line number="66" hits="37" branch="false"/>
@@ -1512,6 +1511,7 @@
                 <line number="68" hits="37" branch="false"/>
                 <line number="69" hits="37" branch="false"/>
                 <line number="70" hits="37" branch="false"/>
+                <line number="71" hits="37" branch="false"/>
               </lines>
             </method>
           </methods>
@@ -1524,8 +1524,7 @@
             <line number="19" hits="267" branch="false"/>
             <line number="30" hits="134" branch="false"/>
             <line number="41" hits="37" branch="false"/>
-            <line number="51" hits="0" branch="false"/>
-            <line number="63" hits="37" branch="false"/>
+            <line number="52" hits="0" branch="false"/>
             <line number="64" hits="37" branch="false"/>
             <line number="65" hits="37" branch="false"/>
             <line number="66" hits="37" branch="false"/>
@@ -1533,6 +1532,7 @@
             <line number="68" hits="37" branch="false"/>
             <line number="69" hits="37" branch="false"/>
             <line number="70" hits="37" branch="false"/>
+            <line number="71" hits="37" branch="false"/>
           </lines>
         </class>
         <class name="misc_functions.R" filename="R/misc_functions.R" line-rate="0.941176470588235" branch-rate="0" complexity="0">
