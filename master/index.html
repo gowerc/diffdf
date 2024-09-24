@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">diffdf</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.4.900</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,13 +40,6 @@
 </li>
 <li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
 <li class="nav-item dropdown">
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://gowerc.github.io/diffdf/latest-tag">latest-tag</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://gowerc.github.io/diffdf/v1.0.4">v1.0.4</a> </div></li>
-<!-- end dropdown for versions -->
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-reports" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Reports</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-reports">
 <li><a class="dropdown-item" href="coverage-report/">Coverage report</a></li>
@@ -71,19 +64,36 @@
 </h1></div>
 <!-- start badges -->
 <p><a href="https://CRAN.R-project.org/package=diffdf" class="external-link"><img src="https://www.r-pkg.org/badges/version/diffdf" alt="CRAN_Status_Badge"></a> <a href="https://www.r-pkg.org/pkg/diffdf" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/diffdf?color=brightgreen" alt="Downloads"></a> <a href="https://gowerc.github.io/diffdf/master/coverage-report/"><img src="https://raw.githubusercontent.com/gowerc/diffdf/_xml_coverage_reports/data/master/badge.svg" alt="Code Coverage 📔"></a> <!-- end badges --></p>
-<p>The diffdf package is designed to enable detailed comparison of two data.frames. Whilst many packages exist for informing you if there are differences between data.frames, none provide as much detail on what and where those differences are as diffdf does!</p>
+<p><code>diffdf</code> compares two <code>data.frame</code> objects and provides a detailed summary of any differences that were found between them. The package has it’s origins in supporting QC workflows for product development within the pharmaceutical industry aiming at being a light weight alternative to SAS’s <code>PROC COMPARE</code>.</p>
 <p>Currently diffdf supports the following:</p>
 <ul>
-<li>Checking for differences in values</li>
-<li>Checking for differences in attributes</li>
-<li>Checking for differences in classes</li>
-<li>Checking for differences in column names</li>
-<li>Checking for differences in the number of observations</li>
+<li>Checking for differences in:
+<ul>
+<li>Values</li>
+<li>Attributes</li>
+<li>Classes</li>
+<li>Column names</li>
+<li>Number of observations</li>
+<li>Column ordering</li>
+</ul>
+</li>
 <li>Matching rows by key/id variables</li>
 <li>Fuzzy comparisons (i.e. treating doubles and integers as the same)</li>
 <li>Extracting datasets of different rows</li>
 </ul>
 <p>For more information on features please consult the vignette and man pages.</p>
+<div class="section level2">
+<h2 id="alternatives">Alternatives<a class="anchor" aria-label="anchor" href="#alternatives"></a>
+</h2>
+<p>If <code>diffdf</code> isn’t quite right for your use case then the following are other packages that provide similar functionality that may be more appropriate:</p>
+<ul>
+<li><a href="https://CRAN.R-project.org/package=daff" class="external-link"><code>daff</code></a></li>
+<li><a href="https://CRAN.R-project.org/package=compareDF" class="external-link"><code>compareDF</code></a></li>
+<li><a href="https://CRAN.R-project.org/package=waldo" class="external-link"><code>waldo</code></a></li>
+<li><a href="https://CRAN.R-project.org/package=diffobj" class="external-link"><code>diffobj</code></a></li>
+<li><a href="https://CRAN.R-project.org/package=arsenal" class="external-link"><code>arsenal</code></a></li>
+</ul>
+</div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
