@@ -46,8 +46,9 @@ get_print_message <- function(object, ...) {
 #'
 #' Errors, as this should only ever be given an issue
 #' @param object issue
+#' @param ... Not used
 #' @keywords internal
-get_print_message.default <- function(object) {
+get_print_message.default <- function(object, ...) {
     stop("Error: An issue has not been provided to this function!")
 }
 

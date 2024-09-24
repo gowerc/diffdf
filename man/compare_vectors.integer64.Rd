@@ -8,7 +8,8 @@
   target,
   current,
   tolerance = sqrt(.Machine$double.eps),
-  scale = NULL
+  scale = NULL,
+  ...
 )
 }
 \arguments{
@@ -19,6 +20,8 @@
 \item{tolerance}{Level of tolerance for differences between two variables}
 
 \item{scale}{Scale that tolerance should be set on. If NULL assume absolute}
+
+\item{...}{Not used}
 }
 \description{
 Handle int64 vectors. Uses numeric comparison

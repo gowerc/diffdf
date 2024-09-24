@@ -171,11 +171,11 @@ test_that("Format Char works on standard data types", {
         as_fmt_char(lubridate::ymd_hms(
             c(
                 "2023-01-01 14:12:12",
-                "1888-01-05 15:45:30"
+                "2023-07-05 15:45:30"
             ),
-            tz = "CET"
+            tz = "Europe/London"
         )),
-        c("2023-01-01 14:12:12 CET", "1888-01-05 15:45:30 CET")
+        c("2023-01-01 14:12:12 GMT", "2023-07-05 15:45:30 BST")
     )
 
     x <- c(1, 2, 3, 4)

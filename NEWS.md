@@ -1,15 +1,18 @@
-# diffdf 1.0.4.900
+# diffdf 1.1.0
 
-Development version
+## New features
 
-- Enhanced table printing so that white space characters are more clearly defined (#87)
-- `row_limit` argument now functional again in print method! (#6, @brianrepko)
-- Fixed bug that caused an error if either the base or comparison dataset were empty (#44)
-- Fixed bug that caused an error if there were no matching keys between the base and comparison dataset (#79)
+- Enhanced table printing so that white space characters are more clearly displayed (#87)
+- Added `row_limit` argument to print method to limit the number of rows displayed (#6, @brianrepko)
 - Added check to ensure that the column ordering is the same (#32)
-- Added more informative error messaging if a specified key is missing from the base or comparison dataset (#113)
 - Added check for differences in classes between the base and comparison datasets (#42)
 - Updated character formatting of datetimes to show time zone to avoid misleading/confusing comparisons (#121)
+
+## Minor improvements and fixes
+
+- Added more informative error messaging if a specified key is missing from the base or comparison dataset (#113)
+- Fixed bug that caused an error if either the base or comparison dataset were empty (#44)
+- Fixed bug that caused an error if there were no matching keys between the base and comparison dataset (#79)
 
 
 # diffdf 1.0.4

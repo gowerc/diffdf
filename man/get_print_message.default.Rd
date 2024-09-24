@@ -4,10 +4,12 @@
 \alias{get_print_message.default}
 \title{get_print_message.default}
 \usage{
-\method{get_print_message}{default}(object)
+\method{get_print_message}{default}(object, ...)
 }
 \arguments{
 \item{object}{issue}
+
+\item{...}{Not used}
 }
 \description{
 Errors, as this should only ever be given an issue
