@@ -1,3 +1,10 @@
+## Resubmission
+
+This is a resubmission. In this version I have:
+
+* Added `.markdownlintignore` to the `.Rbuildignore` file
+
+
 ## R CMD check results
 
 R CMD check results
