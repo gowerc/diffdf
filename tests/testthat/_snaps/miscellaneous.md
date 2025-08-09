@@ -305,3 +305,87 @@
       
       
 
+# `as_ascii_table() can handle missing datetimes (#132)
+
+    Code
+      diffdf(d1, d2, suppress_warnings = TRUE)
+    Output
+      Differences found between the objects!
+      
+      Summary of BASE and COMPARE
+        ==================================================================
+          PROPERTY             BASE                       COMP            
+        ------------------------------------------------------------------
+            Name                d1                         d2             
+           Class     "tbl_df, tbl, data.frame"  "tbl_df, tbl, data.frame" 
+          Rows(#)                2                          2             
+         Columns(#)              2                          2             
+        ------------------------------------------------------------------
+      
+      
+      Not all Values Compared Equal
+        =============================
+         Variable  No of Differences 
+        -----------------------------
+            id             1         
+           dt1             1         
+        -----------------------------
+      
+      
+        ========================================
+         VARIABLE  ..ROWNUMBER..  BASE  COMPARE 
+        ----------------------------------------
+            id           2         2      NA    
+        ----------------------------------------
+      
+      
+        ===========================================================
+         VARIABLE  ..ROWNUMBER..           BASE            COMPARE 
+        -----------------------------------------------------------
+           dt1           2        2024-01-24 14:12:49 UTC   <NA>   
+        -----------------------------------------------------------
+      
+      
+
+# `as_ascii_table() can handle missing dates (#132)
+
+    Code
+      diffdf(d1, d2, suppress_warnings = TRUE)
+    Output
+      Differences found between the objects!
+      
+      Summary of BASE and COMPARE
+        ==================================================================
+          PROPERTY             BASE                       COMP            
+        ------------------------------------------------------------------
+            Name                d1                         d2             
+           Class     "tbl_df, tbl, data.frame"  "tbl_df, tbl, data.frame" 
+          Rows(#)                2                          2             
+         Columns(#)              2                          2             
+        ------------------------------------------------------------------
+      
+      
+      Not all Values Compared Equal
+        =============================
+         Variable  No of Differences 
+        -----------------------------
+            id             1         
+           dt1             1         
+        -----------------------------
+      
+      
+        ========================================
+         VARIABLE  ..ROWNUMBER..  BASE  COMPARE 
+        ----------------------------------------
+            id           2         2      NA    
+        ----------------------------------------
+      
+      
+        ==============================================
+         VARIABLE  ..ROWNUMBER..     BASE     COMPARE 
+        ----------------------------------------------
+           dt1           2        2024-01-24   <NA>   
+        ----------------------------------------------
+      
+      
+

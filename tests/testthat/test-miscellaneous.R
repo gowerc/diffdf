@@ -252,3 +252,45 @@ test_that("datetimes compare as expected", {
         print(res)
     )
 })
+
+
+
+
+test_that("`as_ascii_table() can handle missing datetimes (#132)", {
+    d1 <- tibble(
+        id = c(1, 2),
+        dt1 = lubridate::ymd_hms(
+            "2024-01-10 01-02-03",
+            "2024-01-24 14-12-49"
+        )
+    )
+
+    d2 <- tibble(
+        id = c(1, NA),
+        dt1 = lubridate::ymd_hms(
+            "2024-01-10 01-02-03",
+            NA
+        )
+    )
+    expect_snapshot(diffdf(d1, d2, suppress_warnings = TRUE))
+})
+
+
+test_that("`as_ascii_table() can handle missing dates (#132)", {
+    d1 <- tibble(
+        id = c(1, 2),
+        dt1 = lubridate::ymd(
+            "2024-01-10",
+            "2024-01-24"
+        )
+    )
+
+    d2 <- tibble(
+        id = c(1, NA),
+        dt1 = lubridate::ymd(
+            "2024-01-10",
+            NA
+        )
+    )
+    expect_snapshot(diffdf(d1, d2, suppress_warnings = TRUE))
+})
