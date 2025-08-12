@@ -370,7 +370,7 @@ diffdf <- function(
 
 
     if (!is.null(file)) {
-        x <- print(COMPARE, as_string = TRUE)
+        x <- print(COMPARE, row_limit=NULL, as_string = TRUE)
 
         tryCatch(
             {
