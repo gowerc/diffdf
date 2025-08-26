@@ -239,7 +239,7 @@ identify_differences <- function(
         x = BASE,
         y = COMP,
         by = KEYS,
-        suffix = c(".x", ".y"),
+        suffixes = c(".x", ".y"),
         sort = TRUE
     )
     if (nrow(DAT) == 0) {
