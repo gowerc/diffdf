@@ -4,19 +4,21 @@
 \alias{print.diffdf}
 \title{Print diffdf objects}
 \usage{
-\method{print}{diffdf}(x, row_limit = 10, as_string = FALSE, ...)
+\method{print}{diffdf}(x, row_limit = 10, as_string = FALSE, file = NULL, ...)
 }
 \arguments{
-\item{x}{comparison object created by diffdf().}
+\item{x}{A comparison object created by \code{diffdf()}.}
 
-\item{row_limit}{Max row limit for difference tables (NULL to show all rows)}
+\item{row_limit}{Maximum number of rows to display in difference tables. Use \code{NULL} to show all rows. Default is 10.}
 
-\item{as_string}{Return printed message as an R character vector?}
+\item{as_string}{Logical. If \code{TRUE}, returns the printed message as an R character vector instead of printing to the console. Default is \code{FALSE}.}
 
-\item{...}{Additional arguments (not used)}
+\item{file}{A connection or a character string naming the file to print to. If \code{NULL} (the default), output is printed to the console.}
+
+\item{...}{Additional arguments (not used).}
 }
 \description{
-Print nicely formatted version of an diffdf object
+Print a nicely formatted version of a diffdf object.
 }
 \examples{
 x <- subset(iris, -Species)
@@ -24,4 +26,6 @@ x[1, 2] <- 5
 COMPARE <- diffdf(iris, x)
 print(COMPARE)
 print(COMPARE, row_limit = 5)
+print(COMPARE, file = "output.txt")
+
 }

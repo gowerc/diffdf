@@ -370,24 +370,7 @@ diffdf <- function(
 
 
     if (!is.null(file)) {
-        x <- print(COMPARE, as_string = TRUE)
-
-        tryCatch(
-            {
-                sink(file)
-                cat(x, sep = "\n")
-                sink()
-            },
-            warning = function(w) {
-                sink()
-                warning(w)
-            },
-            error = function(e) {
-                sink()
-                stop(e)
-            }
-        )
-        return(invisible(COMPARE))
+        print(COMPARE, file = file)
     }
 
     return(COMPARE)

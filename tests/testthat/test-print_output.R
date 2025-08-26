@@ -117,3 +117,46 @@ test_that("print.diffdf errors when given bad inputs", {
         print(diff, as_string = c(TRUE, TRUE)),
     )
 })
+
+
+test_that("#135 - Writing to file works as expected with row limits", {
+    f1 <- tempfile()
+    f2 <- tempfile()
+    withr::local_file(f1)
+    withr::local_file(f2)
+
+    x2 <- diffdf(
+        list_of_comparisons[[5]][[1]],
+        list_of_comparisons[[5]][[2]],
+        suppress_warnings = TRUE,
+        file = f1
+    )
+
+    expect_equal(
+        readLines(f1),
+        print(x2, as_string = TRUE)
+    )
+
+    print(x2, file = f2)
+    expect_equal(
+        readLines(f1),
+        readLines(f2)
+    )
+
+
+
+    f3 <- tempfile()
+    withr::local_file(f3)
+
+    d1 <- tibble(id = seq_len(30), x = 1)
+    d2 <- tibble(id = seq_len(30), x = 0)
+
+    x2 <- diffdf(d1, d2, suppress_warnings = TRUE)
+    print(x2, file = f3, row_limit = 5)
+
+    expect_equal(
+        readLines(f3),
+        print(x2, as_string = TRUE, row_limit = 5)
+    )
+
+})
