@@ -9,11 +9,14 @@
 \arguments{
 \item{x}{A comparison object created by \code{diffdf()}.}
 
-\item{row_limit}{Maximum number of rows to display in difference tables. Use \code{NULL} to show all rows. Default is 10.}
+\item{row_limit}{Maximum number of rows to display in difference tables.
+Use \code{NULL} to show all rows. Default is 10.}
 
-\item{as_string}{Logical. If \code{TRUE}, returns the printed message as an R character vector instead of printing to the console. Default is \code{FALSE}.}
+\item{as_string}{Logical. If \code{TRUE}, returns the printed message as an R
+character vector instead of printing to the console. Default is \code{FALSE}.}
 
-\item{file}{A connection or a character string naming the file to print to. If \code{NULL} (the default), output is printed to the console.}
+\item{file}{A connection or a character string naming the file to print to. If
+\code{NULL} (the default), output is printed to the console.}
 
 \item{...}{Additional arguments (not used).}
 }

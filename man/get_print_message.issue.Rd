@@ -9,7 +9,8 @@
 \arguments{
 \item{object}{an object of class issue_basic}
 
-\item{row_limit}{Maximum number of rows to display in difference tables. Use \code{NULL} to show all rows. Default is 10.}
+\item{row_limit}{Maximum number of rows to display in difference tables.
+Use \code{NULL} to show all rows. Default is 10.}
 
 \item{...}{Additional arguments (not used).}
 }
