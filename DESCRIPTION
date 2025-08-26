@@ -3,8 +3,8 @@ Type: Package
 Title: Dataframe Difference Tool
 Version: 1.1.1
 Authors@R: c( 
-    person("Craig" ,"Gower-Page" , email = "craig.gower-page@roche.com" , role = c("cre","aut")),
-    person("Kieran", "Martin" , email = "kieran.martin@roche.com" , role = "aut")
+    person("Craig" ,"Gower-Page" , email = "craiggower@gmail.com" , role = c("cre","aut")),
+    person("Kieran", "Martin" , email = "<todo>" , role = "aut")
     )
 Description: Functions for comparing two data.frames against 
     each other. The core functionality is to provide a detailed breakdown of any differences 
