@@ -113,8 +113,15 @@ diffdf <- function(
     class(COMPARE) <- c("diffdf", "list")
 
 
-    BASE_NAME <- deparse(substitute(base))
-    COMP_NAME <- deparse(substitute(compare))
+    BASE_NAME <- deparse(substitute(base), width.cutoff = 30L)
+    COMP_NAME <- deparse(substitute(compare), width.cutoff = 30L)
+    if (length(BASE_NAME) > 1) {
+        BASE_NAME <- "<expression>"
+    }
+    if (length(COMP_NAME) > 1) {
+        COMP_NAME <- "<expression>"
+    }
+
     COMPARE[["DataSummary"]] <- construct_issue(
         value = describe_dataframe(BASE, COMP, BASE_NAME, COMP_NAME),
         message = "Summary of BASE and COMPARE"

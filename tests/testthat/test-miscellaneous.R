@@ -252,3 +252,31 @@ test_that("datetimes compare as expected", {
         print(res)
     )
 })
+
+
+test_that("#133 - Nested calls don't throw error with deparse", {
+    d1 <- tibble(id = c(1, 2, 3, 4), x = c(1, 2, 3, 4))
+
+    expect_no_condition({
+        tibble(id = c(1, 2, 3, 4), x = c(1, 2, 3, 4)) |>
+            dplyr::mutate(x = x + 1) |>
+            diffdf(d1, suppress_warnings = TRUE)
+    })
+
+    d2 <- tibble(id = c(1, 2, 3, 4), x = c(1, 2, 3, 4) + 1)
+    expect_snapshot(diffdf(d1, d2))
+
+    expect_snapshot(
+        diffdf(
+            d1,
+            d1 |> dplyr::mutate(x = x + 1)
+        )
+    )
+
+    expect_snapshot(
+        diffdf(
+            d1,
+            d1 |> dplyr::mutate(x = x + x + x + x)
+        )
+    )
+})
