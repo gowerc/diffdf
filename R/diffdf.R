@@ -422,7 +422,7 @@ diffdf <- function(
 #' @export
 diffdf_has_issues <- function(x) {
     if (class(x)[[1]] != "diffdf") stop("x is not an diffdf object")
-    return(length(x) != 0)
+    length(x) != 0
 }
 
 
