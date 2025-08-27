@@ -32,9 +32,8 @@ recursive_reduce <- function(.l, .f) {
     if (length(.l) != 1) {
         .l[[2]] <- .f(.l[[1]], .l[[2]])
         return(recursive_reduce(.l[-1], .f))
-    } else {
-        return(.l[[1]])
     }
+    .l[[1]]
 }
 
 #' invert
@@ -53,7 +52,7 @@ invert <- function(x) {
             x2[[i]][[j]] <- x[[j]][[i]]
         }
     }
-    return(x2)
+    x2
 }
 
 
@@ -202,7 +201,7 @@ as_fmt_char.character <- function(x, add_quotes = TRUE, crop_at = 30, ...) {
     # clearly identified in the printed output
     x[needs_quotes] <- paste0('"', x[needs_quotes], '"')
 
-    return(x)
+    x
 }
 
 
@@ -224,7 +223,9 @@ as_fmt_char.default <- function(x, ...) {
 #' @rdname as_fmt_char
 #' @export
 as_fmt_char.POSIXt <- function(x, ...) {
-    format(x, "%Y-%m-%d %H:%M:%S %Z")
+    x <- format(x, "%Y-%m-%d %H:%M:%S %Z")
+    x[is.na(x)] <- "<NA>"
+    x
 }
 
 
@@ -270,5 +271,5 @@ get_table <- function(dsin, row_limit = 10) {
         ),
         collapse = "\n"
     )
-    return(msg)
+    msg
 }
