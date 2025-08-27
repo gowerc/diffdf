@@ -370,24 +370,7 @@ diffdf <- function(
 
 
     if (!is.null(file)) {
-        x <- print(COMPARE, as_string = TRUE)
-
-        tryCatch(
-            {
-                sink(file)
-                cat(x, sep = "\n")
-                sink()
-            },
-            warning = function(w) {
-                sink()
-                warning(w)
-            },
-            error = function(e) {
-                sink()
-                stop(e)
-            }
-        )
-        return(invisible(COMPARE))
+        print(COMPARE, file = file)
     }
 
     return(COMPARE)
@@ -415,7 +398,7 @@ diffdf <- function(
 #' @export
 diffdf_has_issues <- function(x) {
     if (class(x)[[1]] != "diffdf") stop("x is not an diffdf object")
-    return(length(x) != 0)
+    length(x) != 0
 }
 
 
