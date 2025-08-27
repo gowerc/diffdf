@@ -286,3 +286,84 @@ testthat::test_that("#138 - No partial arg matches", {
         )
     })
 })
+
+test_that("`as_ascii_table() can handle missing datetimes (#132)", {
+    d1 <- tibble(
+        id = c(1, 2, 3),
+        dt1 = lubridate::ymd_hms(
+            "2024-01-10 01-02-03",
+            "2024-01-24 14-12-49",
+            "1821-02-01 01-01-01"
+        )
+    )
+
+    d2 <- tibble(
+        id = c(1, NA, 3),
+        dt1 = lubridate::ymd_hms(
+            "2024-01-10 01-02-03",
+            NA,
+            "1821-02-01 01-01-01"
+        )
+    )
+    expect_snapshot(diffdf(d1, d2, suppress_warnings = TRUE))
+
+
+
+    d3 <- tibble(
+        id = c(1, 2, 3),
+        dt1 = lubridate::ymd_hms(NA, NA, NA)
+    )
+    expect_snapshot(diffdf(d1, d3, suppress_warnings = TRUE))
+
+
+    set.seed(2211)
+    offset <- 2000000000
+    n <- 50
+    d5 <- tibble(
+        id = seq_len(n),
+        dt1 = lubridate::ymd_hms("2000-01-01 01-01-01") + round(runif(n, -offset, offset))
+    )
+    d6 <- d5
+    d6[seq(1, n, by = 2), "dt1"] <- NA
+    expect_snapshot(diffdf(d5, d6, suppress_warnings = TRUE))
+})
+
+
+test_that("`as_ascii_table() can handle missing dates (#132)", {
+    d1 <- tibble(
+        id = c(1, 2, 3),
+        dt1 = lubridate::ymd(
+            "2024-01-10",
+            "2024-01-24",
+            "1821-02-01"
+        )
+    )
+
+    d2 <- tibble(
+        id = c(1, NA, 3),
+        dt1 = lubridate::ymd(
+            "2024-01-10",
+            NA,
+            "1821-02-01"
+        )
+    )
+    expect_snapshot(diffdf(d1, d2, suppress_warnings = TRUE))
+
+    d3 <- tibble(
+        id = c(1, 2, 3),
+        dt1 = lubridate::ymd(NA, NA, NA)
+    )
+    expect_snapshot(diffdf(d1, d3, suppress_warnings = TRUE))
+
+
+    set.seed(2211)
+    offset <- 200000
+    n <- 50
+    d5 <- tibble(
+        id = seq_len(n),
+        dt1 = lubridate::ymd("2000-01-01") + round(runif(n, -offset, offset))
+    )
+    d6 <- d5
+    d6[seq(1, n, by = 2), "dt1"] <- NA
+    expect_snapshot(diffdf(d5, d6, suppress_warnings = TRUE))
+})
