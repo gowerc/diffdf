@@ -9,9 +9,10 @@
 \arguments{
 \item{object}{an object of class issue_basic}
 
-\item{row_limit}{Max row limit for difference tables (NULL to show all rows)}
+\item{row_limit}{Maximum number of rows to display in difference tables.
+Use \code{NULL} to show all rows. Default is 10.}
 
-\item{...}{Additional arguments (not used)}
+\item{...}{Additional arguments (not used).}
 }
 \description{
 Get text from a basic issue, based on the class of the value of the issue
