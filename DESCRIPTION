@@ -4,7 +4,7 @@ Title: Dataframe Difference Tool
 Version: 1.1.1
 Authors@R: c( 
     person("Craig" ,"Gower-Page" , email = "craiggower@gmail.com" , role = c("cre","aut")),
-    person("Kieran", "Martin" , email = "<todo>" , role = "aut")
+    person("Kieran", "Martin" , email = "kieranjmartin@gmail.com" , role = "aut")
     )
 Description: Functions for comparing two data.frames against 
     each other. The core functionality is to provide a detailed breakdown of any differences 
