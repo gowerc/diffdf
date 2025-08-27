@@ -254,7 +254,38 @@ test_that("datetimes compare as expected", {
 })
 
 
+testthat::test_that("#138 - No partial arg matches", {
+    withr::local_options(
+        list(
+            warnPartialMatchArgs = TRUE,
+            warnPartialMatchDollar = TRUE,
+            warnPartialMatchAttr = TRUE
+        )
+    )
 
+    df1 <- data.frame(
+        index1 = c(0, 0, 1, 1),
+        index2 = c(1, 2, 1, 2),
+        value = c(1, 2, 3, 4),
+        value2 = c(1, 2, 3, 4)
+    )
+
+    df2 <- data.frame(
+        index1 = c(1, 1, 2, 2),
+        index2 = c(1, 2, 1, 2),
+        value = c(0, 1, 20, 3),
+        value2 = c(0, 1, 2, 333)
+    )
+
+    expect_no_condition({
+        diff_result <- diffdf::diffdf(
+            df1,
+            df2,
+            keys = c("index1", "index2"),
+            suppress_warnings = TRUE
+        )
+    })
+})
 
 test_that("`as_ascii_table() can handle missing datetimes (#132)", {
     d1 <- tibble(
