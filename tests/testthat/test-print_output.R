@@ -120,10 +120,8 @@ test_that("print.diffdf errors when given bad inputs", {
 
 
 test_that("#135 - Writing to file works as expected with row limits", {
-    f1 <- tempfile()
-    f2 <- tempfile()
-    withr::local_file(f1)
-    withr::local_file(f2)
+    f1 <- withr::local_tempfile()
+    f2 <- withr::local_tempfile()
 
     x2 <- diffdf(
         list_of_comparisons[[5]][[1]],
@@ -145,8 +143,7 @@ test_that("#135 - Writing to file works as expected with row limits", {
 
 
 
-    f3 <- tempfile()
-    withr::local_file(f3)
+    f3 <- withr::local_tempfile()
 
     d1 <- tibble(id = seq_len(30), x = 1)
     d2 <- tibble(id = seq_len(30), x = 0)
