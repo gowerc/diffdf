@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.970338983050847" branch-rate="0" lines-covered="687" lines-valid="708" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2025-08-27 19:34:55.578146">
+<coverage line-rate="0.970338983050847" branch-rate="0" lines-covered="687" lines-valid="708" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2025-10-14 20:01:56.281845">
   <sources>
     <source>/__w/diffdf/diffdf/diffdf</source>
   </sources>
@@ -444,8 +444,8 @@
                 <line number="113" hits="131" branch="false"/>
                 <line number="116" hits="131" branch="false"/>
                 <line number="117" hits="131" branch="false"/>
-                <line number="118" hits="131" branch="false"/>
-                <line number="119" hits="2" branch="false"/>
+                <line number="118" hits="2" branch="false"/>
+                <line number="120" hits="131" branch="false"/>
                 <line number="121" hits="131" branch="false"/>
                 <line number="122" hits="0" branch="false"/>
                 <line number="125" hits="131" branch="false"/>
@@ -608,8 +608,8 @@
                 <line number="357" hits="119" branch="false"/>
                 <line number="359" hits="119" branch="false"/>
                 <line number="360" hits="80" branch="false"/>
-                <line number="361" hits="46" branch="false"/>
-                <line number="362" hits="46" branch="false"/>
+                <line number="361" hits="45" branch="false"/>
+                <line number="362" hits="45" branch="false"/>
                 <line number="368" hits="119" branch="false"/>
                 <line number="369" hits="38" branch="false"/>
                 <line number="374" hits="119" branch="false"/>
@@ -653,8 +653,8 @@
             <line number="113" hits="131" branch="false"/>
             <line number="116" hits="131" branch="false"/>
             <line number="117" hits="131" branch="false"/>
-            <line number="118" hits="131" branch="false"/>
-            <line number="119" hits="2" branch="false"/>
+            <line number="118" hits="2" branch="false"/>
+            <line number="120" hits="131" branch="false"/>
             <line number="121" hits="131" branch="false"/>
             <line number="122" hits="0" branch="false"/>
             <line number="125" hits="131" branch="false"/>
@@ -817,8 +817,8 @@
             <line number="357" hits="119" branch="false"/>
             <line number="359" hits="119" branch="false"/>
             <line number="360" hits="80" branch="false"/>
-            <line number="361" hits="46" branch="false"/>
-            <line number="362" hits="46" branch="false"/>
+            <line number="361" hits="45" branch="false"/>
+            <line number="362" hits="45" branch="false"/>
             <line number="368" hits="119" branch="false"/>
             <line number="369" hits="38" branch="false"/>
             <line number="374" hits="119" branch="false"/>
