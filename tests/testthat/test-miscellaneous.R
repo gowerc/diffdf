@@ -264,19 +264,29 @@ test_that("#133 - Nested calls don't throw error with deparse", {
     })
 
     d2 <- tibble(id = c(1, 2, 3, 4), x = c(1, 2, 3, 4) + 1)
-    expect_snapshot(diffdf(d1, d2))
+    expect_snapshot(diffdf(d1, d2, suppress_warnings = TRUE))
 
     expect_snapshot(
         diffdf(
             d1,
-            d1 |> dplyr::mutate(x = x + 1)
+            d1 |> dplyr::mutate(x = x + 1),
+            suppress_warnings = TRUE
         )
     )
 
     expect_snapshot(
         diffdf(
             d1,
-            d1 |> dplyr::mutate(x = x + x + x + x)
+            d1 |> dplyr::mutate(x = x + x + x + x),
+            suppress_warnings = TRUE
+        )
+    )
+
+    expect_snapshot(
+        diffdf(
+            d1 |> dplyr::mutate(x = x + x + x + x),
+            d1,
+            suppress_warnings = TRUE
         )
     )
 })

@@ -114,12 +114,12 @@ diffdf <- function(
 
 
     BASE_NAME <- deparse(substitute(base), width.cutoff = 30L)
-    COMP_NAME <- deparse(substitute(compare), width.cutoff = 30L)
     if (length(BASE_NAME) > 1) {
-        BASE_NAME <- "<expression>"
+        BASE_NAME <- "<BASE>"
     }
+    COMP_NAME <- deparse(substitute(compare), width.cutoff = 30L)
     if (length(COMP_NAME) > 1) {
-        COMP_NAME <- "<expression>"
+        COMP_NAME <- "<COMPARE>"
     }
 
     COMPARE[["DataSummary"]] <- construct_issue(
