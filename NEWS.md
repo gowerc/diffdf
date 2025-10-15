@@ -3,7 +3,7 @@
 # diffdf 1.1.2
 
 Mostly just bug fixes:
-- Fixed bug of internal partial argument match warning (#138)
+- Fixed bug of where an internal function was reliant on a partial argument match (#138)
 - Fixed bug where `diffdf()` would error if the input was a complex expression (#133)
 - Fixed bug where `diffdf()` would error if an input dataset contained a POSIXct column which contains a missing value
 - Added argument to `print()` function to allow users to print more than 10 rows at once when creating a file output
