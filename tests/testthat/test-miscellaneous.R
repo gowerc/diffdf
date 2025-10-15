@@ -254,6 +254,44 @@ test_that("datetimes compare as expected", {
 })
 
 
+test_that("#133 - Nested calls don't throw error with deparse", {
+    d1 <- tibble(id = c(1, 2, 3, 4), x = c(1, 2, 3, 4))
+
+    expect_no_condition({
+        tibble(id = c(1, 2, 3, 4), x = c(1, 2, 3, 4)) |>
+            dplyr::mutate(x = x + 1) |>
+            diffdf(d1, suppress_warnings = TRUE)
+    })
+
+    d2 <- tibble(id = c(1, 2, 3, 4), x = c(1, 2, 3, 4) + 1)
+    expect_snapshot(diffdf(d1, d2, suppress_warnings = TRUE))
+
+    expect_snapshot(
+        diffdf(
+            d1,
+            d1 |> dplyr::mutate(x = x + 1),
+            suppress_warnings = TRUE
+        )
+    )
+
+    expect_snapshot(
+        diffdf(
+            d1,
+            d1 |> dplyr::mutate(x = x + x + x + x),
+            suppress_warnings = TRUE
+        )
+    )
+
+    expect_snapshot(
+        diffdf(
+            d1 |> dplyr::mutate(x = x + x + x + x),
+            d1,
+            suppress_warnings = TRUE
+        )
+    )
+})
+
+
 testthat::test_that("#138 - No partial arg matches", {
     withr::local_options(
         list(
@@ -286,6 +324,7 @@ testthat::test_that("#138 - No partial arg matches", {
         )
     })
 })
+
 
 test_that("`as_ascii_table() can handle missing datetimes (#132)", {
     d1 <- tibble(

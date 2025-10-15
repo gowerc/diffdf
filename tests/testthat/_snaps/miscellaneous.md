@@ -305,6 +305,154 @@
       
       
 
+# #133 - Nested calls don't throw error with deparse
+
+    Code
+      diffdf(d1, d2, suppress_warnings = TRUE)
+    Output
+      Differences found between the objects!
+      
+      Summary of BASE and COMPARE
+        ==================================================================
+          PROPERTY             BASE                       COMP            
+        ------------------------------------------------------------------
+            Name                d1                         d2             
+           Class     "tbl_df, tbl, data.frame"  "tbl_df, tbl, data.frame" 
+          Rows(#)                4                          4             
+         Columns(#)              2                          2             
+        ------------------------------------------------------------------
+      
+      
+      Not all Values Compared Equal
+        =============================
+         Variable  No of Differences 
+        -----------------------------
+            x              4         
+        -----------------------------
+      
+      
+        ========================================
+         VARIABLE  ..ROWNUMBER..  BASE  COMPARE 
+        ----------------------------------------
+            x            1         1       2    
+            x            2         2       3    
+            x            3         3       4    
+            x            4         4       5    
+        ----------------------------------------
+      
+      
+
+---
+
+    Code
+      diffdf(d1, dplyr::mutate(d1, x = x + 1), suppress_warnings = TRUE)
+    Output
+      Differences found between the objects!
+      
+      Summary of BASE and COMPARE
+        =======================================================================
+          PROPERTY             BASE                          COMP              
+        -----------------------------------------------------------------------
+            Name                d1              "dplyr::mutate(d1, x = x + 1)" 
+           Class     "tbl_df, tbl, data.frame"    "tbl_df, tbl, data.frame"    
+          Rows(#)                4                            4                
+         Columns(#)              2                            2                
+        -----------------------------------------------------------------------
+      
+      
+      Not all Values Compared Equal
+        =============================
+         Variable  No of Differences 
+        -----------------------------
+            x              4         
+        -----------------------------
+      
+      
+        ========================================
+         VARIABLE  ..ROWNUMBER..  BASE  COMPARE 
+        ----------------------------------------
+            x            1         1       2    
+            x            2         2       3    
+            x            3         3       4    
+            x            4         4       5    
+        ----------------------------------------
+      
+      
+
+---
+
+    Code
+      diffdf(d1, dplyr::mutate(d1, x = x + x + x + x), suppress_warnings = TRUE)
+    Output
+      Differences found between the objects!
+      
+      Summary of BASE and COMPARE
+        ==================================================================
+          PROPERTY             BASE                       COMP            
+        ------------------------------------------------------------------
+            Name                d1                      <COMPARE>         
+           Class     "tbl_df, tbl, data.frame"  "tbl_df, tbl, data.frame" 
+          Rows(#)                4                          4             
+         Columns(#)              2                          2             
+        ------------------------------------------------------------------
+      
+      
+      Not all Values Compared Equal
+        =============================
+         Variable  No of Differences 
+        -----------------------------
+            x              4         
+        -----------------------------
+      
+      
+        ========================================
+         VARIABLE  ..ROWNUMBER..  BASE  COMPARE 
+        ----------------------------------------
+            x            1         1       4    
+            x            2         2       8    
+            x            3         3      12    
+            x            4         4      16    
+        ----------------------------------------
+      
+      
+
+---
+
+    Code
+      diffdf(dplyr::mutate(d1, x = x + x + x + x), d1, suppress_warnings = TRUE)
+    Output
+      Differences found between the objects!
+      
+      Summary of BASE and COMPARE
+        ==================================================================
+          PROPERTY             BASE                       COMP            
+        ------------------------------------------------------------------
+            Name              <BASE>                       d1             
+           Class     "tbl_df, tbl, data.frame"  "tbl_df, tbl, data.frame" 
+          Rows(#)                4                          4             
+         Columns(#)              2                          2             
+        ------------------------------------------------------------------
+      
+      
+      Not all Values Compared Equal
+        =============================
+         Variable  No of Differences 
+        -----------------------------
+            x              4         
+        -----------------------------
+      
+      
+        ========================================
+         VARIABLE  ..ROWNUMBER..  BASE  COMPARE 
+        ----------------------------------------
+            x            1          4      1    
+            x            2          8      2    
+            x            3         12      3    
+            x            4         16      4    
+        ----------------------------------------
+      
+      
+
 # `as_ascii_table() can handle missing datetimes (#132)
 
     Code
