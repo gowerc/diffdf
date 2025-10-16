@@ -1,7 +1,7 @@
 Package: diffdf
 Type: Package
 Title: Dataframe Difference Tool
-Version: 1.1.1
+Version: 1.1.2
 Authors@R: c( 
     person("Craig" ,"Gower-Page" , email = "craiggower@gmail.com" , role = c("cre","aut")),
     person("Kieran", "Martin" , email = "kieranjmartin@gmail.com" , role = "aut")
@@ -35,6 +35,6 @@ RoxygenNote: 7.3.3
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
 License: MIT + file LICENSE
-URL: https://gowerc.github.io/diffdf/, https://github.com/gowerc/diffdf/
+URL: https://gowerc.github.io/diffdf/, https://github.com/gowerc/diffdf
 Config/testthat/edition: 3
 BugReports: https://github.com/gowerc/diffdf/issues

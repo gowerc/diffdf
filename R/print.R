@@ -17,7 +17,9 @@
 #' COMPARE <- diffdf(iris, x)
 #' print(COMPARE)
 #' print(COMPARE, row_limit = 5)
+#' \dontrun{
 #' print(COMPARE, file = "output.txt")
+#' }
 #'
 #' @export
 print.diffdf <- function(x, row_limit = 10, as_string = FALSE, file = NULL, ...) {
