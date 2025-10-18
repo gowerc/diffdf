@@ -29,6 +29,8 @@ x[1, 2] <- 5
 COMPARE <- diffdf(iris, x)
 print(COMPARE)
 print(COMPARE, row_limit = 5)
+\dontrun{
 print(COMPARE, file = "output.txt")
+}
 
 }
