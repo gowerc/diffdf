@@ -208,6 +208,57 @@ identify_att_differences <- function(BASE, COMP, exclude_cols = "") {
 
 
 
+#' Identify differences in dataframe attributes
+#'
+#' Identifies any attribute differences between two data frames at the dataset
+#' level (for example dataset labels). Structural attributes are excluded.
+#' @param BASE Base dataset for comparison (data.frame)
+#' @param COMP Comparator dataset to compare base against (data.frame)
+#' @param exclude_attrs Data frame attributes to exclude from comparison
+#' @importFrom tibble tibble
+#' @keywords internal
+identify_df_att_differences <- function(
+    BASE,
+    COMP,
+    exclude_attrs = c("names", "row.names", "class")
+) {
+    base_atts <- attributes(BASE)
+    comp_atts <- attributes(COMP)
+
+    attrib_names <- setdiff(
+        unique(c(names(base_atts), names(comp_atts))),
+        exclude_attrs
+    )
+
+    RETURN <- tibble(
+        ATTR_NAME = character(),
+        VALUES.BASE = list(),
+        VALUES.COMP = list()
+    )
+
+    if (length(attrib_names) == 0) {
+        return(RETURN)
+    }
+
+    for (i in attrib_names) {
+        attrib_base <- base_atts[i]
+        attrib_comp <- comp_atts[i]
+
+        if (!identical(attrib_base, attrib_comp)) {
+            att_diffs <- tibble(
+                ATTR_NAME = i,
+                VALUES.BASE = ifelse(is.null(attrib_base), list(), attrib_base),
+                VALUES.COMP = ifelse(is.null(attrib_comp), list(), attrib_comp)
+            )
+
+            RETURN <- rbind(RETURN, att_diffs)
+        }
+    }
+
+    return(RETURN)
+}
+
+
 
 #' identify_differences
 #'
