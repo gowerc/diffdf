@@ -127,6 +127,8 @@ diffdf <- function(
         message = "Summary of BASE and COMPARE"
     )
 
+    df_attrib_diffs <- identify_df_att_differences(BASE, COMP)
+
 
     is_derived <- FALSE
 
@@ -275,6 +277,12 @@ diffdf <- function(
             message = "There are differences in the column ordering between BASE and COMPARE !!"
         )
     }
+
+
+    COMPARE[["DataframeAttribDiffs"]] <- construct_issue(
+        value = df_attrib_diffs,
+        message = "BASE and COMPARE dataframes have differing attributes !!"
+    )
 
 
     ##### Check Attributes

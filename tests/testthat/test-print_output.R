@@ -157,3 +157,84 @@ test_that("#135 - Writing to file works as expected with row limits", {
     )
 
 })
+
+test_that("#148 - print handles dataframe-level attributes", {
+    d1 <- tibble(
+        id = seq_len(3),
+        x = c("A", "B", "C")
+    )
+    d2 <- d1
+
+    attr(d1, "complex_att") <- list(
+        list(
+            code = "A",
+            payload = data.frame(u = 1:2, v = c("x", "y"))
+        )
+    )
+    attr(d2, "complex_att") <- list(
+        list(
+            code = "B",
+            payload = data.frame(u = 1:2, v = c("x", "z"))
+        )
+    )
+
+    x <- diffdf(d1, d2, keys = "id", suppress_warnings = TRUE)
+
+    expect_equal(nrow(x$DataframeAttribDiffs), 1)
+    expect_snapshot(print(x))
+    expect_no_error(out <- print(x, as_string = TRUE))
+    expect_true(any(grepl("BASE and COMPARE dataframes have differing attributes", out, fixed = TRUE)))
+})
+
+test_that("#148 - print handles dataframe-level attribute NULL vs non-NULL", {
+    d1 <- tibble(
+        id = seq_len(3),
+        x = c("A", "B", "C")
+    )
+    d2 <- d1
+
+    attr(d2, "df_note") <- "non-null note"
+
+    x <- diffdf(d1, d2, keys = "id", suppress_warnings = TRUE)
+
+    expect_equal(nrow(x$DataframeAttribDiffs), 1)
+    expect_snapshot(print(x))
+    expect_no_error(out <- print(x, as_string = TRUE))
+    expect_true(any(grepl("df_note", out, fixed = TRUE)))
+})
+
+test_that("#148 - print handles dataframe-level attribute character vectors", {
+    d1 <- tibble(
+        id = seq_len(3),
+        x = c("A", "B", "C")
+    )
+    d2 <- d1
+
+    attr(d1, "df_vec") <- c("alpha", "beta")
+    attr(d2, "df_vec") <- c("alpha", "gamma")
+
+    x <- diffdf(d1, d2, keys = "id", suppress_warnings = TRUE)
+
+    expect_equal(nrow(x$DataframeAttribDiffs), 1)
+    expect_snapshot(print(x))
+    expect_no_error(out <- print(x, as_string = TRUE))
+    expect_true(any(grepl("df_vec", out, fixed = TRUE)))
+})
+
+test_that("#148 - print handles dataframe label attributes with Japanese text", {
+    d1 <- tibble(
+        id = seq_len(3),
+        x = c("A", "B", "C")
+    )
+    d2 <- d1
+
+    attr(d1, "label") <- "臨床検査データ"
+    attr(d2, "label") <- "血液学検査データ"
+
+    x <- diffdf(d1, d2, keys = "id", suppress_warnings = TRUE)
+
+    expect_equal(nrow(x$DataframeAttribDiffs), 1)
+    expect_snapshot(print(x))
+    expect_no_error(out <- print(x, as_string = TRUE))
+    expect_true(any(grepl("label", out, fixed = TRUE)))
+})

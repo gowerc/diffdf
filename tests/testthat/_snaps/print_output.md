@@ -938,3 +938,111 @@
       
       
 
+# #148 - print handles dataframe-level attributes
+
+    Code
+      print(x)
+    Output
+      Differences found between the objects!
+      
+      Summary of BASE and COMPARE
+        ==================================================================
+          PROPERTY             BASE                       COMP            
+        ------------------------------------------------------------------
+            Name                d1                         d2             
+           Class     "tbl_df, tbl, data.frame"  "tbl_df, tbl, data.frame" 
+          Rows(#)                3                          3             
+         Columns(#)              2                          2             
+        ------------------------------------------------------------------
+      
+      
+      BASE and COMPARE dataframes have differing attributes !!
+        ===================================================================================
+          ATTR_NAME              VALUES.BASE                        VALUES.COMP            
+        -----------------------------------------------------------------------------------
+         complex_att  list(list(code = "A", payload ...  list(list(code = "B", payload ... 
+        -----------------------------------------------------------------------------------
+      
+      
+
+# #148 - print handles dataframe-level attribute NULL vs non-NULL
+
+    Code
+      print(x)
+    Output
+      Differences found between the objects!
+      
+      Summary of BASE and COMPARE
+        ==================================================================
+          PROPERTY             BASE                       COMP            
+        ------------------------------------------------------------------
+            Name                d1                         d2             
+           Class     "tbl_df, tbl, data.frame"  "tbl_df, tbl, data.frame" 
+          Rows(#)                3                          3             
+         Columns(#)              2                          2             
+        ------------------------------------------------------------------
+      
+      
+      BASE and COMPARE dataframes have differing attributes !!
+        =========================================
+         ATTR_NAME  VALUES.BASE    VALUES.COMP   
+        -----------------------------------------
+          df_note      NULL      "non-null note" 
+        -----------------------------------------
+      
+      
+
+# #148 - print handles dataframe-level attribute character vectors
+
+    Code
+      print(x)
+    Output
+      Differences found between the objects!
+      
+      Summary of BASE and COMPARE
+        ==================================================================
+          PROPERTY             BASE                       COMP            
+        ------------------------------------------------------------------
+            Name                d1                         d2             
+           Class     "tbl_df, tbl, data.frame"  "tbl_df, tbl, data.frame" 
+          Rows(#)                3                          3             
+         Columns(#)              2                          2             
+        ------------------------------------------------------------------
+      
+      
+      BASE and COMPARE dataframes have differing attributes !!
+        ====================================================
+         ATTR_NAME     VALUES.BASE          VALUES.COMP     
+        ----------------------------------------------------
+          df_vec    c("alpha", "beta")  c("alpha", "gamma") 
+        ----------------------------------------------------
+      
+      
+
+# #148 - print handles dataframe label attributes with Japanese text
+
+    Code
+      print(x)
+    Output
+      Differences found between the objects!
+      
+      Summary of BASE and COMPARE
+        ==================================================================
+          PROPERTY             BASE                       COMP            
+        ------------------------------------------------------------------
+            Name                d1                         d2             
+           Class     "tbl_df, tbl, data.frame"  "tbl_df, tbl, data.frame" 
+          Rows(#)                3                          3             
+         Columns(#)              2                          2             
+        ------------------------------------------------------------------
+      
+      
+      BASE and COMPARE dataframes have differing attributes !!
+        =====================================
+         ATTR_NAME  VALUES.BASE  VALUES.COMP 
+        -------------------------------------
+           label      臨床検査データ     血液学検査データ   
+        -------------------------------------
+      
+      
+

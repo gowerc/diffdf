@@ -66,6 +66,12 @@ attr(TDAT_LABEXT$ID, "label") <- "ID label"
 
 attr(TDAT_LABEXT2$ID, "label") <- "different label"
 
+## change dataset label
+TDAT_DFLAB <- TDAT
+TDAT_DFLAB2 <- TDAT
+attr(TDAT_DFLAB, "label") <- "Demographics"
+attr(TDAT_DFLAB2, "label") <- "Screening"
+
 ### add some extra attributes
 
 TDAT_ATTEXT <- TDAT
@@ -305,6 +311,11 @@ test_that("Objets with differing attributes produce the correct warning", {
     expect_warning(diffdf(TDAT, TDAT_LABEXT), warning_msg)
     expect_warning(diffdf(TDAT, TDAT_LABEXT2), warning_msg)
     expect_warning(diffdf(TDAT_LABEXT, TDAT_LABEXT2), warning_msg)
+
+    expect_warning(
+        diffdf(TDAT_DFLAB, TDAT_DFLAB2),
+        "BASE and COMPARE dataframes have differing attributes"
+    )
 })
 
 
@@ -342,6 +353,11 @@ test_that("Attribute differnce size is correct!", {
     expect_equal(
         diffdf(TDAT_LABEXT, TDAT_LABEXT2, suppress_warnings = TRUE)$AttribDiffs %>% nrow(),
         2
+    )
+
+    expect_equal(
+        diffdf(TDAT_DFLAB, TDAT_DFLAB2, suppress_warnings = TRUE)$DataframeAttribDiffs %>% nrow(),
+        1
     )
 })
 
